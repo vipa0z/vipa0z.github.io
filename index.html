@@ -168,7 +168,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/01/22/HTB-SolarLab copy/" >HackTheBox Cicada  Walkthrough</a>
+			<a href="/2025/01/22/HTB-Cicada/" >HackTheBox Cicada  Walkthrough</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -182,41 +182,10 @@
   <div class="row">
 	
 	
-		<p><img src="/../images/solarlab/.png" alt="alt text"></p>
-<hr>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1>
+		<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="alt text"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
 	
 	</div>
-  <a type="button" href="/2025/01/22/HTB-SolarLab copy/#more" class="btn btn-default more">Read More</a>
-</div>
-
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2024/11/03/Privilege Escalation/" >Privilege Escalation Blueprint</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2024-11-03  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/../images/priv-esc-win/image.png" alt="h1"></p>
-<hr>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>In this guide, I’ll walk you through essential Windows privilege escalation techniques, covering various methods from kernel exploits to application misconfigurations. We’ll start by setting up our lab environment and tools, then dive into specific methods for escalation, I’ll also include a list of checks for each section.</p>
-	
-	</div>
-  <a type="button" href="/2024/11/03/Privilege Escalation/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2025/01/22/HTB-Cicada/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -290,39 +259,35 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/nmap/">nmap<span>3</span></a></li>
-		
-			<li><a href="/tags/Windows/">Windows<span>1</span></a></li>
-		
-			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
-		
-			<li><a href="/tags/hydra/">hydra<span>1</span></a></li>
-		
-			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>2</span></a></li>
-		
-			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
-		
-			<li><a href="/tags/privesc/">privesc<span>1</span></a></li>
-		
 			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/Writeup/">Writeup<span>3</span></a></li>
-		
-			<li><a href="/tags/bruteforcing/">bruteforcing<span>1</span></a></li>
 		
 			<li><a href="/tags/brute/">brute<span>1</span></a></li>
 		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
-		
-			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
+			<li><a href="/tags/flask/">flask<span>2</span></a></li>
 		
 			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
 		
-			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+			<li><a href="/tags/nmap/">nmap<span>3</span></a></li>
+		
+			<li><a href="/tags/bruteforcing/">bruteforcing<span>1</span></a></li>
+		
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+		
+			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
+		
+			<li><a href="/tags/hydra/">hydra<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>2</span></a></li>
+		
+			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
+		
+			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
+		
+			<li><a href="/tags/smb/">smb<span>2</span></a></li>
+		
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
+		
+			<li><a href="/tags/Writeup/">Writeup<span>3</span></a></li>
 		
 		 
 		</ul>
@@ -340,11 +305,7 @@
       </li>
     
       <li>
-        <a href="/2025/01/22/HTB-SolarLab copy/" ><i class="fa fa-file-o"></i>HackTheBox Cicada  Walkthro...</a>
-      </li>
-    
-      <li>
-        <a href="/2024/11/03/Privilege Escalation/" ><i class="fa fa-file-o"></i>Privilege Escalation Bluepr...</a>
+        <a href="/2025/01/22/HTB-Cicada/" ><i class="fa fa-file-o"></i>HackTheBox Cicada  Walkthro...</a>
       </li>
     
       <li>
