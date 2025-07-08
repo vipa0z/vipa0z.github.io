@@ -141,7 +141,7 @@ widgets:
 
 rss: atom.xml
 fancybox: true
-favicon: favicon.png
+favicon: favicon.jpg
 
 # Analytics (change to yours)
 google_analytics:
