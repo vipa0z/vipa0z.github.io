@@ -25,7 +25,7 @@
     <link rel="alternative" href="/atom.xml" title="v1pa0z Blog" type="application/atom+xml">
   
   
-    <link href="/favicon.png" rel="icon">
+    <link href="/favicon.jpg" rel="icon">
   
   
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
@@ -125,9 +125,12 @@
 	<div class="mypage">		
 	  		
 
-	  <p><img src="/../images/dcysnc23.png" alt="alt text"><br>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
-<p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.<br><img src="/../images/REPACE.png" alt="alt text"></p>
-<h3 id="Account-Enumeration"><a href="#Account-Enumeration" class="headerlink" title="Account Enumeration"></a>Account Enumeration</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS&gt; Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl</span><br></pre></td></tr></table></figure>
+	  <p><img src="/../images/REPACE.png" alt="alt text"><br><img src="/../images/dcysnc23.png" alt="alt text"></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
+<p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.</p>
+<hr>
+<hr>
+<h2 id="Account-Enumeration"><a href="#Account-Enumeration" class="headerlink" title="Account Enumeration"></a>Account Enumeration</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS&gt; Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl</span><br></pre></td></tr></table></figure>
 
 <h3 id="Checking-user-Groups-SID-ACLs"><a href="#Checking-user-Groups-SID-ACLs" class="headerlink" title="Checking user Groups, SID, ACLs"></a>Checking user Groups, SID, ACLs</h3><p>PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.</p>
 <p>We first get the user’s SID in the above command and then check all ACLs set on the domain object (<code>&quot;DC=inlanefreight,DC=local&quot;</code>) using <a target="_blank" rel="noopener" href="https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/">Get-ObjectAcl</a> to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user <code>adunn</code> (denoted in the below command as <code>$sid</code>) possesses these rights. The command confirms that the user does indeed have the rights.<br>Checking for Replication–Get ACE</p>

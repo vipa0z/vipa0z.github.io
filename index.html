@@ -25,7 +25,7 @@
     <link rel="alternative" href="/atom.xml" title="v1pa0z Blog" type="application/atom+xml">
   
   
-    <link href="/favicon.png" rel="icon">
+    <link href="/favicon.jpg" rel="icon">
   
   
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
@@ -238,9 +238,7 @@
   <div class="row">
 	
 	
-		<p><img src="/../images/mimikatz1.png" alt="alt text"></p>
-<hr>
-<h1 id="Overview-on-LSASS"><a href="#Overview-on-LSASS" class="headerlink" title="Overview on LSASS"></a>Overview on LSASS</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
+		<h2 id><a href="#" class="headerlink" title></a><img src="/../images/mimikatz1.png" alt="alt text"></h2><h1 id="Overview-on-LSASS"><a href="#Overview-on-LSASS" class="headerlink" title="Overview on LSASS"></a>Overview on LSASS</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
 <p>Upon initial logon, LSASS will:</p>
 <ul>
 <li>Cache credentials locally in memory</li>
@@ -250,6 +248,7 @@
 </ul>
 <h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2><p>In Windows, <strong>securable objects</strong> are resources that the operating system protects through <strong>Access Control Lists (ACLs)</strong> and other security mechanisms. These objects can have permissions assigned to users or groups, allowing or denying access.</p>
 <h2 id="LSASS-Process-Memory-dump"><a href="#LSASS-Process-Memory-dump" class="headerlink" title="LSASS Process Memory dump"></a>LSASS Process Memory dump</h2><p>Similar to the process of attacking the SAM database, it would be wise for us first to create a copy of the contents of LSASS process memory via the generation of a memory dump. Creating a dump file lets us extract credentials offline using our attack host. K</p>
+<h3 id="Through-task-manager"><a href="#Through-task-manager" class="headerlink" title="Through task manager"></a>Through task manager</h3>
 	
 	</div>
   <a type="button" href="/2025/07/08/Attacking lsass/#more" class="btn btn-default more">Read More</a>
@@ -354,15 +353,14 @@
   <div class="row">
 	
 	
-		<p><img src="/../images/dcysnc23.png" alt="alt text"><br>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
-<p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.<br><img src="/../images/REPACE.png" alt="alt text"></p>
-<h3 id="Account-Enumeration"><a href="#Account-Enumeration" class="headerlink" title="Account Enumeration"></a>Account Enumeration</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS&gt; Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl</span><br></pre></td></tr></table></figure>
+		<p><img src="/../images/REPACE.png" alt="alt text"><br><img src="/../images/dcysnc23.png" alt="alt text"></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
+<p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.</p>
+<hr>
+<hr>
+<h2 id="Account-Enumeration"><a href="#Account-Enumeration" class="headerlink" title="Account Enumeration"></a>Account Enumeration</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS&gt; Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl</span><br></pre></td></tr></table></figure>
 
 <h3 id="Checking-user-Groups-SID-ACLs"><a href="#Checking-user-Groups-SID-ACLs" class="headerlink" title="Checking user Groups, SID, ACLs"></a>Checking user Groups, SID, ACLs</h3><p>PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.</p>
-<p>We first get the user’s SID in the above command and then check all ACLs set on the domain object (<code>&quot;DC=inlanefreight,DC=local&quot;</code>) using <a target="_blank" rel="noopener" href="https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/">Get-ObjectAcl</a> to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user <code>adunn</code> (denoted in the below command as <code>$sid</code>) possesses these rights. The command confirms that the user does indeed have the rights.<br>Checking for Replication–Get ACE</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$sid = &quot;&#123;sid-here&#125;&quot;</span><br><span class="line"></span><br><span class="line">PS&gt; Get-ObjectAcl &quot;DC=inlanefreight,DC=local&quot; -ResolveGUIDs | ? &#123; ($_.ObjectAceType -match &#x27;Replication-Get&#x27;)&#125; | ?&#123;$_.SecurityIdentifier -match $sid&#125; |select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">AceQualifier          : AccessAllowed</span><br><span class="line">ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL</span><br><span class="line">ActiveDirectoryRights : ExtendedRight</span><br><span class="line">SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164</span><br><span class="line">ObjectAceType         : DS-Replication-Get-Changes-In-Filtered-Set</span><br><span class="line"></span><br><span class="line">AceQualifier          : AccessAllowed</span><br><span class="line">ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL</span><br><span class="line">ActiveDirectoryRights : ExtendedRight</span><br><span class="line">SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164</span><br><span class="line">ObjectAceType         : DS-Replication-Get-Changes</span><br><span class="line"></span><br><span class="line">AceQualifier          : AccessAllowed</span><br><span class="line">ObjectDN</span><br></pre></td></tr></table></figure>
-<p>If we had certain rights over the user (such as <a target="_blank" rel="noopener" href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl">WriteDacl</a>), we could also add this privilege to a user under our control, execute the DCSync attack, and then remove the privileges to attempt to cover our tracks. DCSync replication can be performed using tools such as Mimikatz, Invoke-DCSync, and Impacket’s secretsdump.py. Let’s see a few quick examples.</p>
-<h3 id="exploit-replication-ACE-to-perform-DCsync"><a href="#exploit-replication-ACE-to-perform-DCsync" class="headerlink" title="exploit  replication ACE to perform DCsync"></a>exploit  replication ACE to perform DCsync</h3>
 	
 	</div>
   <a type="button" href="/2025/03/26/dcsync/#more" class="btn btn-default more">Read More</a>
@@ -466,45 +464,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/windows/">windows<span>3</span></a></li>
-		
-			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
-		
-			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
-		
-			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
-		
 			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
-		
-			<li><a href="/tags/AD/">AD<span>2</span></a></li>
-		
-			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
-		
-			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
-		
-			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
-		
-			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
-		
-			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
-		
-			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
-		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
-		
-			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
 		
 			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
 		
+			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>3</span></a></li>
+		
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
+		
+			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
+		
+			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
+		
+			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+		
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+		
+			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
+		
+			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
+		
+			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
+		
 			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+		
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
+		
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+		
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
+		
+			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
+		
+			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
+		
+			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+		
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>25</span></a></li>
