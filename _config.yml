@@ -7,7 +7,7 @@ title: v1pa0z Blog
 subtitle: 'v1pa0z'
 description: 'my personal blog'
 keywords:
-author: mag
+author: vipa0z
 language: en
 timezone: ''
 
@@ -64,6 +64,16 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
+
+
+  # index and home
+  # Excerpt length (in words)
+excerpt:
+  depth: 7
+  excerpt_excludes: []
+  more_excludes: []
+  hideWholePostExcerpts: true
+
 
 # Category & Tag
 default_category: uncategorized

@@ -2,25 +2,13 @@
 title: about
 layout: page
 ---
+![](../images/sorcerer.jpg)
+Thanks for being here!
+I’m vipa00, an offensive security specialist passionate about red teaming, malware development, and low-level system exploitation.
 
-### Hey This is Abdo
-Thanks for being here! I’m Abdelrahman Magdy, also known as vipa00 — an offensive security specialist passionate about malware development, red teaming, and low-level system exploitation.
+Ever since I was a kid, I was drawn to anything that felt mysterious or “unfairly powerful.” I spent hours playing Mega Man X and Zero, obsessed with mastering every boss pattern and finding hidden upgrades. Around the same time, I discovered game cheats and it felt like pure black magic. 
+I genuinely believed there were digital sorcerers behind the scenes bending the rules of reality.
 
-I love sharing what I learn through detailed CTF write-ups, exploit breakdowns, and practical security demonstrations.
-I'm always pushing to expand my knowledge and give back to the security community. Whether you're here for technical insights or just curious about offensive security, I hope you find something valuable.
-Looking forward to connecting and sharing more discoveries with you!
+That early curiosity led me down the path of hacking, and eventually into offensive security. Today, watching people like IppSec pick apart systems with precision reminds me of that same feeling — turning the complex into something beautifully simple.
 
----------------
-#### [ View my resume](./Abdelrahman%20Magdy%20Resume-1.pdf)
-
-#### [ HackTheBox Academy  Progression](./HTB%20Academy%20Student%20Transcript.pdf)
-
-#### [ HackTheBox  Profile](https://app.hackthebox.com/profile/2024750)
-----------------------------
-### Certifications:
-#### [DEPI Infrastructure and Security](https://media.licdn.com/dms/image/v2/D4D2DAQEfeUtkdGm6ew/profile-treasury-image-shrink_800_800/B4DZTloY6kHwAc-/0/1739019360817?e=1750899600&v=beta&t=_GIMLu-d5gQawm33HaJh10KFHIH7v8oMjG866JfAzD4)
-#### [TryHackMe Security Engineering path](https://tryhackme-certificates.s3-eu-west-1.amazonaws.com/THM-NS7APVFZP7.png)
-#### Cisco Badges:
-[Cisco CybrOps Associate](https://www.credly.com/badges/c8803bf8-0b38-41e2-bfa8-2dcce332cd56)
-[Cisco CCNA](https://www.credly.com/users/abdel-rahman-magdy-mohamed-aboelfotoh)
-
+Whether you're here to learn, explore, or just satisfy your curiosity, I hope you find something valuable.

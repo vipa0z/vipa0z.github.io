@@ -8,7 +8,7 @@ tags:
 ![alt text](../images/mimikatz1.png)
 ----
 
-# Overview on LSASS
+# _Overview
 
 In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the [Local Security Authority Subsystem Service (LSASS)](https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service).
 

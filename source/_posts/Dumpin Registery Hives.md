@@ -6,6 +6,29 @@ tags:
 - registry
 ---
 ![alt text](../images/secd1.png)
+# _Overview
+With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.
+
+By extracting SAM, SYSTEM, and SECURITY hives from the target machine, we can transfer them to our attack host and perform offline hash cracking using tools such as Hashcat or John the Ripper, or even perform Pass-the-Hash attacks.
+
+## Windows Registery Hives
+
+There are three registry hives we can copy if we have` local administrative` access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:
+
+| Registry Hive   | Description                                                                                                                                                       |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `HKLM\SAM`      | Contains password hashes for local user accounts. These hashes can be extracted and cracked to reveal plaintext passwords.                                        |
+| `HKLM\SYSTEM`   | Stores the system boot key, which is used to encrypt the SAM database. This key is required to decrypt the hashes.                                                |
+| `HKLM\SECURITY` | Contains sensitive information used by the Local Security Authority (LSA), including cached domain credentials (DCC2), cleartext passwords, DPAPI keys, and more. |
+|                 |                                                                                                                                                                   |
+
+# hash differences
+
+| Feature    | SAM (SAM + SYSTEM)            | LSA Secrets (SECURITY)                            |
+| ---------- | ----------------------------- | ------------------------------------------------- |
+| Focus      | Local account password hashes | Cached credentials & secrets (domain creds, etc.) |
+| Format     | NTLM hashes                   | Plaintext or encrypted strings                    |
+| Common Use | Crack local user passwords    |    
 
 # cheatsheet
 
@@ -103,25 +126,7 @@ This tells us how to interpret the output and which hashes we can attempt to cra
 [] i dog
 `SAM` +` SYSTEM` -> hash dump
 `SECURITY`  -> cached domain hashes
-# Overview
-With administrative access to a Windows system, we can attempt to quickly dump the files associated with the SAM database, transfer them to our attack host, and begin cracking the hashes offline.
-
-There are three registry hives we can copy if we have` local administrative` access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:
-
-| Registry Hive   | Description                                                                                                                                                       |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `HKLM\SAM`      | Contains password hashes for local user accounts. These hashes can be extracted and cracked to reveal plaintext passwords.                                        |
-| `HKLM\SYSTEM`   | Stores the system boot key, which is used to encrypt the SAM database. This key is required to decrypt the hashes.                                                |
-| `HKLM\SECURITY` | Contains sensitive information used by the Local Security Authority (LSA), including cached domain credentials (DCC2), cleartext passwords, DPAPI keys, and more. |
-|                 |                                                                                                                                                                   |
-
-# hash differences
-
-| Feature    | SAM (SAM + SYSTEM)            | LSA Secrets (SECURITY)                            |
-| ---------- | ----------------------------- | ------------------------------------------------- |
-| Focus      | Local account password hashes | Cached credentials & secrets (domain creds, etc.) |
-| Format     | NTLM hashes                   | Plaintext or encrypted strings                    |
-| Common Use | Crack local user passwords    |                                                   |
+                                               |
 We can back up these hives using the `reg.exe` utility.
 #### Using reg.exe to copy registry hives
 

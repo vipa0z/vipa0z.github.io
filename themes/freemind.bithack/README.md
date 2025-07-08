@@ -203,7 +203,7 @@ tag_generator:
 
 # add this config if you want to change default excerpt lines (*optional*)
 excerpt:
-  depth: 10
+  depth: 5
   excerpt_excludes: []
   more_excludes: []
   hideWholePostExcerpts: true

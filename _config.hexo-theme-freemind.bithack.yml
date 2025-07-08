@@ -26,6 +26,12 @@
 #     intro: "Subscribe me."
 #     # icon: "fa fa-user"
 
+excerpt:
+  depth: 3
+  excerpt_excludes: []
+  more_excludes: []
+  hideWholePostExcerpts: true
+
 # links:
 #   - title: hexo-theme-bithack
 #     url: https://github.com/Ares-X/hexo-theme-freemind.bithack
@@ -47,6 +53,8 @@
 # rss: atom.xml
 # fancybox: true
 # favicon: favicon.png
+
+
 
 # # Analytics (change to yours)
 # google_analytics:
@@ -92,7 +100,7 @@
 #   id: location.pathname # It is recommended not to change
 #   distractionFreeMode: true
     
-  slogan: "Welcome researcher! thanks for stopping by :)"
+slogan: "Welcome researcher!"
 
 show_heart: false
 

@@ -1,4 +1,5 @@
-slogan: "Welcome Researcher, Thanks for stopping by :)"
+slogan: "Welcome Researcher"
+
 
 show_heart: true
 
@@ -56,8 +57,8 @@ google_analytics:
   siteid: UA-70812759-1
 
 
-# search
-#swiftype_key: ZP2ZSuHgipSZfRyU8uTR
+# search:
+#   swiftype_key: ZP2ZSuHgipSZfRyU8uTR
 
 #valine
 valine: 

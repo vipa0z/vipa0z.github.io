@@ -1,4 +1,4 @@
-﻿
+
 .container-narrow {
     margin: 0 auto;
     max-width: 970px;
@@ -343,6 +343,7 @@ video {
 
 header h1 {
     font-weight: normal;
+    color: green;
     line-height: 1.2em;
     margin-bottom: .6667em
 }
@@ -420,7 +421,7 @@ em{
 .page h3.title {
     position: relative;
     padding: 5px 0px 0px 0px;
-    font-size: 1.5em;
+    font-size: 2em;
     line-height: 1.3em;
     font-weight: bold;
     font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace

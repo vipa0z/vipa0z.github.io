@@ -229,7 +229,7 @@ trying default credentials did not work.
 searching for "openfire exploit" reveals Openfire  is vulnerable to a Path traversal where attackers can abuse the vulneralbility in order to obtain CSRF tokens and cookies for Administrative accounts to generate an account that they can log onto.
 ![alt text](../images/solarlab/0_5wf7vTHNYoj8z4hy.webp)
 
-Read more:https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236
+you can Read more about it here:https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236
 ### Shell as Openfire
 searching for "openfire exploit" 
  https://github.com/miko550/CVE-2023-32315#step
