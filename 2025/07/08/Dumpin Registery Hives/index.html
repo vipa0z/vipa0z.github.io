@@ -125,7 +125,7 @@
 	<div class="mypage">		
 	  		
 
-	  <p><img src="/../images/secd1.png" alt="alt text"></p>
+	  <p><img src="/../images/Secd1.png" alt="alt text"></p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.</p>
 <p>By extracting SAM, SYSTEM, and SECURITY hives from the target machine, we can transfer them to our attack host and perform offline hash cracking using tools such as Hashcat or John the Ripper, or even perform Pass-the-Hash attacks.</p>
 <h2 id="Windows-Registery-Hives"><a href="#Windows-Registery-Hives" class="headerlink" title="Windows Registery Hives"></a>Windows Registery Hives</h2><p>There are three registry hives we can copy if we have<code> local administrative</code> access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:</p>
