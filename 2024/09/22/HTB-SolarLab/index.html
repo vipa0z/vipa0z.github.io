@@ -7,7 +7,7 @@
   <meta http-equiv="expires" content="0">
   
   <title>HackTheBox SolarLab  Walkthrough | v1pa0z Blog</title>
-  <meta name="author" content="mag">
+  <meta name="author" content="vipa0z">
   
   <meta name="description" content="my personal blog">
   
@@ -216,7 +216,7 @@
 
 <p>Navigating to localhost:9090<br><img src="/../images/solarlab/openfire.png" alt="alt text"></p>
 <h3 id="Exploring-CVE-2023-32315"><a href="#Exploring-CVE-2023-32315" class="headerlink" title="Exploring CVE-2023-32315"></a>Exploring CVE-2023-32315</h3><p>trying default credentials did not work.<br>searching for “openfire exploit” reveals Openfire  is vulnerable to a Path traversal where attackers can abuse the vulneralbility in order to obtain CSRF tokens and cookies for Administrative accounts to generate an account that they can log onto.<br><img src="/../images/solarlab/0_5wf7vTHNYoj8z4hy.webp" alt="alt text"></p>
-<p>Read more:<a target="_blank" rel="noopener" href="https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236">https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236</a></p>
+<p>you can Read more about it here:<a target="_blank" rel="noopener" href="https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236">https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236</a></p>
 <h3 id="Shell-as-Openfire"><a href="#Shell-as-Openfire" class="headerlink" title="Shell as Openfire"></a>Shell as Openfire</h3><p>searching for “openfire exploit”<br> <a target="_blank" rel="noopener" href="https://github.com/miko550/CVE-2023-32315#step">https://github.com/miko550/CVE-2023-32315#step</a><br>This exploit aims to generate a new user with <code>CVE-2023-32315</code> and perform RCE through a bundled Malicious Plugin.<br>  steps to perform:</p>
 <ol>
 <li>Run exploit</li>
@@ -345,7 +345,7 @@
   <div class="container-narrow">
   <footer> <p>
   
-  &copy; 2025 mag's Blog
+  &copy; 2025 vipa0z's Blog
   
 </p>
  </footer>

