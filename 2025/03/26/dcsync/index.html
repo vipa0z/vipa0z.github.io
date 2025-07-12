@@ -125,9 +125,11 @@
 	<div class="mypage">		
 	  		
 
-	  <p><img src="/../images/REPACE.png" alt="alt text"><br><img src="/../images/dcysnc23.png" alt="alt text"></p>
+	  <p><img src="/../images/dcysnc23.png" alt="alt text"></p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
+<span id="more"></span> 
 <p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.</p>
+<p><img src="/../images/REPACE.png" alt="alt text"></p>
 <hr>
 <h3 id="Checking-user-Groups-SID-ACLs"><a href="#Checking-user-Groups-SID-ACLs" class="headerlink" title="Checking user Groups, SID, ACLs"></a>Checking user Groups, SID, ACLs</h3><p>PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.</p>
 <p>We first get the user’s SID in the above command and then check all ACLs set on the domain object (<code>&quot;DC=inlanefreight,DC=local&quot;</code>) using <a target="_blank" rel="noopener" href="https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/">Get-ObjectAcl</a> to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user <code>adunn</code> (denoted in the below command as <code>$sid</code>) possesses these rights. The command confirms that the user does indeed have the rights.<br>Checking for Replication–Get ACE</p>
