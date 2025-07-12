@@ -1,11 +1,11 @@
 ---
-title: Dumping  SAM, SYSTEM, and SECURITY hives
+title: Dumping SAM Account Hashes
 tags:
 - privEsc
 - windows 
 - registry
 ---
-![alt text](../images/secd1.png)
+![alt text](../images/Secd1.png)
 # _Overview
 With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.
 

@@ -9,13 +9,14 @@ tags:
 - mimikatz
 ---
 
-![alt text](../images/REPACE.png)
 ![alt text](../images/dcysnc23.png)
 
 # _Overview
 DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.
-
+<!-- more --> 
 The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.
+
+![alt text](../images/REPACE.png)
 
 ---
 

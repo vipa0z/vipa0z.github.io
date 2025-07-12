@@ -1,5 +1,5 @@
 ---
-title: Tags
+title: home
 layout: tags
 ---
-# Latest Posts:
+<!-- # Latest Posts: -->

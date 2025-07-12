@@ -100,7 +100,7 @@ excerpt:
 #   id: location.pathname # It is recommended not to change
 #   distractionFreeMode: true
     
-slogan: "Welcome researcher!"
+slogan: "Latest Posts:"
 
 show_heart: false
 
