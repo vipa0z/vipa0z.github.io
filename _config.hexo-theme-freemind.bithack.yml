@@ -154,8 +154,9 @@ google_analytics:
   siteid: UA-70812759-1
 
 
-# search
-#swiftype_key: ZP2ZSuHgipSZfRyU8uTR
+search:
+  enable: true
+  swiftype_key: ZP2ZSuHgipSZfRyU8uTR
 
 #valine
 valine: 

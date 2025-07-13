@@ -275,7 +275,16 @@ video {
 .slogan .icon-heart:hover {
     opacity: 1
 }
+#local-search-input {
+    background-color:rgb(14, 13, 13) !important; /* White background */
 
+    color: #8f2b2b; /* Optional: black text for contrast */
+    height: 30px;
+}
+#local-search-input:hover {
+    background-color:rgb(17, 3, 1) !important; /* White background */
+    color: #8d8516; /* Optional: black text for contrast */
+}
 .slogan {
     font-size:2em;
     color: #9c9c9c;
@@ -422,7 +431,7 @@ em{
 .page h3.title {
     position: relative;
     padding: 5px 0px 0px 0px;
-    font-size: 2em;
+    font-size: 1.7em;
     line-height: 1.3em;
     font-weight: bold;
     font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace
@@ -773,9 +782,63 @@ CopyInsert
 /* Custom styles to override Bootstrap font-family */
 body {
     font-family: 'Arial', sans-serif; /* Change to a more readable font */
+   
 }
 
 /* Optional: Override specific components if needed */
+
+/* Custom thumbnail styles to center image and increase size */
+
+/* Custom row override for thumbnail layouts */
+
+
+
+
+
+
+.thumbnail {
+    width: 600px !important;
+    height: 600px !important;
+    display: flex !important;
+    align-items: center !important;
+    overflow: hidden !important;
+}
+
+.thumbnail > img,
+.thumbnail a > img {
+    display: inline-block;
+    max-width: 200%;
+    max-height: 200%;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
  p {
     font-family: 'Arial', sans-serif; /* Ensure headings and paragraphs use the same font */
+    color:#e2e1d3
+}
+
+li {
+    color:#d0d3c3;
+}
+.thumbnail-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.thumbnail {
+    width:700px;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

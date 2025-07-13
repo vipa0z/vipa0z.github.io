@@ -1,6 +1,7 @@
 ---
 title: Hijacking Python Modules 
 date: 2025-07-12 
+thumbnail: /images/python3122.png   
 tags:
 - python
 - python imports
@@ -9,7 +10,7 @@ tags:
 ![alt text](../images/python3122.png)
 # _OVERVIEW
 Python has [the Python standard library](https://docs.python.org/3/library/), with many modules on board from a standard installation of Python. These modules provide many solutions that would otherwise have to be laboriously worked out by writing our programs.
-
+<!-- more -->
 #### Importing Modules
 ```python
 #!/usr/bin/env python3

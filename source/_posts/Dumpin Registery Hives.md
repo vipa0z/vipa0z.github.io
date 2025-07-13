@@ -1,5 +1,6 @@
 ---
 title: Dumping SAM Account Hashes
+date: 2025-04-12
 tags:
 - privEsc
 - windows 

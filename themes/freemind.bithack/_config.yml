@@ -6,6 +6,10 @@ show_heart: true
 show_slogan: true
 
 menu:
+  - title: Home
+    url: index
+    intro: "Home"
+    icon: "fa fa-home"
   - title: Archives
     url: archives
     intro: "All the articles."
