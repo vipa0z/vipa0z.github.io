@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>chwoot | v1pa0z Blog</title>
+  <title>Breaking Out with chroot: CVE-2025-32463 in Sudo | v1pa0z Blog</title>
   <meta name="author" content="vipa0z">
   
   <meta name="description" content="my personal blog">
@@ -14,7 +14,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="chwoot"/>
+  <meta property="og:title" content="Breaking Out with chroot: CVE-2025-32463 in Sudo"/>
   <meta property="og:site_name" content="v1pa0z Blog"/>
 
   
@@ -114,7 +114,7 @@
 
 	
 		<div class="page-header">
-			<h1> chwoot</h1>
+			<h1> Breaking Out with chroot: CVE-2025-32463 in Sudo</h1>
 		</div>
 	
 
@@ -131,7 +131,9 @@
 	<div class="mypage">		
 	  		
 
-	  <h1 id="OERVIEW"><a href="#OERVIEW" class="headerlink" title="__OERVIEW"></a>__OERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory.</p>
+	  <p><img src="/../images/chwoot/image.png" alt="alt text"></p>
+<h1 id="OERVIEW"><a href="#OERVIEW" class="headerlink" title="__OERVIEW"></a>__OERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory. &lt;! read-more&gt;</p>
+<span id="more"></span>
 <hr>
 <h2 id="Introduction-to-chroot"><a href="#Introduction-to-chroot" class="headerlink" title="Introduction to chroot"></a>Introduction to chroot</h2><p>The <code>chroot</code>  Option (<strong>short for change root</strong>) is a linux  sudo command that changes the apparent root directory (<code>/</code>) for the current running process and its children.</p>
 <p>The <em>chroot(2)</em> system call and <em>chroot(8)</em> commands  within  are used to limit the files and directories a process can access on a given file system. This is done by changing the root directory of the process to a given path, restricting its view to files under the path. It essentially puts the process in a <strong>“jail”</strong> </p>
