@@ -141,7 +141,7 @@ The folllowing stack trace shows the malicious shared object that has been loade
 #27 0x0000763a15d58d99 in pam_acct_mgmt
 #28 0x0000763a1577e491 in sudo_pam_approval
 ```
-![alt text](image.png)
+![exploit map](../images/chwoot/2.png)
 ## The exploit
 with all the ABC out of the way, now for the fun part:
 let's start by grapping this  PoC, written by [pr0v3rbst](https://github.com/pr0v3rbs/CVE-2025-32463_chwoot) and begin to dissect it
