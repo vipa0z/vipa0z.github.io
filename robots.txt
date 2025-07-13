@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vipa0z.github.io/sitemap.xml
