@@ -7,7 +7,7 @@ tags:
 
 # __OERVIEW
 
-In this post, we dive into **CVE-2025-32463**, a recently disclosed vulnerability in Sudo’s `-R` (`--chroot`) option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by **Rich Mirch**, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory. <! read-more>
+In this post, we dive into **CVE-2025-32463**, a recently disclosed vulnerability in Sudo’s `-R` (`--chroot`) option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by **Rich Mirch**, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory. 
 <!-- more -->
 ---
 ## Introduction to chroot 

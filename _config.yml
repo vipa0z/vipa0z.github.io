@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://magdy3660.github.io/
+url: https://vipa0z.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -129,7 +129,8 @@ url_submission:
    ignore: ["/post/a*", "/post/a?c"] # URL addresses that do not need to be submitted (wildcards are supported)
    count: 10 # Submit limit
    urls_path: 'submit_url.txt' # URL list file path
-   sitemap: '' # Sitemap path(e.g. the url is like this https://abnerwei.com/baidusitemap.xml, you can fill in `baidusitemap.xml`)
+   sitemap:
+   path: sitemap.xml # Sitemap path(e.g. the url is like this https://abnerwei.com/baidusitemap.xml, you can fill in `baidusitemap.xml`)
 
 
 #uncss
