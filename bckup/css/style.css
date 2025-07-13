@@ -150,17 +150,19 @@ li i {
 }
 
 #local-search-input {
-    background-color: #000;
-    color: #fff;
-    font-family: dos;
+    background-color: #fff !important; /* White background */
+    color: #000; /* Optional: black text for contrast */
     -webkit-text-fill-color: #bbb
+}
+#site_search{
+    background-color: #5f3939;
 }
 
 #local-search-result {
     scroll: auto;
     overflow: auto;
     max-height: 3in;
-    background-color: #000
+    background-color: #8b4444
 }
 
 ul.search-result-list {

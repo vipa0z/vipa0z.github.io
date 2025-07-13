@@ -140,6 +140,25 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
+			<a href="/2025/07/13/chwoot/" >chwoot</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-07-13  </div>
+		</div>
+	</div>
+	
+
+
+			
+  
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
 			<a href="/2025/07/12/attacking python libraries/" >Hijacking Python Modules</a>
 		</h3>
 		</div>
@@ -150,25 +169,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/../images/python3122.png" alt="alt text"></p>
-<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="_OVERVIEW"></a>_OVERVIEW</h1><p>Python has <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/">the Python standard library</a>, with many modules on board from a standard installation of Python. These modules provide many solutions that would otherwise have to be laboriously worked out by writing our programs.</p>
-<h4 id="Importing-Modules"><a href="#Importing-Modules" class="headerlink" title="Importing Modules"></a>Importing Modules</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 1</span></span><br><span class="line"><span class="keyword">import</span> pandas</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 2</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 3</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series</span><br></pre></td></tr></table></figure>
-
-<p>There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used:</p>
-<ol>
-<li>Wrong write permissions</li>
-<li>Library Path</li>
-<li>PYTHONPATH environment variable</li>
-</ol>
-	
-	</div>
-  <a type="button" href="/2025/07/12/attacking python libraries/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -186,35 +188,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/images/NOPACK.png" alt="alt text"></p>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins</p>
-<h2 id="The-Inside-Out"><a href="#The-Inside-Out" class="headerlink" title="The Inside Out"></a>The Inside Out</h2><p>This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.</p>
-<table>
-<thead>
-<tr>
-<th>CVE</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>42278</td>
-<td>42278 is a bypass vulnerability with the Security Account Manager (SAM).</td>
-</tr>
-<tr>
-<td>42287</td>
-<td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
-</tr>
-</tbody></table>
-<p>This exploit path takes advantage of being able to change the SamAccountName of a computer account to that of a Domain Controller. By default, authenticated users can add up to ten computers to a domain.</p>
-	
-	</div>
-  <a type="button" href="/2025/07/08/No-pac/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -232,24 +207,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id><a href="#" class="headerlink" title></a><img src="/../images/mimikatz1.png" alt="alt text"></h2><h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
-<p>Upon initial logon, LSASS will:</p>
-<ul>
-<li>Cache credentials locally in memory</li>
-<li>Create <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/secauthz/access-tokens">access tokens</a></li>
-<li>Enforce security policies</li>
-<li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
-</ul>
-<h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2><p>In Windows, <strong>securable objects</strong> are resources that the operating system protects through <strong>Access Control Lists (ACLs)</strong> and other security mechanisms. These objects can have permissions assigned to users or groups, allowing or denying access.</p>
-	
-	</div>
-  <a type="button" href="/2025/07/08/Attacking lsass/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -267,64 +226,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/../images/hashcat1.png" alt="alt text"></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>this section highlights the power of custom wordlists,<br>Instead of relying on generic, multi-gigabyte wordlists, we will perform a <strong>targeted attack</strong>.</p>
-<p>This highly effective strategy uses Open Source Intelligence (OSINT) to create a custom wordlist and ruleset tailored specifically to our victim.</p>
-<p>We can use Hashcat to combine lists of potential names and labels with specific mutation rules to create custom wordlists.</p>
-<p>Hashcat uses a specific syntax to define characters, words, and their transformations. The complete syntax is documented in the official <a target="_blank" rel="noopener" href="https://hashcat.net/wiki/doku.php?id=rule_based_attack">Hashcat rule-based attack documentation</a>, but the examples below are sufficient to understand how Hashcat mutates input words.</p>
-<table>
-<thead>
-<tr>
-<th><strong>Function</strong></th>
-<th><strong>Description</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>:</code></td>
-<td>Do nothing</td>
-</tr>
-<tr>
-<td><code>l</code></td>
-<td>Lowercase all letters</td>
-</tr>
-<tr>
-<td><code>u</code></td>
-<td>Uppercase all letters</td>
-</tr>
-<tr>
-<td><code>c</code></td>
-<td>Capitalize the first letter and lowercase others</td>
-</tr>
-<tr>
-<td><code>sXY</code> (leet)</td>
-<td>Replace all instances of X with Y</td>
-</tr>
-<tr>
-<td><code>$!</code></td>
-<td>Add the exclamation character at the end</td>
-</tr>
-<tr>
-<td>$0, $9</td>
-<td>appends numbers</td>
-</tr>
-<tr>
-<td>$1$9$9$8</td>
-<td>translates to 1998</td>
-</tr>
-<tr>
-<td><code>t</code></td>
-<td>Toggle the case of all characters in word p@ssW0rd-&gt;P@SSw0RD</td>
-</tr>
-</tbody></table>
-	
-	</div>
-  <a type="button" href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -342,43 +245,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/../images/Secd1.png" alt="alt text"></p>
-<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.</p>
-<p>By extracting SAM, SYSTEM, and SECURITY hives from the target machine, we can transfer them to our attack host and perform offline hash cracking using tools such as Hashcat or John the Ripper, or even perform Pass-the-Hash attacks.</p>
-<h2 id="Windows-Registery-Hives"><a href="#Windows-Registery-Hives" class="headerlink" title="Windows Registery Hives"></a>Windows Registery Hives</h2><p>There are three registry hives we can copy if we have<code> local administrative</code> access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:</p>
-<table>
-<thead>
-<tr>
-<th>Registry Hive</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>HKLM\SAM</code></td>
-<td>Contains password hashes for local user accounts. These hashes can be extracted and cracked to reveal plaintext passwords.</td>
-</tr>
-<tr>
-<td><code>HKLM\SYSTEM</code></td>
-<td>Stores the system boot key, which is used to encrypt the SAM database. This key is required to decrypt the hashes.</td>
-</tr>
-<tr>
-<td><code>HKLM\SECURITY</code></td>
-<td>Contains sensitive information used by the Local Security Authority (LSA), including cached domain credentials (DCC2), cleartext passwords, DPAPI keys, and more.</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-	
-	</div>
-  <a type="button" href="/2025/04/12/Dumpin Registery Hives/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -396,17 +264,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/../images/dcysnc23.png" alt="alt text"></p>
-<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
-	
-	</div>
-  <a type="button" href="/2025/03/26/dcsync/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -424,16 +283,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="alt text"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
-	
-	</div>
-  <a type="button" href="/2025/01/22/HTB-Cicada/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 			
 	
@@ -451,20 +302,8 @@
 	
 
 
-			<div class="entry">
-  <div class="row">
-	
-	
-		<p><img src="/../images/solarlab/blacksolar.png" alt="alt text"></p>
-<hr>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials.</p>
-<p> Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell.</p>
-<p>For lateral movement,  to escalate privileges to the openfire user,  method takes advantage of CVE-2023-32315 in OpenFire to create a user and upload a malicious plugin for RCE.<br> With this access, I decrypted a password from the OpenFire configuration, which  served as the administrator’s password. </p>
-	
-	</div>
-  <a type="button" href="/2024/09/22/HTB-SolarLab/#more" class="btn btn-default more">Read More</a>
-</div>
-
+			
+  
 		
 
 		</div>
@@ -505,45 +344,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
+			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
 		
-			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
 		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
-		
-			<li><a href="/tags/AD/">AD<span>2</span></a></li>
-		
-			<li><a href="/tags/python/">python<span>1</span></a></li>
-		
-			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
-		
-			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
-		
-			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
 		
 			<li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
 		
-			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
-		
-			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
 			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
 		
-			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
+			<li><a href="/tags/smb/">smb<span>2</span></a></li>
 		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
 		
-			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>3</span></a></li>
 		
 			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
 		
+			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+		
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
+		
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+		
 			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+		
+			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
+		
+			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
+		
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
 			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
 		
-			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
+			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
+		
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>28</span></a></li>
@@ -559,6 +398,10 @@
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2025/07/13/chwoot/" ><i class="fa fa-file-o"></i>chwoot</a>
+      </li>
+    
+      <li>
         <a href="/2025/07/12/attacking python libraries/" ><i class="fa fa-file-o"></i>Hijacking Python Modules</a>
       </li>
     
@@ -572,10 +415,6 @@
     
       <li>
         <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
-      </li>
-    
-      <li>
-        <a href="/2025/04/12/Dumpin Registery Hives/" ><i class="fa fa-file-o"></i>Dumping SAM Account Hashes</a>
       </li>
     
   </ul>

