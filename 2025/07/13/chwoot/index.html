@@ -9,7 +9,7 @@
   <title>Breaking Out with chroot: CVE-2025-32463 (chwoot) in Sudo | v1pa0z Blog</title>
   <meta name="author" content="vipa0z">
   
-  <meta name="description" content="Welcome to my little corner of this world">
+  <meta name="description" content="In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory.">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -129,6 +129,10 @@
 
 	<!-- content -->
 	<div class="mypage">		
+	  
+		 <!-- <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory.
+		 </div> alert -->
 	  		
 
 	  <p><img src="/../images/chwoot/image.png" alt="alt text"></p>
@@ -285,6 +289,14 @@
     
 
 	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li> <li><a href="/tags/sudo/">sudo<span>1</span></a></li> <li><a href="/tags/chroot/">chroot<span>1</span></a></li> <li><a href="/tags/chwoot/">chwoot<span>1</span></a></li> <li><a href="/tags/cve-2025-32463/">cve-2025-32463<span>1</span></a></li>
+    </ul>
+	</div>
 		
 
 	<!-- toc -->

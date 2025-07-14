@@ -9,8 +9,6 @@
   <title>Writeup | v1pa0z Blog</title>
   <meta name="author" content="vipa0z">
   
-  <meta name="description" content="Welcome to my little corner of this world">
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -137,24 +135,7 @@
 		<li class="listing-item">
 		<span class="date_class"> 2025-01-22 </span> &raquo;
 		
-		   <span class="title"><a href="/2025/01/22/HTB-Cicada/" >HackTheBox Cicada  Walkthrough</a></span>
-		
-		</li>			
-		
-		
-		
-			
-			</ul>
-			
-			
-			<h4 class="archive-ul" data-toggle="collapse" data-target="#2024">2024<b class="caret"></b></h4>
-			<ul id="2024" class="collapse in">
-			
-		
-		<li class="listing-item">
-		<span class="date_class"> 2024-09-22 </span> &raquo;
-		
-		   <span class="title"><a href="/2024/09/22/HTB-SolarLab/" >HackTheBox SolarLab  Walkthrough</a></span>
+		   <span class="title"><a href="/2025/01/22/HTB-Cicada/"  title="HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes." >HackTheBox Cicada  Walkthrough</a></span>
 		
 		</li>			
 		
@@ -184,48 +165,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+			<li><a href="/tags/chisel/">chisel<span>1</span></a></li>
 		
-			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
+			<li><a href="/tags/HTB/">HTB<span>1</span></a></li>
 		
-			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
-		
-			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
-		
-			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
-		
-			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
-		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/registry/">registry<span>1</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
-		
-			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
-		
-			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
 		
 			<li><a href="/tags/python/">python<span>1</span></a></li>
 		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
 		
-			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
 		
-			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+			<li><a href="/tags/registry/">registry<span>1</span></a></li>
 		
-			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
+			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
 		
-			<li><a href="/tags/windows/">windows<span>3</span></a></li>
+			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
+		
+			<li><a href="/tags/sudo/">sudo<span>1</span></a></li>
+		
+			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
+		
+			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
+		
+			<li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
+		
+			<li><a href="/tags/nmap/">nmap<span>1</span></a></li>
+		
+			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>2</span></a></li>
+		
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
+		
+			<li><a href="/tags/smb/">smb<span>1</span></a></li>
+		
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+		
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>28</span></a></li>
+		   <li><a href="/tags">...<span>31</span></a></li>
 		 
 		</ul>
 	</div>
@@ -238,7 +219,7 @@
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2025/07/13/chwoot/" ><i class="fa fa-file-o"></i>Breaking Out with chroot: C...</a>
+        <a href="/2025/07/13/chwoot/"  title="In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory." ><i class="fa fa-file-o"></i>Breaking Out with chroot: C...</a>
       </li>
     
       <li>
@@ -246,15 +227,15 @@
       </li>
     
       <li>
-        <a href="/2025/07/08/No-pac/" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
+        <a href="/2025/07/08/No-pac/"  title="NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
       </li>
     
       <li>
-        <a href="/2025/07/08/Attacking lsass/" ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
+        <a href="/2025/07/08/Attacking lsass/"  title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS)." ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
       </li>
     
       <li>
-        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
+        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/"  title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack." ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
       </li>
     
   </ul>

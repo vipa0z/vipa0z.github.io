@@ -2,4 +2,3 @@ User-agent: *
 Allow: /
 
 Sitemap: https://vipa0z.github.io/sitemap.xml
-Sitemap: https://vipa0z.github.io/sitemap_index.xml

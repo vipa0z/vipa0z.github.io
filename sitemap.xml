@@ -2,16 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://vipa0z.github.io/2025/04/12/Dumpin%20Registery%20Hives/</loc>
-    
-    <lastmod>2025-07-14</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/2025/07/12/attacking%20python%20libraries/</loc>
+    <loc>https://vipa0z.github.io/2025/07/08/No-pac/</loc>
     
     <lastmod>2025-07-14</lastmod>
     
@@ -31,16 +22,25 @@
   <url>
     <loc>https://vipa0z.github.io/2025/07/08/Attacking%20lsass/</loc>
     
-    <lastmod>2025-07-13</lastmod>
+    <lastmod>2025-07-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/googled7486a179655a748.html</loc>
+    <loc>https://vipa0z.github.io/2025/06/20/HTB-Writing%20custom%20wordlists%20using%20hashcat%20and%20cuppy/</loc>
     
-    <lastmod>2025-07-12</lastmod>
+    <lastmod>2025-07-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/2025/01/22/HTB-Cicada/</loc>
+    
+    <lastmod>2025-07-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -48,6 +48,33 @@
   
   <url>
     <loc>https://vipa0z.github.io/2025/03/26/dcsync/</loc>
+    
+    <lastmod>2025-07-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/2025/04/12/Dumpin%20Registery%20Hives/</loc>
+    
+    <lastmod>2025-07-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/2025/07/12/attacking%20python%20libraries/</loc>
+    
+    <lastmod>2025-07-14</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/googled7486a179655a748.html</loc>
     
     <lastmod>2025-07-12</lastmod>
     
@@ -74,42 +101,6 @@
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/2024/09/22/HTB-SolarLab/</loc>
-    
-    <lastmod>2025-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/2025/06/20/HTB-Writing%20custom%20wordlists%20using%20hashcat%20and%20cuppy/</loc>
-    
-    <lastmod>2025-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/2025/07/08/No-pac/</loc>
-    
-    <lastmod>2025-07-08</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/2025/01/22/HTB-Cicada/</loc>
-    
-    <lastmod>2025-06-19</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://vipa0z.github.io/categories/index.html</loc>
     
     <lastmod>2024-09-22</lastmod>
@@ -126,27 +117,6 @@
     <priority>1.0</priority>
   </url>
 
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/lsass/</loc>
-    <lastmod>2025-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/secretsdump/</loc>
-    <lastmod>2025-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/mimikatz/</loc>
-    <lastmod>2025-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/privEsc/</loc>
@@ -240,28 +210,21 @@
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/tags/htb-solarlab/</loc>
+    <loc>https://vipa0z.github.io/tags/lsass/</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/tags/hashcat/</loc>
+    <loc>https://vipa0z.github.io/tags/secretsdump/</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/tags/cupp/</loc>
-    <lastmod>2025-07-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/wordlists/</loc>
+    <loc>https://vipa0z.github.io/tags/mimikatz/</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -311,6 +274,55 @@
   
   <url>
     <loc>https://vipa0z.github.io/tags/PrivEsc/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/sudo/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/chroot/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/chwoot/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/cve-2025-32463/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/hashcat/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/cupp/</loc>
+    <lastmod>2025-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/wordlists/</loc>
     <lastmod>2025-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>

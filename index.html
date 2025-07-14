@@ -9,8 +9,6 @@
   <title>v1pa0z Blog</title>
   <meta name="author" content="vipa0z">
   
-  <meta name="description" content="Welcome to my little corner of this world">
-  
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -140,7 +138,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/07/13/chwoot/" >Breaking Out with chroot: CVE-2025-32463 (chwoot) in Sudo</a>
+			<a href="/2025/07/13/chwoot/" title="In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory.">Breaking Out with chroot: CVE-2025-32463 (chwoot) in Sudo</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -194,7 +192,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/07/08/No-pac/" >The NoPAC Attack</a>
+			<a href="/2025/07/08/No-pac/" title="NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins">The NoPAC Attack</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -239,7 +237,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/07/08/Attacking lsass/" >Attacking Windows LSASS</a>
+			<a href="/2025/07/08/Attacking lsass/" title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS).">Attacking Windows LSASS</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -275,7 +273,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" >Writing custom wordlists using hashcat and cuppy</a>
+			<a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack.">Writing custom wordlists using hashcat and cuppy</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -290,7 +288,7 @@
 	  
 	  
 		  <p><img src="/../images/hashcat1.png" alt="alt text"></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>this section highlights the power of custom wordlists,<br>Instead of relying on generic, multi-gigabyte wordlists, we will perform a <strong>targeted attack</strong>.</p>
+<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>this post highlights the power of custom wordlists,<br>Instead of relying on generic, multi-gigabyte wordlists, we will perform a <strong>targeted attack</strong>.</p>
 <p>This highly effective strategy uses Open Source Intelligence (OSINT) to create a custom wordlist and ruleset tailored specifically to our victim.</p>
 <p>We can use Hashcat to combine lists of potential names and labels with specific mutation rules to create custom wordlists.</p>
 <p>Hashcat uses a specific syntax to define characters, words, and their transformations. The complete syntax is documented in the official <a target="_blank" rel="noopener" href="https://hashcat.net/wiki/doku.php?id=rule_based_attack">Hashcat rule-based attack documentation</a>, but the examples below are sufficient to understand how Hashcat mutates input words.</p>
@@ -402,7 +400,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/03/26/dcsync/" >On  Performing a DCSync Attack</a>
+			<a href="/2025/03/26/dcsync/" title="DCSync is a technique for stealing the Active Directory password database by using the  built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.">On  Performing a DCSync Attack</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -429,7 +427,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/01/22/HTB-Cicada/" >HackTheBox Cicada  Walkthrough</a>
+			<a href="/2025/01/22/HTB-Cicada/" title="HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.">HackTheBox Cicada  Walkthrough</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -447,36 +445,6 @@
 	  
 	  </div>
 	<a type="button" href="/2025/01/22/HTB-Cicada/#more" class="btn btn-default more">Read More</a>
-  </div>
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2024/09/22/HTB-SolarLab/" >HackTheBox SolarLab  Walkthrough</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2024-09-22  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-	<div class="row">
-	  
-	  
-		  <p><img src="/../images/solarlab/blacksolar.png" alt="alt text"></p>
-<hr>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials.</p>
-<p> Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell.</p>
-<p>For lateral movement,  to escalate privileges to the openfire user,  method takes advantage of CVE-2023-32315 in OpenFire to create a user and upload a malicious plugin for RCE.<br> With this access, I decrypted a password from the OpenFire configuration, which  served as the administrator’s password. </p>
-	  
-	  </div>
-	<a type="button" href="/2024/09/22/HTB-SolarLab/#more" class="btn btn-default more">Read More</a>
   </div>
 		
 
@@ -518,48 +486,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>3</span></a></li>
-		
-			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
-		
-			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
-		
-			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
-		
-			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
-		
 			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
+		
+			<li><a href="/tags/chwoot/">chwoot<span>1</span></a></li>
+		
+			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
 		
 			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
 		
-			<li><a href="/tags/chisel/">chisel<span>2</span></a></li>
-		
-			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
-		
-			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
-		
-			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
+			<li><a href="/tags/password-spray/">password-spray<span>1</span></a></li>
 		
 			<li><a href="/tags/AD/">AD<span>2</span></a></li>
+		
+			<li><a href="/tags/chisel/">chisel<span>1</span></a></li>
 		
 			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
 		
 			<li><a href="/tags/python/">python<span>1</span></a></li>
 		
-			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+			<li><a href="/tags/sudo/">sudo<span>1</span></a></li>
 		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
 		
-			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
+			<li><a href="/tags/nmap/">nmap<span>1</span></a></li>
+		
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
+		
+			<li><a href="/tags/Writeup/">Writeup<span>1</span></a></li>
+		
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+		
+			<li><a href="/tags/openfire/">openfire<span>1</span></a></li>
+		
+			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+		
+			<li><a href="/tags/flask/">flask<span>1</span></a></li>
+		
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+		
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>28</span></a></li>
+		   <li><a href="/tags">...<span>31</span></a></li>
 		 
 		</ul>
 	</div>
@@ -572,7 +540,7 @@
   <ul class="entry list-unstyled">
     
       <li>
-        <a href="/2025/07/13/chwoot/" ><i class="fa fa-file-o"></i>Breaking Out with chroot: C...</a>
+        <a href="/2025/07/13/chwoot/"  title="In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory." ><i class="fa fa-file-o"></i>Breaking Out with chroot: C...</a>
       </li>
     
       <li>
@@ -580,15 +548,15 @@
       </li>
     
       <li>
-        <a href="/2025/07/08/No-pac/" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
+        <a href="/2025/07/08/No-pac/"  title="NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
       </li>
     
       <li>
-        <a href="/2025/07/08/Attacking lsass/" ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
+        <a href="/2025/07/08/Attacking lsass/"  title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS)." ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
       </li>
     
       <li>
-        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
+        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/"  title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack." ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
       </li>
     
   </ul>
