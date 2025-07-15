@@ -64,13 +64,13 @@
       
         <tags>
             
-            <tag> nopac </tag>
-            
             <tag> AD </tag>
             
             <tag> Active Directory </tag>
             
             <tag> Lateral Movement </tag>
+            
+            <tag> nopac </tag>
             
         </tags>
       
@@ -160,13 +160,13 @@
             
             <tag> mimikatz </tag>
             
+            <tag> dcsync </tag>
+            
             <tag> AD </tag>
             
             <tag> Active Directory </tag>
             
             <tag> Lateral Movement </tag>
-            
-            <tag> dcsync </tag>
             
         </tags>
       
