@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>HackTheBox Cicada  Walkthrough | v1pa0z Blog</title>
+  <title>HackTheBox Cicada  Walkthrough | vipa0z</title>
   <meta name="author" content="vipa0z">
   
   <meta name="description" content="HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.">
@@ -15,14 +15,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="HackTheBox Cicada  Walkthrough"/>
-  <meta property="og:site_name" content="v1pa0z Blog"/>
+  <meta property="og:site_name" content="vipa0z"/>
 
   
     <meta property="og:image" content=""/>
   
 
   
-    <link rel="alternative" href="/atom.xml" title="v1pa0z Blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
   
   
     <link href="/favicon.jpg" rel="icon">
@@ -67,7 +67,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-	  <a class="navbar-brand" href="/">v1pa0z Blog</a>
+	  <a class="navbar-brand" href="/">vipa0z</a>
       <div class="collapse navbar-collapse nav-menu">
 		<ul class="nav navbar-nav">
 		  
