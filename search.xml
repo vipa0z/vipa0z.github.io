@@ -135,9 +135,9 @@
       
         <tags>
             
-            <tag> privEsc </tag>
-            
             <tag> windows </tag>
+            
+            <tag> privEsc </tag>
             
             <tag> registry </tag>
             
@@ -185,8 +185,6 @@
       
         <tags>
             
-            <tag> windows </tag>
-            
             <tag> Writeup </tag>
             
             <tag> nmap </tag>
@@ -194,6 +192,8 @@
             <tag> HTB </tag>
             
             <tag> smb </tag>
+            
+            <tag> windows </tag>
             
             <tag> flask </tag>
             
@@ -224,8 +224,6 @@
       
         <tags>
             
-            <tag> windows </tag>
-            
             <tag> Writeup </tag>
             
             <tag> nmap </tag>
@@ -233,6 +231,8 @@
             <tag> HTB </tag>
             
             <tag> smb </tag>
+            
+            <tag> windows </tag>
             
             <tag> flask </tag>
             

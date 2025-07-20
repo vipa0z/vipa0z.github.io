@@ -149,27 +149,6 @@
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/tags/privEsc/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/windows/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/registry/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://vipa0z.github.io/tags/Writeup/</loc>
     <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -192,6 +171,13 @@
   
   <url>
     <loc>https://vipa0z.github.io/tags/smb/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/windows/</loc>
     <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -247,6 +233,20 @@
   </url>
   
   <url>
+    <loc>https://vipa0z.github.io/tags/privEsc/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/registry/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://vipa0z.github.io/tags/hashcat/</loc>
     <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
@@ -262,34 +262,6 @@
   
   <url>
     <loc>https://vipa0z.github.io/tags/wordlists/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/sudo/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/chroot/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/chwoot/</loc>
-    <lastmod>2025-07-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/cve-2025-32463/</loc>
     <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -339,6 +311,34 @@
   
   <url>
     <loc>https://vipa0z.github.io/tags/PrivEsc/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/sudo/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/chroot/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/chwoot/</loc>
+    <lastmod>2025-07-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/cve-2025-32463/</loc>
     <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
