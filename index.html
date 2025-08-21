@@ -248,42 +248,6 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/07/08/Attacking lsass/" title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS).">Attacking Windows LSASS</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2025-07-08  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry">
-	<div class="row">
-	  
-	  
-		  <p><img src="/../images/mimikatz1.png" alt="alt text"></p>
-<hr>
-<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
-<p>Upon initial logon, LSASS will:</p>
-<ul>
-<li>Cache credentials locally in memory</li>
-<li>Create <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/secauthz/access-tokens">access tokens</a></li>
-<li>Enforce security policies</li>
-<li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
-</ul>
-<h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2>
-	  
-	  </div>
-	<a type="button" href="/2025/07/08/Attacking lsass/#more" class="btn btn-default more">Read More</a>
-  </div>
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
 			<a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/" title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack.">Writing custom wordlists using hashcat and cuppy</a>
 		</h3>
 		</div>
@@ -350,6 +314,42 @@
 	  
 	  </div>
 	<a type="button" href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/#more" class="btn btn-default more">Read More</a>
+  </div>
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/05/22/Attacking lsass/" title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS).">Attacking Windows LSASS</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-05-22  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+	<div class="row">
+	  
+	  
+		  <p><img src="/../images/mimikatz1.png" alt="alt text"></p>
+<hr>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
+<p>Upon initial logon, LSASS will:</p>
+<ul>
+<li>Cache credentials locally in memory</li>
+<li>Create <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/secauthz/access-tokens">access tokens</a></li>
+<li>Enforce security policies</li>
+<li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
+</ul>
+<h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2>
+	  
+	  </div>
+	<a type="button" href="/2025/05/22/Attacking lsass/#more" class="btn btn-default more">Read More</a>
   </div>
 		
 			
@@ -526,45 +526,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/windows/">windows<span>3</span></a></li>
-		
-			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+			<li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
 		
 			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
 		
-			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
-		
-			<li><a href="/tags/flask/">flask<span>2</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
-		
-			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
-		
-			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
-		
-			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
 			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
 		
-			<li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
 		
-			<li><a href="/tags/cve-2025-32463/">cve-2025-32463<span>1</span></a></li>
-		
-			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
-		
-			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
+			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
 		
 			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
 		
+			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+		
+			<li><a href="/tags/openfire/">openfire<span>2</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>3</span></a></li>
+		
 			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
 		
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+		
+			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
+		
+			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+		
+			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>1</span></a></li>
+		
+			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
+		
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
+		
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
+		
 			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/AD/">AD<span>2</span></a></li>
-		
-			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>32</span></a></li>
@@ -592,11 +592,11 @@
       </li>
     
       <li>
-        <a href="/2025/07/08/Attacking lsass/"  title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS)." ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
+        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/"  title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack." ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
       </li>
     
       <li>
-        <a href="/2025/06/20/HTB-Writing custom wordlists using hashcat and cuppy/"  title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack." ><i class="fa fa-file-o"></i>Writing custom wordlists us...</a>
+        <a href="/2025/05/22/Attacking lsass/"  title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS)." ><i class="fa fa-file-o"></i>Attacking Windows LSASS</a>
       </li>
     
   </ul>
