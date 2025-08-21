@@ -26,21 +26,40 @@ menu:
     url: about
     intro: "About me."
     icon: "fa fa-user"
+
+  - title: Resume
+    url: about/resume.pdf
+    intro: "About me."
+    icon: "fa fa-file"
+
  # - title: RSS
   #  url: atom.xml
    # intro: "Subscribe me."
     #icon: "fa fa-user"
 
 links:
-  - title: hexo-theme-bithack
-    url: https://github.com/Ares-X/hexo-theme-freemind.bithack
-    intro: ""
-    icon: false
+- title: twitter
+  url: https://x.com/vipa0z
+  intro: ""
+  icon: "fa fa-twitter"
 
-  # - title: "My LinkedIn"
-  #   url: http://www.linkedin.com/in/xxx
-  #   intro: "My Linkin account."
-  #   icon: "fa fa-linkedin"
+
+- title: vipa0z blog
+  url: https://vipa0z.github.io
+  icon: "fa fa-github" 
+
+- title: "My LinkedIn"
+  url: http://www.linkedin.com/in/abdomagdy00
+  intro: "My Linkin account."
+  icon: "fa fa-linkedin"
+
+- title: Email me
+  url: mailto:Abdelmagdy0x0@proton.me
+  icon: "fa fa-envelope"
+
+- title: View My Resume
+  url: about/resume.pdf
+  icon: "fa fa-file"
 
 widgets:
 - search
@@ -51,7 +70,6 @@ widgets:
 
 rss: atom.xml
 fancybox: true
-favicon: favicon.jpg
 #duoshuo_shortname: 
 
 

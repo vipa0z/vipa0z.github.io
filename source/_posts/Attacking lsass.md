@@ -1,9 +1,11 @@
 ---
 title: Attacking Windows LSASS
+date: 2025-5-22
 tags:
 - lsass
 - secretsdump
 - mimikatz
+description: "In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS)."
 ---
 ![alt text](../images/mimikatz1.png)
 

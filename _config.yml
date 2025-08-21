@@ -3,14 +3,14 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: v1pa0z Blog  
-subtitle: 'v1pa0z'
-description: 'my personal blog'
-keywords:
+title: vipa0z 
+description: Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
 author: vipa0z
 language: en
 timezone: ''
-
+favicon: favicon.png
+logo: favicon.png
+cover: favicon.png
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
 url: https://vipa0z.github.io/
@@ -76,7 +76,7 @@ excerpt:
 
 
 # Category & Tag
-default_category: uncategorized
+default_category: Offensive security
 category_map:
 tag_map:
 
@@ -103,6 +103,14 @@ pagination_dir: page
 include:
 exclude:
 ignore:
+
+# SEO Configuration
+seo:
+  site_title: vipa0z
+  site_description: Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
+  site_keywords: security, red team, CTF, malware analysis, hacking
+  site_verification: {}
+  add_url_slash: false
 
 # Extensions
 ## Plugins: https://hexo.io/plugins/
@@ -172,6 +180,9 @@ widget_tree:
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
+
+
+
 deploy:
   - type: git
     repo: https://github.com/vipa0z/vipa0z.github.io

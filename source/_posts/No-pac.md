@@ -6,36 +6,67 @@ tags:
 - AD
 - Active Directory
 - Lateral Movement
----
 
+description: "NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins"
+---
 ![alt text](images/NOPACK.png)
 
 ## Introduction
 NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins
-## The Inside Out
-
-This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.
 
 |CVE|Description|
 |---|---|
 |42278 | 42278 is a bypass vulnerability with the Security Account Manager (SAM). |
 |42287 | 42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.|
 
+<!-- more -->
+
+### AD Kerberos Authentication
+A ticket-granting-ticket (TGT) is a ticket assigned to a user that is used to authenticate to the KDC and request a service ticket from the ticket-granting-service (TGS). Service tickets are granted for authentication against services.
+![KDC](../images/npac.png) Figure. Kerberos authentication process
+    
+---
+
+##  CVEs 2021-42278 and 2021-42287
+This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.
+
+
+|CVE|Description|
+|---|---|
+|42278 | 42278 is a bypass vulnerability with the Security Account Manager (SAM). |
+|42287 | 42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.|
+
+<br>
+
 This exploit path takes advantage of being able to change the SamAccountName of a computer account to that of a Domain Controller. By default, authenticated users can add up to ten computers to a domain.
+
 
 When doing so, we change the name of the new host to match a Domain Controller's SamAccountName. Once done, we must request Kerberos tickets causing the service to issue us tickets under the DC's name instead of the new name. 
 
 When a TGS is requested, it will issue the ticket with the closest matching name. Once done, we will have access as that service and can even be provided with a SYSTEM shell on a Domain Controller. The flow of the attack is outlined in detail in this blog post.
 
+The tickets are distributed by the Key Distribution Center (KDC). In AD environments, the KDC is installed on the Domain Controller (DC).
 
+
+
+
+with the attack:
+Adversaries can leverage these two vulnerabilities together to escalate to domain admin privileges from a standard domain user.
+
+How It Works
+
+Machine account creation
+Service Principal Names (SPNs) are cleared
+sAMAccountName is renamed to the DC name without a $
+Ticket-granting-ticket (TGT) is requested
+sAMAccountName is renamed with a different name
+Service ticket requested with S4U2self extension
 
 In November 9, 2021: Microsoft released initial security updates that addressed both CVE‑2021‑42278 (SAM spoofing) and CVE‑2021‑42287 (Kerberos PAC bypass)
 [support.microsoft.com+15](https://support.microsoft.com/en-us/topic/kb5011266)
 
-### Potential precursor to ransomware infections
 
-After gaining domain access, a threat actor's ability to deploy additional malware, including ransomware, is virtually unlimited. AD abuse is involved in most ransomware incidents Secureworks researchers investigate. Threat actors typically leverage misconfigurations to escalate privileges within AD. In this case, AD design flaws create the escalation path.
-# Setup:
+## Setup:
 #### Ensuring Impacket is Installed
 
 ```shell-session
@@ -97,3 +128,13 @@ inlanefreight.local\administrator:aes128-cts-hmac-sha1-96:95c30f88301f9fe14ef5a8
 inlanefreight.local\administrator:des-cbc-md5:70add6e02f70321f
 [*] Cleaning up...
 ```
+
+## Detection
+Exploiting the noPac vulnerability generates the following Security Auditing Windows event logs.
+![alt text](../images/kb.png)
+
+
+## Mitigations
+Microsoft’s patch adds Security Accounts Manager Hardening changes along with Key Distribution Center (KDC) authentication updates.
+
+These changes prevent sAMAccountName spoofing by adding validation for a computer account’s sAMAccountName ending in a single dollar sign. The original requester will also be added to the PAC of the TGT, helping prevent domain controller impersonation.

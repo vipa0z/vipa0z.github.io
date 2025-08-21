@@ -5,10 +5,11 @@ tags:
 - hashcat
 - cupp
 - wordlists
+description: "this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack."
 ---
 ![alt text](../images/hashcat1.png)
 # Introduction
-this section highlights the power of custom wordlists,
+this post highlights the power of custom wordlists,
 Instead of relying on generic, multi-gigabyte wordlists, we will perform a **targeted attack**.
 
 This highly effective strategy uses Open Source Intelligence (OSINT) to create a custom wordlist and ruleset tailored specifically to our victim.

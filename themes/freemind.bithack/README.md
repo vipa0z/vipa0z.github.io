@@ -122,10 +122,14 @@ menu:
     # icon: "fa fa-user"
 
 links:
-  - title: hexo-theme-bithack
-    url: https://github.com/Ares-X/hexo-theme-freemind.bithack
+  - title: twitter
+    url: https://x.com/vipa0z
     intro: ""
-    icon: false
+    icon: "fa fa-twitter"
+  - title: github
+    url: https://github.com/vipa0z
+    intro: ""
+    icon: "fa fa-github"
 
   # - title: "My LinkedIn"
   #   url: http://www.linkedin.com/in/xxx

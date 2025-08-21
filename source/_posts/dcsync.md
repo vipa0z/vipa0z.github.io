@@ -7,8 +7,8 @@ tags:
 - Active Directory
 - Lateral Movement
 - mimikatz
+description: "DCSync is a technique for stealing the Active Directory password database by using the  built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes."
 ---
-
 ![alt text](../images/dcysnc23.png)
 
 # _Overview
@@ -473,3 +473,26 @@ get-domainobjectACL -ResolveGUIDs -Identity * | ? {$_.SecurityIdentifier -eq $SI
 ```
  secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/tpetty@172.16.6.3
 ```
+
+## Detection
+To detect DCSync activity, you can monitor the TargetLogonId from Event 4624 and correlate it with other security events tied to the same logon session. DCSync generates a Network Logon type (3) on the DC. By linking Event 4662 (which tracks directory access) with Event 4624 using the LogonId, defenders can identify the source IP of the DCSync request.
+
+![alt text](../images/imasasage.png)
+
+
+## Mitigations
+DCSync attacks exploit replication permissions in Active Directory to extract sensitive credentials, including password hashes. To mitigate this, you must reduce unnecessary replication rights, protect high-privilege accounts, monitor for suspicious activity, and harden your domain infrastructure.
+
+Mitigation Steps:
+
+Limit replication rights
+Only Domain Controllers and essential admin accounts should have replication privileges. Audit and remove unnecessary permissions.
+
+Monitor for DCSync behavior
+Detect suspicious replication attempts by monitoring security logs and using threat detection tools.
+
+Protect privileged accounts
+Restrict and monitor Domain Admins. Use tiered admin models and Protected Users group where possible.
+
+Regularly audit privileged access
+Frequently review permissions and group memberships. Remove outdated accounts and rotate credentials.

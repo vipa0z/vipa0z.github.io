@@ -6,10 +6,13 @@ tags:
 - python
 - python imports
 - PrivEsc
+metadata: "dog dog dog"
+description: "There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc."
+info: "dog"
 ---
 ![alt text](../images/python3122.png)
 # _OVERVIEW
-Python has [the Python standard library](https://docs.python.org/3/library/), with many modules on board from a standard installation of Python. These modules provide many solutions that would otherwise have to be laboriously worked out by writing our programs.
+Python has [the Python standard library](https://docs.python.org/3/library/), with many modules on board from a standard installation of Python. These modules provide many solutions that would otherwise have to be laboriously worked out by writing our programs. There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc.
 <!-- more -->
 #### Importing Modules
 ```python

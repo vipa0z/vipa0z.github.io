@@ -5,6 +5,7 @@ tags:
 - privEsc
 - windows 
 - registry
+description: "With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network."
 ---
 ![alt text](../images/Secd1.png)
 # _Overview
@@ -123,8 +124,8 @@ Password: April2025!
 ```
 
 This tells us how to interpret the output and which hashes we can attempt to crack.
-# Methodology
-[] i dog
+### Methodology
+
 `SAM` +` SYSTEM` -> hash dump
 `SECURITY`  -> cached domain hashes
                                                |

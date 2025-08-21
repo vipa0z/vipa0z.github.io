@@ -13,6 +13,7 @@ tags:
 - chisel
 - password-spray 
 - htb Cicada
+description: "HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes."
 ---
 ![alt text](../images/cicada.png)
 ---------

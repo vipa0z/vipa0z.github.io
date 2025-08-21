@@ -1,7 +1,14 @@
 ---
-title: "Breaking Out with chroot: CVE-2025-32463 in Sudo"
+title: "Breaking Out with chroot: CVE-2025-32463 (chwoot) in Sudo"
 date: 2025-07-13 16:39:46
 tags:
+- sudo
+- chroot
+- chwoot
+- cve-2025-32463
+- privilege escalation
+description: "In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory."
+comments: true
 ---
 ![alt text](../images/chwoot/image.png)
 
