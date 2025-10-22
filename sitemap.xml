@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay/</loc>
+    
+    <lastmod>2025-10-22</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://vipa0z.github.io/2025/05/22/Attacking%20lsass/</loc>
     
     <lastmod>2025-10-22</lastmod>
@@ -21,15 +30,6 @@
   
   <url>
     <loc>https://vipa0z.github.io/1/No-pac.html</loc>
-    
-    <lastmod>2025-10-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay/</loc>
     
     <lastmod>2025-10-22</lastmod>
     
