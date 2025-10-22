@@ -89,7 +89,7 @@ li i {
 }
 
 .listing-item {
-    line-height: 24px
+    line-height: 5px
 }
 
 .meta-widget {
@@ -431,7 +431,7 @@ em{
 .page h3.title {
     position: relative;
     padding: 5px 0px 0px 0px;
-    font-size: 1.7em;
+    font-size: 1.5em;
     line-height: 1.3em;
     font-weight: bold;
     font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace
@@ -547,7 +547,7 @@ hr {
 }
 
 .logo {
-    background: url("../favicon.jpg") no-repeat left top;
+    background: url("../favicon.png") no-repeat left top;
     background-size: 4em
 }
 

