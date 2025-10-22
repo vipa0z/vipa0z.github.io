@@ -1,4 +1,4 @@
-https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay&jenkins/
+https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay-jenkins/
 https://vipa0z.github.io/2025/06/20/Writing%20targeted%20password%20lists/
 https://vipa0z.github.io/2024/09/22/HTB-SolarLab/
 https://vipa0z.github.io/2025/01/22/HTB-Cicada/
