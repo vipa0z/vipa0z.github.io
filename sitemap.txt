@@ -1,3 +1,4 @@
+https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay&jenkins/
 https://vipa0z.github.io/2025/06/20/Writing%20targeted%20password%20lists/
 https://vipa0z.github.io/2024/09/22/HTB-SolarLab/
 https://vipa0z.github.io/2025/01/22/HTB-Cicada/
@@ -6,7 +7,6 @@ https://vipa0z.github.io/2025/03/26/dcsync/
 https://vipa0z.github.io/2025/07/13/chwoot/
 https://vipa0z.github.io/2025/05/22/Attacking%20lsass/
 https://vipa0z.github.io/google2efef580c8a7f67b.html
-https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay&jenkins/
 https://vipa0z.github.io/2025/07/12/attacking%20python%20libraries/
 https://vipa0z.github.io/2025/07/08/No-pac/
 https://vipa0z.github.io/about/index.html
