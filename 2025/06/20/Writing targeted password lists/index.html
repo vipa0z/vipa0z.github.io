@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Writing custom wordlists using hashcat and cuppy | vipa0z</title>
+  <title>Writing Targeted Password lists with hashcat rules and cuppy | vipa0z</title>
   <meta name="author" content="vipa0z">
   
   <meta name="description" content="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack.">
@@ -14,7 +14,9 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="Writing custom wordlists using hashcat and cuppy"/>
+  <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
+
+  <meta property="og:title" content="Writing Targeted Password lists with hashcat rules and cuppy"/>
   <meta property="og:site_name" content="vipa0z"/>
 
   
@@ -125,7 +127,7 @@
 
 	
 		<div class="page-header">
-			<h1> Writing custom wordlists using hashcat and cuppy</h1>
+			<h1> Writing Targeted Password lists with hashcat rules and cuppy</h1>
 		</div>
 	
 
@@ -230,12 +232,12 @@
 </ul>
 <p><strong>The Target Hash (MD5):</strong> <code>97268a8ae45ac7d15c3cea4ce6ea550b</code></p>
 <h1 id="Generating-a-Base-Wordlist-with-cuppy"><a href="#Generating-a-Base-Wordlist-with-cuppy" class="headerlink" title="Generating a Base Wordlist with cuppy"></a>Generating a Base Wordlist with <code>cuppy</code></h1><p>first we need to convert our OSINT data into a list of potential password keywords. The <strong>Common User Passwords Profiler (<code>cuppy</code>)</strong> is the perfect tool for this job. It takes personal information as input and generates a wordlist based on common patterns.</p>
-<p>Run <code>cuppy</code> in interactive mode and enter the information we gathered about Mark.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cuppy -i </span><br><span class="line"># When prompted, enter the details and save the file as mark.txt</span><br></pre></td></tr></table></figure>
-
+<p>let’s say we found a user through OSINT, ‘Mark stenzen’ In this case, we’ve gathered some details about Mark aside from his full name and the company he works for, we can add every bit of details to our list generation process. using cuppy we’ll start of by supply the full name, followed by company, personal details, hobbies, keywords etcetra:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># running `cuppy` in interactive mode and enter the information we gathered about Mark.</span><br><span class="line"></span><br><span class="line">cuppy -i </span><br></pre></td></tr></table></figure>
+<p>by now, cuppy should have generated a candidate password list with multiple combinations,</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wc -l mark.txt </span><br><span class="line">16797 mark.txt</span><br></pre></td></tr></table></figure>
-
-<h1 id="Creating-hashcat-rules"><a href="#Creating-hashcat-rules" class="headerlink" title="Creating hashcat rules"></a>Creating hashcat rules</h1><p>We’ll create a file named <code>custom.rule</code> to add the required complexity (capitalization, numbers, symbols).</p>
+<p>In the following section, I’ll guide you towards  further enhancing the potential of the passwords list using custom hashcat.</p>
+<h1 id="Enhancing-the-password-list-with-Custom-hashcat-rules"><a href="#Enhancing-the-password-list-with-Custom-hashcat-rules" class="headerlink" title="Enhancing the password list with  Custom hashcat rules"></a>Enhancing the password list with  Custom hashcat rules</h1><p>We’ll create a file named <code>custom.rule</code> to add the required complexity (capitalization, numbers, symbols).</p>
 <p>Instead of only guessing the most obvious pattern, we’ll create a broader set of rules. This will generate a very large number of candidates, increasing our chances of success if the user chose a slightly less common pattern.</p>
 <p>Here is an example of a more comprehensive <code>custom.rule</code> file. It includes capitalization, leetspeak substitutions (<code>s</code> for <code>$</code>, <code>a</code> for <code>@</code>), and appending various years and symbols.</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># custom.rule - A broad ruleset for our target</span><br><span class="line"></span><br><span class="line"># --- SECTION 1: Simple capitalization and appending year/symbol ---</span><br><span class="line"># Creates passwords like: Baseball1998!</span><br><span class="line">c $1$9$9$8$!</span><br><span class="line">c $1$9$9$8$#</span><br><span class="line">c $1$9$9$8$@</span><br><span class="line"></span><br><span class="line"># --- SECTION 2: Toggle case and add years/symbols ---</span><br><span class="line"># Creates passwords like: bASEBALL1998!</span><br><span class="line">t $1$9$9$8$!</span><br><span class="line">t $1$9$9$8$#</span><br><span class="line"></span><br><span class="line"># --- SECTION 3: Leetspeak (Character Substitution) ---</span><br><span class="line"># Creates passwords like: M@ri@1998!, B@seb@ll2025#</span><br><span class="line">c sa@ $1$9$9$8$!</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># --- SECTION 4: Combined leetspeak ---</span><br><span class="line"># Creates passwords like: B@$eb@ll98!</span><br><span class="line">c sa@ ss$ $9$8$!</span><br></pre></td></tr></table></figure>
@@ -343,7 +345,7 @@
 
     
     
-    <a href="/2025/07/12/attacking python libraries/" type="button" class="btn btn-default"><i
+    <a href="/2025/07/08/No-pac/" type="button" class="btn btn-default"><i
                 class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
