@@ -201,9 +201,10 @@
 <li><code>-o</code>: output directory</li>
 <li><code>-h</code>: help</li>
 </ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">The script outputs numbered chunks (`part1`, `part2`, etc.) and shows you what to do next.</span><br><span class="line"></span><br><span class="line">**Example:**</span><br></pre></td></tr></table></figure>
-<p>python3 tool_chunker.py -s 6000 XecretsEz -o xcretsez</p>
-<pre><code>&lt;img width=&quot;819&quot; height=&quot;261&quot; alt=&quot;image&quot; src=&quot;https://github.com/user-attachments/assets/f5e1bf7f-6916-4ca2-bdf5-de0d7caa424b&quot; /&gt;
+<p>The script outputs numbered chunks (<code>part1</code>, <code>part2</code>, etc.) and shows you what to do next.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py -s 6000 XecretsEz -o xcretsez</span><br></pre></td></tr></table></figure>
+<img width="819" height="261" alt="image" src="https://github.com/user-attachments/assets/f5e1bf7f-6916-4ca2-bdf5-de0d7caa424b" />
 Steps
 Run the script as shown above
 Paste into the script console
@@ -211,14 +212,9 @@ Copy the Groovy reassembly code from the script output and paste it below your b
 Double-check the write path is correct
 Save and run
 
-Verify It Worked
-After dropping the file, sanity check it:
-
-Compare file size
-Hash it (MD5/SHA256) and compare with the original
-
-That&#39;s it! Quick recap: find writable paths, use base64 (chunked if needed), verify integrity, and clean up your artifacts when done.
-</code></pre>
+<p>Verify It Worked<br>After dropping the file, sanity check it:</p>
+<p>Compare file size<br>Hash it (MD5&#x2F;SHA256) and compare with the original</p>
+<p>That’s it! Quick recap: find writable paths, use base64 (chunked if needed), verify integrity, and clean up your artifacts when done.</p>
 
 	  <div class="article-footer-copyright">
 
