@@ -205,14 +205,23 @@
 <p><strong>Example:</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py -s 6000 XecretsEz -o xcretsez</span><br></pre></td></tr></table></figure>
 <img width="819" height="261" alt="image" src="https://github.com/user-attachments/assets/f5e1bf7f-6916-4ca2-bdf5-de0d7caa424b" />
-Steps
-Run the script as shown above
-Paste into the script console
-Copy the Groovy reassembly code from the script output and paste it below your base64 blobs
-Double-check the write path is correct
-Save and run
 
-<p>Verify It Worked<br>After dropping the file, sanity check it:</p>
+<p>Steps:</p>
+<ol>
+<li><p>Run the script as shown above</p>
+</li>
+<li><p>Paste into the script console</p>
+</li>
+<li><p>Copy the Groovy reassembly code from the script output and paste it below your base64 blobs</p>
+</li>
+<li><p>Double-check the write path is correct</p>
+</li>
+<li><p>Save and run</p>
+</li>
+<li><p>Verify It Worked:</p>
+</li>
+</ol>
+<p>After dropping the file, sanity check it:</p>
 <p>Compare file size<br>Hash it (MD5&#x2F;SHA256) and compare with the original</p>
 <p>That’s it! Quick recap: find writable paths, use base64 (chunked if needed), verify integrity, and clean up your artifacts when done.</p>
 
