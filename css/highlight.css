@@ -1,29 +1,29 @@
 pre,
 .highlight,
 .gist {
-    background: #333;
+    background: #0f0f0f;
     margin: 1em 0;
     padding: 1em 2%;
     overflow: auto;
-    color: #c9d1d9;
+    color: #c5c8c6;
     font-size: 14px;
     text-shadow: none;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
     border-style: solid;
-    border-color: #ddd;
-    border-width: 1px 0;
+    border-color: #2a2a2a;
+    border-width: 1px;
     line-height: 20px
 }
 
 code {
-    background: #1f0303;
-    border: 0px solid #d6d6d6;
+    background: #1b1b1b;
+    border: 0px solid #2a2a2a;
     padding: 0 5px;
     margin: 2 2px;
     font-size: 90%;
-    text-shadow: 0 0px rgb(0, 0, 0);
+    text-shadow: none;
     word-break: break-all;
     word-wrap: break-word;
     white-space: normal
@@ -33,19 +33,19 @@ code {
     text-align: left;
     padding-right: 20px;
     width: 100%;
-    color: #666
+    color: #4d4d4d
 }
 
 pre,
 code {
-    font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace
+    font-family: "JetBrains Mono", "Fira Code", "DejaVu Sans Mono", "Noto Sans Mono", Consolas, Monaco, Menlo, monospace
 }
 
 pre code {
     background: 0;
     text-shadow: none;
     padding: 0;
-    color: white; 
+    color: #c5c8c6; 
 }
 
 .highlight pre {
@@ -67,7 +67,7 @@ pre code {
 
 .container .gist .gist-file {
     border: 0;
-    font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace;
+    font-family: "JetBrains Mono", "Fira Code", "DejaVu Sans Mono", "Noto Sans Mono", Consolas, Monaco, Menlo, monospace;
     margin: 0
 }
 
@@ -80,7 +80,7 @@ pre code {
     background: 0;
     border: 0;
     padding-right: 20px;
-    color: #666;
+    color: #4d4d4d;
     text-align: left
 }
 
@@ -95,8 +95,8 @@ pre code {
 }
 
 .container .gist .gist-file .gist-meta {
-    background: #333;
-    color: #999;
+    background: #0f0f0f;
+    color: #8c8c8c;
     font: .85em "Helvetica Neue", Helvetica, Arial, sans-serif;
     text-shadow: 0;
     padding: 0;
@@ -105,7 +105,7 @@ pre code {
 }
 
 .container .gist .gist-file .gist-meta a {
-    color: #258fb8;
+    color: #81a2be;
     font-weight: normal
 }
 
@@ -116,7 +116,7 @@ pre code {
 .highlight figcaption {
     zoom: 1;
     font-size: .85em;
-    color: hsla(0, 93%, 16%, 0.562);
+    color: #8c8c8c;
     line-height: 1em;
     margin-bottom: 1em
 }
@@ -136,11 +136,11 @@ pre code {
 }
 
 pre .comment{
-        color: #8b949e
+        color: #707880
     }
 
 pre .title {
-    color: #d2a8ff
+    color: #81a2be
 }
 
 pre .variable,
@@ -155,11 +155,11 @@ pre .html .doctype,
 pre .css .id,
 pre .css .class,
 pre .css .pseudo {
-    color: #79c0ff
+    color: #8abeb7
 }
 
 pre .number{
-        color: #79c0ff
+        color: #de935f
 }
 
 pre .preprocessor,
@@ -167,13 +167,13 @@ pre .built_in,
 pre .literal,
 pre .params,
 pre .constant {
-    color: #ffa657
+    color: #f0c674
 }
 
 pre .class,
 pre .ruby .class .title,
 pre .css .rules .attribute {
-    color: #9c9
+    color: #b5bd68
 }
 
 pre .string,
@@ -182,7 +182,7 @@ pre .inheritance,
 pre .header,
 pre .ruby .symbol,
 pre .xml .cdata {
-    color: #a5d6ff
+    color: #b5bd68
 }
 
 pre .css .hexcolor {
@@ -197,10 +197,10 @@ pre .ruby .title .keyword,
 pre .perl .sub,
 pre .javascript .title,
 pre .coffeescript .title {
-    color: #69c
+    color: #81a2be
 }
 
 pre .keyword,
 pre .javascript .function {
-    color: #ff7b72
+    color: #8abeb7
 }

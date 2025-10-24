@@ -1,3 +1,74 @@
+/* Kali-style terminal for Hexo Highlight.js structure */
+.highlight.terminal,
+.highlight.console,
+.highlight.bash,
+.highlight.shell,
+.highlight.shell-session {
+  background: #0b0e11 !important;
+  border: 1px solid #2b2f36 !important;
+  border-radius: 12px !important;
+  padding: 0 !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03) !important;
+}
+
+.highlight.terminal .gutter,
+.highlight.console  .gutter,
+.highlight.bash .gutter,
+.highlight.shell .gutter,
+.highlight.shell-session .gutter {
+  background: #0a0d10 !important;
+  border-right: 1px solid #262a31 !important;
+}
+
+.highlight.terminal .gutter pre,
+.highlight.console  .gutter pre,
+.highlight.bash .gutter pre,
+.highlight.shell .gutter pre,
+.highlight.shell-session .gutter pre {
+  color: #5a6675 !important;
+}
+
+.highlight.terminal .code pre,
+.highlight.console  .code pre,
+.highlight.bash .code pre,
+.highlight.shell .code pre,
+.highlight.shell-session .code pre {
+  background: transparent !important;
+  color: #f0f2f4 !important;
+  display: block;
+  padding: 1rem 1.2rem !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace !important;
+  font-size: 14px;
+  line-height: 1.5;
+  position: relative;
+}
+
+/* Single-line prompt prefix */
+.highlight.terminal .code pre::before,
+.highlight.console  .code pre::before,
+.highlight.bash .code pre::before,
+.highlight.shell .code pre::before,
+.highlight.shell-session .code pre::before {
+  content: 'root@kali:~# ';
+  color: #ff6b6b; /* red root */
+  font-weight: 700;
+  user-select: none;
+  margin-right: .5rem;
+}
+
+/* Multi-line prompt when Hexo wraps lines into spans */
+.highlight.terminal .code .line::before,
+.highlight.console  .code .line::before,
+.highlight.bash .code .line::before,
+.highlight.shell .code .line::before,
+.highlight.shell-session .code .line::before {
+  content: 'root@kali:~# ';
+  color: #ff6b6b;
+  font-weight: 700;
+  user-select: none;
+  margin-right: .5rem;
+}
+
 
 .container-narrow {
     margin: 0 auto;
@@ -599,7 +670,7 @@ figure {
 
 pre,
 code {
-    font-family: Fira Code,Monaco, Menlo, Consolas,DOS,  "Courier New", monospace !important
+    font-family: "JetBrains Mono", "Fira Code", "DejaVu Sans Mono", "Noto Sans Mono", Consolas, Monaco, Menlo, monospace !important
 }
 
 .fancybox-close:hover {
