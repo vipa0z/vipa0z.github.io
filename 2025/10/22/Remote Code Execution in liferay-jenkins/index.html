@@ -148,9 +148,9 @@
 	  		
 
 	  <p><img src="/../images/banner33.png" alt="alt text"></p>
-<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Have you ever been in an engagement or CTF where you finally find a Groovy script console… and then discover outbound connections are blocked? It’s one of those gut-punch moments where  you’ve got remote code execution, but the network is tightly constrained and your usual callback shells won’t call home. This post is for that exact situation.</p>
+<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Have you ever been in an engagement or CTF where you finally find a Groovy script console… and then discover outbound connections are blocked? or you can’t get tools to the target using built in upload methods?</p>
+<p>Over the next few minutes I’ll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded JSP bind shell that lives in the webroot and how to transfer binary tools via base64 encoding (small and large size). this guide serves as a proof of concept, the shell in here is not secure enough for opsec, but it’s a starting point for you to build upon.</p>
 <span id="more"></span>
-<p>Over the next few minutes I’ll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded JSP bind shell that lives in the webroot.  no outbound callbacks required. You’ll learn how to transfer binary tools via base64, and deploy a resilient threaded bind shell that lets you reconnect if your session drops. This guide serves as a proof of concept, the shell in here is not secure enough for opsec, but it’s a starting point for you to build upon.</p>
 <hr>
 <h3 id="Quick-Referesher-on-bind-shells"><a href="#Quick-Referesher-on-bind-shells" class="headerlink" title="Quick Referesher on bind shells:"></a>Quick Referesher on bind shells:</h3><p><img src="/../images/shelltypes.png" alt="shelltypes"><br>The top side shows a bind shell: the victim host runs a listener (a shell bound to a TCP port) and the attacker connects into that listener to gain interactive access. The bottom side shows a reverse shell: the attacker runs the listener and the victim initiates an outbound connection back to the attacker, delivering a shell to the attacker’s listener.</p>
 <p>Reverse shells are the go-to for many red-teamers because they slip out through egress and work around NAT. But when outgoing traffic is tightly restricted (egress-blocked&#x2F;proxied), you need a plan B. that’s when I focus on bind shells. In short: a bind shell makes the target listen and waits for an inbound connection. It trades the egress dependency of a reverse shell for a requirement that you can reach the host inbound (or via a pivot you control). That trade can be exactly what you need when defenders have locked down outbound channels.</p>
@@ -193,26 +193,23 @@
 <p>paste the base64 into the console</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Base64</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> b64 = <span class="string">&#x27;&#x27;&#x27;&lt;LONG BASE64 STRING&gt;&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> dest = Paths.get(<span class="string">&quot;C:/DESTPATH/xyz&quot;</span>)</span><br><span class="line"><span class="type">byte</span>[] bytes = Base64.getDecoder().decode(b64)</span><br><span class="line">Files.write(dest, bytes)</span><br><span class="line">println <span class="string">&quot;Wrote $&#123;bytes.length&#125; bytes to $&#123;dest&#125;&quot;</span></span><br></pre></td></tr></table></figure>
 
-<p>for larger binaries: i created the script below to chunk your tools into smaller base64 files with each file containing a variable with 6000 characters. that can then be pasted into the console and later combined by groovy.<br><a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/tool_chunker.py">https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/tool_chunker.py</a></p>
-<p>base64 encode your tools, run the python script and copy the output to the clipboard:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py yourtool.exe -o &lt;output_dir&gt; -s 6000</span><br></pre></td></tr></table></figure>
-<p><code>-s</code>: size of each chunk<br><code>-o</code>: output directory<br><code>-h</code>: help<br>the script will save the chunks in the output directory with the format <code>part1</code>, <code>part2</code>, etc.<br>the script has instructions on what to do next:<br>example usage:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py -s 6000 XecretsEz  -o xcretsez </span><br></pre></td></tr></table></figure>
-<p><img src="/../images/usagx.png" alt="alt text"></p>
-<ol start="2">
-<li>browse to the output directory and run cat + copy to clipboard</li>
-</ol>
-<p>3.paste your clipboard content into the script console</p>
-<ol start="4">
-<li>go back to <code>tool_chunker.py</code> output and copy the groovy POC  to your console under the base64 blobs.</li>
-<li>ensure the write path is correct</li>
-<li>hit save and pray it works</li>
-</ol>
-<h4 id="Reliable-verification-simple-sanity-checks"><a href="#Reliable-verification-simple-sanity-checks" class="headerlink" title="Reliable verification &amp; simple sanity checks"></a>Reliable verification &amp; simple sanity checks</h4><p>After dropping:</p>
-<ul>
-<li>Check size and checksum: read file bytes and print length or MD5 Hash to verify it was transfered correctly.</li>
-</ul>
-<p>That’s a wrap. Quick checklist before you go:  find writable paths, use base64 or chunked base64, verify integrity, and delete artifacts when finished.<br>Thanks for reading.</p>
+<h4 id="For-Larger-Binaries"><a href="#For-Larger-Binaries" class="headerlink" title="For Larger Binaries"></a>For Larger Binaries</h4><p>I put together a script that chunks your tools into smaller base64 files (6000 chars per chunk by default), so you can paste them into the console and reassemble them with Groovy.<br>Script: <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/tool_chunker.py">https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/tool_chunker.py</a><br>run:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py yourtool.exe -o &lt;output_dir&gt; -s 6000</span><br><span class="line"></span><br><span class="line">**Options:**</span><br><span class="line">- `-s`: chunk size (default 6000)</span><br><span class="line">- `-o`: output directory</span><br><span class="line">- `-h`: help</span><br></pre></td></tr></table></figure>
+
+<p>The script outputs numbered chunks (<code>part1</code>, <code>part2</code>, etc.) and shows you what to do next.</p>
+<p><strong>Example:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py -s 6000 XecretsEz -o xcretsez</span><br></pre></td></tr></table></figure>
+<img width="819" height="261" alt="image" src="https://github.com/user-attachments/assets/f5e1bf7f-6916-4ca2-bdf5-de0d7caa424b" />
+Steps
+Run the script as shown above
+Paste into the script console
+Copy the Groovy reassembly code from the script output and paste it below your base64 blobs
+Double-check the write path is correct
+Save and run
+
+<p>Verify It Worked<br>After dropping the file, sanity check it:</p>
+<p>Compare file size<br>Hash it (MD5&#x2F;SHA256) and compare with the original</p>
+<p>That’s it! Quick recap: find writable paths, use base64 (chunked if needed), verify integrity, and clean up your artifacts when done.</p>
 
 	  <div class="article-footer-copyright">
 
