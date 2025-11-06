@@ -1,16 +1,4 @@
-/* Kali-like terminal theme overrides for PrismJS */
 
-/* Container */
-pre[class*="language-"],
-code[class*="language-"] {
-  background: #0b0e11 !important;
-  color: #f0f2f4 !important;
-  text-shadow: none !important;
-  border: 1px solid #2b2f36 !important;
-  border-radius: 12px !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03) !important;
-  font-family: "JetBrains Mono", "Fira Code", "DejaVu Sans Mono", "Noto Sans Mono", Consolas, Monaco, monospace !important;
-}
 
 pre[class*="language-"] {
   position: relative;
@@ -70,13 +58,7 @@ code[class*="language-"] *::selection {
   background: rgba(33, 150, 243, 0.25) !important;
 }
 
-/* Token colors approximating Kali terminal */
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: #707880 !important;
-}
+
 
 .token.punctuation {
   color: #d4d7db !important;

