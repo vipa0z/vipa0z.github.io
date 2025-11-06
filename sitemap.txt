@@ -25,11 +25,9 @@ https://vipa0z.github.io/tags/HTB/
 https://vipa0z.github.io/tags/smb/
 https://vipa0z.github.io/tags/flask/
 https://vipa0z.github.io/tags/privilege-escalation/
-https://vipa0z.github.io/tags/active-directory/
-https://vipa0z.github.io/tags/password-spray/
-https://vipa0z.github.io/tags/htb-Cicada/
 https://vipa0z.github.io/tags/openfire/
 https://vipa0z.github.io/tags/chisel/
+https://vipa0z.github.io/tags/password-spray/
 https://vipa0z.github.io/tags/htb-solarlab/
 https://vipa0z.github.io/tags/nopac/
 https://vipa0z.github.io/tags/AD/
@@ -46,6 +44,8 @@ https://vipa0z.github.io/tags/wordlists/
 https://vipa0z.github.io/tags/python/
 https://vipa0z.github.io/tags/python-imports/
 https://vipa0z.github.io/tags/PrivEsc/
+https://vipa0z.github.io/tags/active-directory/
+https://vipa0z.github.io/tags/htb-Cicada/
 https://vipa0z.github.io/tags/sudo/
 https://vipa0z.github.io/tags/chroot/
 https://vipa0z.github.io/tags/chwoot/
