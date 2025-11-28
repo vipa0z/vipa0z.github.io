@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://vipa0z.github.io/2025/11/20/SSRF-exploitation-cheathseet/</loc>
+    
+    <lastmod>2025-11-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/2025/07/13/chwoot/</loc>
+    
+    <lastmod>2025-11-27</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay-jenkins/</loc>
     
     <lastmod>2025-11-06</lastmod>
@@ -48,15 +66,6 @@
   
   <url>
     <loc>https://vipa0z.github.io/2025/03/26/dcsync/</loc>
-    
-    <lastmod>2025-10-22</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/2025/07/13/chwoot/</loc>
     
     <lastmod>2025-10-22</lastmod>
     
@@ -130,7 +139,7 @@
 
   <url>
     <loc>https://vipa0z.github.io/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -138,266 +147,301 @@
   
   <url>
     <loc>https://vipa0z.github.io/tags/lsass/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/secretsdump/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/mimikatz/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/privEsc/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/windows/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/registry/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/Writeup/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/nmap/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/HTB/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/smb/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/flask/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/privilege-escalation/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/active-directory/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/password-spray/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/htb-Cicada/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/openfire/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/chisel/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/htb-solarlab/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/nopac/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/AD/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/Active-Directory/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/Lateral-Movement/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/bind-shell/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/groovy/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/liferay/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/jenkins/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/RCE/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/SSRF/</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/Server-side-Attacks/</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/cwes/</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/web-exploitation/</loc>
+    <lastmod>2025-11-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/owasp-top10/</loc>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/hashcat/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/cupp/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/wordlists/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/python/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/python-imports/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/PrivEsc/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/sudo/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/chroot/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/chwoot/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/cve-2025-32463/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://vipa0z.github.io/tags/dcsync/</loc>
-    <lastmod>2025-11-06</lastmod>
+    <lastmod>2025-11-28</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

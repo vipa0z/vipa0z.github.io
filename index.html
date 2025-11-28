@@ -14,8 +14,6 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
-
   
   <meta property="og:site_name" content="vipa0z"/>
 
@@ -33,6 +31,7 @@
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -107,12 +106,6 @@
 			</a>
 		  </li>
 		  
-		  <li>
-			<a target="_blank" rel="noopener" href="https://magdy3660.gitbook.io/field-manualx/" title="Read My Manual">
-			  <i class="fa fa-file"></i>Read My Manual
-			</a>
-		  </li>
-		  
 		</ul>
       </div>
     </div> <!-- container -->
@@ -152,7 +145,59 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/10/22/Remote Code Execution in liferay-jenkins/" title=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls.">Weaponizing the Groovy script console: Bindshells &amp; base64 tool transfers</a>
+			<a href="/2025/11/20/SSRF-exploitation-cheathseet/" >SSRF Vulnerability quick reference and cheatsheet</a>
+		</h3>
+		</div>
+	<div class="col-md-4">
+		<div class="date">post @ 2025-11-20  </div>
+		</div>
+	</div>
+	
+
+
+			<div class="entry">
+	<div class="row">
+	  
+	  
+		  <p><img src="/../images/ssrfb.png" alt="alt text"></p>
+<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p> Server Side Request Forgery or SSRF is a vulnerability in which an attacker forces a server to perform requests on their behalf. An attacker might be able to coerce the server into making requests to arbitrary URLs. </p>
+<p> Impact of an SSRF include:</p>
+<ul>
+<li>Accessing Cloud metadata</li>
+<li>Leaking files on the server</li>
+<li>Network discovery and port scanning</li>
+<li>Sending packets to specific services on the network, usually to achieve a Remote Command Execution on another server</li>
+<li>Accessing restricted endpoints</li>
+</ul>
+	  
+	  </div>
+	<a type="button" href="/2025/11/20/SSRF-exploitation-cheathseet/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/11/20/SSRF-exploitation-cheathseet/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
+  </div>
+		
+			
+	
+	<!-- display as entry -->
+<div class="row">
+	<div class="col-md-8">
+		<h3 class="title">
+			<a href="/2025/10/22/Remote%20Code%20Execution%20in%20liferay-jenkins/" title=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls.">Weaponizing the Groovy script console: Bindshells &amp; base64 tool transfers</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -162,7 +207,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/10/22/Remote Code Execution in liferay-jenkins/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -172,6 +217,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/10/22/Remote Code Execution in liferay-jenkins/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/10/22/Remote Code Execution in liferay-jenkins/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -190,15 +252,32 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/07/13/chwoot/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
 		  <p><img src="/../images/chwoot/image.png" alt="alt text"></p>
-<h1 id="OERVIEW"><a href="#OERVIEW" class="headerlink" title="__OERVIEW"></a>__OERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory. </p>
+<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory. </p>
 	  
 	  </div>
 	<a type="button" href="/2025/07/13/chwoot/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/07/13/chwoot/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -207,7 +286,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/07/12/attacking python libraries/" title="There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc.">Your Snake is now mine: Hijacking python libraries for Local Privilege Escalation</a>
+			<a href="/2025/07/12/attacking%20python%20libraries/" title="There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc.">Your Snake is now mine: Hijacking python libraries for Local Privilege Escalation</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -217,7 +296,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/07/12/attacking python libraries/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -226,6 +305,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/07/12/attacking python libraries/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/07/12/attacking python libraries/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -244,7 +340,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/07/08/No-pac/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -269,6 +365,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/07/08/No-pac/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/07/08/No-pac/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -277,7 +390,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/06/20/Writing targeted password lists/" title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack.">Writing Targeted Password lists with hashcat rules and cuppy</a>
+			<a href="/2025/06/20/Writing%20targeted%20password%20lists/" title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack.">Writing Targeted Password lists with hashcat rules and cuppy</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -287,7 +400,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/06/20/Writing targeted password lists/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -343,6 +456,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/06/20/Writing targeted password lists/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/06/20/Writing targeted password lists/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -351,7 +481,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/05/22/Attacking lsass/" title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS).">Post-Exploitation: Attacking the LSASS process (for win10 and below)</a>
+			<a href="/2025/05/22/Attacking%20lsass/" title="In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the Local Security Authority Subsystem Service (LSASS).">Post-Exploitation: Attacking the LSASS process (for win10 and below)</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -361,7 +491,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/05/22/Attacking lsass/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -379,6 +509,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/05/22/Attacking lsass/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/05/22/Attacking lsass/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -387,7 +534,7 @@
 <div class="row">
 	<div class="col-md-8">
 		<h3 class="title">
-			<a href="/2025/04/12/Dumpin Registery Hives/" title="With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.">Windows Post-Exploitation: Dumping SAM Database Hashes</a>
+			<a href="/2025/04/12/Dumpin%20Registery%20Hives/" title="With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.">Windows Post-Exploitation: Dumping SAM Database Hashes</a>
 		</h3>
 		</div>
 	<div class="col-md-4">
@@ -397,7 +544,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/04/12/Dumpin Registery Hives/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -432,6 +579,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/04/12/Dumpin Registery Hives/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/04/12/Dumpin Registery Hives/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -450,7 +614,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/03/26/dcsync/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -459,6 +623,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/03/26/dcsync/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/03/26/dcsync/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 			
@@ -477,7 +658,7 @@
 	
 
 
-			<div class="entry" data-post-url="/2025/01/22/HTB-Cicada/">
+			<div class="entry">
 	<div class="row">
 	  
 	  
@@ -485,35 +666,23 @@
 	  
 	  </div>
 	<a type="button" href="/2025/01/22/HTB-Cicada/#more" class="btn btn-default more">Read More</a>
-  </div>
-		
-			
-	
-	<!-- display as entry -->
-<div class="row">
-	<div class="col-md-8">
-		<h3 class="title">
-			<a href="/2024/09/22/HTB-SolarLab/" title="SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials. Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell.">HackTheBox SolarLab  Walkthrough</a>
-		</h3>
-		</div>
-	<div class="col-md-4">
-		<div class="date">post @ 2024-09-22  </div>
-		</div>
-	</div>
-	
-
-
-			<div class="entry" data-post-url="/2024/09/22/HTB-SolarLab/">
-	<div class="row">
-	  
-	  
-		  <p><img src="/../images/solarlab/blacksolar.png" alt="alt text"></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials.</p>
-<p> Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell.</p>
-<p>For lateral movement,  to escalate privileges to the openfire user,  method takes advantage of CVE-2023-32315 in OpenFire to create a user and upload a malicious plugin for RCE.<br> With this access, I decrypted a password from the OpenFire configuration, which  served as the administrator’s password. </p>
-	  
-	  </div>
-	<a type="button" href="/2024/09/22/HTB-SolarLab/#more" class="btn btn-default more">Read More</a>
+	<script>
+		// Make all images in entry clickable to redirect to post
+		document.addEventListener('DOMContentLoaded', function() {
+			const entryDiv = document.currentScript.parentElement;
+			const images = entryDiv.querySelectorAll('img');
+			const postUrl = '/2025/01/22/HTB-Cicada/';
+			images.forEach(img => {
+				if (!img.closest('a')) {
+					const link = document.createElement('a');
+					link.href = postUrl;
+					link.style.cursor = 'pointer';
+					img.parentNode.insertBefore(link, img);
+					link.appendChild(img);
+				}
+			});
+		});
+	</script>
   </div>
 		
 
@@ -525,6 +694,16 @@
 		<div class="pagination">
 
    
+    
+           <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+        
+
+        <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+ 
+       <a href="/page/2/" type="button" class="btn btn-default ">Next<i class="fa fa-arrow-circle-o-right"></i></a>     
+        
+
+  
 </div>
 
   		</center>
@@ -555,48 +734,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
-		
-			<li><a href="/tags/liferay/">liferay<span>1</span></a></li>
-		
-			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+			<li><a href="/tags/jenkins/">jenkins<span>1</span></a></li>
 		
 			<li><a href="/tags/chwoot/">chwoot<span>1</span></a></li>
 		
-			<li><a href="/tags/python/">python<span>1</span></a></li>
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
 		
-			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
+			<li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
 		
-			<li><a href="/tags/cve-2025-32463/">cve-2025-32463<span>1</span></a></li>
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
 		
-			<li><a href="/tags/chisel/">chisel<span>1</span></a></li>
-		
-			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
-		
-			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
-		
-			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
-		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/active-directory/">active directory<span>1</span></a></li>
-		
-			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
-		
-			<li><a href="/tags/groovy/">groovy<span>1</span></a></li>
+			<li><a href="/tags/sudo/">sudo<span>1</span></a></li>
 		
 			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
-			<li><a href="/tags/bind-shell/">bind shell<span>1</span></a></li>
+			<li><a href="/tags/python/">python<span>1</span></a></li>
 		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
+			<li><a href="/tags/wordlists/">wordlists<span>1</span></a></li>
 		
-			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
+			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
 		
 			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
 		
+			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
 		
-		   <li><a href="/tags">...<span>38</span></a></li>
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>3</span></a></li>
+		
+			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
+		
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+		
+			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
+		
+			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
+		
+			<li><a href="/tags/owasp-top10/">owasp-top10<span>1</span></a></li>
+		
+			<li><a href="/tags/web-exploitation/">web-exploitation<span>1</span></a></li>
+		
+			<li><a href="/tags/cwes/">cwes<span>1</span></a></li>
+		
+		
+		   <li><a href="/tags">...<span>43</span></a></li>
 		 
 		</ul>
 	</div>
@@ -607,6 +786,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2025/11/20/SSRF-exploitation-cheathseet/" ><i class="fa fa-file-o"></i>SSRF Vulnerability quick re...</a>
+      </li>
     
       <li>
         <a href="/2025/10/22/Remote Code Execution in liferay-jenkins/"  title=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls." ><i class="fa fa-file-o"></i>Weaponizing the Groovy scri...</a>
@@ -624,10 +807,6 @@
         <a href="/2025/07/08/No-pac/"  title="NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
       </li>
     
-      <li>
-        <a href="/2025/06/20/Writing targeted password lists/"  title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack." ><i class="fa fa-file-o"></i>Writing Targeted Password l...</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -639,13 +818,11 @@
 	
 		<li><i class="fa fa-twitter"></i><a href="https://x.com/vipa0z" title="" target="_blank"]);">twitter</a></li>
 	
-		<li><i class="fa fa-github"></i><a href="https://vipa0z.github.io" title="" target="_blank"]);">vipa0z blog</a></li>
+		<li><i class="fa fa-github"></i><a href="https://github.com/vipa0z" title="" target="_blank"]);">github</a></li>
 	
 		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/abdomagdy00" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
 	
-		<li><i class="fa fa-envelope"></i><a href="mailto:Abdelmagdy0x0@proton.me" title="" target="_blank"]);">Email me</a></li>
-	
-		<li><i class="fa fa-file"></i><a href="about/resume.pdf" title="" target="_blank"]);">View My Resume</a></li>
+		<li><i class="fa fa-envelope"></i><a href="mailto:Abdelmagdy.contact@proton.me" title="" target="_blank"]);">Email me</a></li>
 	
 	</ul>
 </div>
@@ -683,14 +860,6 @@
 <script src="/js/search.js"></script> 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
 
 
    <script type="text/javascript">      
@@ -702,5 +871,6 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
+  <script src="/js/theme-toggle.js"></script>
 </body>
    </html>

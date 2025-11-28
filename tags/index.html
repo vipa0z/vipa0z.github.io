@@ -14,8 +14,6 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta name="google-site-verification" content="-1CTZCLTxditzGFr67zWpI5-6H8z7TlZt_LuEkJaIKE" />
-
   <meta property="og:title" content="home"/>
   <meta property="og:site_name" content="vipa0z"/>
 
@@ -33,6 +31,7 @@
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
@@ -107,12 +106,6 @@
 			</a>
 		  </li>
 		  
-		  <li>
-			<a target="_blank" rel="noopener" href="https://magdy3660.gitbook.io/field-manualx/" title="Read My Manual">
-			  <i class="fa fa-file"></i>Read My Manual
-			</a>
-		  </li>
-		  
 		</ul>
       </div>
     </div> <!-- container -->
@@ -150,6 +143,10 @@
 		
 			<li><a href="#RCE">RCE<span>1</span></a></li>
 		
+			<li><a href="#SSRF">SSRF<span>1</span></a></li>
+		
+			<li><a href="#Server-side Attacks">Server-side Attacks<span>1</span></a></li>
+		
 			<li><a href="#Writeup">Writeup<span>2</span></a></li>
 		
 			<li><a href="#active directory">active directory<span>1</span></a></li>
@@ -165,6 +162,8 @@
 			<li><a href="#cupp">cupp<span>1</span></a></li>
 		
 			<li><a href="#cve-2025-32463">cve-2025-32463<span>1</span></a></li>
+		
+			<li><a href="#cwes">cwes<span>1</span></a></li>
 		
 			<li><a href="#dcsync">dcsync<span>1</span></a></li>
 		
@@ -192,6 +191,8 @@
 		
 			<li><a href="#openfire">openfire<span>1</span></a></li>
 		
+			<li><a href="#owasp-top10">owasp-top10<span>1</span></a></li>
+		
 			<li><a href="#password-spray">password-spray<span>2</span></a></li>
 		
 			<li><a href="#privEsc">privEsc<span>1</span></a></li>
@@ -210,6 +211,8 @@
 		
 			<li><a href="#sudo">sudo<span>1</span></a></li>
 		
+			<li><a href="#web-exploitation">web-exploitation<span>1</span></a></li>
+		
 			<li><a href="#windows">windows<span>3</span></a></li>
 		
 			<li><a href="#wordlists">wordlists<span>1</span></a></li>
@@ -222,6 +225,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="AD" data-target="#modal-AD"> AD <b class="caret"></b></h4>
 	   <ul id="modal-AD" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -414,6 +431,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -532,6 +563,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="HTB" data-target="#modal-HTB"> HTB <b class="caret"></b></h4>
 	   <ul id="modal-HTB" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -724,6 +769,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -842,6 +901,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="PrivEsc" data-target="#modal-PrivEsc"> PrivEsc <b class="caret"></b></h4>
 	   <ul id="modal-PrivEsc" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -1007,6 +1080,20 @@
 			    
 		      
 			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
    	   	   	       <li class="listing-item"><a href="/2025/10/22/Remote Code Execution in liferay-jenkins/"  title=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls." >Weaponizing the Groovy script console: Bindshells &amp; base64 tool transfers</a></li>
 				
 		      
@@ -1146,8 +1233,356 @@
 	   </ul>
 	
 
+	<h4 class="archive-ul show" data-toggle="collapse" id="SSRF" data-target="#modal-SSRF"> SSRF <b class="caret"></b></h4>
+	   <ul id="modal-SSRF" class="collapse in">
+	   
+	      
+		      
+			    
+   	   	   	       <li class="listing-item"><a href="/2025/11/20/SSRF-exploitation-cheathseet/" >SSRF Vulnerability quick reference and cheatsheet</a></li>
+				
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	   
+	   </ul>
+	
+
+	<h4 class="archive-ul show" data-toggle="collapse" id="Server-side Attacks" data-target="#modal-Server-side Attacks"> Server-side Attacks <b class="caret"></b></h4>
+	   <ul id="modal-Server-side Attacks" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+   	   	   	       <li class="listing-item"><a href="/2025/11/20/SSRF-exploitation-cheathseet/" >SSRF Vulnerability quick reference and cheatsheet</a></li>
+				
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	   
+	   </ul>
+	
+
 	<h4 class="archive-ul show" data-toggle="collapse" id="Writeup" data-target="#modal-Writeup"> Writeup <b class="caret"></b></h4>
 	   <ul id="modal-Writeup" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -1340,6 +1775,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -1456,6 +1905,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="bind shell" data-target="#modal-bind shell"> bind shell <b class="caret"></b></h4>
 	   <ul id="modal-bind shell" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -1646,6 +2109,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -1762,6 +2239,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="chroot" data-target="#modal-chroot"> chroot <b class="caret"></b></h4>
 	   <ul id="modal-chroot" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -1915,6 +2406,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="chwoot" data-target="#modal-chwoot"> chwoot <b class="caret"></b></h4>
 	   <ul id="modal-chwoot" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -2105,6 +2610,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -2221,6 +2740,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="cve-2025-32463" data-target="#modal-cve-2025-32463"> cve-2025-32463 <b class="caret"></b></h4>
 	   <ul id="modal-cve-2025-32463" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -2372,8 +2905,189 @@
 	   </ul>
 	
 
+	<h4 class="archive-ul show" data-toggle="collapse" id="cwes" data-target="#modal-cwes"> cwes <b class="caret"></b></h4>
+	   <ul id="modal-cwes" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+   	   	   	       <li class="listing-item"><a href="/2025/11/20/SSRF-exploitation-cheathseet/" >SSRF Vulnerability quick reference and cheatsheet</a></li>
+				
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	   
+	   </ul>
+	
+
 	<h4 class="archive-ul show" data-toggle="collapse" id="dcsync" data-target="#modal-dcsync"> dcsync <b class="caret"></b></h4>
 	   <ul id="modal-dcsync" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -2564,6 +3278,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -2682,6 +3410,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="groovy" data-target="#modal-groovy"> groovy <b class="caret"></b></h4>
 	   <ul id="modal-groovy" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -2872,6 +3614,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -2988,6 +3744,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="htb Cicada" data-target="#modal-htb Cicada"> htb Cicada <b class="caret"></b></h4>
 	   <ul id="modal-htb Cicada" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -3178,6 +3948,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -3294,6 +4078,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="jenkins" data-target="#modal-jenkins"> jenkins <b class="caret"></b></h4>
 	   <ul id="modal-jenkins" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -3447,6 +4245,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="liferay" data-target="#modal-liferay"> liferay <b class="caret"></b></h4>
 	   <ul id="modal-liferay" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -3637,6 +4449,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -3753,6 +4579,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="mimikatz" data-target="#modal-mimikatz"> mimikatz <b class="caret"></b></h4>
 	   <ul id="modal-mimikatz" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -3945,6 +4785,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -4063,6 +4917,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="nopac" data-target="#modal-nopac"> nopac <b class="caret"></b></h4>
 	   <ul id="modal-nopac" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -4253,6 +5121,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -4367,8 +5249,189 @@
 	   </ul>
 	
 
+	<h4 class="archive-ul show" data-toggle="collapse" id="owasp-top10" data-target="#modal-owasp-top10"> owasp-top10 <b class="caret"></b></h4>
+	   <ul id="modal-owasp-top10" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+   	   	   	       <li class="listing-item"><a href="/2025/11/20/SSRF-exploitation-cheathseet/" >SSRF Vulnerability quick reference and cheatsheet</a></li>
+				
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	   
+	   </ul>
+	
+
 	<h4 class="archive-ul show" data-toggle="collapse" id="password-spray" data-target="#modal-password-spray"> password-spray <b class="caret"></b></h4>
 	   <ul id="modal-password-spray" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -4561,6 +5624,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -4677,6 +5754,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="privilege escalation" data-target="#modal-privilege escalation"> privilege escalation <b class="caret"></b></h4>
 	   <ul id="modal-privilege escalation" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -4866,6 +5957,20 @@
 	      
 		      
 			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
    	   	   	       <li class="listing-item"><a href="/2025/07/12/attacking python libraries/"  title="There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc." >Your Snake is now mine: Hijacking python libraries for Local Privilege Escalation</a></li>
 				
 		      
@@ -4987,6 +6092,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="python imports" data-target="#modal-python imports"> python imports <b class="caret"></b></h4>
 	   <ul id="modal-python imports" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -5177,6 +6296,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -5293,6 +6426,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="secretsdump" data-target="#modal-secretsdump"> secretsdump <b class="caret"></b></h4>
 	   <ul id="modal-secretsdump" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -5483,6 +6630,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -5601,6 +6762,20 @@
 
 	<h4 class="archive-ul show" data-toggle="collapse" id="sudo" data-target="#modal-sudo"> sudo <b class="caret"></b></h4>
 	   <ul id="modal-sudo" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -5752,8 +6927,189 @@
 	   </ul>
 	
 
+	<h4 class="archive-ul show" data-toggle="collapse" id="web-exploitation" data-target="#modal-web-exploitation"> web-exploitation <b class="caret"></b></h4>
+	   <ul id="modal-web-exploitation" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+   	   	   	       <li class="listing-item"><a href="/2025/11/20/SSRF-exploitation-cheathseet/" >SSRF Vulnerability quick reference and cheatsheet</a></li>
+				
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
+	   
+	   
+	   </ul>
+	
+
 	<h4 class="archive-ul show" data-toggle="collapse" id="windows" data-target="#modal-windows"> windows <b class="caret"></b></h4>
 	   <ul id="modal-windows" class="collapse in">
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+			    
+		      
+		  
 	   
 	      
 		      
@@ -5948,6 +7304,20 @@
 		      
 			    
 		      
+			    
+		      
+			    
+		      
+		  
+	   
+	      
+		      
+			    
+		      
+			    
+		      
+			    
+		      
 		  
 	   
 	      
@@ -6089,48 +7459,48 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
 		
-			<li><a href="/tags/python/">python<span>1</span></a></li>
-		
-			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+			<li><a href="/tags/privEsc/">privEsc<span>1</span></a></li>
 		
 			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
 		
-			<li><a href="/tags/RCE/">RCE<span>1</span></a></li>
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
 		
-			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
 		
-			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
+		
+			<li><a href="/tags/chisel/">chisel<span>1</span></a></li>
+		
+			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+		
+			<li><a href="/tags/python/">python<span>1</span></a></li>
+		
+			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
+		
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
+		
+			<li><a href="/tags/chwoot/">chwoot<span>1</span></a></li>
 		
 			<li><a href="/tags/windows/">windows<span>3</span></a></li>
 		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
-		
-			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
-		
-			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
-		
-			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
-		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/groovy/">groovy<span>1</span></a></li>
-		
-			<li><a href="/tags/sudo/">sudo<span>1</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/chwoot/">chwoot<span>1</span></a></li>
+			<li><a href="/tags/cwes/">cwes<span>1</span></a></li>
 		
 			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
 		
 			<li><a href="/tags/active-directory/">active directory<span>1</span></a></li>
 		
-			<li><a href="/tags/jenkins/">jenkins<span>1</span></a></li>
+			<li><a href="/tags/web-exploitation/">web-exploitation<span>1</span></a></li>
+		
+			<li><a href="/tags/SSRF/">SSRF<span>1</span></a></li>
+		
+			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
+		
+			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
 		
 		
-		   <li><a href="/tags">...<span>38</span></a></li>
+		   <li><a href="/tags">...<span>43</span></a></li>
 		 
 		</ul>
 	</div>
@@ -6141,6 +7511,10 @@
 <div class="widget">
   <h4>Recent Posts</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2025/11/20/SSRF-exploitation-cheathseet/" ><i class="fa fa-file-o"></i>SSRF Vulnerability quick re...</a>
+      </li>
     
       <li>
         <a href="/2025/10/22/Remote Code Execution in liferay-jenkins/"  title=" A practical walkthrough of abusing Groovy script consoles in Jenkins and Liferay to write persistent JSP bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation — tailored for tight scenarios where outgoing network access is blocked by firewalls." ><i class="fa fa-file-o"></i>Weaponizing the Groovy scri...</a>
@@ -6158,10 +7532,6 @@
         <a href="/2025/07/08/No-pac/"  title="NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins" ><i class="fa fa-file-o"></i>The NoPAC Attack</a>
       </li>
     
-      <li>
-        <a href="/2025/06/20/Writing targeted password lists/"  title="this post highlights the power of custom wordlists, Instead of relying on generic, multi-gigabyte wordlists, we will perform a targeted attack." ><i class="fa fa-file-o"></i>Writing Targeted Password l...</a>
-      </li>
-    
   </ul>
 </div>
 
@@ -6173,13 +7543,11 @@
 	
 		<li><i class="fa fa-twitter"></i><a href="https://x.com/vipa0z" title="" target="_blank"]);">twitter</a></li>
 	
-		<li><i class="fa fa-github"></i><a href="https://vipa0z.github.io" title="" target="_blank"]);">vipa0z blog</a></li>
+		<li><i class="fa fa-github"></i><a href="https://github.com/vipa0z" title="" target="_blank"]);">github</a></li>
 	
 		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/abdomagdy00" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
 	
-		<li><i class="fa fa-envelope"></i><a href="mailto:Abdelmagdy0x0@proton.me" title="" target="_blank"]);">Email me</a></li>
-	
-		<li><i class="fa fa-file"></i><a href="about/resume.pdf" title="" target="_blank"]);">View My Resume</a></li>
+		<li><i class="fa fa-envelope"></i><a href="mailto:Abdelmagdy.contact@proton.me" title="" target="_blank"]);">Email me</a></li>
 	
 	</ul>
 </div>
@@ -6217,14 +7585,6 @@
 <script src="/js/search.js"></script> 
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
-
 
 
    <script type="text/javascript">      
@@ -6236,5 +7596,6 @@
      searchFunc(path, 'local-search-input', 'local-search-result');
    </script>
 
+  <script src="/js/theme-toggle.js"></script>
 </body>
    </html>
