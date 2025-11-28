@@ -79,7 +79,7 @@ $(document).ready(function () {
             var code = codeCell.find('pre');
             if (code.length) {
                 var text = code.text();
-                
+
                 // Remove leading $ signs and trim whitespace
                 text = text.replace(/^\s*\$\s*/gm, '').trim();
 
@@ -128,17 +128,19 @@ $(document).ready(function () {
         replaceMeta();
     });
 
-    // Wrap images in a link to the post
-    $('.mypage img').each(function() {
-        var $img = $(this);
-        var postUrl = $img.closest('.row').find('.title a').attr('href');
-        if (postUrl) {
-            $img.wrap($('<a></a>').attr('href', postUrl));
-        } else {
-             var postUrl = window.location.href;
-             $img.wrap($('<a></a>').attr('href', postUrl));
-        }
-    });
+    // Wrap images in a link to the post (only on index/archive pages, not on individual posts)
+    if ($('.page.overview').length > 0 || $('.archive').length > 0) {
+        $('.mypage img').each(function () {
+            var $img = $(this);
+            // Skip if already wrapped in a link
+            if ($img.parent('a').length > 0) return;
+
+            var postUrl = $img.closest('.row').find('.title a').attr('href');
+            if (postUrl) {
+                $img.wrap($('<a></a>').attr('href', postUrl));
+            }
+        });
+    }
 });
 replaceMeta = function () {
     if ($(window).width() < 980) {

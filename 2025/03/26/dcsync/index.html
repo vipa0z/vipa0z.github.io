@@ -140,11 +140,11 @@
 		 </div> alert -->
 	  		
 
-	  <p><img src="/../images/dcysnc23.png" alt="alt text"></p>
+	  <p><img src="/../images/dcysnc23.png" alt="DCSync attack diagram showing Active Directory replication exploitation"></p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
 <span id="more"></span> 
 <p>The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.</p>
-<p><img src="/../images/REPACE.png" alt="alt text"></p>
+<p><img src="/../images/REPACE.png" alt="Directory Replication Service Remote Protocol exploitation diagram"></p>
 <hr>
 <h3 id="Checking-user-Groups-SID-ACLs"><a href="#Checking-user-Groups-SID-ACLs" class="headerlink" title="Checking user Groups, SID, ACLs"></a>Checking user Groups, SID, ACLs</h3><p>PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.</p>
 <p>We first get the user’s SID in the above command and then check all ACLs set on the domain object (<code>&quot;DC=inlanefreight,DC=local&quot;</code>) using <a target="_blank" rel="noopener" href="https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/">Get-ObjectAcl</a> to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user <code>adunn</code> (denoted in the below command as <code>$sid</code>) possesses these rights. The command confirms that the user does indeed have the rights.<br>Checking for Replication–Get ACE</p>
@@ -226,7 +226,7 @@
 <h4 id="Enumerating-Further"><a href="#Enumerating-Further" class="headerlink" title="Enumerating Further"></a>Enumerating Further</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">PS</span> C:\htb&gt; <span class="built_in">Get-ADUser</span> <span class="literal">-Filter</span> <span class="string">&#x27;userAccountControl -band 128&#x27;</span> <span class="literal">-Properties</span> userAccountControl</span><br><span class="line"></span><br><span class="line">DistinguishedName  : CN=PROXYAGENT,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL</span><br><span class="line">Enabled            : True</span><br><span class="line">GivenName          :</span><br><span class="line">Name               : PROXYAGENT</span><br><span class="line">ObjectClass        : user</span><br><span class="line">ObjectGUID         : c72d37d9<span class="literal">-e9ff-4e54-9afa-77775eaaf334</span></span><br><span class="line">SamAccountName     : proxyagent</span><br><span class="line">SID                : S<span class="literal">-1-5-21-3842939050-3880317879-2865463114-5222</span></span><br><span class="line">Surname            :</span><br><span class="line">userAccountControl : <span class="number">640</span></span><br><span class="line">UserPrincipalName  :</span><br></pre></td></tr></table></figure>
 <h2 id="Reversible-Encryption"><a href="#Reversible-Encryption" class="headerlink" title="Reversible Encryption"></a>Reversible Encryption</h2><p>Reversible encryption is a method of storing passwords in a way that they can be decrypted back into their original plain text form.</p>
 <p>Instead of hashing a password (which is one-way), reversible encryption encrypts it in a two-way format — it can be both encrypted and decrypted.</p>
-<p>This is not secure and is generally discouraged because if an attacker gains access to the encrypted passwords, they can easily retrieve the plain-text versions.<br><img src="/../images/reversible-encryp.png" alt="alt text"></p>
+<p>This is not secure and is generally discouraged because if an attacker gains access to the encrypted passwords, they can easily retrieve the plain-text versions.<br><img src="/../images/reversible-encryp.png" alt="Reversible encryption password storage configuration in Active Directory"></p>
 <p>We can see that one account, <code>proxyagent</code>, has the reversible encryption option set with PowerView</p>
 <h3 id="Enumerating-Reversible-Encryption-Option-using-PowerView"><a href="#Enumerating-Reversible-Encryption-Option-using-PowerView" class="headerlink" title="Enumerating Reversible Encryption Option using PowerView"></a>Enumerating Reversible Encryption Option using PowerView</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">PS C:\htb&gt; Get-DomainUser -Identity * | ? &#123;$_.useraccountcontrol -like &#x27;*ENCRYPTED_TEXT_PWD_ALLOWED*&#x27;&#125; |select samaccountname,useraccountcontrol</span><br><span class="line"></span><br><span class="line">samaccountname                         useraccountcontrol</span><br><span class="line">--------------                         ------------------</span><br><span class="line">proxyagent     ENCRYPTED_TEXT_PWD_ALLOWED, NORMAL_ACCOUNT</span><br></pre></td></tr></table></figure>
 
@@ -251,7 +251,7 @@
 <h1 id="dcsync-linux-1"><a href="#dcsync-linux-1" class="headerlink" title="dcsync linux"></a>dcsync linux</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/tpetty@172.16.6.3</span><br></pre></td></tr></table></figure>
 
 <h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><p>To detect DCSync activity, you can monitor the TargetLogonId from Event 4624 and correlate it with other security events tied to the same logon session. DCSync generates a Network Logon type (3) on the DC. By linking Event 4662 (which tracks directory access) with Event 4624 using the LogonId, defenders can identify the source IP of the DCSync request.</p>
-<p><img src="/../images/imasasage.png" alt="alt text"></p>
+<p><img src="/../images/imasasage.png" alt="DCSync detection using Event 4624 and 4662 correlation"></p>
 <h2 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h2><p>DCSync attacks exploit replication permissions in Active Directory to extract sensitive credentials, including password hashes. To mitigate this, you must reduce unnecessary replication rights, protect high-privilege accounts, monitor for suspicious activity, and harden your domain infrastructure.</p>
 <p>Mitigation Steps:</p>
 <p>Limit replication rights<br>Only Domain Controllers and essential admin accounts should have replication privileges. Audit and remove unnecessary permissions.</p>
@@ -378,6 +378,14 @@
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
 

@@ -19,6 +19,7 @@
 
 :root {
     --text-color: #e2e1d3;
+    --code-text-color: #e2e1d3;
     --link-color: #ff6b6b;
     --link-hover: #ff8888;
     --link-active: #ee5555;
@@ -37,8 +38,9 @@ body.light-theme {
     --link-color: #d9534f;
     --link-hover: #c9302c;
     --link-active: #ac2925;
-    --code-bg: #e8e8e8;
+    --code-bg: #1a1a1a;
     --code-color: #8b4513;
+    --code-text-color: #e2e1d3;
     --code-border: #999999;
     --inline-code-color: #c7254e;
     --inline-code-bg: #f9f2f4;
@@ -676,7 +678,7 @@ pre,
     -webkit-border-radius: 0 !important;
     -moz-border-radius: 0 !important;
     border-radius: 0 !important;
-    color: var(--text-color) !important;
+    color: var(--code-text-color) !important;
     position: relative;
 }
 }

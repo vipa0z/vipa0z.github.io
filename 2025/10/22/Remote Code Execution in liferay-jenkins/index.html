@@ -140,7 +140,7 @@
 		 </div> alert -->
 	  		
 
-	  <p><img src="/../images/banner33.png" alt="alt text"></p>
+	  <p><img src="/../images/banner33.png" alt="Liferay Jenkins exploitation banner"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Have you ever been in an engagement or CTF where you finally find a Groovy script console… and then discover outbound connections are blocked? or you can’t get tools to the target using built in upload methods?</p>
 <p>Over the next few minutes I’ll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded JSP bind shell that lives in the webroot and how to transfer binary tools via base64 encoding (small and large size). this guide serves as a proof of concept, the shell in here is not secure enough for opsec, but it’s a starting point for you to build upon.</p>
 <span id="more"></span>
@@ -148,7 +148,7 @@
 <h3 id="Quick-Referesher-on-bind-shells"><a href="#Quick-Referesher-on-bind-shells" class="headerlink" title="Quick Referesher on bind shells:"></a>Quick Referesher on bind shells:</h3><p><img src="/../images/shelltypes.png" alt="shelltypes"><br>The top side shows a bind shell: the victim host runs a listener (a shell bound to a TCP port) and the attacker connects into that listener to gain interactive access. The bottom side shows a reverse shell: the attacker runs the listener and the victim initiates an outbound connection back to the attacker, delivering a shell to the attacker’s listener.</p>
 <p>Reverse shells are the go-to for many red-teamers because they slip out through egress and work around NAT. But when outgoing traffic is tightly restricted (egress-blocked&#x2F;proxied), you need a plan B. that’s when I focus on bind shells. In short: a bind shell makes the target listen and waits for an inbound connection. It trades the egress dependency of a reverse shell for a requirement that you can reach the host inbound (or via a pivot you control). That trade can be exactly what you need when defenders have locked down outbound channels.</p>
 <hr>
-<h3 id="Groovy-Console-to-Bind-Shell"><a href="#Groovy-Console-to-Bind-Shell" class="headerlink" title="Groovy Console to Bind Shell:"></a>Groovy Console to Bind Shell:</h3><p><img src="/../images/gsc.png" alt="alt text"><br>When your RCE is limited to a Groovy-style script console (Jenkins, Liferay, etc.) and the target cannot reach back to you, the console itself becomes your primary file-system and transfer channel. This post focuses on turning that console access into a stable way to read&#x2F;write files,and drop tools. Treat the console like a tiny development environment on the target: you can list folders, create files, and write binary blobs (via base64) into disk locations the web server will execute or serve.</p>
+<h3 id="Groovy-Console-to-Bind-Shell"><a href="#Groovy-Console-to-Bind-Shell" class="headerlink" title="Groovy Console to Bind Shell:"></a>Groovy Console to Bind Shell:</h3><p><img src="/../images/gsc.png" alt="Google Script Console showing Groovy code execution"><br>When your RCE is limited to a Groovy-style script console (Jenkins, Liferay, etc.) and the target cannot reach back to you, the console itself becomes your primary file-system and transfer channel. This post focuses on turning that console access into a stable way to read&#x2F;write files,and drop tools. Treat the console like a tiny development environment on the target: you can list folders, create files, and write binary blobs (via base64) into disk locations the web server will execute or serve.</p>
 <hr>
 <h3 id="Deploying-the-bind-shell"><a href="#Deploying-the-bind-shell" class="headerlink" title="Deploying the bind shell:"></a>Deploying the bind shell:</h3><p>high level steps:</p>
 <ol>
@@ -338,6 +338,14 @@
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
 

@@ -140,7 +140,7 @@
 		 </div> alert -->
 	  		
 
-	  <p><img src="/../images/chwoot/image.png" alt="alt text"></p>
+	  <p><img src="/../images/chwoot/image.png" alt="Chatwoot application interface showing CVE-2025-32463 vulnerability"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>In this post, we dive into <strong>CVE-2025-32463</strong>, a recently disclosed vulnerability in Sudo’s <code>-R</code> (<code>--chroot</code>) option  that allows local privilege escalation by abusing <code>chroot</code> in combination with how <code>nsswitch</code> resolves system resources. Discovered by <strong>Rich Mirch</strong>, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an <code>/etc/nsswitch.conf</code> file under the user-specified root directory. </p>
 <span id="more"></span>
 <hr>
@@ -351,6 +351,14 @@
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script> 
 
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
 
 
 
