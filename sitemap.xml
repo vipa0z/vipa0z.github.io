@@ -56,15 +56,6 @@
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/2025/01/22/HTB-Cicada/</loc>
-    
-    <lastmod>2025-11-28</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>https://vipa0z.github.io/2025/04/12/Dumpin%20Registery%20Hives/</loc>
     
     <lastmod>2025-11-28</lastmod>
@@ -230,27 +221,6 @@
   </url>
   
   <url>
-    <loc>https://vipa0z.github.io/tags/active-directory/</loc>
-    <lastmod>2025-11-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/password-spray/</loc>
-    <lastmod>2025-11-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://vipa0z.github.io/tags/htb-Cicada/</loc>
-    <lastmod>2025-11-29</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://vipa0z.github.io/tags/openfire/</loc>
     <lastmod>2025-11-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -259,6 +229,13 @@
   
   <url>
     <loc>https://vipa0z.github.io/tags/chisel/</loc>
+    <lastmod>2025-11-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/tags/password-spray/</loc>
     <lastmod>2025-11-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
