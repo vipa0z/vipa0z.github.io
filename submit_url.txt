@@ -1,1 +1,2 @@
-https://vipa0z.github.io/2025/11/20/SSRF-exploitation-cheathseet/
+https://vipa0z.github.io/2025/03/26/dcsync/
+https://vipa0z.github.io/2025/04/12/Dumpin%20Registery%20Hives/
