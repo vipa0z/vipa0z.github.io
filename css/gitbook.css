@@ -686,6 +686,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    margin-top: 24px;
     margin-bottom: 28px;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color, #7c7a7a);
