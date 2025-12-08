@@ -1,30 +1,56 @@
 // Theme Toggle Script
-(function() {
+(function () {
     'use strict';
 
     function initThemeSwitcher() {
-        const container = document.createElement('div');
-        container.id = 'theme-switcher-container';
+        // Elements
+        // We might have multiple buttons (e.g. mobile vs desktop, or gitbook vs normal)
+        // usage: class="theme-toggle-btn"
+        const toggles = document.querySelectorAll('.theme-toggle-btn');
 
-        const modeBtn = document.createElement('button');
-        modeBtn.id = 'theme-toggle';
-        modeBtn.textContent = '🌙 Dark';
-
-        modeBtn.addEventListener('click', function() {
-            const isLight = document.body.classList.toggle('light-theme');
-            modeBtn.textContent = isLight ? '☀️ Light' : '🌙 Dark';
-            localStorage.setItem('theme-preference', isLight ? 'light' : 'dark');
-        });
-
-        container.appendChild(modeBtn);
-        document.body.appendChild(container);
-
-        // Load preferences
+        // Load preference
         const savedTheme = localStorage.getItem('theme-preference') || 'dark';
-        
+
+        // Apply initial state
         if (savedTheme === 'light') {
             document.body.classList.add('light-theme');
-            modeBtn.textContent = '☀️ Light';
+            updateIcons(true);
+        } else {
+            document.body.classList.remove('light-theme');
+            updateIcons(false);
+        }
+
+        // Add event listeners
+        toggles.forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+                const isLight = document.body.classList.toggle('light-theme');
+                localStorage.setItem('theme-preference', isLight ? 'light' : 'dark');
+                updateIcons(isLight);
+            });
+        });
+
+        function updateIcons(isLight) {
+            toggles.forEach(btn => {
+                // Assuming FontAwesome icons
+                // If the button has an icon inside, swap it
+                const icon = btn.querySelector('i');
+                if (icon) {
+                    if (isLight) {
+                        icon.classList.remove('fa-moon-o');
+                        icon.classList.add('fa-sun-o');
+                    } else {
+                        icon.classList.remove('fa-sun-o');
+                        icon.classList.add('fa-moon-o');
+                    }
+                }
+
+                // If button has text content that says "Dark" or "Light", swap it
+                // This is a simple heuristic, adjust if you have specific text requirements
+                if (btn.textContent.trim() === 'Dark' || btn.textContent.trim() === 'Light' || btn.textContent.trim() === '🌙 Dark' || btn.textContent.trim() === '☀️ Light') {
+                    btn.textContent = isLight ? '☀️ Light' : '🌙 Dark';
+                }
+            });
         }
     }
 

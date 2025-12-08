@@ -1,12 +1,14 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="pragma" content="no-cache">
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>groovy | vipa0z</title>
+    <title>
+      groovy | vipa0z</title>
   <meta name="author" content="vipa0z">
   
   <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
@@ -33,79 +35,78 @@
   <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
   <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
   <script src="/js/jquery-2.0.3.min.js"></script>
   <meta name="title" content="vipa0z">
   <!-- analytics -->
-  <!-- 
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-70812759-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  
 
-  gtag('config', 'UA-70812759-1');
-</script>
-
-
-
-
- -->
-
-  <!--  favicon/indexing -->
-  <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
-  <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
-  <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
-
  <body>  
   <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-		<span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-	  <a class="navbar-brand" href="/">vipa0z</a>
-      <div class="collapse navbar-collapse nav-menu">
-		<ul class="nav navbar-nav">
-		  
-		  <li>
-			<a href="/index" title="Home">
-			  <i class="fa fa-home"></i>Home
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/archives" title="All the articles.">
-			  <i class="fa fa-archive"></i>Archives
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/tags" title="All the tags.">
-			  <i class="fa fa-tags"></i>Tags
-			</a>
-		  </li>
-		  
-		  <li>
-			<a href="/about" title="About me.">
-			  <i class="fa fa-user"></i>About Me
-			</a>
-		  </li>
-		  
-		</ul>
-      </div>
-    </div> <!-- container -->
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
 </nav>
 <div class="clearfix"></div>
-
   <div class="container">
   	<div class="content">
     	 
@@ -166,43 +167,43 @@
 		<h4>Tag Cloud</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/groovy/">groovy<span>1</span></a></li>
+			<li><a href="/tags/RCE/">RCE<span>1</span></a></li>
 		
-			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
-		
-			<li><a href="/tags/nmap/">nmap<span>1</span></a></li>
-		
-			<li><a href="/tags/mimikatz/">mimikatz<span>2</span></a></li>
-		
-			<li><a href="/tags/Server-side-Attacks/">Server-side Attacks<span>1</span></a></li>
-		
-			<li><a href="/tags/AD/">AD<span>2</span></a></li>
-		
-			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
-		
-			<li><a href="/tags/chwoot/">chwoot<span>1</span></a></li>
+			<li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li>
 		
 			<li><a href="/tags/smb/">smb<span>1</span></a></li>
 		
-			<li><a href="/tags/RCE/">RCE<span>1</span></a></li>
+			<li><a href="/tags/privilege-escalation/">privilege escalation<span>2</span></a></li>
 		
-			<li><a href="/tags/HTB/">HTB<span>1</span></a></li>
+			<li><a href="/tags/hashcat/">hashcat<span>1</span></a></li>
 		
-			<li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+			<li><a href="/tags/cve-2025-32463/">cve-2025-32463<span>1</span></a></li>
 		
-			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
+			<li><a href="/tags/password-spray/">password-spray<span>1</span></a></li>
 		
-			<li><a href="/tags/web-exploitation/">web-exploitation<span>1</span></a></li>
-		
-			<li><a href="/tags/SSRF/">SSRF<span>1</span></a></li>
+			<li><a href="/tags/htb-solarlab/">htb solarlab<span>1</span></a></li>
 		
 			<li><a href="/tags/flask/">flask<span>1</span></a></li>
 		
-			<li><a href="/tags/chisel/">chisel<span>1</span></a></li>
+			<li><a href="/tags/web-exploitation/">web-exploitation<span>1</span></a></li>
 		
-			<li><a href="/tags/cwes/">cwes<span>1</span></a></li>
+			<li><a href="/tags/python/">python<span>1</span></a></li>
+		
+			<li><a href="/tags/sudo/">sudo<span>1</span></a></li>
+		
+			<li><a href="/tags/dcsync/">dcsync<span>1</span></a></li>
 		
 			<li><a href="/tags/owasp-top10/">owasp-top10<span>1</span></a></li>
+		
+			<li><a href="/tags/python-imports/">python imports<span>1</span></a></li>
+		
+			<li><a href="/tags/groovy/">groovy<span>1</span></a></li>
+		
+			<li><a href="/tags/windows/">windows<span>1</span></a></li>
+		
+			<li><a href="/tags/liferay/">liferay<span>1</span></a></li>
+		
+			<li><a href="/tags/AD/">AD<span>2</span></a></li>
 		
 			<li><a href="/tags/lsass/">lsass<span>1</span></a></li>
 		
