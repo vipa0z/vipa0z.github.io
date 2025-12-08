@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Firewall-and-IDS-Evasion"><a href="#Firewall-and-IDS-Evasion" class="headerlink" title="Firewall and IDS Evasion"></a>Firewall and IDS Evasion</h1><p>Bypass firewall rules and evade intrusion detection&#x2F;prevention systems during port scanning and reconnaissance.<br>These techniques help identify filtered ports, understand firewall behavior, and conduct stealthy scans without triggering security alerts.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Fragment packets to bypass simple firewalls</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -f 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decoy scan to hide among fake IPs</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -D RND:10 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Source port manipulation (trusted port)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --source-port 53 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Comprehensive stealth scan</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -Pn --disable-arp-ping -n -D RND:10 -sV -p- --source-port 53 --dns-servers 10.10.10.10 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Detecting-Firewalls"><a href="#Detecting-Firewalls" class="headerlink" title="Detecting Firewalls"></a>Detecting Firewalls</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Compare known open port vs filtered port</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p 80 --packet-trace -Pn -n --disable-arp-ping 10.10.10.10</span><br><span class="line"><span class="built_in">sudo</span> nmap -p 8080 --packet-trace -Pn -n --disable-arp-ping 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use --reason flag to understand port states</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --reason -p 1-1000 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Debugging with packet trace</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --packet-trace -p 80,443 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Packet-Fragmentation"><a href="#Packet-Fragmentation" class="headerlink" title="Packet Fragmentation"></a>Packet Fragmentation</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Fragment packets (8-byte fragments)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -f 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Custom MTU size</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --mtu 16 10.10.10.10</span><br><span class="line"><span class="built_in">sudo</span> nmap --mtu 24 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Fragment with specific scan type</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -f -sS -p- 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Decoy-Scanning"><a href="#Decoy-Scanning" class="headerlink" title="Decoy Scanning"></a>Decoy Scanning</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Random decoys (hide among fake IPs)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -D RND:5 10.10.10.10</span><br><span class="line"><span class="built_in">sudo</span> nmap -D RND:10 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specific decoy IPs</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -D 192.168.1.5,192.168.1.6,ME,192.168.1.8 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Decoy with service detection</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -D RND:10 -sV -p 80,443 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Source-IP-Spoofing"><a href="#Source-IP-Spoofing" class="headerlink" title="Source IP Spoofing"></a>Source IP Spoofing</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Spoof source IP address</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -S 192.168.1.5 -e eth0 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Spoof with specific interface</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -S 10.129.2.200 -e tun0 -Pn -p 445 10.129.2.28</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine with other evasion techniques</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -S 192.168.1.5 -e eth0 -D RND:5 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Source-Port-Manipulation"><a href="#Source-Port-Manipulation" class="headerlink" title="Source Port Manipulation"></a>Source Port Manipulation</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Use trusted source port (DNS - 53)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --source-port 53 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative syntax</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -g 53 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP source port (80)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --source-port 80 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTPS source port (443)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --source-port 443 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine with full port scan</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --source-port 53 -p- 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="DNS-Manipulation"><a href="#DNS-Manipulation" class="headerlink" title="DNS Manipulation"></a>DNS Manipulation</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Specify custom DNS server</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --dns-servers 8.8.8.8 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use target&#x27;s DNS server (abuse trust)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --dns-servers 10.10.10.10 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable DNS resolution</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -n 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Timing-and-Rate-Control"><a href="#Timing-and-Rate-Control" class="headerlink" title="Timing and Rate Control"></a>Timing and Rate Control</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Paranoid timing (slowest, maximum stealth)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -T0 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sneaky timing</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -T1 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Polite timing (less bandwidth)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -T2 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Custom scan delay</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --scan-delay 5s 10.10.10.10</span><br><span class="line"><span class="built_in">sudo</span> nmap --scan-delay 1s 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Maximum scan delay</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --max-scan-delay 10s 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Rate limiting</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --max-rate 100 10.10.10.10</span><br><span class="line"><span class="built_in">sudo</span> nmap --min-rate 50 --max-rate 100 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Alternative-Scan-Types"><a href="#Alternative-Scan-Types" class="headerlink" title="Alternative Scan Types"></a>Alternative Scan Types</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># TCP connect scan (less stealthy but works without root)</span></span><br><span class="line">nmap -sT 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># TCP ACK scan (firewall rule detection)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sA 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># NULL scan (no flags set)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sN 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># FIN scan (FIN flag only)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sF 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Xmas scan (FIN, PSH, URG flags)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sX 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># UDP scan (often less filtered)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sU --top-ports 100 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Idle-Zombie-Scan"><a href="#Idle-Zombie-Scan" class="headerlink" title="Idle&#x2F;Zombie Scan"></a>Idle&#x2F;Zombie Scan</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find potential zombie host</span></span><br><span class="line">nmap -O -v 192.168.1.0/24 | grep <span class="string">&quot;IP ID Sequence Generation: Incremental&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Perform idle scan</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sI 192.168.1.5 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Idle scan with specific ports</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sI 192.168.1.5 -p 80,443 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="FTP-Bounce-Scan"><a href="#FTP-Bounce-Scan" class="headerlink" title="FTP Bounce Scan"></a>FTP Bounce Scan</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Exploit FTP server to scan target</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -b ftp-server.com 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># FTP bounce with specific ports</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p 22,25,135 -Pn -v -b 192.168.1.2 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="MAC-Address-Spoofing"><a href="#MAC-Address-Spoofing" class="headerlink" title="MAC Address Spoofing"></a>MAC Address Spoofing</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Spoof specific MAC address</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --spoof-mac 00:11:22:33:44:55 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Random MAC address</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --spoof-mac 0 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Vendor-specific MAC (Apple)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --spoof-mac Apple 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Vendor-specific MAC (Dell)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --spoof-mac Dell 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Data-Padding"><a href="#Data-Padding" class="headerlink" title="Data Padding"></a>Data Padding</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Append random data to packets</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --data-length 25 10.10.10.10</span><br><span class="line"><span class="built_in">sudo</span> nmap --data-length 50 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine with other evasion</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --data-length 25 -f 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Badsum-Technique"><a href="#Badsum-Technique" class="headerlink" title="Badsum Technique"></a>Badsum Technique</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Send packets with bad checksums (firewall detection)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --badsum 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSE-Firewall-Evasion-Scripts"><a href="#NSE-Firewall-Evasion-Scripts" class="headerlink" title="NSE Firewall Evasion Scripts"></a>NSE Firewall Evasion Scripts</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Firewall bypass script</span></span><br><span class="line">nmap --script firewall-bypass 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP firewall bypass</span></span><br><span class="line">nmap -p 80 --script http-methods,http-headers 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># FTP bounce attack</span></span><br><span class="line">nmap --script ftp-bounce 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Detect packet filtering</span></span><br><span class="line">nmap --script firewalk 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Comprehensive-Evasion-Examples"><a href="#Comprehensive-Evasion-Examples" class="headerlink" title="Comprehensive Evasion Examples"></a>Comprehensive Evasion Examples</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Maximum stealth scan</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sS -Pn -f -D RND:10 --source-port 53 -T2 --scan-delay 2s -p- 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Firewall detection and evasion</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -Pn --disable-arp-ping -n -D RND:10 -sV -p- --source-port 53 -vv --dns-servers 10.10.10.10 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># IDS evasion with fragmentation</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -f --mtu 16 -D RND:5 -T1 --scan-delay 5s -p 80,443 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Trusted source port with decoys</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --source-port 53 -D RND:10 -sS -Pn -n -p- 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># UDP scan with evasion</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -sU --source-port 53 -T2 --max-retries 1 --top-ports 100 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="IPv6-Scanning"><a href="#IPv6-Scanning" class="headerlink" title="IPv6 Scanning"></a>IPv6 Scanning</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># IPv6 scan (often less filtered)</span></span><br><span class="line">nmap -6 fe80::1</span><br><span class="line"></span><br><span class="line"><span class="comment"># IPv6 with evasion</span></span><br><span class="line">nmap -6 -sS -Pn fe80::1</span><br></pre></td></tr></table></figure>
+
+<h2 id="Debugging-and-Analysis"><a href="#Debugging-and-Analysis" class="headerlink" title="Debugging and Analysis"></a>Debugging and Analysis</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Packet trace (see all packets)</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --packet-trace -p 80 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show reason for port state</span></span><br><span class="line"><span class="built_in">sudo</span> nmap --reason -p 1-1000 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verbose output</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -vv -p 80,443 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Debug output</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -d -p 80 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="NSE-Firewall-Detection-Scripts"><a href="#NSE-Firewall-Detection-Scripts" class="headerlink" title="NSE Firewall Detection Scripts"></a>NSE Firewall Detection Scripts</h2><table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Type</th>
+<th>Technique</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>firewall-bypass</code></td>
+<td>Bypass</td>
+<td>TCP fragmentation</td>
+<td>Sneak through chopped packets</td>
+</tr>
+<tr>
+<td><code>firewalk</code></td>
+<td>Detection</td>
+<td>TTL manipulation</td>
+<td>Map firewall rules</td>
+</tr>
+<tr>
+<td><code>ip-id</code></td>
+<td>Detection</td>
+<td>IPID pattern</td>
+<td>See if real host replies directly</td>
+</tr>
+<tr>
+<td><code>ipidseq</code></td>
+<td>Detection</td>
+<td>IPID sequence</td>
+<td>Check if packet numbers are predictable</td>
+</tr>
+<tr>
+<td><code>traceroute</code></td>
+<td>Detection</td>
+<td>TTL path tracing</td>
+<td>See who blocks you along the way</td>
+</tr>
+<tr>
+<td><code>sniffer-detect</code></td>
+<td>Detection</td>
+<td>Promiscuous mode baiting</td>
+<td>Detect network sniffers</td>
+</tr>
+<tr>
+<td><code>http-methods</code></td>
+<td>Detection</td>
+<td>HTTP verb probing</td>
+<td>Spot HTTP filtering</td>
+</tr>
+<tr>
+<td><code>ftp-bounce</code></td>
+<td>Bypass</td>
+<td>FTP as proxy</td>
+<td>Leverage internal scan via FTP</td>
+</tr>
+</tbody></table>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Understanding Firewall Responses:</strong></p>
+<ul>
+<li><strong>Closed Port</strong>: Receives RST (reset) flag response - port is reachable but no service listening</li>
+<li><strong>Filtered Port</strong>: No response or ICMP unreachable - firewall is blocking the port</li>
+<li><strong>Open|Filtered</strong>: No response on UDP scan - could be open or filtered</li>
+<li><strong>Long Delay</strong>: Indicates rate limiting or firewall inspection</li>
+<li><strong>Fast Rejection with ICMP Error Code 3</strong>: Firewall actively blocking</li>
+</ul>
+<p><strong>Firewall Evasion Strategy:</strong></p>
+<ol>
+<li><strong>Identify Filtering</strong>: Use <code>--reason</code> and <code>--packet-trace</code> to understand firewall behavior</li>
+<li><strong>Test Trusted Ports</strong>: Try source ports 53 (DNS), 80 (HTTP), 443 (HTTPS)</li>
+<li><strong>Fragment Packets</strong>: Many firewalls don’t reassemble fragments properly</li>
+<li><strong>Use Decoys</strong>: Hide your real IP among fake scanning IPs</li>
+<li><strong>Slow Down</strong>: Reduce scan speed to avoid rate-limiting and detection</li>
+<li><strong>Alternative Protocols</strong>: Try UDP if TCP is heavily filtered</li>
+</ol>
+<p><strong>IDS&#x2F;IPS Evasion Best Practices:</strong></p>
+<ul>
+<li><strong>Use VPS</strong>: Scan from Virtual Private Servers to avoid IP bans</li>
+<li><strong>Fragment Packets</strong>: Most IDS&#x2F;IPS don’t handle fragmented packets well</li>
+<li><strong>Decoy Scanning</strong>: Slide your real IP among multiple fake IPs</li>
+<li><strong>Specify Interface</strong>: Use <code>-e</code> to specify which interface to scan from</li>
+<li><strong>DNS Proxying</strong>: Abuse trust relationships with <code>--dns-server</code></li>
+<li><strong>Timing Control</strong>: Use <code>-T0</code> or <code>-T1</code> for maximum stealth</li>
+</ul>
+<p><strong>Source Port Selection:</strong></p>
+<p>Firewalls often trust traffic from certain well-known ports:</p>
+<ul>
+<li><strong>Port 53 (DNS)</strong>: Most commonly trusted</li>
+<li><strong>Port 80 (HTTP)</strong>: Web traffic often allowed</li>
+<li><strong>Port 443 (HTTPS)</strong>: Encrypted web traffic</li>
+<li><strong>Port 20&#x2F;21 (FTP)</strong>: File transfer ports</li>
+<li><strong>Port 25 (SMTP)</strong>: Email traffic</li>
+</ul>
+<p><strong>Scan Type Selection for Evasion:</strong></p>
+<ul>
+<li><strong>SYN Scan</strong> (<code>-sS</code>): Stealthier than connect scan, requires root</li>
+<li><strong>ACK Scan</strong> (<code>-sA</code>): Useful for mapping firewall rules (stateful vs stateless)</li>
+<li><strong>NULL&#x2F;FIN&#x2F;Xmas</strong> (<code>-sN/-sF/-sX</code>): Work on Linux&#x2F;Unix, bypass some firewalls</li>
+<li><strong>UDP Scan</strong> (<code>-sU</code>): Often less filtered than TCP</li>
+<li><strong>Idle Scan</strong> (<code>-sI</code>): Most stealthy, uses zombie host</li>
+</ul>
+<p><strong>Performance vs Stealth Trade-offs:</strong></p>
+<ul>
+<li><strong>Fast Scans</strong>: More likely to trigger IDS&#x2F;IPS alerts</li>
+<li><strong>Slow Scans</strong>: Less likely to be detected but take much longer</li>
+<li><strong>Fragmentation</strong>: Adds overhead but bypasses simple firewalls</li>
+<li><strong>Decoys</strong>: Increases network traffic but hides your real IP</li>
+</ul>
+<p><strong>Detection Avoidance:</strong></p>
+<ul>
+<li>Avoid scanning during business hours</li>
+<li>Randomize scan order with <code>--randomize-hosts</code></li>
+<li>Use different source IPs&#x2F;ports for different scan phases</li>
+<li>Space out scans over time</li>
+<li>Monitor for defensive responses (port closures, IP blocks)</li>
+</ul>
+<p><strong>Legal and Ethical Considerations:</strong></p>
+<ul>
+<li>Only use evasion techniques on systems you have permission to test</li>
+<li>Document all evasion techniques used in penetration test reports</li>
+<li>Be aware that evasion attempts may be logged and investigated</li>
+<li>Some techniques (IP spoofing, decoys) may impact other systems</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

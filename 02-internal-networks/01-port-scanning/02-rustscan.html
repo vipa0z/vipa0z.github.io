@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="RustScan"><a href="#RustScan" class="headerlink" title="RustScan"></a>RustScan</h1><p>Lightning-fast port scanner written in Rust that integrates seamlessly with Nmap for comprehensive enumeration.<br>Use RustScan for rapid initial port discovery, then pipe results to Nmap for detailed service detection and vulnerability scanning.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Fast scan with Nmap integration</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -sC -sV</span><br><span class="line"></span><br><span class="line"><span class="comment"># Port discovery only (no Nmap)</span></span><br><span class="line">rustscan -a 10.10.10.10 -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Full port scan with Nmap scripts</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 1-65535 -- -sC -sV -oA full_scan</span><br></pre></td></tr></table></figure>
+
+<h2 id="Basic-Usage"><a href="#Basic-Usage" class="headerlink" title="Basic Usage"></a>Basic Usage</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Scan top 5000 TCP ports</span></span><br><span class="line">rustscan -a 192.168.1.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scan specific target</span></span><br><span class="line">rustscan -a 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scan hostname</span></span><br><span class="line">rustscan -a example.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Specific-Port-Scanning"><a href="#Specific-Port-Scanning" class="headerlink" title="Specific Port Scanning"></a>Specific Port Scanning</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single port</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># Multiple ports</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 21,22,80,443</span><br><span class="line"></span><br><span class="line"><span class="comment"># Port range</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 1-1000</span><br><span class="line"></span><br><span class="line"><span class="comment"># All ports</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 1-65535</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nmap-Integration"><a href="#Nmap-Integration" class="headerlink" title="Nmap Integration"></a>Nmap Integration</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Pass options to Nmap (most common usage)</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -sC -sV</span><br><span class="line"></span><br><span class="line"><span class="comment"># Aggressive scan with OS detection</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># Full port scan with Nmap scripts</span></span><br><span class="line">rustscan -a 192.168.1.100 -- -sC -sV -oN scan.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Vulnerability scanning</span></span><br><span class="line">rustscan -a 10.10.10.10 -- --script vuln</span><br><span class="line"></span><br><span class="line"><span class="comment"># Custom Nmap script arguments</span></span><br><span class="line">rustscan -a 10.10.10.10 -- --script http-enum --script-args http-enum.basepath=/admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save Nmap output in all formats</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -sC -sV -oA results</span><br></pre></td></tr></table></figure>
+
+<h2 id="Speed-and-Performance"><a href="#Speed-and-Performance" class="headerlink" title="Speed and Performance"></a>Speed and Performance</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Increase batch size (ports scanned at once)</span></span><br><span class="line">rustscan -a 10.10.10.10 -b 1500</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set timeout in milliseconds</span></span><br><span class="line">rustscan -a 10.10.10.10 -t 2000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine batch size and timeout</span></span><br><span class="line">rustscan -a 10.0.0.5 -b 3000 -t 1500</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify number of threads</span></span><br><span class="line">rustscan -a 10.10.10.10 -u 5000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Maximum speed (use with caution)</span></span><br><span class="line">rustscan -a 10.10.10.10 -b 5000 -t 1000 -u 10000</span><br></pre></td></tr></table></figure>
+
+<h2 id="Scan-All-Ports"><a href="#Scan-All-Ports" class="headerlink" title="Scan All Ports"></a>Scan All Ports</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Full 65535 port scan</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 1-65535</span><br><span class="line"></span><br><span class="line"><span class="comment"># Full port scan with Nmap integration</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 1-65535 -- -sC -sV</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative syntax</span></span><br><span class="line">rustscan -a 10.10.10.10 -r 1-65535</span><br></pre></td></tr></table></figure>
+
+<h2 id="Output-Options"><a href="#Output-Options" class="headerlink" title="Output Options"></a>Output Options</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Skip Nmap, just list open ports</span></span><br><span class="line">rustscan -a 192.168.1.1 -r 1-65535 -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Greppable output (ports only)</span></span><br><span class="line">rustscan -a 10.10.10.10 -g</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pipe greppable output to other commands</span></span><br><span class="line">rustscan -a 10.10.10.10 -r 1-1000 -g | xargs -I &#123;&#125; <span class="built_in">echo</span> <span class="string">&quot;Port &#123;&#125; open!&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Save Nmap results to file</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -sC -sV -oN results.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Stealth-and-IDS-Evasion"><a href="#Stealth-and-IDS-Evasion" class="headerlink" title="Stealth and IDS Evasion"></a>Stealth and IDS Evasion</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Slower scan to avoid detection</span></span><br><span class="line">rustscan -a 10.10.10.10 -t 5000 -b 100 -- -sC -sV</span><br><span class="line"></span><br><span class="line"><span class="comment"># Combine with Nmap stealth options</span></span><br><span class="line">rustscan -a 10.10.10.10 -t 3000 -b 100 -- -sS -Pn</span><br><span class="line"></span><br><span class="line"><span class="comment"># Very slow scan for maximum stealth</span></span><br><span class="line">rustscan -a 10.10.10.10 -t 10000 -b 50 -- -T2 -sS</span><br></pre></td></tr></table></figure>
+
+<h2 id="Multiple-Targets"><a href="#Multiple-Targets" class="headerlink" title="Multiple Targets"></a>Multiple Targets</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Scan multiple IPs</span></span><br><span class="line">rustscan -a 10.10.10.10,10.10.10.11,10.10.10.12</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scan from file</span></span><br><span class="line">rustscan -f targets.txt -- -sC -sV</span><br><span class="line"></span><br><span class="line"><span class="comment"># Scan subnet</span></span><br><span class="line">rustscan -a 192.168.1.0/24 -- -sC -sV</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Scan-Recipes"><a href="#Common-Scan-Recipes" class="headerlink" title="Common Scan Recipes"></a>Common Scan Recipes</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Fast initial discovery</span></span><br><span class="line">rustscan -a 10.10.10.10 -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Standard enumeration scan</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -sC -sV</span><br><span class="line"></span><br><span class="line"><span class="comment"># Full comprehensive scan</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 1-65535 -- -sC -sV -oA full-scan</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stealth scan</span></span><br><span class="line">rustscan -a 10.10.10.10 -t 3000 -b 100 -- -sS -Pn</span><br><span class="line"></span><br><span class="line"><span class="comment"># Vulnerability assessment</span></span><br><span class="line">rustscan -a 10.10.10.10 -- --script vuln -oA vuln-scan</span><br><span class="line"></span><br><span class="line"><span class="comment"># Web application scan</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 80,443,8080,8443 -- --script http-enum,http-headers,http-methods</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB enumeration</span></span><br><span class="line">rustscan -a 10.10.10.10 -p 139,445 -- --script smb-enum-shares,smb-enum-users,smb-os-discovery</span><br></pre></td></tr></table></figure>
+
+<h2 id="Workflow-Integration"><a href="#Workflow-Integration" class="headerlink" title="Workflow Integration"></a>Workflow Integration</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Fast port discovery with RustScan</span></span><br><span class="line">rustscan -a 10.10.10.10 -n &gt; open_ports.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Extract ports and format for Nmap</span></span><br><span class="line">ports=$(<span class="built_in">cat</span> open_ports.txt | grep -oP <span class="string">&#x27;\d+&#x27;</span> | <span class="built_in">tr</span> <span class="string">&#x27;\n&#x27;</span> <span class="string">&#x27;,&#x27;</span> | sed <span class="string">&#x27;s/,$//&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Detailed Nmap scan on discovered ports</span></span><br><span class="line">nmap -sC -sV -p <span class="variable">$ports</span> 10.10.10.10 -oA detailed_scan</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative: Let RustScan handle it automatically</span></span><br><span class="line">rustscan -a 10.10.10.10 -- -sC -sV -oA scan_results</span><br></pre></td></tr></table></figure>
+
+<h2 id="Option-Reference"><a href="#Option-Reference" class="headerlink" title="Option Reference"></a>Option Reference</h2><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-a</code></td>
+<td>Target IP&#x2F;hostname</td>
+</tr>
+<tr>
+<td><code>-p</code></td>
+<td>Ports to scan (comma-separated)</td>
+</tr>
+<tr>
+<td><code>-r</code></td>
+<td>Port range</td>
+</tr>
+<tr>
+<td><code>-t</code></td>
+<td>Timeout in milliseconds</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td>Batch size (ports scanned at once)</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>Number of threads</td>
+</tr>
+<tr>
+<td><code>--</code></td>
+<td>Pass options to Nmap</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>Skip Nmap integration</td>
+</tr>
+<tr>
+<td><code>-g</code></td>
+<td>Greppable output (ports only)</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>Read targets from file</td>
+</tr>
+</tbody></table>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Important Limitation:</strong></p>
+<p>RustScan finds initial ports quickly, but in testing, it can break Nmap results when used with the <code>--</code> pass-through. For critical scans:</p>
+<ol>
+<li>Use RustScan with <code>-n</code> flag to skip Nmap</li>
+<li>Manually take the discovered ports</li>
+<li>Run a separate Nmap scan with those ports</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Recommended workflow for accuracy</span></span><br><span class="line">rustscan -a 10.10.10.10 -n</span><br><span class="line"><span class="comment"># Note the open ports, then:</span></span><br><span class="line">nmap -sC -sV -p 22,80,443 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<p><strong>Performance Tuning:</strong></p>
+<ul>
+<li><p><strong>Batch Size</strong> (<code>-b</code>): Number of ports scanned simultaneously</p>
+<ul>
+<li>Default: 4500</li>
+<li>Increase for faster scans on stable networks</li>
+<li>Decrease if experiencing packet loss or timeouts</li>
+</ul>
+</li>
+<li><p><strong>Timeout</strong> (<code>-t</code>): Milliseconds to wait for port response</p>
+<ul>
+<li>Default: 1500ms</li>
+<li>Increase for slow&#x2F;unstable networks</li>
+<li>Decrease for fast local networks</li>
+</ul>
+</li>
+<li><p><strong>Threads</strong> (<code>-u</code>): Number of concurrent threads</p>
+<ul>
+<li>Default: 5000</li>
+<li>May need to increase ulimit: <code>ulimit -n 10000</code></li>
+</ul>
+</li>
+</ul>
+<p><strong>When to Use RustScan:</strong></p>
+<ul>
+<li>Initial rapid port discovery on large networks</li>
+<li>Time-sensitive assessments requiring fast results</li>
+<li>Scanning multiple hosts simultaneously</li>
+<li>When you need to quickly identify open ports before detailed enumeration</li>
+</ul>
+<p><strong>When to Use Nmap Directly:</strong></p>
+<ul>
+<li>Detailed service version detection</li>
+<li>Running complex NSE scripts</li>
+<li>Stealth scanning with specific timing</li>
+<li>When accuracy is more important than speed</li>
+<li>UDP scanning (RustScan is TCP-only)</li>
+</ul>
+<p><strong>Best Practices:</strong></p>
+<ul>
+<li>Always verify RustScan results with a follow-up Nmap scan</li>
+<li>Use <code>-n</code> flag for port discovery, then run Nmap separately</li>
+<li>Adjust batch size and timeout based on network conditions</li>
+<li>Save results with Nmap’s <code>-oA</code> flag for multiple output formats</li>
+<li>Consider network stability before using maximum speed settings</li>
+</ul>
+<p><strong>Advantages:</strong></p>
+<ul>
+<li>Extremely fast port scanning (written in Rust)</li>
+<li>Seamless Nmap integration</li>
+<li>Adaptive scanning (adjusts to network conditions)</li>
+<li>Modern, actively maintained tool</li>
+<li>Cross-platform support</li>
+</ul>
+<p><strong>Limitations:</strong></p>
+<ul>
+<li>TCP scanning only (no UDP support)</li>
+<li>May produce inconsistent results when piping directly to Nmap</li>
+<li>Requires higher ulimit for maximum performance</li>
+<li>Less mature than Nmap for edge cases</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

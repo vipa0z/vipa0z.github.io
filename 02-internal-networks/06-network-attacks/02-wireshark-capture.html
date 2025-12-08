@@ -1,0 +1,499 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Passive-Network-Credential-Capture"><a href="#Passive-Network-Credential-Capture" class="headerlink" title="Passive Network Credential Capture"></a>Passive Network Credential Capture</h1><p>Monitor network traffic to identify hosts, capture cleartext credentials, and extract authentication hashes from unencrypted protocols.<br>Passive capture is stealthy and doesn’t generate malicious traffic, making it ideal for initial reconnaissance and credential harvesting.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Wireshark GUI</span></span><br><span class="line"><span class="built_in">sudo</span> wireshark</span><br><span class="line"></span><br><span class="line"><span class="comment"># tcpdump capture to file</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -w capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Pcredz - extract credentials from pcap</span></span><br><span class="line">python3 Pcredz.py -f capture.pcap -t -v</span><br></pre></td></tr></table></figure>
+
+<h2 id="Wireshark"><a href="#Wireshark" class="headerlink" title="Wireshark"></a>Wireshark</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Start Wireshark with sudo</span></span><br><span class="line"><span class="built_in">sudo</span> -E wireshark</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start capture on specific interface</span></span><br><span class="line"><span class="comment"># File → Capture Options → Select interface → Start</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Common display filters</span></span><br><span class="line">ip.addr == 10.10.10.10          <span class="comment"># Specific IP</span></span><br><span class="line">tcp.port == 80                   <span class="comment"># HTTP traffic</span></span><br><span class="line">tcp.port == 445                  <span class="comment"># SMB traffic</span></span><br><span class="line">http                             <span class="comment"># All HTTP</span></span><br><span class="line">dns                              <span class="comment"># DNS queries</span></span><br><span class="line">ftp                              <span class="comment"># FTP traffic</span></span><br><span class="line">smtp                             <span class="comment"># Email traffic</span></span><br><span class="line">pop                              <span class="comment"># POP3 email</span></span><br><span class="line">imap                             <span class="comment"># IMAP email</span></span><br><span class="line">ldap                             <span class="comment"># LDAP queries</span></span><br><span class="line">kerberos                         <span class="comment"># Kerberos auth</span></span><br><span class="line">ntlmssp                          <span class="comment"># NTLM auth</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Advanced filters</span></span><br><span class="line">http.request.method == <span class="string">&quot;POST&quot;</span>    <span class="comment"># HTTP POST requests</span></span><br><span class="line">http contains <span class="string">&quot;password&quot;</span>         <span class="comment"># HTTP with password string</span></span><br><span class="line">ftp.request.command == <span class="string">&quot;PASS&quot;</span>    <span class="comment"># FTP password commands</span></span><br><span class="line">tcp.flags.syn == 1 &amp;&amp; tcp.flags.ack == 0  <span class="comment"># SYN packets</span></span><br><span class="line">tcp.stream eq 53                 <span class="comment"># Specific TCP stream</span></span><br><span class="line">eth.addr == 00:11:22:33:44:55   <span class="comment"># Specific MAC address</span></span><br><span class="line">ip.src == 10.10.10.10 &amp;&amp; ip.dst == 10.10.10.20  <span class="comment"># Between two IPs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Search for credentials</span></span><br><span class="line"><span class="comment"># Edit → Find Packet</span></span><br><span class="line"><span class="comment"># Search for: &quot;password&quot;, &quot;passw&quot;, &quot;user&quot;, &quot;login&quot;, &quot;auth&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Follow TCP stream</span></span><br><span class="line"><span class="comment"># Right-click packet → Follow → TCP Stream</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Export objects</span></span><br><span class="line"><span class="comment"># File → Export Objects → HTTP/SMB/FTP</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="tcpdump"><a href="#tcpdump" class="headerlink" title="tcpdump"></a>tcpdump</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Basic capture</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture to file</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -w capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture with verbose output</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture specific host</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 host 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture specific port</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 port 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture HTTP traffic</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 <span class="string">&#x27;tcp port 80&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture SMB traffic</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 <span class="string">&#x27;tcp port 445&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture FTP traffic</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 <span class="string">&#x27;tcp port 21&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture DNS traffic</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 <span class="string">&#x27;udp port 53&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture between two hosts</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 <span class="string">&#x27;host 10.10.10.10 and host 10.10.10.20&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture and display ASCII</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture with packet size limit</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -s 65535 -w capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Rotate capture files (100MB each)</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -w capture.pcap -C 100</span><br><span class="line"></span><br><span class="line"><span class="comment"># Capture for specific duration (60 seconds)</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -w capture.pcap -G 60</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read from capture file</span></span><br><span class="line">tcpdump -r capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter capture file</span></span><br><span class="line">tcpdump -r capture.pcap <span class="string">&#x27;tcp port 80&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Pcredz"><a href="#Pcredz" class="headerlink" title="Pcredz"></a>Pcredz</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Install Pcredz</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/lgandx/PCredz</span><br><span class="line"><span class="built_in">cd</span> PCredz</span><br><span class="line">pip3 install -r requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract credentials from pcap</span></span><br><span class="line">python3 Pcredz.py -f capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verbose output</span></span><br><span class="line">python3 Pcredz.py -f capture.pcap -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract and display in terminal</span></span><br><span class="line">python3 Pcredz.py -f capture.pcap -t</span><br><span class="line"></span><br><span class="line"><span class="comment"># Both verbose and terminal</span></span><br><span class="line">python3 Pcredz.py -f capture.pcap -t -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Live capture mode</span></span><br><span class="line"><span class="built_in">sudo</span> python3 Pcredz.py -i eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Live capture with verbose</span></span><br><span class="line"><span class="built_in">sudo</span> python3 Pcredz.py -i eth0 -v</span><br></pre></td></tr></table></figure>
+
+<h2 id="net-creds"><a href="#net-creds" class="headerlink" title="net-creds"></a>net-creds</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Install net-creds</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/DanMcInerney/net-creds</span><br><span class="line"><span class="built_in">cd</span> net-creds</span><br><span class="line">pip3 install -r requirements.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Sniff live traffic</span></span><br><span class="line"><span class="built_in">sudo</span> python3 net-creds.py -i eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read from pcap file</span></span><br><span class="line">python3 net-creds.py -p capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Filter by IP</span></span><br><span class="line"><span class="built_in">sudo</span> python3 net-creds.py -i eth0 -f 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Responder-Analyze-Mode"><a href="#Responder-Analyze-Mode" class="headerlink" title="Responder (Analyze Mode)"></a>Responder (Analyze Mode)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Passive listening (no poisoning)</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># Analyze mode shows:</span></span><br><span class="line"><span class="comment"># - LLMNR/NBT-NS requests</span></span><br><span class="line"><span class="comment"># - MDNS requests</span></span><br><span class="line"><span class="comment"># - DHCP requests</span></span><br><span class="line"><span class="comment"># - Active hosts</span></span><br><span class="line"><span class="comment"># - Requested resources</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Start packet capture</span></span><br><span class="line"><span class="built_in">sudo</span> tcpdump -i eth0 -w capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Let it run (minutes to hours)</span></span><br><span class="line"><span class="comment"># Monitor network activity</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Stop capture (Ctrl+C)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Extract credentials</span></span><br><span class="line">python3 Pcredz.py -f capture.pcap -t -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Analyze in Wireshark</span></span><br><span class="line">wireshark capture.pcap</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 6: Search for sensitive data</span></span><br><span class="line"><span class="comment"># Filter: http contains &quot;password&quot;</span></span><br><span class="line"><span class="comment"># Filter: ftp.request.command == &quot;PASS&quot;</span></span><br><span class="line"><span class="comment"># Filter: pop.request.command == &quot;PASS&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Wireshark-Analysis-Techniques"><a href="#Wireshark-Analysis-Techniques" class="headerlink" title="Wireshark Analysis Techniques"></a>Wireshark Analysis Techniques</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Identify hosts</span></span><br><span class="line"><span class="comment"># Statistics → Endpoints → IPv4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Protocol hierarchy</span></span><br><span class="line"><span class="comment"># Statistics → Protocol Hierarchy</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Conversations</span></span><br><span class="line"><span class="comment"># Statistics → Conversations</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># HTTP requests</span></span><br><span class="line"><span class="comment"># Statistics → HTTP → Requests</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Export HTTP objects</span></span><br><span class="line"><span class="comment"># File → Export Objects → HTTP</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find credentials in HTTP POST</span></span><br><span class="line"><span class="comment"># Filter: http.request.method == &quot;POST&quot;</span></span><br><span class="line"><span class="comment"># Follow TCP stream</span></span><br><span class="line"><span class="comment"># Look for username/password fields</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find FTP credentials</span></span><br><span class="line"><span class="comment"># Filter: ftp.request.command == &quot;USER&quot; or ftp.request.command == &quot;PASS&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find SMTP credentials</span></span><br><span class="line"><span class="comment"># Filter: smtp.req.command == &quot;AUTH&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find POP3 credentials</span></span><br><span class="line"><span class="comment"># Filter: pop.request.command == &quot;USER&quot; or pop.request.command == &quot;PASS&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find IMAP credentials</span></span><br><span class="line"><span class="comment"># Filter: imap.request contains &quot;LOGIN&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find NTLM hashes</span></span><br><span class="line"><span class="comment"># Filter: ntlmssp</span></span><br><span class="line"><span class="comment"># Look for NTLMSSP_AUTH messages</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Protocol-Specific-Captures"><a href="#Protocol-Specific-Captures" class="headerlink" title="Protocol-Specific Captures"></a>Protocol-Specific Captures</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># HTTP Basic Authentication</span></span><br><span class="line"><span class="comment"># Filter: http.authbasic</span></span><br><span class="line"><span class="comment"># Credentials are base64 encoded</span></span><br><span class="line"><span class="comment"># Decode: echo &quot;dXNlcjpwYXNz&quot; | base64 -d</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># FTP credentials</span></span><br><span class="line"><span class="comment"># Filter: ftp.request.command == &quot;USER&quot; or ftp.request.command == &quot;PASS&quot;</span></span><br><span class="line"><span class="comment"># Cleartext in packet</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Telnet credentials</span></span><br><span class="line"><span class="comment"># Filter: telnet</span></span><br><span class="line"><span class="comment"># Follow TCP stream</span></span><br><span class="line"><span class="comment"># Cleartext in stream</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SMTP authentication</span></span><br><span class="line"><span class="comment"># Filter: smtp.req.command == &quot;AUTH&quot;</span></span><br><span class="line"><span class="comment"># May be base64 encoded</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># POP3 credentials</span></span><br><span class="line"><span class="comment"># Filter: pop.request.command == &quot;USER&quot; or pop.request.command == &quot;PASS&quot;</span></span><br><span class="line"><span class="comment"># Cleartext in packet</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># IMAP credentials</span></span><br><span class="line"><span class="comment"># Filter: imap.request contains &quot;LOGIN&quot;</span></span><br><span class="line"><span class="comment"># Cleartext in packet</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># SNMP community strings</span></span><br><span class="line"><span class="comment"># Filter: snmp</span></span><br><span class="line"><span class="comment"># Look for community string field</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># LDAP bind credentials</span></span><br><span class="line"><span class="comment"># Filter: ldap.protocolOp == 0</span></span><br><span class="line"><span class="comment"># Simple bind contains cleartext password</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># NTLMv2 hashes</span></span><br><span class="line"><span class="comment"># Filter: ntlmssp.auth.ntlmv2response</span></span><br><span class="line"><span class="comment"># Extract challenge and response</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>What Can Be Captured:</strong></p>
+<p>Cleartext protocols:</p>
+<ul>
+<li>HTTP (credentials, cookies, tokens)</li>
+<li>FTP (username, password)</li>
+<li>Telnet (everything)</li>
+<li>SMTP (email credentials)</li>
+<li>POP3 (email credentials)</li>
+<li>IMAP (email credentials)</li>
+<li>LDAP (bind credentials)</li>
+<li>SNMP (community strings)</li>
+<li>DNS (queries, responses)</li>
+</ul>
+<p>Authentication hashes:</p>
+<ul>
+<li>NTLMv1&#x2F;v2 (challenge-response)</li>
+<li>Kerberos (AS-REQ, TGS-REQ)</li>
+<li>NTLM over HTTP</li>
+<li>NTLM over SMB</li>
+</ul>
+<p>Other sensitive data:</p>
+<ul>
+<li>Credit card numbers</li>
+<li>Social security numbers</li>
+<li>API keys</li>
+<li>Session tokens</li>
+<li>Cookies</li>
+<li>Form data</li>
+</ul>
+<p><strong>Network Discovery:</strong></p>
+<p>From passive capture, identify:</p>
+<ul>
+<li>Active hosts (IP addresses)</li>
+<li>MAC addresses</li>
+<li>Hostnames (DNS, DHCP, LLMNR)</li>
+<li>Operating systems (TTL, TCP options)</li>
+<li>Services (port numbers)</li>
+<li>Domain names</li>
+<li>Network topology</li>
+<li>Routing information</li>
+</ul>
+<p><strong>ARP Analysis:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Filter: arp</span></span><br><span class="line"><span class="comment"># Shows:</span></span><br><span class="line"><span class="comment"># - IP to MAC mappings</span></span><br><span class="line"><span class="comment"># - Active hosts</span></span><br><span class="line"><span class="comment"># - Potential ARP spoofing</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>MDNS Analysis:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Filter: mdns</span></span><br><span class="line"><span class="comment"># Shows:</span></span><br><span class="line"><span class="comment"># - Service discovery</span></span><br><span class="line"><span class="comment"># - Hostnames</span></span><br><span class="line"><span class="comment"># - Device types</span></span><br><span class="line"><span class="comment"># - Apple devices</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>DHCP Analysis:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Filter: dhcp</span></span><br><span class="line"><span class="comment"># Shows:</span></span><br><span class="line"><span class="comment"># - IP assignments</span></span><br><span class="line"><span class="comment"># - Hostnames</span></span><br><span class="line"><span class="comment"># - MAC addresses</span></span><br><span class="line"><span class="comment"># - DHCP server</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>DNS Analysis:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Filter: dns</span></span><br><span class="line"><span class="comment"># Shows:</span></span><br><span class="line"><span class="comment"># - Domain queries</span></span><br><span class="line"><span class="comment"># - Internal domains</span></span><br><span class="line"><span class="comment"># - External domains</span></span><br><span class="line"><span class="comment"># - DNS servers</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Pcredz Capabilities:</strong></p>
+<p>Extracts:</p>
+<ul>
+<li>Credit card numbers</li>
+<li>POP credentials</li>
+<li>SMTP credentials</li>
+<li>IMAP credentials</li>
+<li>SNMP community strings</li>
+<li>FTP credentials</li>
+<li>HTTP Basic&#x2F;NTLM credentials</li>
+<li>HTTP form data</li>
+<li>NTLMv1&#x2F;v2 hashes (SMB, HTTP, LDAP, MSSQL)</li>
+<li>Kerberos AS-REQ Pre-Auth (etype 23)</li>
+</ul>
+<p><strong>Wireshark Display Filters:</strong></p>
+<p>Useful filters:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http.request                     # All HTTP requests</span><br><span class="line">http.response.code == 200        # Successful responses</span><br><span class="line">http.response.code == 401        # Unauthorized</span><br><span class="line">http.cookie                      # Cookies</span><br><span class="line">http.authorization               # Auth headers</span><br><span class="line">tcp.flags.reset == 1             # RST packets</span><br><span class="line">tcp.analysis.retransmission      # Retransmissions</span><br><span class="line">tcp.analysis.duplicate_ack       # Duplicate ACKs</span><br><span class="line">ip.ttl &lt; 10                      # Low TTL (routing loops)</span><br><span class="line">frame.len &gt; 1000                 # Large packets</span><br></pre></td></tr></table></figure>
+
+<p><strong>Capture Best Practices:</strong></p>
+<ol>
+<li><p><strong>Positioning</strong>:</p>
+<ul>
+<li>Capture on network segment with target traffic</li>
+<li>Use port mirroring&#x2F;SPAN if possible</li>
+<li>Position between clients and servers</li>
+</ul>
+</li>
+<li><p><strong>Duration</strong>:</p>
+<ul>
+<li>Capture during business hours</li>
+<li>Longer captures &#x3D; more data</li>
+<li>Balance storage vs. coverage</li>
+</ul>
+</li>
+<li><p><strong>Storage</strong>:</p>
+<ul>
+<li>Captures can be large (GB&#x2F;hour)</li>
+<li>Use rotating captures</li>
+<li>Compress old captures</li>
+</ul>
+</li>
+<li><p><strong>Filtering</strong>:</p>
+<ul>
+<li>Capture everything, filter during analysis</li>
+<li>Use BPF filters for specific traffic</li>
+<li>Save filtered results separately</li>
+</ul>
+</li>
+</ol>
+<p><strong>Legal and Ethical:</strong></p>
+<ul>
+<li>Only capture with authorization</li>
+<li>Understand privacy implications</li>
+<li>Secure captured data</li>
+<li>Follow data retention policies</li>
+<li>Don’t capture personal data unnecessarily</li>
+<li>Document all activities</li>
+</ul>
+<p><strong>Detection Avoidance:</strong></p>
+<p>Passive capture is stealthy:</p>
+<ul>
+<li>No packets sent</li>
+<li>No ARP requests</li>
+<li>No DNS queries</li>
+<li>No connection attempts</li>
+<li>Hard to detect</li>
+</ul>
+<p>But consider:</p>
+<ul>
+<li>Promiscuous mode may be detectable</li>
+<li>Physical access may be logged</li>
+<li>Network taps may be visible</li>
+</ul>
+<p><strong>Common Findings:</strong></p>
+<p>Typical discoveries:</p>
+<ul>
+<li>FTP credentials (very common)</li>
+<li>HTTP Basic Auth (common)</li>
+<li>Telnet sessions (rare but valuable)</li>
+<li>SNMP community strings (common)</li>
+<li>NTLMv2 hashes (common in Windows)</li>
+<li>Email credentials (POP3&#x2F;IMAP)</li>
+<li>Database credentials (MySQL, MSSQL)</li>
+</ul>
+<p><strong>Analysis Workflow:</strong></p>
+<ol>
+<li><p><strong>Quick scan</strong>:</p>
+<ul>
+<li>Protocol hierarchy</li>
+<li>Endpoints</li>
+<li>Conversations</li>
+</ul>
+</li>
+<li><p><strong>Credential search</strong>:</p>
+<ul>
+<li>Run Pcredz</li>
+<li>Search for “password”</li>
+<li>Check FTP&#x2F;HTTP&#x2F;SMTP</li>
+</ul>
+</li>
+<li><p><strong>Hash extraction</strong>:</p>
+<ul>
+<li>Filter for NTLM</li>
+<li>Filter for Kerberos</li>
+<li>Extract challenge-response</li>
+</ul>
+</li>
+<li><p><strong>Sensitive data</strong>:</p>
+<ul>
+<li>Search for SSN patterns</li>
+<li>Search for credit cards</li>
+<li>Check form data</li>
+</ul>
+</li>
+<li><p><strong>Documentation</strong>:</p>
+<ul>
+<li>Save findings</li>
+<li>Screenshot evidence</li>
+<li>Export relevant packets</li>
+</ul>
+</li>
+</ol>
+<p><strong>Wireshark Tips:</strong></p>
+<ul>
+<li>Use coloring rules for quick identification</li>
+<li>Create custom columns for specific fields</li>
+<li>Save frequently used filters</li>
+<li>Use “Follow Stream” for context</li>
+<li>Export specific packets for sharing</li>
+<li>Use “Expert Info” for anomalies</li>
+</ul>
+<p><strong>tcpdump vs Wireshark:</strong></p>
+<ul>
+<li><p><strong>tcpdump</strong>:</p>
+<ul>
+<li>Command-line</li>
+<li>Lightweight</li>
+<li>Good for remote capture</li>
+<li>Less analysis features</li>
+</ul>
+</li>
+<li><p><strong>Wireshark</strong>:</p>
+<ul>
+<li>GUI</li>
+<li>Rich analysis features</li>
+<li>Better for deep analysis</li>
+<li>More resource intensive</li>
+</ul>
+</li>
+</ul>
+<p><strong>Performance Considerations:</strong></p>
+<ul>
+<li>Large captures slow down Wireshark</li>
+<li>Use display filters, not capture filters</li>
+<li>Close unused protocol dissectors</li>
+<li>Increase memory if needed</li>
+<li>Split large captures into smaller files</li>
+</ul>
+<p><strong>Post-Capture Actions:</strong></p>
+<p>Once credentials found:</p>
+<ol>
+<li>Verify credentials</li>
+<li>Test for password reuse</li>
+<li>Check privilege levels</li>
+<li>Document findings</li>
+<li>Attempt lateral movement</li>
+<li>Continue enumeration</li>
+</ol>
+<p><strong>Common Pitfalls:</strong></p>
+<ul>
+<li>Capturing on wrong interface</li>
+<li>Not enough disk space</li>
+<li>Missing promiscuous mode</li>
+<li>Filtering too aggressively</li>
+<li>Not saving captures</li>
+<li>Losing capture files</li>
+<li>Not documenting findings</li>
+</ul>
+<p><strong>Advanced Techniques:</strong></p>
+<ol>
+<li><p><strong>SSL&#x2F;TLS Decryption</strong>:</p>
+<ul>
+<li>Requires private key</li>
+<li>Or SSLKEYLOGFILE</li>
+<li>Decrypt HTTPS traffic</li>
+</ul>
+</li>
+<li><p><strong>VoIP Analysis</strong>:</p>
+<ul>
+<li>Extract phone calls</li>
+<li>Analyze SIP&#x2F;RTP</li>
+<li>Reconstruct audio</li>
+</ul>
+</li>
+<li><p><strong>Malware Analysis</strong>:</p>
+<ul>
+<li>Extract malware from traffic</li>
+<li>Analyze C2 communication</li>
+<li>Identify IOCs</li>
+</ul>
+</li>
+</ol>
+<p><strong>Troubleshooting:</strong></p>
+<p>Common issues:</p>
+<ul>
+<li><strong>No packets captured</strong>: Check interface, permissions</li>
+<li><strong>Encrypted traffic</strong>: Can’t decrypt without keys</li>
+<li><strong>Missing credentials</strong>: May be encrypted or not present</li>
+<li><strong>Large files</strong>: Split or filter</li>
+<li><strong>Slow analysis</strong>: Use filters, close dissectors</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

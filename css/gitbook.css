@@ -65,8 +65,8 @@
    ========================================= */
 
 .gitbook-sidebar {
-    width: 250px;
-    /* Reduced default width */
+    width: 380px;
+    /* Increased default width */
     min-width: 200px;
     /* Minimum width */
     max-width: 600px;
@@ -264,7 +264,8 @@
 
 .nav-folder>i:not(.folder-arrow) {
     font-size: 14px;
-    opacity: 0.7;
+    color: #fbbf24;
+    opacity: 0.9;
 }
 
 /* File Link Style */
@@ -297,7 +298,14 @@
 
 .nav-link i {
     font-size: 12px;
-    opacity: 0.6;
+    color: #60a5fa;
+    opacity: 0.8;
+}
+
+/* Active link icon */
+.nav-link.active i {
+    color: var(--link-color, #ff6b6b);
+    opacity: 1;
 }
 
 /* Nested Navigation - Tree Style */
@@ -686,7 +694,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
-    margin-top: 24px;
+    margin-top: 40px;
     margin-bottom: 28px;
     padding-bottom: 20px;
     border-bottom: 1px solid var(--border-color, #7c7a7a);

