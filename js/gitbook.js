@@ -52,7 +52,8 @@ const GitBook = {
             tocNav: document.getElementById('toc-nav'),
             contentToc: document.getElementById('content-toc'),
             sidebarResizer: document.getElementById('sidebar-resizer'),
-            themeToggle: document.getElementById('gitbook-theme-toggle')
+            themeToggle: document.getElementById('gitbook-theme-toggle'),
+            sidebarOpenBtn: document.getElementById('sidebar-open-btn')
         };
     },
 
@@ -63,6 +64,7 @@ const GitBook = {
         // Sidebar toggle
         this.elements.sidebarToggle?.addEventListener('click', () => this.toggleSidebar());
         this.elements.mobileMenuBtn?.addEventListener('click', () => this.toggleSidebar());
+        this.elements.sidebarOpenBtn?.addEventListener('click', () => this.openSidebar());
 
         // Search
         this.elements.searchInput?.addEventListener('input', (e) => this.handleSearch(e.target.value));
@@ -83,11 +85,19 @@ const GitBook = {
     },
 
     /**
-     * Toggle sidebar visibility
+     * Toggle sidebar visibility (close it)
      */
     toggleSidebar() {
-        this.elements.sidebar?.classList.toggle('open');
-        this.elements.sidebar?.classList.toggle('collapsed');
+        this.elements.sidebar?.classList.add('collapsed');
+        this.elements.sidebar?.classList.remove('open');
+    },
+
+    /**
+     * Open sidebar
+     */
+    openSidebar() {
+        this.elements.sidebar?.classList.remove('collapsed');
+        this.elements.sidebar?.classList.add('open');
     },
 
     /**

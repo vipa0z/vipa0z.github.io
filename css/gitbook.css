@@ -98,6 +98,40 @@
     transform: translateX(-100%);
 }
 
+/* Sidebar Open Button - appears when sidebar is collapsed */
+.sidebar-open-btn {
+    position: fixed;
+    left: 16px;
+    top: 66px;
+    z-index: 1001;
+    background: rgba(17, 17, 17, 0.95);
+    border: 1px solid var(--border-color, #7c7a7a);
+    color: #888;
+    cursor: pointer;
+    padding: 10px 12px;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    backdrop-filter: blur(10px);
+}
+
+.sidebar-open-btn:hover {
+    background: rgba(255, 107, 107, 0.15);
+    border-color: var(--link-color, #ff6b6b);
+    color: var(--link-color, #ff6b6b);
+}
+
+.gitbook-sidebar.collapsed~.gitbook-content .sidebar-open-btn,
+.gitbook-container:has(.gitbook-sidebar.collapsed) .sidebar-open-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 /* Sidebar Resizer Object */
 .sidebar-resizer {
     width: 4px;
@@ -388,15 +422,22 @@
 /* Main Content Area */
 .gitbook-content {
     flex: 1;
-    margin-left: 250px;
-    /* Match sidebar width */
+    margin-left: 380px;
+    /* Match sidebar default width */
     display: flex;
     flex-direction: column;
     min-height: calc(100vh - 50px);
     background: transparent;
-    max-width: calc(100% - 250px);
+    max-width: calc(100% - 380px);
     /* Prevent overflow */
     overflow-x: hidden;
+    transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), max-width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When sidebar is collapsed, content takes full width */
+.gitbook-sidebar.collapsed~.gitbook-content {
+    margin-left: 0;
+    max-width: 100%;
 }
 
 /* Content Header */
@@ -475,16 +516,18 @@
 }
 
 /* Right Table of Contents - GitBook Style */
+/* Right Table of Contents - GitBook Style */
 .content-toc {
-    width: 220px;
-    min-width: 220px;
+    width: 300px;
+    /* Increased from 220px */
+    min-width: 300px;
     flex-shrink: 0;
     padding: 20px 0 20px 20px;
-    position: sticky;
-    top: 0;
-    /* Stick to top of scroll container */
-    align-self: flex-start;
-    /* Important for sticky in flex */
+    position: fixed;
+    right: 30px;
+    /* Moved slightly more inwards */
+    top: 130px;
+    /* Fixed below header */
     max-height: calc(100vh - 150px);
     overflow-y: auto;
     display: block;
@@ -806,6 +849,8 @@
     color: var(--code-text-color, #e2e1d3) !important;
     background: transparent !important;
     padding: 0 !important;
+    white-space: pre !important;
+    display: block !important;
 }
 
 .markdown-body code {
@@ -832,6 +877,22 @@
     opacity: 0.7;
     font-size: 12px;
     z-index: 5;
+}
+
+/* Reposition Scroll to Top button for GitBook pages */
+.gitbook-page #gotop {
+    right: 350px !important;
+    /* Move to left of TOC (300px + margin) */
+    bottom: 30px !important;
+    background: rgba(17, 17, 17, 0.8) !important;
+    border: 1px solid var(--border-color, #7c7a7a);
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
+}
+
+.gitbook-page #gotop:hover {
+    background: rgba(255, 107, 107, 0.15) !important;
+    border-color: var(--link-color, #ff6b6b);
 }
 
 pre:hover .copy-btn {
