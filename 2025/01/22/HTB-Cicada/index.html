@@ -74,7 +74,7 @@
 					
 					<li>
 						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
-							<i class="fa fa-book"></i>Cheatsheets &Notes
+							<i class="fa fa-book"></i>Cheatsheets & Notes
 						</a>
 					</li>
 					
@@ -120,22 +120,22 @@
 
 
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+	<div class="row post">
+		<!-- cols -->
+		
+			<div id="top_meta"></div>
+			<div class="col-md-9">
+				
 
-	<!-- content -->
-	<div class="mypage">		
-	  
-		 <!-- <div class="alert alert-success description">
+							<!-- content -->
+							<div class="mypage">
+								
+									<!-- <div class="alert alert-success description">
 			<i class="fa fa-info-circle"></i> HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.
 		 </div> alert -->
-	  		
+									
 
-	  <h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="HTB Cicada machine banner with cicada insect theme"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
+										<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="HTB Cicada machine banner with cicada insect theme"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
  <span id="more"></span>
 <hr>
 <table>
@@ -203,18 +203,18 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ evil-winrm -i cicada.htb -u administrator -H 2b87e7c93a3e8a0ea4a581937016f341</span><br><span class="line">                                        </span><br><span class="line">Evil-WinRM shell v3.5</span><br><span class="line">                                        </span><br><span class="line">Info: Establishing connection to remote endpoint</span><br><span class="line">*Evil-WinRM* PS C:\Users\Administrator\Documents&gt;</span><br></pre></td></tr></table></figure>
 <p>get the flag:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*Evil-WinRM* PS C:\Users\Administrator\desktop&gt; type root.txt</span><br><span class="line">b7cd8************************</span><br></pre></td></tr></table></figure>
-	  <div class="article-footer-copyright">
+											<div class="article-footer-copyright">
 
 </div>
 
-	</div>
+							</div>
 
-	
-	
-	<div>
-  	<center>
+							
+									
+											<div>
+												<center>
 
-	<div class="pagination">
+													<div class="pagination">
 
     
     
@@ -232,11 +232,11 @@
 </div>
 
 
-    </center>
-	</div>
-	
-	<!-- comment -->
-	<!--
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
 <section id="comment">
     <h2 class="title">Comments</h2>
 
@@ -244,60 +244,59 @@
 </section>
 
 -->
-	
-	
-	
-	</div> <!-- col-md-9/col-md-12 -->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
 
 
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
+					
+						<div id="side_meta">
+							<div class="col-md-3" id="post_meta">
 
 	<!-- date -->
 	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2025-01-22 
-	</div>
-	
-
-	<!-- categories -->
-    
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/Writeup/">Writeup<span>2</span></a></li> <li><a href="/tags/nmap/">nmap<span>2</span></a></li> <li><a href="/tags/HTB/">HTB<span>2</span></a></li> <li><a href="/tags/smb/">smb<span>2</span></a></li> <li><a href="/tags/windows/">windows<span>2</span></a></li> <li><a href="/tags/flask/">flask<span>2</span></a></li> <li><a href="/tags/privilege-escalation/">privilege escalation<span>3</span></a></li> <li><a href="/tags/password-spray/">password-spray<span>2</span></a></li> <li><a href="/tags/active-directory/">active directory<span>1</span></a></li> <li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
-    </ul>
-	</div>
+		<div class="meta-widget">
+			<i class="fa fa-clock-o"></i>
+			2025-01-22
+		</div>
 		
 
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
+			<!-- categories -->
+			
+
+					<!-- tags -->
+					
+						<div class="meta-widget">
+							<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+							<ul id="tags" class="tag_box list-unstyled collapse in">
+								  
+  <li><a href="/tags/Writeup/">Writeup<span>2</span></a></li> <li><a href="/tags/nmap/">nmap<span>2</span></a></li> <li><a href="/tags/HTB/">HTB<span>2</span></a></li> <li><a href="/tags/smb/">smb<span>2</span></a></li> <li><a href="/tags/windows/">windows<span>2</span></a></li> <li><a href="/tags/flask/">flask<span>2</span></a></li> <li><a href="/tags/privilege-escalation/">privilege escalation<span>3</span></a></li> <li><a href="/tags/active-directory/">active directory<span>1</span></a></li> <li><a href="/tags/password-spray/">password-spray<span>2</span></a></li> <li><a href="/tags/htb-Cicada/">htb Cicada<span>1</span></a></li>
+							</ul>
+						</div>
+						
+
+
+
+							<hr>
+
 </div><!-- col-md-3 -->
 
-		
 
-	</div>
-	
-		
+						</div>
 
-</div><!-- row -->
+						
 
-<!--
+			</div><!-- row -->
+
+			<!--
  -->
 
 
-
+			<!-- Fixed TOC Container for hexo-toc.js -->
+			<div id="content-toc" class="content-toc blog-toc">
+				<div id="toc-nav" class="toc-nav"></div>
+			</div>
 	</div>
   </div>
   <div class="container-narrow">
@@ -311,8 +310,7 @@
   
 
 
-  
-<a id="gotop" href="#">   
+  <a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -320,28 +318,29 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
 
-
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
-
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
   <script src="/js/theme-toggle.js"></script>
 </body>
    </html>

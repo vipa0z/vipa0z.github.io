@@ -74,7 +74,7 @@
 					
 					<li>
 						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
-							<i class="fa fa-book"></i>Cheatsheets &Notes
+							<i class="fa fa-book"></i>Cheatsheets & Notes
 						</a>
 					</li>
 					
@@ -120,22 +120,22 @@
 
 
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+	<div class="row post">
+		<!-- cols -->
+		
+			<div id="top_meta"></div>
+			<div class="col-md-9">
+				
 
-	<!-- content -->
-	<div class="mypage">		
-	  
-		 <!-- <div class="alert alert-success description">
+							<!-- content -->
+							<div class="mypage">
+								
+									<!-- <div class="alert alert-success description">
 			<i class="fa fa-info-circle"></i> There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc.
 		 </div> alert -->
-	  		
+									
 
-	  <p><img src="/../images/python3122.png" alt="Python library hijacking and import exploitation diagram"></p>
+										<p><img src="/../images/python3122.png" alt="Python library hijacking and import exploitation diagram"></p>
 <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>Python has <a target="_blank" rel="noopener" href="https://docs.python.org/3/library/">the Python standard library</a>, with many modules on board from a standard installation of Python. These modules provide many solutions that would otherwise have to be laboriously worked out by writing our programs. There are many ways in which we can abuse a Python library to PrivEsc. Much depends on the script and its contents itself. However, there are three basic vulnerabilities where hijacking can be used to PrivEsc.</p>
 <span id="more"></span>
 <h4 id="Importing-Modules"><a href="#Importing-Modules" class="headerlink" title="Importing Modules"></a>Importing Modules</h4><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 1</span></span><br><span class="line"><span class="keyword">import</span> pandas</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 2</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Method 3</span></span><br><span class="line"><span class="keyword">from</span> pandas <span class="keyword">import</span> Series</span><br></pre></td></tr></table></figure>
@@ -199,18 +199,18 @@
 
 <p>In this example, we moved the previous python script from the <code>/usr/lib/python3.8</code> directory to <code>/tmp</code>. From here we once again call <code>/usr/bin/python3</code> to run <code>mem_stats.py</code>, however, we specify that the <code>PYTHONPATH</code> variable contain the <code>/tmp</code> directory so that it forces Python to search that directory looking for the <code>psutil</code> module to import. As we can see, we once again have successfully run our script under the context of root.</p>
 
-	  <div class="article-footer-copyright">
+											<div class="article-footer-copyright">
 
 </div>
 
-	</div>
+							</div>
 
-	
-	
-	<div>
-  	<center>
+							
+									
+											<div>
+												<center>
 
-	<div class="pagination">
+													<div class="pagination">
 
     
     
@@ -228,11 +228,11 @@
 </div>
 
 
-    </center>
-	</div>
-	
-	<!-- comment -->
-	<!--
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
 <section id="comment">
     <h2 class="title">Comments</h2>
 
@@ -240,60 +240,59 @@
 </section>
 
 -->
-	
-	
-	
-	</div> <!-- col-md-9/col-md-12 -->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
 
 
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
+					
+						<div id="side_meta">
+							<div class="col-md-3" id="post_meta">
 
 	<!-- date -->
 	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2025-07-12 
-	</div>
-	
-
-	<!-- categories -->
-    
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/python/">python<span>1</span></a></li> <li><a href="/tags/python-imports/">python imports<span>1</span></a></li> <li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
-    </ul>
-	</div>
+		<div class="meta-widget">
+			<i class="fa fa-clock-o"></i>
+			2025-07-12
+		</div>
 		
 
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
+			<!-- categories -->
+			
+
+					<!-- tags -->
+					
+						<div class="meta-widget">
+							<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+							<ul id="tags" class="tag_box list-unstyled collapse in">
+								  
+  <li><a href="/tags/python/">python<span>1</span></a></li> <li><a href="/tags/python-imports/">python imports<span>1</span></a></li> <li><a href="/tags/PrivEsc/">PrivEsc<span>1</span></a></li>
+							</ul>
+						</div>
+						
+
+
+
+							<hr>
+
 </div><!-- col-md-3 -->
 
-		
 
-	</div>
-	
-		
+						</div>
 
-</div><!-- row -->
+						
 
-<!--
+			</div><!-- row -->
+
+			<!--
  -->
 
 
-
+			<!-- Fixed TOC Container for hexo-toc.js -->
+			<div id="content-toc" class="content-toc blog-toc">
+				<div id="toc-nav" class="toc-nav"></div>
+			</div>
 	</div>
   </div>
   <div class="container-narrow">
@@ -307,8 +306,7 @@
   
 
 
-  
-<a id="gotop" href="#">   
+  <a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -316,28 +314,29 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
 
-
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
-
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
   <script src="/js/theme-toggle.js"></script>
 </body>
    </html>

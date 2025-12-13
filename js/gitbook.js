@@ -6,7 +6,7 @@
 const GitBook = {
     // Configuration - now uses local files
     config: {
-        basePath: '01-notes',
+        basePath: 'cheatsheets/cheatsheets-notes',
         navJsonPath: '/js/gitbook-nav.json'
     },
 
@@ -416,6 +416,16 @@ const GitBook = {
      */
     addCopyButtons() {
         this.elements.contentBody.querySelectorAll('pre').forEach(pre => {
+            // Create wrapper
+            const wrapper = document.createElement('div');
+            wrapper.className = 'code-wrapper';
+
+            // Insert wrapper before pre
+            pre.parentNode.insertBefore(wrapper, pre);
+
+            // Move pre into wrapper
+            wrapper.appendChild(pre);
+
             const button = document.createElement('button');
             button.className = 'copy-btn';
             button.innerHTML = '<i class="fa fa-copy"></i>';
@@ -436,8 +446,7 @@ const GitBook = {
                 }
             });
 
-            pre.style.position = 'relative';
-            pre.appendChild(button);
+            wrapper.appendChild(button);
         });
     },
 

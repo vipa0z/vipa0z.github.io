@@ -74,7 +74,7 @@
 					
 					<li>
 						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
-							<i class="fa fa-book"></i>Cheatsheets &Notes
+							<i class="fa fa-book"></i>Cheatsheets & Notes
 						</a>
 					</li>
 					
@@ -120,22 +120,22 @@
 
 
 
-<div class="row post">
-	<!-- cols -->
-	
-	<div id="top_meta"></div>
-	<div class="col-md-9">
-	
+	<div class="row post">
+		<!-- cols -->
+		
+			<div id="top_meta"></div>
+			<div class="col-md-9">
+				
 
-	<!-- content -->
-	<div class="mypage">		
-	  
-		 <!-- <div class="alert alert-success description">
+							<!-- content -->
+							<div class="mypage">
+								
+									<!-- <div class="alert alert-success description">
 			<i class="fa fa-info-circle"></i> NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins
 		 </div> alert -->
-	  		
+									
 
-	  <h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins.</p>
+										<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="__OVERVIEW"></a>__OVERVIEW</h1><p>NoPAC is a privilege escalation vulnerability in Active Directory environments that allows an authenticated low-privileged user to impersonate any user, including Domain Admins.</p>
 <p>This vulnerability encompasses two CVEs 2021-42278 and 2021-42287, allowing for intra-domain privilege escalation from any standard domain user to Domain Admin level access in one single command. Here is a quick breakdown of what each CVE provides regarding this vulnerability.</p>
 <table>
 <thead>
@@ -188,18 +188,18 @@
 <h2 id="Mitigations"><a href="#Mitigations" class="headerlink" title="Mitigations"></a>Mitigations</h2><p>Microsoft’s patch adds Security Accounts Manager Hardening changes along with Key Distribution Center (KDC) authentication updates.</p>
 <p>These changes prevent sAMAccountName spoofing by adding validation for a computer account’s sAMAccountName ending in a single dollar sign. The original requester will also be added to the PAC of the TGT, helping prevent domain controller impersonation.</p>
 
-	  <div class="article-footer-copyright">
+											<div class="article-footer-copyright">
 
 </div>
 
-	</div>
+							</div>
 
-	
-	
-	<div>
-  	<center>
+							
+									
+											<div>
+												<center>
 
-	<div class="pagination">
+													<div class="pagination">
 
     
     
@@ -217,11 +217,11 @@
 </div>
 
 
-    </center>
-	</div>
-	
-	<!-- comment -->
-	<!--
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
 <section id="comment">
     <h2 class="title">Comments</h2>
 
@@ -229,60 +229,59 @@
 </section>
 
 -->
-	
-	
-	
-	</div> <!-- col-md-9/col-md-12 -->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
 
 
-	
-	<div id="side_meta">
-		<div class="col-md-3" id="post_meta"> 
+					
+						<div id="side_meta">
+							<div class="col-md-3" id="post_meta">
 
 	<!-- date -->
 	
-	<div class="meta-widget">
-	<i class="fa fa-clock-o"></i>
-	2025-07-08 
-	</div>
-	
-
-	<!-- categories -->
-    
-
-	<!-- tags -->
-	
-	<div class="meta-widget">
-	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
-    <ul id="tags" class="tag_box list-unstyled collapse in">	  
-	    
-  <li><a href="/tags/nopac/">nopac<span>1</span></a></li> <li><a href="/tags/AD/">AD<span>2</span></a></li> <li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li> <li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
-    </ul>
-	</div>
+		<div class="meta-widget">
+			<i class="fa fa-clock-o"></i>
+			2025-07-08
+		</div>
 		
 
-	<!-- toc -->
-	<div class="meta-widget">
-	
-	</div>
-	
-    <hr>
-	
+			<!-- categories -->
+			
+
+					<!-- tags -->
+					
+						<div class="meta-widget">
+							<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>
+							<ul id="tags" class="tag_box list-unstyled collapse in">
+								  
+  <li><a href="/tags/nopac/">nopac<span>1</span></a></li> <li><a href="/tags/AD/">AD<span>2</span></a></li> <li><a href="/tags/Active-Directory/">Active Directory<span>2</span></a></li> <li><a href="/tags/Lateral-Movement/">Lateral Movement<span>2</span></a></li>
+							</ul>
+						</div>
+						
+
+
+
+							<hr>
+
 </div><!-- col-md-3 -->
 
-		
 
-	</div>
-	
-		
+						</div>
 
-</div><!-- row -->
+						
 
-<!--
+			</div><!-- row -->
+
+			<!--
  -->
 
 
-
+			<!-- Fixed TOC Container for hexo-toc.js -->
+			<div id="content-toc" class="content-toc blog-toc">
+				<div id="toc-nav" class="toc-nav"></div>
+			</div>
 	</div>
   </div>
   <div class="container-narrow">
@@ -296,8 +295,7 @@
   
 
 
-  
-<a id="gotop" href="#">   
+  <a id="gotop" href="#">
   <span>⬆︎TOP</span>
 </a>
 
@@ -305,28 +303,29 @@
 <script src="/js/gallery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/main.js"></script>
-<script src="/js/search.js"></script> 
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
 
 
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-  $('.fancybox').fancybox();
-})(jQuery);
-</script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
 
-
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
-
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
   <script src="/js/theme-toggle.js"></script>
 </body>
    </html>

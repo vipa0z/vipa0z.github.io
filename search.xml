@@ -230,9 +230,9 @@
             
             <tag> privilege escalation </tag>
             
-            <tag> password-spray </tag>
-            
             <tag> active directory </tag>
+            
+            <tag> password-spray </tag>
             
             <tag> htb Cicada </tag>
             
@@ -267,11 +267,11 @@
             
             <tag> privilege escalation </tag>
             
+            <tag> password-spray </tag>
+            
             <tag> openfire </tag>
             
             <tag> chisel </tag>
-            
-            <tag> password-spray </tag>
             
             <tag> htb solarlab </tag>
             

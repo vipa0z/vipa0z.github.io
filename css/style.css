@@ -19,14 +19,18 @@
 :root {
     --text-color: #e2e1d3;
     --code-text-color: #e2e1d3;
-    --link-color: #ff6b6b;
-    --link-hover: #ff8888;
-    --link-active: #ee5555;
+    --link-color: #b388ff;
+    /* Soft Purple */
+    --link-hover: #d1c4e9;
+    /* Lighter Purple */
+    --link-active: #7c4dff;
+    /* Darker Purple */
     --code-bg: #1a1a1a;
     --code-color: #ffa500;
     --code-border: #666666;
-    --inline-code-color: #e07b67;
-    --inline-code-bg: #1b1b1b;
+    --inline-code-color: #b388ff;
+    /* Match link color or slightly different */
+    --inline-code-bg: #2d2d2d;
     --bg-primary: #0d0d0d;
     --border-color: #7c7a7a;
     --header-color: #fff;
@@ -1282,4 +1286,45 @@ body.light-theme .about-toc li:hover::before {
         width: 100% !important;
         max-width: 280px;
     }
+}
+
+/* Post-specific overrides as requested */
+.post a,
+.page a {
+    color: #acaccb;
+    /* Lighter Blue */
+    text-decoration: underline;
+}
+
+.post a:hover,
+.page a:hover {
+    color: #3b82f6;
+    /* Slightly darker on hover */
+    text-decoration: underline;
+}
+
+.post h1,
+.post h2,
+.post h3,
+.post h4,
+.post h5,
+.post h6,
+.page h1,
+.page h2,
+.page h3,
+.page h4,
+.page h5,
+.page h6 {
+    color: #e2e1d3;
+    /* Neutral text color, ensuring no purple */
+}
+/* Light Theme Link Color Override */
+body.light-theme .post a,
+body.light-theme .page a {
+    color: #0d47a1; /* Darker Blue for Contrast */
+}
+
+body.light-theme .post a:hover,
+body.light-theme .page a:hover {
+    color: #1565c0;
 }
