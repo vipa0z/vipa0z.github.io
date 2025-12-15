@@ -28,7 +28,7 @@
     --code-bg: #1a1a1a;
     --code-color: #ffa500;
     --code-border: #666666;
-    --inline-code-color: #b388ff;
+    --inline-code-color: #9ea0e6;
     /* Match link color or slightly different */
     --inline-code-bg: #2d2d2d;
     --bg-primary: #0d0d0d;
@@ -38,18 +38,24 @@
 
 body.light-theme {
     --text-color: #1a1a1a;
-    --link-color: #d9534f;
-    --link-hover: #c9302c;
-    --link-active: #ac2925;
+    --link-color: #0d47a1;
+    --link-hover: #1565c0;
+    --link-active: #0a3678;
     --code-bg: #1a1a1a;
     --code-color: #8b4513;
     --code-text-color: #e2e1d3;
     --code-border: #999999;
-    --inline-code-color: #c75050;
+    --inline-code-color: #5c5c99;
     --inline-code-bg: #f9f2f4;
     --bg-primary: #f0ede8;
     --border-color: #d0ccc5;
     --header-color: #2a2a2a;
+}
+
+code {
+    background-color: transparent !important;
+    color: var(--inline-code-color) !important;
+    border: 0px solid #2a2a2a !important;
 }
 
 body {
@@ -62,7 +68,8 @@ body {
 }
 
 body.light-theme {
-    background-color: #fff;
+    background-color: #f0ede8;
+    /* Off-white to match GitBook request */
     color: #333;
 }
 
@@ -722,7 +729,8 @@ figure {
 }
 
 .thumbnail {
-    border: 0
+    border: 0;
+    box-shadow: none;
 }
 
 .date {
@@ -1318,13 +1326,75 @@ body.light-theme .about-toc li:hover::before {
     color: #e2e1d3;
     /* Neutral text color, ensuring no purple */
 }
+
 /* Light Theme Link Color Override */
 body.light-theme .post a,
 body.light-theme .page a {
-    color: #0d47a1; /* Darker Blue for Contrast */
+    color: #0656ce;
+    /* Darker Blue for Contrast */
 }
 
 body.light-theme .post a:hover,
 body.light-theme .page a:hover {
     color: #1565c0;
+}
+
+/* Profile Badges */
+.profile-badges {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.profile-badges .htb-badge {
+    height: 100px !important;
+    width: auto !important;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.profile-badges .htb-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 255, 0, 0.2);
+}
+
+.profile-badges iframe {
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 600px) {
+    .profile-badges {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Logo Fix */
+.logo {
+    background: url("../favicon.png") no-repeat left top;
+    background-size: 4em
+}
+
+/* Ensure h1 inside logo doesn't overlap or has correct margin */
+.logo h1 {
+    display: inline-block;
+    margin: 0;
+/* Post Sidebar Sticky */
+.row.post {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#post_meta {
+    position: sticky;
+    top: 20px;
+    align-self: flex-start;
+    max-height: 100vh;
+    overflow-y: auto;
+    width: 100%; /* Ensure it fills the column */
 }

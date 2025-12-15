@@ -43,6 +43,7 @@ const GitBook = {
             sidebarNav: document.getElementById('sidebar-nav'),
             sidebarToggle: document.getElementById('sidebar-toggle'),
             mobileMenuBtn: document.getElementById('mobile-menu-btn'),
+            mainContainer: document.getElementById('gitbook-content'),
             contentBody: document.getElementById('content-body'),
             breadcrumb: document.getElementById('breadcrumb'),
             prevBtn: document.getElementById('prev-btn'),
@@ -63,7 +64,13 @@ const GitBook = {
     bindEvents() {
         // Sidebar toggle
         this.elements.sidebarToggle?.addEventListener('click', () => this.toggleSidebar());
-        this.elements.mobileMenuBtn?.addEventListener('click', () => this.toggleSidebar());
+        this.elements.mobileMenuBtn?.addEventListener('click', () => {
+            if (this.elements.sidebar?.classList.contains('open')) {
+                this.toggleSidebar();
+            } else {
+                this.openSidebar();
+            }
+        });
         this.elements.sidebarOpenBtn?.addEventListener('click', () => this.openSidebar());
 
         // Search
@@ -391,7 +398,11 @@ const GitBook = {
     `;
 
         // Scroll to top
-        this.elements.contentBody.scrollTop = 0;
+        if (this.elements.mainContainer) {
+            this.elements.mainContainer.scrollTop = 0;
+        } else {
+            this.elements.contentBody.scrollTop = 0;
+        }
 
         // Re-apply Prism highlighting
         Prism.highlightAllUnder(this.elements.contentBody);
@@ -633,7 +644,7 @@ const GitBook = {
     initSidebarResize() {
         const sidebar = this.elements.sidebar;
         const resizer = this.elements.sidebarResizer;
-        const content = document.querySelector('.gitbook-content');
+        // const content = document.querySelector('.gitbook-content');
 
         if (!sidebar || !resizer) return;
 
@@ -653,10 +664,11 @@ const GitBook = {
             if (!isResizing) return;
 
             const diff = e.clientX - startX;
-            const newWidth = Math.min(Math.max(startWidth + diff, 200), 600);
+            const newWidth = Math.min(Math.max(startWidth + diff, 200), 800);
 
             sidebar.style.width = `${newWidth}px`;
-            if (content) content.style.marginLeft = `${newWidth}px`;
+            // In flexbox layout, we don't need to set margin-left on content
+            // if (content) content.style.marginLeft = `${newWidth}px`;
         });
 
         document.addEventListener('mouseup', () => {

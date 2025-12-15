@@ -27,6 +27,8 @@
     <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
   
   
+    <link href="/favicon.png" rel="icon">
+  
   
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
@@ -138,6 +140,8 @@
     <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
   
   
+    <link href="/favicon.png" rel="icon">
+  
   
   <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
   <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
@@ -221,12 +225,12 @@
 <div class="clearfix"></div>
 
             <div class="gitbook-container">
-                <!-- Sidebar -->
+                <!-- 1. Sidebar -->
                 <aside class="gitbook-sidebar" id="gitbook-sidebar">
                     <div class="sidebar-resizer" id="sidebar-resizer"></div>
                     <div class="sidebar-header">
                         <div class="sidebar-logo">
-                            <i class="fa fa-book"></i>
+                            <img src="/cheatsheets/wizard.png" alt="Wizard Logo" style="height: 48px; width: auto; margin-right: 8px;">
                             <span>0zAttacker's Cookbook</span>
                         </div>
                         <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
@@ -253,14 +257,14 @@
                     </div>
                 </aside>
 
-                <!-- Sidebar Open Button (visible when sidebar collapsed) -->
+                <!-- Sidebar Open Button (Mobile/Collapsed State) -->
                 <button class="sidebar-open-btn" id="sidebar-open-btn" aria-label="Open sidebar">
                     <i class="fa fa-bars"></i>
                     <span>Menu</span>
                 </button>
 
-                <!-- Main Content -->
-                <main class="gitbook-content" id="gitbook-content">
+                <!-- 2. Markdown Body (Middle Column) -->
+                <main class="gitbook-main" id="gitbook-content">
                     <div class="content-header">
                         <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
                             <i class="fa fa-bars"></i>
@@ -277,44 +281,32 @@
                         </div>
                     </div>
 
-                    <div class="content-main-wrapper">
-                        <article class="content-body" id="content-body">
-                            <div class="welcome-screen">
-                                <img src="/images/cpts+back.png" alt="CPTS Background" class="welcome-image">
-                                <p class="welcome-description">
-                                    A collection of my penetration testing notes and cheatsheets covering a wide range
-                                    of topics (mainly vulnerability discovery in AD & Internal networks, Blackbox Web
-                                    App Security testing, API Security testing and the OWASP TOP 10)
-                                    compiled from
-                                    Complete CPTS, CWES (minus web fuzzing/broken auth),
-                                    PortSwigger Academy, API University,
-                                    personal research, and various sources such as Ippsec, Hacktricks, Payloads All The
-                                    Things,
-                                    and
-                                    various labs. Use the sidebar to navigate.
-                                </p>
+                    <article class="content-body" id="content-body">
+                         <div class="welcome-screen">
+                            <img src="/images/cpts+back.png" alt="CPTS Background" class="welcome-image">
+                            <p class="welcome-description">
+                                A collection of my penetration testing notes and cheatsheets covering a wide range
+                                of topics (mainly vulnerability discovery in AD & Internal networks, Blackbox Web
+                                App Security testing, API Security testing and the OWASP TOP 10)
+                                compiled from
+                                Complete CPTS, CWES (minus web fuzzing/broken auth),
+                                PortSwigger Academy, API University,
+                                personal research, and various sources such as Ippsec, Hacktricks, Payloads All The
+                                Things,
+                                and
+                                various labs. Use the sidebar to navigate.
+                            </p>
 
-                                <div class="quick-links">
-                                    <h3>Browse by Category</h3>
-                                    <div class="quick-links-grid" id="quick-links-grid">
-                                        <div class="loading-spinner">
-                                            <i class="fa fa-spinner fa-spin"></i>
-                                        </div>
+                            <div class="quick-links">
+                                <h3>Browse by Category</h3>
+                                <div class="quick-links-grid" id="quick-links-grid">
+                                    <div class="loading-spinner">
+                                        <i class="fa fa-spinner fa-spin"></i>
                                     </div>
                                 </div>
                             </div>
-                        </article>
-
-                        <!-- Right-side Table of Contents -->
-                        <aside class="content-toc" id="content-toc">
-                            <div class="toc-header">
-                                <span>On this page</span>
-                            </div>
-                            <nav class="toc-nav" id="toc-nav">
-                                <!-- TOC will be populated by JavaScript -->
-                            </nav>
-                        </aside>
-                    </div>
+                        </div>
+                    </article>
 
                     <div class="content-footer">
                         <div class="nav-buttons">
@@ -329,6 +321,18 @@
                         </div>
                     </div>
                 </main>
+
+                <!-- 3. Meta (Right Column -> TOC) -->
+                <div class="meta">
+                    <aside class="content-toc" id="content-toc">
+                        <div class="toc-header">
+                            <span>On this page</span>
+                        </div>
+                        <nav class="toc-nav" id="toc-nav">
+                            <!-- TOC will be populated by JavaScript -->
+                        </nav>
+                    </aside>
+                </div>
             </div>
 
             <!-- Markdown Parser -->
