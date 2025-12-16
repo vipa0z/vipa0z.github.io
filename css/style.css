@@ -146,6 +146,29 @@ body.light-theme {
     color: #555
 }
 
+/* Dark theme pagination button styling */
+.pagination .btn,
+.pagination .btn-default {
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    color: #e2e1d3;
+}
+
+.pagination .btn:hover,
+.pagination .btn-default:hover {
+    background-color: #2a2a2a;
+    border-color: #666;
+    color: #fff;
+}
+
+.pagination .btn.disabled,
+.pagination .btn-default.disabled {
+    background-color: #111;
+    border-color: #333;
+    color: #666;
+    cursor: not-allowed;
+}
+
 li i {
     margin-right: 5px;
     margin-left: 5px
@@ -252,7 +275,7 @@ a {
     color: var(--link-color);
     text-decoration: underline;
     transition: color 0.2s;
-    font-family: 'Garamond', 'Georgia', serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
 a:focus {
