@@ -55,10 +55,10 @@ const GitBook = {
             contentToc: document.getElementById('content-toc'),
             sidebarResizer: document.getElementById('sidebar-resizer'),
             themeToggle: document.getElementById('gitbook-theme-toggle'),
-            sidebarOpenBtn: document.getElementById('sidebar-open-btn')
+            sidebarOpenBtn: document.getElementById('sidebar-open-btn'),
+            contentHeader: document.querySelector('.content-header')
         };
     },
-
     /**
      * Bind event listeners
      */
