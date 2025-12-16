@@ -13,7 +13,7 @@
     padding-bottom: 0 !important;
     background: var(--bg-primary, #0d0d0d) !important;
     /* Purple Accent */
-    --link-color: #b388ff;
+    --link-color: #d1c4e9;
 }
 
 /* Force content div to be full width */
@@ -649,7 +649,7 @@
 
 /* Right Table of Contents - GitBook Style */
 /* Meta Column (Right Column - TOC) */
-.meta {
+.gitbook-container > .meta {
     width: 300px; /* Slightly wider */
     min-width: 250px;
     flex-shrink: 0;
@@ -663,20 +663,20 @@
     padding-top: 20px; /* Fix Navbar underlap */
 }
 
-.meta::-webkit-scrollbar {
+.gitbook-container > .meta::-webkit-scrollbar {
     width: 6px;
 }
 
-.meta::-webkit-scrollbar-track {
+.gitbook-container > .meta::-webkit-scrollbar-track {
     background: transparent;
 }
 
-.meta::-webkit-scrollbar-thumb {
+.gitbook-container > .meta::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 3px;
 }
 
-.meta::-webkit-scrollbar-thumb:hover {
+.gitbook-container > .meta::-webkit-scrollbar-thumb:hover {
     background: #444;
 }
 
