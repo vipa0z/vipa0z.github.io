@@ -4,15 +4,16 @@
 
 # show_slogan: true
 
- menu:
-   - title: Archives
-     url: archives
-     intro: "All the articles."
-     icon: "fa fa-archive"
-   - title: Categories
-     url: categories
-     intro: "All the categories."
-     icon: "fa fa-folder"
+# Commented out secondary menu
+#  menu:
+#    - title: Archives
+#      url: archives
+#      intro: "All the articles."
+#      icon: "fa fa-archive"
+#    - title: Categories
+#      url: categories
+#      intro: "All the categories."
+#      icon: "fa fa-folder"
 #   - title: Tags
 #     url: tags
 #     intro: "All the tags."
@@ -50,9 +51,9 @@ excerpt:
 # - recent_posts
 # - links
 
-# rss: atom.xml
+ rss: atom.xml
 # fancybox: true
-# favicon: favicon.png
+ favicon: favicon.png
 
 
 
@@ -123,14 +124,13 @@ menu:
     url: about
     intro: "About me."
     icon: "fa fa-user"
+  - title: Cheatsheets
+    url: cheatsheets
+    intro: "Offensive Security Cheatsheets"
+    icon: "fa fa-book"
 
 
 links:
-   - title: LinkedIn
-     url: http://www.linkedin.com/in/abdomagdy00
-     intro: "My Linkin account."
-     icon: "fa fa-linkedin"
-
    - title: Github
      url: https://github.com/vipa0z
      icon: "fa fa-github"
@@ -144,7 +144,7 @@ widgets:
 
 rss: atom.xml
 fancybox: true
-favicon: favicon.jpg
+favicon: favicon.png
 #duoshuo_shortname: 
 
 

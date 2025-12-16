@@ -1,6 +1,5 @@
 slogan: "Latest Posts:"
 
-
 show_heart: true
 
 show_slogan: true
@@ -10,106 +9,104 @@ menu:
     url: index
     intro: "Home"
     icon: "fa fa-home"
+  - title: Cheatsheets & Notes
+    url: cheatsheets/
+    intro: "Cheatsheets_and_Notes"
+    icon: "fa fa-book"
+  - title: About Me
+    url: about
+    intro: "About me."
+    icon: "fa fa-user"
   - title: Archives
     url: archives
     intro: "All the articles."
     icon: "fa fa-archive"
-  - title: Categories
-    url: categories
-    intro: "All the categories."
-    icon: "fa fa-folder"
+  # - title: Categories
+  #   url: categories
+  #   intro: "All the categories."
+  #   icon: "fa fa-folder"
   - title: Tags
     url: tags
     intro: "All the tags."
     icon: "fa fa-tags"
-  - title: About
-    url: about
-    intro: "About me."
-    icon: "fa fa-user"
 
-  - title: Resume
-    url: about/resume.pdf
-    intro: "About me."
-    icon: "fa fa-file"
+  # - title: Resume
+  #   url: about/resume.pdf
+  #   intro: "About me."
+  #   icon: "fa fa-file"
 
- # - title: RSS
+  # - title: RSS
   #  url: atom.xml
-   # intro: "Subscribe me."
-    #icon: "fa fa-user"
+  # intro: "Subscribe me."
+  #icon: "fa fa-user"
 
 links:
-- title: twitter
-  url: https://x.com/vipa0z
-  intro: ""
-  icon: "fa fa-twitter"
+  - title: twitter
+    url: https://x.com/vipa0z
+    intro: ""
+    icon: "fa fa-twitter"
 
+  - title: github
+    url: https://github.com/vipa0z
+    icon: "fa fa-github"
 
-- title: vipa0z blog
-  url: https://vipa0z.github.io
-  icon: "fa fa-github" 
+  # - title: "My LinkedIn"
+  #   url: http://www.linkedin.com/in/abdomagdy00
+  #   intro: "My Linkin account."
+  #   icon: "fa fa-linkedin"
 
-- title: "My LinkedIn"
-  url: http://www.linkedin.com/in/abdomagdy00
-  intro: "My Linkin account."
-  icon: "fa fa-linkedin"
-
-- title: Email me
-  url: mailto:Abdelmagdy0x0@proton.me
-  icon: "fa fa-envelope"
-
-- title: View My Resume
-  url: about/resume.pdf
-  icon: "fa fa-file"
+  # - title: Email me
+  # url: mailto:Abdelmagdy.contact@proton.me
+  # icon: "fa fa-envelope"
 
 widgets:
-- search
-- category
-- tagcloud
-- recent_posts
-- links
+  - search
+  - category
+  - tagcloud
+  - recent_posts
+  - links
 
 rss: atom.xml
+favicon: true
 fancybox: true
-#duoshuo_shortname: 
-
+#duoshuo_shortname:
 
 # Analytics
 google_analytics:
   enable: true
   siteid: UA-70812759-1
 
-
 # search:
 #   swiftype_key: ZP2ZSuHgipSZfRyU8uTR
 
 #valine
-valine: 
+valine:
   enable: false
-  appId: 'xxx'
-  appKey: 'xxx'
+  appId: "xxx"
+  appKey: "xxx"
   placeholder: ""
   visitor: false
-  avatar: 'monsterid'
-  requiredFields: ['nick','mail']
+  avatar: "monsterid"
+  requiredFields: ["nick", "mail"]
   pageView: false
-  
+
 #waline
 waline:
   enable: false
-  serverURL: ''
+  serverURL: ""
   pageview: false
   lang: en
   dark: true
-  requiredMeta: ['nick', 'mail']
+  requiredMeta: ["nick", "mail"]
   locale:
-    placeholder: 'Comment with Email address will get notification when replied'
+    placeholder: "Comment with Email address will get notification when replied"
 
 gitalk:
   enable: false
-  clientID: ''
-  clientSecret: ''
-  repo: ''
-  owner: ''
-  admin: ['']
+  clientID: ""
+  clientSecret: ""
+  repo: ""
+  owner: ""
+  admin: [""]
   id: location.pathname
   distractionFreeMode: true

