@@ -27,6 +27,10 @@ const GitBook = {
      */
     async init() {
         this.cacheElements();
+        // Cache initial content (Welcome Screen) for Home navigation
+        if (this.elements.contentBody) {
+            this.initialContent = this.elements.contentBody.innerHTML;
+        }
         this.bindEvents();
         await this.loadNavigation();
         this.initThemeToggle();
@@ -34,9 +38,6 @@ const GitBook = {
         this.checkUrlHash();
     },
 
-    /**
-     * Cache DOM elements
-     */
     cacheElements() {
         this.elements = {
             sidebar: document.getElementById('gitbook-sidebar'),
@@ -65,13 +66,20 @@ const GitBook = {
         // Sidebar toggle
         this.elements.sidebarToggle?.addEventListener('click', () => this.toggleSidebar());
         this.elements.mobileMenuBtn?.addEventListener('click', () => {
+            // Toggle logic
             if (this.elements.sidebar?.classList.contains('open')) {
                 this.toggleSidebar();
             } else {
                 this.openSidebar();
             }
         });
-        this.elements.sidebarOpenBtn?.addEventListener('click', () => this.openSidebar());
+
+        // Use event delegation for sidebar open button to ensure it works even if DOM changes or timing issues
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('#sidebar-open-btn')) {
+                this.openSidebar();
+            }
+        });
 
         // Search
         this.elements.searchInput?.addEventListener('input', (e) => this.handleSearch(e.target.value));
@@ -116,6 +124,13 @@ const GitBook = {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
             const structure = await response.json();
+            // Prepend Home link
+            structure.unshift({
+                type: 'file',
+                name: 'Home',
+                path: 'cheatsheets/index.md', // Adjust this to your actual home markdown path if different
+                icon: 'fa-home'
+            });
             this.state.navStructure = structure;
             this.renderNavigation(structure);
             this.flattenNavigation(structure);
@@ -314,6 +329,27 @@ const GitBook = {
     async loadContent(path) {
         this.state.currentPath = path;
 
+        // Handle Home Page separately (restore initial content)
+        if (path === 'cheatsheets/index.md') {
+            if (this.initialContent) {
+                this.elements.contentBody.innerHTML = this.initialContent;
+                this.updateBreadcrumb(path);
+
+                // Re-initialize dynamic elements like Quick Links
+                const quickLinksGrid = this.elements.contentBody.querySelector('#quick-links-grid');
+                if (quickLinksGrid) {
+                    this.elements.quickLinksGrid = quickLinksGrid;
+                    this.renderQuickLinks(this.state.navStructure);
+                }
+
+                // Scroll to top
+                if (this.elements.mainContainer) {
+                    this.elements.mainContainer.scrollTop = 0;
+                }
+                return;
+            }
+        }
+
         // Show loading
         this.elements.contentBody.innerHTML = `
       <div class="loading-spinner">
@@ -420,6 +456,14 @@ const GitBook = {
 
         // Add copy buttons to code blocks
         this.addCopyButtons();
+
+        // Check for Quick Links Grid in the new content (Home Page)
+        const quickLinksGrid = this.elements.contentBody.querySelector('#quick-links-grid');
+        if (quickLinksGrid) {
+            // Re-assign reference and render
+            this.elements.quickLinksGrid = quickLinksGrid;
+            this.renderQuickLinks(this.state.navStructure);
+        }
     },
 
     /**
@@ -461,31 +505,46 @@ const GitBook = {
         });
     },
 
+
     /**
-     * Update breadcrumb
+     * Update breadcrumb (Interactive)
      */
     updateBreadcrumb(path) {
         const parts = path.split('/');
         const baseParts = this.config.basePath.split('/').length;
         const relevantParts = parts.slice(baseParts);
 
-        let html = '<a href="/cheatsheets/">Home</a>';
-        let currentPath = this.config.basePath;
+        let html = '<a href="/cheatsheets/" class="breadcrumb-link" data-path="cheatsheets/index.md">Home</a>';
 
+        // Remove click logic for intermediate folders to avoid 404s
         relevantParts.forEach((part, index) => {
-            currentPath += '/' + part;
             const name = this.formatName(part);
             const isLast = index === relevantParts.length - 1;
 
             if (isLast) {
-                html += ` <i class="fa fa-chevron-right"></i> <span>${name}</span>`;
+                html += ` <i class="fa fa-chevron-right"></i> <span class="breadcrumb-current">${name}</span>`;
             } else {
-                html += ` <i class="fa fa-chevron-right"></i> <span>${name}</span>`;
+                // Render as text only, not link
+                html += ` <i class="fa fa-chevron-right"></i> <span class="breadcrumb-text">${name}</span>`;
             }
         });
 
         this.elements.breadcrumb.innerHTML = html;
+
+        // Add click handlers ONLY for Home link logic
+        this.elements.breadcrumb.querySelectorAll('.breadcrumb-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const path = link.dataset.path;
+                if (path === 'cheatsheets/index.md') {
+                    // Special handling for home if needed, or just load it
+                    this.loadContent(path);
+                    window.location.hash = ''; // Clear hash for home or set to #
+                }
+            });
+        });
     },
+
 
     /**
      * Update navigation buttons

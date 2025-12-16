@@ -473,7 +473,7 @@ h6 {
 .post h4,
 .post h5,
 .post h6 {
-    font-family: 'Garamond', 'Georgia', serif;
+    font-family: 'Arial', sans-serif;
 }
 
 .page-header h1,
@@ -1384,17 +1384,16 @@ body.light-theme .page a:hover {
 .logo h1 {
     display: inline-block;
     margin: 0;
-/* Post Sidebar Sticky */
-.row.post {
-    display: flex;
-    flex-wrap: wrap;
 }
 
-#post_meta {
+/* Post Sidebar Sticky */
+/* .row.post ruleset removed as it's empty */
+
+#side_meta {
+    position: -webkit-sticky;
     position: sticky;
-    top: 20px;
-    align-self: flex-start;
-    max-height: 100vh;
+    top: 80px;
+    height: calc(100vh - 100px);
     overflow-y: auto;
-    width: 100%; /* Ensure it fills the column */
+    /* align-self: flex-start;  Removed as flex is gone */
 }

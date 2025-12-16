@@ -230,7 +230,7 @@
                     <div class="sidebar-resizer" id="sidebar-resizer"></div>
                     <div class="sidebar-header">
                         <div class="sidebar-logo">
-                            <img src="/cheatsheets/wizard.png" alt="Wizard Logo" style="height: 48px; width: auto; margin-right: 8px;">
+                            <img src="/cheatsheets/wizard.png" alt="Wizard Logo" style="height: 48px; width: auto; margin-right: 8px; pointer-events: none;">
                             <span>0zAttacker's Cookbook</span>
                         </div>
                         <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
@@ -257,18 +257,15 @@
                     </div>
                 </aside>
 
-                <!-- Sidebar Open Button (Mobile/Collapsed State) -->
-                <button class="sidebar-open-btn" id="sidebar-open-btn" aria-label="Open sidebar">
+                <!-- 2. Sidebar Open Button (Visible when sidebar collapsed) -->
+                <button class="sidebar-open-btn" id="sidebar-open-btn" title="Open Sidebar">
                     <i class="fa fa-bars"></i>
                     <span>Menu</span>
                 </button>
 
-                <!-- 2. Markdown Body (Middle Column) -->
+                <!-- 3. Markdown Body (Middle Column) -->
                 <main class="gitbook-main" id="gitbook-content">
                     <div class="content-header">
-                        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu">
-                            <i class="fa fa-bars"></i>
-                        </button>
                         <div class="breadcrumb" id="breadcrumb">
                             <a href="/cheatsheets/">Home</a>
                         </div>
