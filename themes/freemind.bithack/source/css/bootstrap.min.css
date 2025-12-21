@@ -237,11 +237,11 @@ th {
     }
 
     a[href]:after {
-        content: " ("attr(href) ")"
+        content: " (" attr(href) ")"
     }
 
     abbr[title]:after {
-        content: " ("attr(title) ")"
+        content: " (" attr(title) ")"
     }
 
     a[href^="#"]:after,
@@ -4826,7 +4826,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 
 .navbar-brand {
     float: left;
-    padding-top:  20px;
+    padding-top: 20px;
     line-height: 30px
 }
 
@@ -4878,9 +4878,9 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
 }
 
 .navbar-nav {
-    
+
     padding: 15px;
- 
+
 }
 
 .navbar-nav>li>a {
@@ -4924,7 +4924,7 @@ select[multiple].input-group-sm>.input-group-btn>.btn {
     }
 
     .navbar-nav>li>a {
-       padding
+        padding
     }
 }
 

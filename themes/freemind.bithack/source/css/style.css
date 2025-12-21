@@ -34,28 +34,32 @@
     --bg-primary: #0d0d0d;
     --border-color: #7c7a7a;
     --header-color: #fff;
+    --tag-color: #e2e1d3;
 }
 
 body.light-theme {
     --text-color: #1a1a1a;
-    --link-color: #0d47a1;
-    --link-hover: #1565c0;
-    --link-active: #0a3678;
+    --link-color: #540d68;
+    --link-hover: #834c9d;
+    --link-active: #b5b4b5;
     --code-bg: #1a1a1a;
     --code-color: #8b4513;
     --code-text-color: #e2e1d3;
     --code-border: #999999;
-    --inline-code-color: #5c5c99;
-    --inline-code-bg: #f9f2f4;
-    --bg-primary: #f0ede8;
-    --border-color: #d0ccc5;
+    --inline-code-color: #8b0000;
+    --inline-code-bg: #bbbbbb;
+    --bg-primary: #d8d3cd;
+    --border-color: #b0aca5;
     --header-color: #2a2a2a;
+    --tag-color: #000000;
 }
 
 code {
-    background-color: transparent !important;
+    background-color: var(--inline-code-bg, transparent) !important;
     color: var(--inline-code-color) !important;
     border: 0px solid #2a2a2a !important;
+    padding: 0 4px !important;
+    border-radius: 3px;
 }
 
 body {
@@ -68,8 +72,8 @@ body {
 }
 
 body.light-theme {
-    background-color: #f0ede8;
-    /* Off-white to match GitBook request */
+    background-color: #d8d3cd;
+    /* Darker off-white for eye comfort */
     color: #333;
 }
 
@@ -146,6 +150,29 @@ body.light-theme {
     color: #555
 }
 
+/* Dark theme pagination button styling */
+.pagination .btn,
+.pagination .btn-default {
+    background-color: #1a1a1a;
+    border: 1px solid #444;
+    color: #e2e1d3;
+}
+
+.pagination .btn:hover,
+.pagination .btn-default:hover {
+    background-color: #2a2a2a;
+    border-color: #666;
+    color: #fff;
+}
+
+.pagination .btn.disabled,
+.pagination .btn-default.disabled {
+    background-color: #111;
+    border-color: #333;
+    color: #666;
+    cursor: not-allowed;
+}
+
 li i {
     margin-right: 5px;
     margin-left: 5px
@@ -185,10 +212,11 @@ li i {
     padding: 2px 6px;
     margin: 2px;
     background: #e5e5e5;
-    color: #555;
+    color: var(--tag-color, #555);
     border-radius: 3px;
     text-decoration: none;
-    border: 1px dashed #bbb
+    border: 1px dashed #bbb;
+    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
 }
 
 .tag_box a span {
@@ -197,7 +225,7 @@ li i {
 }
 
 .tag_box a:hover {
-    background-color: #397bdd;
+    background-color: #555555;
     color: #FFF
 }
 
@@ -248,11 +276,25 @@ em.search-keyword {
     width: 100%
 }
 
+.tagcloud a {
+    color: var(--tag-color);
+    text-decoration: none;
+    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
+}
+
+.tagcloud a:hover {
+    color: #000;
+    background: #e5e5e5;
+    text-decoration: none;
+    border-radius: 4px;
+    padding: 0 4px;
+}
+
 a {
     color: var(--link-color);
     text-decoration: underline;
     transition: color 0.2s;
-    font-family: 'Garamond', 'Georgia', serif;
+    font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
 a:focus {
@@ -539,7 +581,23 @@ em {
     font-size: 1.7em;
     line-height: 1.3em;
     font-weight: bold;
-    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace
+    font-family: 'Garamond', 'Georgia', serif;
+}
+
+/* Index page title links - elegant style */
+.page h3.title a {
+    font-family: 'Garamond', 'Georgia', serif;
+    text-decoration: none;
+}
+
+.page h3.title a:hover {
+    text-decoration: underline;
+}
+
+/* Post page - override to use regular font */
+.post h3.title,
+.post h3.title a {
+    font-family: 'Arial', 'Helvetica', sans-serif;
 }
 
 .page h3.title div.article-title {
@@ -686,10 +744,10 @@ pre code {
 }
 
 code {
-    background-color: transparent !important;
+    background-color: var(--inline-code-bg, transparent) !important;
     color: var(--inline-code-color) !important;
     border: 0px solid #2a2a2a !important;
-    padding: 0 2px !important;
+    padding: 0 4px !important;
     margin: 0 !important;
     font-size: 100% !important;
     text-shadow: none !important;
@@ -697,6 +755,7 @@ code {
     word-wrap: break-word;
     white-space: normal;
     font-family: inherit;
+    border-radius: 3px;
 }
 
 pre {
@@ -737,6 +796,11 @@ figure {
     color: #fff;
     line-height: 3em;
     text-align: right
+}
+
+/* Light theme date - darker for visibility */
+body.light-theme .date {
+    color: #444;
 }
 
 pre code {
@@ -1299,10 +1363,17 @@ body.light-theme .about-toc li:hover::before {
 /* Post-specific overrides as requested */
 .post a,
 .page a {
-    color: #acaccb;
+    color: #8174a4;
     /* Lighter Blue */
     text-decoration: underline;
 }
+
+body.light-theme .page a {
+    color: #453a96;
+    /* Lighter Blue */
+    text-decoration: underline;
+}
+
 
 .post a:hover,
 .page a:hover {
@@ -1328,15 +1399,20 @@ body.light-theme .about-toc li:hover::before {
 }
 
 /* Light Theme Link Color Override */
-body.light-theme .post a,
-body.light-theme .page a {
-    color: #0656ce;
+body.light-theme .post p a,
+body.light-theme .page p a {
+    color: #272eaa;
+    /* Darker Blue for Contrast */
+}
+
+.tag_box a {
+    color: #000000;
     /* Darker Blue for Contrast */
 }
 
 body.light-theme .post a:hover,
 body.light-theme .page a:hover {
-    color: #1565c0;
+    color: #080808;
 }
 
 /* Profile Badges */

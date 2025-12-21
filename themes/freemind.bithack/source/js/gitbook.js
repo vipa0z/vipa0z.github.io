@@ -31,6 +31,13 @@ const GitBook = {
         if (this.elements.contentBody) {
             this.initialContent = this.elements.contentBody.innerHTML;
         }
+        
+        // Initial responsive state
+        if (window.innerWidth <= 768) {
+            this.elements.sidebar?.classList.add('collapsed');
+            this.elements.sidebar?.classList.remove('open');
+        }
+
         this.bindEvents();
         await this.loadNavigation();
         this.initThemeToggle();
