@@ -1,0 +1,237 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h4 id="nmap"><a href="#nmap" class="headerlink" title="nmap"></a>nmap</h4><p>nmap can be used as an initial discovery tool for finding open&#x2F;hidden ports</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># quick:</span><br><span class="line">$ nmap -sC -sV [target address] -oA allportscan</span><br><span class="line">full:</span><br><span class="line">$ nmap -p- [target address] -oA allportscan</span><br></pre></td></tr></table></figure>
+
+<h4 id="amass"><a href="#amass" class="headerlink" title="amass"></a>amass</h4><p>bruteforcing for API endpoints using amass, run amass in active mode:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">amass enum -active  -d target.com --brute API-PATHS.txt</span><br><span class="line"></span><br><span class="line"># grep for api:</span><br><span class="line">amass enum -active -d target.com |grep api</span><br></pre></td></tr></table></figure>
+
+<h4 id="Gobuster"><a href="#Gobuster" class="headerlink" title="Gobuster"></a>Gobuster</h4><p> For directory discovery. not API specific but can help when searching for API paths or admin panels:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">gobuster dir -u https://target:port -w dir-list2.3-medium</span><br><span class="line">   /community</span><br><span class="line"></span><br><span class="line"># deeper into a specific path:</span><br><span class="line">gobuster dir -u https://target:port/community -w dir-list2.3-medium</span><br></pre></td></tr></table></figure>
+
+<h4 id="kiterunner"><a href="#kiterunner" class="headerlink" title="kiterunner:"></a>kiterunner:</h4><p>fuzzing tool, Main API discovery scanner, with built-in wordlists.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">kr -h</span><br></pre></td></tr></table></figure>
+
+<h4 id="Postman"><a href="#Postman" class="headerlink" title="Postman:"></a>Postman:</h4><p> postman can be used as a  proxy to capture traffic, manually save interesting endpoints.<br>side note: you can copy requests as curl using dev tools and import them to postman. it will duplicate the request for you</p>
+<h4 id="mitmproxy"><a href="#mitmproxy" class="headerlink" title="mitmproxy:"></a>mitmproxy:</h4><p>useful proxy tool. combine with mitm2swagger to generate docs.</p>
+<h4 id="mitm2swagger"><a href="#mitm2swagger" class="headerlink" title="mitm2swagger:"></a>mitm2swagger:</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo mitmproxy2swagger -i ~/Downloads/flows -o spec.yml -p http://crapí.apisec.ai -f flow --examples</span><br></pre></td></tr></table></figure>
+<p>generates spec.yml, browse to editor.swagger.io and import the spec file.<br>also import to postman.<br>![[ss&#x2F;Pasted image 20251109235350.png]]</p>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

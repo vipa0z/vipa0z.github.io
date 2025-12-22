@@ -1,0 +1,361 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h1 id="DNS-Enumeration-Port-53"><a href="#DNS-Enumeration-Port-53" class="headerlink" title="DNS Enumeration (Port 53)"></a>DNS Enumeration (Port 53)</h1><p>Enumerate DNS servers to discover subdomains, perform zone transfers, and identify misconfigurations.<br>DNS reconnaissance is critical for mapping an organization’s external and internal infrastructure before deeper attacks.</p>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Zone transfer attempt</span></span><br><span class="line">dig axfr domain.com @10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subdomain brute force</span></span><br><span class="line">dnsenum --dnsserver 10.10.10.10 --enum -p 0 -s 0 -f /usr/share/seclists/Discovery/DNS/fierce-hostlist.txt domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># DNS reconnaissance</span></span><br><span class="line">dnsrecon -d domain.com -n 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Zone-Transfer"><a href="#Zone-Transfer" class="headerlink" title="Zone Transfer"></a>Zone Transfer</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Using dig</span></span><br><span class="line">dig axfr domain.com @10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Query any records</span></span><br><span class="line">dig any domain.com @10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using nslookup</span></span><br><span class="line">nslookup</span><br><span class="line">&gt; server 10.10.10.10</span><br><span class="line">&gt; <span class="built_in">ls</span> -d company.local</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using host</span></span><br><span class="line">host -l domain.com 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="DNSRecon"><a href="#DNSRecon" class="headerlink" title="DNSRecon"></a>DNSRecon</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># General enumeration (includes zone transfer)</span></span><br><span class="line">dnsrecon -d domain.com -n 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subdomain brute force</span></span><br><span class="line">dnsrecon -d domain.com -n 10.10.10.10 -D /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -t brt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Zone transfer</span></span><br><span class="line">dnsrecon -d domain.com -n 10.10.10.10 -t axfr</span><br><span class="line"></span><br><span class="line"><span class="comment"># Reverse lookup</span></span><br><span class="line">dnsrecon -r 10.10.10.0/24 -n 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="DNSenum"><a href="#DNSenum" class="headerlink" title="DNSenum"></a>DNSenum</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Comprehensive DNS enumeration</span></span><br><span class="line">dnsenum --dnsserver 10.10.10.10 --enum -p 0 -s 0 -o output.txt -f /usr/share/seclists/Discovery/DNS/fierce-hostlist.txt domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># With threading</span></span><br><span class="line">dnsenum --dnsserver 10.10.10.10 --enum -p 0 -s 0 --threads 90 -f /usr/share/seclists/Discovery/DNS/fierce-hostlist.txt domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Zone transfer only</span></span><br><span class="line">dnsenum --noreverse --nocolor domain.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Fierce"><a href="#Fierce" class="headerlink" title="Fierce"></a>Fierce</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Basic DNS scan</span></span><br><span class="line">fierce --domain domain.com --dns-server 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># With custom wordlist</span></span><br><span class="line">fierce --domain company.local --dns-server 10.10.10.10 --wordlist /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subdomain discovery</span></span><br><span class="line">fierce --domain domain.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Subbrute"><a href="#Subbrute" class="headerlink" title="Subbrute"></a>Subbrute</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create resolver file</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;10.10.10.10&#x27;</span> &gt; resolvers.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subdomain brute force</span></span><br><span class="line">python3 subbrute.py domain.com -s names.txt -r resolvers.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Alternative syntax</span></span><br><span class="line">./subbrute domain.com -s ./names.txt -r ./resolvers.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nmap-NSE-Scripts"><a href="#Nmap-NSE-Scripts" class="headerlink" title="Nmap NSE Scripts"></a>Nmap NSE Scripts</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># DNS zone transfer</span></span><br><span class="line">nmap -p 53 --script dns-zone-transfer --script-args dns-zone-transfer.domain=domain.com 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># DNS brute force</span></span><br><span class="line">nmap -p 53 --script dns-brute --script-args dns-brute.domain=domain.com 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># DNS enumeration</span></span><br><span class="line">nmap -p 53 --script dns-nsid,dns-service-discovery,dns-recursion,dns-cache-snoop 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Check for recursion</span></span><br><span class="line">nmap -p 53 --script dns-recursion 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Subdomain-Enumeration-Passive"><a href="#Subdomain-Enumeration-Passive" class="headerlink" title="Subdomain Enumeration (Passive)"></a>Subdomain Enumeration (Passive)</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Subfinder</span></span><br><span class="line">subfinder -d domain.com -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Amass</span></span><br><span class="line">amass enum -d domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Assetfinder</span></span><br><span class="line">assetfinder --subs-only domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Findomain</span></span><br><span class="line">findomain -t domain.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="DNS-Spoofing-MITM"><a href="#DNS-Spoofing-MITM" class="headerlink" title="DNS Spoofing (MITM)"></a>DNS Spoofing (MITM)</h2><h3 id="Ettercap-DNS-Spoofing"><a href="#Ettercap-DNS-Spoofing" class="headerlink" title="Ettercap DNS Spoofing"></a>Ettercap DNS Spoofing</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Edit DNS spoof file</span></span><br><span class="line"><span class="built_in">cat</span> /etc/ettercap/etter.dns</span><br><span class="line">domain.com      A   192.168.1.100</span><br><span class="line">*.domain.com    A   192.168.1.100</span><br><span class="line"></span><br><span class="line"><span class="comment"># Start Ettercap</span></span><br><span class="line">ettercap -T -q -i eth0 -M arp:remote /target_ip/ /gateway_ip/</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable dns_spoof plugin via GUI:</span></span><br><span class="line"><span class="comment"># Plugins &gt; Manage Plugins &gt; dns_spoof</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Bettercap-DNS-Spoofing"><a href="#Bettercap-DNS-Spoofing" class="headerlink" title="Bettercap DNS Spoofing"></a>Bettercap DNS Spoofing</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Start bettercap</span></span><br><span class="line">bettercap -iface eth0</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable ARP spoofing</span></span><br><span class="line"><span class="built_in">set</span> arp.spoof.targets 192.168.1.100</span><br><span class="line">arp.spoof on</span><br><span class="line"></span><br><span class="line"><span class="comment"># Enable DNS spoofing</span></span><br><span class="line"><span class="built_in">set</span> dns.spoof.domains domain.com</span><br><span class="line"><span class="built_in">set</span> dns.spoof.address 192.168.1.200</span><br><span class="line">dns.spoof on</span><br></pre></td></tr></table></figure>
+
+<h2 id="SOA-Record-Enumeration"><a href="#SOA-Record-Enumeration" class="headerlink" title="SOA Record Enumeration"></a>SOA Record Enumeration</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Query SOA record</span></span><br><span class="line">dig soa domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Detailed SOA information</span></span><br><span class="line">dig soa domain.com @10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using host</span></span><br><span class="line">host -t soa domain.com</span><br></pre></td></tr></table></figure>
+
+<h2 id="Reverse-DNS-Lookup"><a href="#Reverse-DNS-Lookup" class="headerlink" title="Reverse DNS Lookup"></a>Reverse DNS Lookup</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Single IP</span></span><br><span class="line">dig -x 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using host</span></span><br><span class="line">host 10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Subnet reverse lookup</span></span><br><span class="line">dnsrecon -r 10.10.10.0/24 -n 10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Common-Workflow"><a href="#Common-Workflow" class="headerlink" title="Common Workflow"></a>Common Workflow</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Step 1: Attempt zone transfer</span></span><br><span class="line">dig axfr domain.com @10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 2: If zone transfer fails, enumerate SOA</span></span><br><span class="line">dig soa domain.com @10.10.10.10</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 3: Brute force subdomains</span></span><br><span class="line">dnsenum --dnsserver 10.10.10.10 -f /usr/share/seclists/Discovery/DNS/fierce-hostlist.txt domain.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 4: Passive subdomain enumeration</span></span><br><span class="line">subfinder -d domain.com -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 5: Add discovered subdomains to /etc/hosts</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;10.10.10.10 subdomain.domain.com&quot;</span> &gt;&gt; /etc/hosts</span><br><span class="line"></span><br><span class="line"><span class="comment"># Step 6: Attempt zone transfer on discovered subdomains</span></span><br><span class="line">dig axfr subdomain.domain.com @10.10.10.10</span><br></pre></td></tr></table></figure>
+
+<h2 id="Notes"><a href="#Notes" class="headerlink" title="Notes"></a>Notes</h2><p><strong>DNS Zone Transfer Vulnerability:</strong></p>
+<p>A DNS zone transfer (AXFR) allows a secondary DNS server to copy the entire zone file from the primary server. If misconfigured to allow transfers from any IP (<code>allow-transfer &#123; any; &#125;;</code>), attackers can dump the entire DNS namespace, revealing:</p>
+<ul>
+<li>All subdomains</li>
+<li>Internal hostnames</li>
+<li>IP addresses</li>
+<li>Network structure</li>
+</ul>
+<p><strong>Critical DNS Misconfigurations:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Description</th>
+<th>Risk</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>allow-query</code></td>
+<td>Defines who can send requests</td>
+<td>If set to <code>any</code>, anyone can query</td>
+</tr>
+<tr>
+<td><code>allow-recursion</code></td>
+<td>Defines who can send recursive requests</td>
+<td>Enables DNS amplification attacks</td>
+</tr>
+<tr>
+<td><code>allow-transfer</code></td>
+<td>Defines who can perform zone transfers</td>
+<td>Exposes entire DNS namespace</td>
+</tr>
+<tr>
+<td><code>zone-statistics</code></td>
+<td>Collects statistical data</td>
+<td>Information disclosure</td>
+</tr>
+</tbody></table>
+<p><strong>DNS Record Types:</strong></p>
+<ul>
+<li><strong>A</strong>: IPv4 address</li>
+<li><strong>AAAA</strong>: IPv6 address</li>
+<li><strong>CNAME</strong>: Canonical name (alias)</li>
+<li><strong>MX</strong>: Mail exchange server</li>
+<li><strong>NS</strong>: Name server</li>
+<li><strong>PTR</strong>: Pointer (reverse DNS)</li>
+<li><strong>SOA</strong>: Start of authority</li>
+<li><strong>TXT</strong>: Text records (often contain SPF, DKIM, verification tokens)</li>
+</ul>
+<p><strong>SOA Record Components:</strong></p>
+<ol>
+<li><strong>Primary nameserver</strong>: Authoritative nameserver for the zone</li>
+<li><strong>Responsible person</strong>: Email address of domain administrator (@ replaced by .)</li>
+<li><strong>Serial number</strong>: Version number of zone file</li>
+<li><strong>Refresh</strong>: How often secondary servers check for updates</li>
+<li><strong>Retry</strong>: How long to wait before retrying failed refresh</li>
+<li><strong>Expire</strong>: When secondary servers stop answering queries</li>
+<li><strong>Minimum TTL</strong>: Default TTL for records</li>
+</ol>
+<p><strong>Subdomain Takeover:</strong></p>
+<p>Occurs when a subdomain CNAME points to an external service that no longer exists:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sub.target.com.   60   IN   CNAME   anotherdomain.com</span><br></pre></td></tr></table></figure>
+
+<p>If <code>anotherdomain.com</code> expires and someone else registers it, they control <code>sub.target.com</code>. Common vulnerable services:</p>
+<ul>
+<li>AWS S3 buckets</li>
+<li>GitHub Pages</li>
+<li>Heroku apps</li>
+<li>Azure websites</li>
+<li>Shopify stores</li>
+</ul>
+<p><strong>DNS Spoofing Attack Flow:</strong></p>
+<ol>
+<li>Attacker performs ARP poisoning to become MITM</li>
+<li>Victim sends DNS query</li>
+<li>Attacker responds faster than legitimate DNS server</li>
+<li>Victim receives fake DNS response pointing to attacker’s IP</li>
+<li>Victim connects to attacker-controlled server</li>
+</ol>
+<p><strong>Best Practices for Testing:</strong></p>
+<ul>
+<li>Always test zone transfers first (quick and high-value)</li>
+<li>Use multiple subdomain wordlists (small, medium, large)</li>
+<li>Combine active and passive enumeration</li>
+<li>Check for wildcard DNS records</li>
+<li>Test for DNS cache poisoning vulnerabilities</li>
+<li>Verify discovered subdomains are actually reachable</li>
+<li>Document all discovered subdomains and IPs</li>
+</ul>
+<p><strong>Common Wordlists:</strong></p>
+<ul>
+<li><code>/usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt</code></li>
+<li><code>/usr/share/seclists/Discovery/DNS/fierce-hostlist.txt</code></li>
+<li><code>/usr/share/seclists/Discovery/DNS/dns-Jhaddix.txt</code></li>
+<li><code>/usr/share/wordlists/amass/subdomains.txt</code></li>
+</ul>
+<p><strong>Tools Comparison:</strong></p>
+<ul>
+<li><strong>DNSRecon</strong>: Comprehensive, supports multiple record types</li>
+<li><strong>DNSenum</strong>: Fast, good for brute forcing</li>
+<li><strong>Fierce</strong>: Specialized for corporate networks</li>
+<li><strong>Subfinder</strong>: Best for passive enumeration</li>
+<li><strong>Amass</strong>: Most comprehensive, combines multiple techniques</li>
+<li><strong>Subbrute</strong>: Fast brute forcing with custom resolvers</li>
+</ul>
+<p><strong>Troubleshooting:</strong></p>
+<ul>
+<li>If zone transfer fails, try different DNS servers</li>
+<li>Some DNS servers rate-limit queries</li>
+<li>Use <code>--threads</code> carefully to avoid detection</li>
+<li>Check if DNS server allows recursion</li>
+<li>Verify DNS server is actually authoritative for the domain</li>
+</ul>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

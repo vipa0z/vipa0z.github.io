@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h1 id="HTTP-Verb-Tampering-Cheatsheet"><a href="#HTTP-Verb-Tampering-Cheatsheet" class="headerlink" title="HTTP Verb Tampering Cheatsheet"></a>HTTP Verb Tampering Cheatsheet</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>HTTP Verb Tampering vulnerabilities occur when a web server or application has insecure configurations or coding that allows an attacker to bypass authentication or authorization by using unexpected HTTP methods (verbs).</p>
+<hr>
+<h2 id="Discovery"><a href="#Discovery" class="headerlink" title="Discovery"></a>Discovery</h2><h3 id="Testing-for-Insecure-Configurations"><a href="#Testing-for-Insecure-Configurations" class="headerlink" title="Testing for Insecure Configurations"></a>Testing for Insecure Configurations</h3><p>Web servers might limit access based on specific methods (e.g., <code>&lt;Limit GET POST&gt;</code>). Attackers can try other methods to bypass these restrictions.</p>
+<p><strong>Common Methods to Test:</strong></p>
+<ul>
+<li><code>HEAD</code></li>
+<li><code>PUT</code></li>
+<li><code>DELETE</code></li>
+<li><code>OPTIONS</code></li>
+<li><code>PATCH</code></li>
+</ul>
+<p><strong>Manual Testing:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -i -X HEAD http://TARGET/admin</span><br><span class="line">curl -i -X PUT http://TARGET/admin</span><br><span class="line">curl -i -X OPTIONS http://TARGET/admin</span><br></pre></td></tr></table></figure>
+
+<h3 id="Testing-for-Insecure-Coding"><a href="#Testing-for-Insecure-Coding" class="headerlink" title="Testing for Insecure Coding"></a>Testing for Insecure Coding</h3><p>Some backend languages&#x2F;frameworks might only check for specific request types (e.g., <code>$_GET</code> or <code>$_POST</code>) but process input from a general collection (e.g., <code>$_REQUEST</code>).</p>
+<p><strong>Example (PHP):</strong><br>If the code checks <code>if (isset($_GET[&#39;code&#39;]))</code> but uses <code>$_REQUEST[&#39;code&#39;]</code> in the query, you might be able to bypass WAFs or logic checks by sending the parameter in the body (POST) or cookie.</p>
+<p><strong>Vulnerable Functions:</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">Language</th>
+<th align="left">Function</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>PHP</strong></td>
+<td align="left"><code>$_REQUEST[&#39;param&#39;]</code></td>
+<td align="left">Contains data from GET, POST, and COOKIE.</td>
+</tr>
+<tr>
+<td align="left"><strong>Java</strong></td>
+<td align="left"><code>request.getParameter(&#39;param&#39;)</code></td>
+<td align="left">Retrieves from query string or post body.</td>
+</tr>
+<tr>
+<td align="left"><strong>C#</strong></td>
+<td align="left"><code>Request[&#39;param&#39;]</code></td>
+<td align="left">Retrieves from query string, form, cookies, or server variables.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Exploitation"><a href="#Exploitation" class="headerlink" title="Exploitation"></a>Exploitation</h2><h3 id="Bypassing-Authentication"><a href="#Bypassing-Authentication" class="headerlink" title="Bypassing Authentication"></a>Bypassing Authentication</h3><p>If the server config looks like this:</p>
+<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="section">&lt;Limit GET POST&gt;</span></span><br><span class="line">    <span class="attribute">Require</span> valid-user</span><br><span class="line"><span class="section">&lt;/Limit&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Try sending a <code>HEAD</code> request to access the resource without authentication.</p>
+<h3 id="Bypassing-WAFs-Filters"><a href="#Bypassing-WAFs-Filters" class="headerlink" title="Bypassing WAFs&#x2F;Filters"></a>Bypassing WAFs&#x2F;Filters</h3><p>If a WAF blocks <code>GET</code> requests containing malicious payloads (e.g., SQLi), try sending the same payload via <code>POST</code> or other methods if the application uses a promiscuous parameter retrieval method (like <code>$_REQUEST</code>).</p>
+<hr>
+<h2 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention"></a>Prevention</h2><ol>
+<li><strong>Strict Configuration</strong>: Apply access controls to <strong>all</strong> HTTP methods, not just specific ones.<figure class="highlight apache"><table><tr><td class="code"><pre><span class="line"><span class="section">&lt;LimitExcept GET POST&gt;</span></span><br><span class="line">    <span class="attribute">Deny</span> from <span class="literal">all</span></span><br><span class="line"><span class="section">&lt;/LimitExcept&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>Validate Request Method</strong>: In application code, strictly check the request method (e.g., <code>$_SERVER[&#39;REQUEST_METHOD&#39;] === &#39;POST&#39;</code>).</li>
+<li><strong>Use Specific Variables</strong>: Use <code>$_GET</code> or <code>$_POST</code> instead of <code>$_REQUEST</code> to avoid ambiguity.</li>
+</ol>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

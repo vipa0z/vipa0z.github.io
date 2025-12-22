@@ -1,0 +1,320 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<p>many attacks apply to thick client applications. However, thick client applications are considered less secure than web applications with many attacks being applicable, including:</p>
+<ul>
+<li>Improper Error Handling.</li>
+<li>Hardcoded sensitive data.</li>
+<li>DLL Hijacking.</li>
+<li>Buffer Overflow.</li>
+<li>SQL Injection.</li>
+<li>Insecure Storage.</li>
+<li>Session Management.</li>
+</ul>
+<h4 id="Information-Gathering"><a href="#Information-Gathering" class="headerlink" title="#### Information Gathering"></a>#### Information Gathering</h4><p>In this step,  identify the application architecture, the programming languages and frameworks that have been used, and understand how the application and the infrastructure work.  also need to identify technologies that are used on the client and server sides and find entry points and user inputs.  look for identifying common vulnerabilities like the ones we mentioned earlier at the end of the <a target="_blank" rel="noopener" href="https://academy.hackthebox.com/module/113/section/2139##About">About</a> section. The following tools will help us gather information.</p>
+<h4 id="Tools-for-information-gathering"><a href="#Tools-for-information-gathering" class="headerlink" title="Tools for information gathering"></a>Tools for information gathering</h4><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://ntcore.com/?page_id=388">CFF Explorer</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/horsicq/Detect-It-Easy">Detect It Easy</a></td>
+<td><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sysinternals/downloads/procmon">Process Monitor</a></td>
+<td><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sysinternals/downloads/strings">Strings</a></td>
+</tr>
+</tbody></table>
+<h4 id="Client-Side-attacks"><a href="#Client-Side-attacks" class="headerlink" title="Client Side attacks"></a>Client Side attacks</h4><p>Although thick clients perform significant processing and data storage on the client side, they still communicate with servers for various tasks, such as data synchronization or accessing shared resources. This interaction with servers and other external systems can expose thick clients to vulnerabilities similar to those found in web applications, including command injection, weak access control, and SQL injection.</p>
+<p>Sensitive information like usernames and passwords, tokens, or strings for communication with other services, might be stored in the application’s local files. Hardcoded credentials and other sensitive information can also be found in the application’s source code, thus Static Analysis is a necessary step while testing the application. Using the proper tools, we can reverse-engineer and examine .NET and Java applications including EXE, DLL, JAR, CLASS, WAR, and other file formats. Dynamic analysis should also be performed in this step, as thick client applications store sensitive information in the memory as well.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.ghidra-sre.org/">Ghidra</a></td>
+<td><a target="_blank" rel="noopener" href="https://hex-rays.com/ida-pro/">IDA</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.ollydbg.de/">OllyDbg</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.radare.org/r/index.html">Radare2</a></td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://github.com/dnSpy/dnSpy">dnSpy</a></td>
+<td><a target="_blank" rel="noopener" href="https://x64dbg.com/">x64dbg</a></td>
+<td><a target="_blank" rel="noopener" href="https://github.com/skylot/jadx">JADX</a></td>
+<td><a target="_blank" rel="noopener" href="https://frida.re/">Frida</a></td>
+</tr>
+</tbody></table>
+<h4 id="Network-Side-Attacks"><a href="#Network-Side-Attacks" class="headerlink" title="Network Side Attacks"></a>Network Side Attacks</h4><p>If the application is communicating with a local or remote server, network traffic analysis will help us capture sensitive information that might be transferred through HTTP&#x2F;HTTPS or TCP&#x2F;UDP connection, and give us a better understanding of how that application is working. Penetration testers that are performing traffic analysis on thick client applications should be familiar with tools like:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.wireshark.org/">Wireshark</a></td>
+<td><a target="_blank" rel="noopener" href="https://www.tcpdump.org/">tcpdump</a></td>
+<td><a target="_blank" rel="noopener" href="https://learn.microsoft.com/en-us/sysinternals/downloads/tcpview">TCPView</a></td>
+<td><a target="_blank" rel="noopener" href="https://portswigger.net/burp">Burp Suite</a></td>
+</tr>
+</tbody></table>
+<h4 id="Server-Side-Attacks"><a href="#Server-Side-Attacks" class="headerlink" title="Server Side Attacks"></a>Server Side Attacks</h4><p>Server-side attacks in thick client applications are similar to web application attacks, and penetration testers should pay attention to the most common ones including most of the OWASP Top Ten.</p>
+<h1 id="reverse-engineering"><a href="#reverse-engineering" class="headerlink" title="reverse engineering"></a>reverse engineering</h1><p>Inspecting the execution of the executable through <code>ProcMon64</code> shows that it is querying multiple things in the registry and does not show anything solid to go by.</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/thick_clients/proc-restart.png" alt="proc-restart"></p>
+<p>Let’s start <code>x64dbg</code>, navigate to <code>Options</code> -&gt; <code>Preferences</code>, and uncheck everything except <code>Exit Breakpoint</code>:</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/Exit_Breakpoint_1.png" alt="text"></p>
+<p>By unchecking the other options, the debugging will start directly from the application’s exit point, and we will avoid going through any <code>dll</code> files that are loaded before the app starts. Then, we can select <code>file</code> -&gt; <code>open</code> and select the <code>restart-service.exe</code> to import it and start the debugging. Once imported, we right click inside the <code>CPU</code> view and <code>Follow in Memory Map</code>:</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/Follow-In-Memory-Map.png" alt="gdb_banner"></p>
+<p>Checking the memory maps at this stage of the execution, of particular interest is the map with a size of <code>0000000000003000</code> with a type of <code>MAP</code> and protection set to <code>-RW--</code>.</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/Identify-Memory-Map.png" alt="maps"></p>
+<p>Memory-mapped files allow applications to access large files without having to read or write the entire file into memory at once. Instead, the file is mapped to a region of memory that the application can read and write as if it were a regular buffer in memory. This could be a place to potentially look for hardcoded credentials.</p>
+<p>If we double-click on it, we will see the magic bytes <code>MZ</code> in the <code>ASCII</code> column that indicates that the file is a <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/DOS_MZ_executable">DOS MZ executable</a>.</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/thick_clients/magic_bytes_3.png" alt="magic_bytes_3"></p>
+<p>Let’s return to the Memory Map pane, then export the newly discovered mapped item from memory to a dump file by right-clicking on the address and selecting <code>Dump Memory to File</code>. Running <code>strings</code> on the exported file reveals some interesting information.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">C:\&gt; C:\TOOLS\Strings\strings64.exe .\restart-service_00000000001E0000.bin</span><br><span class="line"></span><br><span class="line">&lt;SNIP&gt;</span><br><span class="line">&quot;#M</span><br><span class="line">z\V</span><br><span class="line">).NETFramework,Version=v4.0,Profile=Client</span><br><span class="line">FrameworkDisplayName</span><br><span class="line">.NET Framework 4 Client Profile</span><br><span class="line">&lt;SNIP&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Reading the output reveals that the dump contains a <code>.NET</code> executable. We can use <code>De4Dot</code> to reverse <code>.NET</code> executables back to the source code by dragging the <code>restart-service_00000000001E0000.bin</code> onto the <code>de4dot</code> executable.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">de4dot v3.1.41592.3405</span><br><span class="line"></span><br><span class="line">Detected Unknown Obfuscator (C:\Users\cybervaca\Desktop\restart-service_00000000001E0000.bin)</span><br><span class="line">Cleaning C:\Users\cybervaca\Desktop\restart-service_00000000001E0000.bin</span><br><span class="line">Renaming all obfuscated symbols</span><br><span class="line">Saving C:\Users\cybervaca\Desktop\restart-service_00000000001E0000-cleaned.bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Press any key to exit...</span><br></pre></td></tr></table></figure>
+
+<p>Now, we can read the source code of the exported application by dragging and dropping it onto the <code>DnSpy</code> executable.</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/thick_clients/souce-code_hidden.png" alt="souce-code_hidden"></p>
+<p>With the source code disclosed, we can understand that this binary is a custom-made <code>runas.exe</code> with the sole purpose of restarting the Oracle service using hardcoded credentials.</p>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

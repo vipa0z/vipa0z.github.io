@@ -1,0 +1,238 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<h2 id="Attacking-tier-2-thick-clients"><a href="#Attacking-tier-2-thick-clients" class="headerlink" title="Attacking tier 2 thick clients"></a>Attacking tier 2 thick clients</h2><h2 id="create-folders-and-file"><a href="#create-folders-and-file" class="headerlink" title="create folders and  file"></a>create folders and  file</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2/224cf.bat</span><br></pre></td></tr></table></figure>
+<h2 id="PREVENT-DELETION-BY-EDITING-ACCESS-DACLs"><a href="#PREVENT-DELETION-BY-EDITING-ACCESS-DACLs" class="headerlink" title="PREVENT DELETION BY EDITING ACCESS DACLs"></a>PREVENT DELETION BY EDITING ACCESS DACLs</h2><p>In order to capture the files, it is required to change the permissions of the <code>Temp</code> folder to disallow file deletions. To do this, we right-click the folder <code>C:\Users\Matt\AppData\Local\Temp</code> and under <code>Properties</code> -&gt; <code>Security</code> -&gt; <code>Advanced</code> -&gt; <code>cybervaca</code> -&gt; <code>Disable inheritance</code> -&gt; <code>Convert inherited permissions into explicit permissions on this object</code> -&gt; <code>Edit</code> -&gt; <code>Show advanced permissions</code>, we deselect the <code>Delete subfolders and files</code>, and <code>Delete</code> checkboxes.</p>
+<p><img src="https://academy.hackthebox.com/storage/modules/113/thick_clients/change-perms.png" alt="Permission entry dialog for &#39;Temp&#39; folder. Principal: Matt. Type: Allow. Applies to: This folder, subfolders, and files. Advanced permissions include full control, read, write, and change permissions."></p>
+<p>Finally, we click <code>OK</code> -&gt; <code>Apply</code> -&gt; <code>OK</code> -&gt; <code>OK</code> on the open windows. Once the folder permissions have been applied we simply run again the <code>Restart-OracleService.exe</code> and check the <code>temp</code> folder. The file <code>6F39.bat</code> is created under the <code>C:\Users\cybervaca\AppData\Local\Temp\2</code>.</p>
+<p>modify batch script to prevent deletion</p>
+<h3 id="3435cf-bat"><a href="#3435cf-bat" class="headerlink" title="3435cf.bat"></a>3435cf.bat</h3><p>writes b64 pass to </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">programdata/</span><br></pre></td></tr></table></figure>
+<p>deletes files so modify it to prevent file deletion.</p>
+<h2 id="read-monta-ps1-fully"><a href="#read-monta-ps1-fully" class="headerlink" title="read monta.ps1 fully"></a>read monta.ps1 fully</h2><p>it writes the b64 text by decoding and then writing the bytes into restart-service.exe file</p>
+<h2 id="restart-service-exe"><a href="#restart-service-exe" class="headerlink" title="restart-service.exe"></a>restart-service.exe</h2><p>use procmon, nothing..<br>use dbgx64 and uncheck all besides breakpoint at exit<br>check dump, follow in memory map, look for map with -RW (mapped file)<br><img src="/Pasted%20image%2020250717010251.png"></p>
+<p>look for MAP </p>
+<p>follow in memmory<br>the highlighted text in assci reveals that a  mapped file<br><img src="/.Pasted%20image%2020250717010538.png"><br>export the mapped region and run strings on it,<br>see if it’s built with .NET with strings or detect it easy..<br>if it’s a dotnet run dot4do and dnsspy read sourcecode look for hgardcoded creds.<br>if its not then try to use strings and grep for passwords</p>
+<p>grep for passwords<br>go to that region and dump it….</p>
+<p>run strings on file</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">strings restart-service325242.bin</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.NETFRAMEWORK4</span><br></pre></td></tr></table></figure>
+
+<h3 id="for-net"><a href="#for-net" class="headerlink" title="for .net"></a>for .net</h3><p> use de4dot to decompile to sourceCode<br> USE DNSPY TO VIEW SOURECODE<br>LOOK FOR HARDCODED CREDENTIALS</p>
+
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

