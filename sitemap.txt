@@ -1,3 +1,4 @@
+https://vipa0z.github.io/2025/11/20/SSRF-exploitation-cheathseet/
 https://vipa0z.github.io/2025/01/22/HTB-Cicada/
 https://vipa0z.github.io/2024/05/13/wazuh_lab/
 https://vipa0z.github.io/2024/05/13/network%20intrusion%20detection/
@@ -6,7 +7,6 @@ https://vipa0z.github.io/2025/03/26/dcsync/
 https://vipa0z.github.io/2025/06/20/Writing%20targeted%20password%20lists/
 https://vipa0z.github.io/about/index.html
 https://vipa0z.github.io/2025/07/12/abusing-python-for-privesc/
-https://vipa0z.github.io/2025/11/20/SSRF-exploitation-cheathseet/
 https://vipa0z.github.io/2025/05/22/Attacking%20lsass/
 https://vipa0z.github.io/2025/07/13/chwoot/
 https://vipa0z.github.io/2024/09/22/HTB-SolarLab/
