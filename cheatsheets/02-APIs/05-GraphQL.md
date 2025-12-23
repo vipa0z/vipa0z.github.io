@@ -1,4 +1,10 @@
+### Locating The GraphQL Endpoint
 
+- check for requests to `/graphql` or `/api/graphql` through recon/legitimate ops
+- if there's no GUI, install [graphql playground](https://github.com/graphql/graphql-playground)
+
+----
+### Interacting with the API
 
 IDENTIFYING TYPES
 ```graphql
