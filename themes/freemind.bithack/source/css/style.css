@@ -1,6 +1,6 @@
 .container-narrow {
     margin: 0 auto;
-    max-width: 970px;
+    max-width: 1100px;
 }
 
 .container-narrow>footer {
@@ -46,7 +46,7 @@ body.light-theme {
     --code-color: #8b4513;
     --code-text-color: #e2e1d3;
     --code-border: #999999;
-    --inline-code-color: #8b0000;
+    --inline-code-color: #c10404;
     --inline-code-bg: #bbbbbb;
     --bg-primary: #d8d3cd;
     --border-color: #b0aca5;
@@ -75,6 +75,13 @@ body.light-theme {
     background-color: #d8d3cd;
     /* Darker off-white for eye comfort */
     color: #333;
+}
+
+/* Light theme inline code - larger and bolder for visibility */
+body.light-theme code {
+    font-size: 100% !important;
+    font-weight: 600 !important;
+    padding: 2px 6px !important;
 }
 
 .content {
@@ -132,6 +139,7 @@ body.light-theme {
 .navbar-brand {
     text-shadow: 0 1px 0 rgba(255, 255, 255, .1), 0 0 30px rgba(255, 255, 255, .125);
     -webkit-transition: all .2s linear;
+    font-size: 1.2em;
     -moz-transition: all .2s linear;
     transition: all .2s linear;
     font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
@@ -690,7 +698,7 @@ td {
 }
 
 hr {
-    border-top: 2px solid #fff
+    border-top: 0.2px solid #cccccc
 }
 
 .btn {
@@ -1396,6 +1404,7 @@ body.light-theme .page a {
 .page h6 {
     color: #e2e1d3;
     /* Neutral text color, ensuring no purple */
+    font-family: 'garamound';
 }
 
 /* Light Theme Link Color Override */
@@ -1472,4 +1481,24 @@ body.light-theme .page a:hover {
     height: calc(100vh - 100px);
     overflow-y: auto;
     /* align-self: flex-start;  Removed as flex is gone */
+}
+
+/* Post content and sidebar now use more space via wider container above */
+
+/* Sidebar DOS font styling */
+#side_meta,
+#post_meta,
+#post_meta .meta-widget,
+#content-toc,
+.toc-nav,
+.blog-toc {
+    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
+}
+
+/* DOS font for TOC links containing _overview */
+a[href*="_overview"],
+.toc a[href*="_overview"],
+.toc-nav a[href*="_overview"],
+.blog-toc a[href*="_overview"] {
+    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
 }

@@ -8,7 +8,7 @@ const path = require('path');
 
 hexo.extend.generator.register('gitbook-nav', function (locals) {
     const sourceDir = hexo.source_dir;
-    const notesDir = path.join(sourceDir, 'cheatsheets', 'cheatsheets-notes');
+    const notesDir = path.join(sourceDir, 'cheatsheets');
 
     function formatName(name, depth = 0) {
         // Remove file extension
@@ -59,7 +59,7 @@ hexo.extend.generator.register('gitbook-nav', function (locals) {
 
         for (const item of sorted) {
             // Skip hidden files and non-relevant items
-            if (item.startsWith('.') || item === 'ss' || item === 'images') continue;
+            if (item.startsWith('.') || item === 'ss' || item === 'images' || item === 'index.md' || item === 'wizard.png') continue;
 
             const fullPath = path.join(dirPath, item);
             const relativePath = basePath ? `${basePath}/${item}` : item;
@@ -105,7 +105,7 @@ hexo.extend.generator.register('gitbook-nav', function (locals) {
         return structure;
     }
 
-    const navStructure = scanDirectory(notesDir, 'cheatsheets/cheatsheets-notes');
+    const navStructure = scanDirectory(notesDir, 'cheatsheets');
 
     return {
         path: 'js/gitbook-nav.json',

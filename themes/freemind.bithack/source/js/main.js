@@ -36,7 +36,7 @@ $(document).ready(function () {
         var text = $(this).html();
 
         // List of pentesting tools
-        var tools = ['python3', 'gobuster', 'ffuf', 'kr', 'python2', 'python', 'netexec', 'impacket-smbserver', 'ffuf', 'sqlmap', 'nmap', 'metasploit', 'burpsuite', 'hashcat', 'john', 'hydra', 'aircrack-ng', 'wireshark', 'nikto', 'masscan'];
+        var tools = ['gobuster', 'ffuf', 'kr', 'netexec', 'impacket-smbserver', 'ffuf', 'sqlmap', 'nmap', 'metasploit', 'burpsuite', 'hashcat', 'hydra', 'aircrack-ng', 'wireshark', 'nikto', 'masscan'];
 
         tools.forEach(function (tool) {
             var regex = new RegExp('\\b' + tool + '\\b', 'gi');

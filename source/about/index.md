@@ -19,15 +19,8 @@ layout: page
 
 ## Thanks for being here!
 
-I'm a Penetration Tester who loves digging into how systems work and finding creative ways to break them (for a good cause). My focus is on Securing Web Applications, APIs, Internal networks, and Active Directory.
+I'm a Penetration Tester who loves digging into how systems work and finding creative ways to break them (for a good cause). My focus is on Securing Web Applications, APIs, Internal networks, and Active Directory. This blog is where I document my research, CTF writeups, and the things I learn along the way.
 
-This blog is where I document my research, CTF writeups, and the things I learn along the way.
-
-When I'm not working on an engagement, you'll usually find me:
-
-- Developing and contributing to open-source tools.
-- Researching new CVEs and exploitation techniques.
-- Ranking up on HackTheBox.
 
 I'm always open to discussing security, collaboration, or new challenges. If you're looking for someone who is technically curious and driven by "how it works" under the hood, let's talk.
 
@@ -37,9 +30,9 @@ I'm always open to discussing security, collaboration, or new challenges. If you
 
 ### Open Source Contributions
 
-| Project                                                            | Description                                                                                                                                                                                                                                                                                                                                              |
-| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **[Ligolo-NG](https://github.com/nicocha30/ligolo-ng)** (4.1k+ ⭐) | I contributed a usability improvement to ligolo-ng’s autoroute feature. The tool previously didn’t reflect the last-selected interface when rebinding pivot routes, which caused friction during multi-interface pivots. I added state persistence so operators can clearly see which interface was previously selected before binding tunnel addresses. |
+| Project                                                                                      | Description                                                                                     |
+| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| **[Ligolo-NG](https://github.com/nicocha30/ligolo-ng)** (4.1k+ ⭐)                            | I contributed a usability improvement to ligolo-ng’s autoroute feature. The tool previously didn’t reflect the last-selected interface when rebinding pivot routes, which caused friction during multi-interface pivots. I added state persistence so operators can clearly see which interface was previously selected before binding tunnel addresses. |
 
 <a id="projects"></a>
 
@@ -56,16 +49,18 @@ I'm always open to discussing security, collaboration, or new challenges. If you
 
 ### Certifications
 
-**Hack The Box Certified Penetration Testing Specialist (HTB CPTS)**
+Hack The Box Certified Penetration Testing Specialist (HTB CPTS)
 
 <br>
 
 ### Course Completions
-
-**CWES** | HTB Web Penetration Tester Path
-**Security Engineering Path | tryhackme**  
-**CyberOps | cisco**
-**CCNA | cisco**
+| Course | Platform |
+| --- | --- |
+| Web Penetration Tester Path | HackTheBox |
+| Penetration Tester Path | HackTheBox |
+| Security Engineering Path | TryHackMe |
+| Cisco CyberOps Associate | Cisco |
+| Cisco Network Associate (CCNA) | Cisco |
 
 <a id="profiles"></a>
 

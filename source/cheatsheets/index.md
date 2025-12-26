@@ -5,7 +5,7 @@ layout: gitbook
 
 <!-- Content rendered by gitbook layout -->
 <div class="welcome-screen">
-    <img src="/images/cpts+back.png" alt="CPTS Background" class="welcome-image">
+    <img src="wizard.png" alt="Wizard" class="welcome-image">
     <p class="welcome-description">
         A collection of my penetration testing notes and cheatsheets covering a wide range
         of topics (mainly vulnerability discovery in AD & Internal networks, Blackbox Web
