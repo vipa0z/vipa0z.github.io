@@ -8,8 +8,8 @@
   <meta http-equiv="expires" content="0">
   
     <title>
-      Field Notes | vipa0z</title>
-  <meta name="author" content="vipa0z">
+      Field Notes | vipa00</title>
+  <meta name="author" content="vipa00">
   
   <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
   
@@ -17,14 +17,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="Field Notes"/>
-  <meta property="og:site_name" content="vipa0z"/>
+  <meta property="og:site_name" content="vipa00"/>
 
   
     <meta property="og:image" content="favicon.png"/>
   
 
   
-    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="vipa00" type="application/atom+xml">
   
   
     <link href="/favicon.png" rel="icon">
@@ -62,7 +62,7 @@
 			<span class="icon-bar"></span>
 		</button>
 		<a class="navbar-brand" href="/">
-			vipa0z
+			vipa00
 		</a>
 		<div class="collapse navbar-collapse nav-menu">
 			<ul class="nav navbar-nav">
@@ -120,8 +120,8 @@
   <meta http-equiv="expires" content="0">
   
     <title>
-      Field Notes | vipa0z</title>
-  <meta name="author" content="vipa0z">
+      Field Notes | vipa00</title>
+  <meta name="author" content="vipa00">
   
   <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
   
@@ -129,14 +129,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   <meta property="og:title" content="Field Notes"/>
-  <meta property="og:site_name" content="vipa0z"/>
+  <meta property="og:site_name" content="vipa00"/>
 
   
     <meta property="og:image" content="favicon.png"/>
   
 
   
-    <link rel="alternative" href="/atom.xml" title="vipa0z" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="vipa00" type="application/atom+xml">
   
   
     <link href="/favicon.png" rel="icon">
@@ -175,7 +175,7 @@
 			<span class="icon-bar"></span>
 		</button>
 		<a class="navbar-brand" href="/">
-			vipa0z
+			vipa00
 		</a>
 		<div class="collapse navbar-collapse nav-menu">
 			<ul class="nav navbar-nav">
@@ -285,9 +285,10 @@
                         <div class="welcome-screen">
                             <div class="welcome-image-container"
                                 style="position: relative; overflow: hidden; min-height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
-                                <img id="rotating-image" src="/images/wizard.png" alt="Rotating Background"
+                                
+                                <img id="rotating-image" src="/images/chsheet/Coding%20The%20Matrix%20GIF.gif" alt="Cheatsheet Background"
                                     class="welcome-image"
-                                    style="transition: opacity 0.5s ease-in-out; opacity: 1; max-width: 100%; height: auto; border-radius: 8px;">
+                                    style="max-width: 100%; height: auto; border-radius: 8px; pointer-events: none; opacity: 1; transition: opacity 1s ease-in-out;">
                             </div>
                             <p class="welcome-description">
                                 My offensive security notes and cheatsheets covering vulnerability discovery in Web Apps, APIs, Internal networks, and Active Directory.
@@ -346,36 +347,60 @@
             <script src="/js/gitbook.js"></script>
 
             <script>
-                // Rotating Images Logic
                 document.addEventListener('DOMContentLoaded', function () {
-                    const images = ["109658fbb6d168aacbd2215550b9fd39.jpg","18548e92cc8e5599f164b02af10941eb.jpg","551453940b33fd92226a09ea89c9b4e0.jpg","5ca2e7889681025e8056ea285fa2bbd8.jpg","5f5eae0802ebf25ce3e5015539462f3b.jpg","7ee8afd6ab0e99146a1b2651886c6cf1.jpg","90S Hello GIF by Girly Mags.gif","9778562a09d974ac811779dc64055441.jpg","cat1.jpg","clown.jpg","Coding The Matrix GIF.gif","favicon (2).png","GIF by Amazon Prime Video UK.gif","Hand Palm GIF by PERFECTL00P.gif","smoke1.jpg","sr2079a437cd3aws3.png","sr2bebeefbccdaws3.png","sr2d659b84b47aws3.gif","sr5z3791756869aws3.png","ww.jpg"];
+                    // Rotating Images Logic
+                    var images = ["109658fbb6d168aacbd2215550b9fd39.jpg","18548e92cc8e5599f164b02af10941eb.jpg","551453940b33fd92226a09ea89c9b4e0.jpg","5ca2e7889681025e8056ea285fa2bbd8.jpg","5f5eae0802ebf25ce3e5015539462f3b.jpg","7ee8afd6ab0e99146a1b2651886c6cf1.jpg","90S Hello GIF by Girly Mags.gif","9778562a09d974ac811779dc64055441.jpg","cat1.jpg","clown.jpg","Coding The Matrix GIF.gif","favicon (2).png","GIF by Amazon Prime Video UK.gif","Hand Palm GIF by PERFECTL00P.gif","smoke1.jpg","sr2079a437cd3aws3.png","sr2bebeefbccdaws3.png","sr2d659b84b47aws3.gif","sr5z3791756869aws3.png","ww.jpg"];
+                    if (!images || !Array.isArray(images)) images = [];
+                    
+                    var imageElement = document.getElementById('rotating-image');
+                    var basePath = '/images/chsheet/';
+                    
+                    // We need to know the current index to rotate to next
+                    var currentSrc = imageElement ? imageElement.getAttribute('src') : '';
+                    var currentFilename = currentSrc.split('/').pop();
+                    // Decode in case it was encoded
+                    try { currentFilename = decodeURIComponent(currentFilename); } catch(e){}
 
-                    const imageElement = document.getElementById('rotating-image');
-                    const basePath = '/images/chsheet/';
-                    let currentIndex = 0;
+                    var currentIndex = images.indexOf(currentFilename);
+                    if (currentIndex === -1) currentIndex = 0;
 
-                    if (imageElement && images.length > 0) {
-                        // Set initial random image
-                        currentIndex = Math.floor(Math.random() * images.length);
-                        imageElement.src = basePath + images[currentIndex];
+                    if (imageElement && images.length > 1) {
+                        console.log('Starting image rotation. Count:', images.length, 'Interval: 10s');
+                        setInterval(function() {
+                            var nextIndex = (currentIndex + 1) % images.length;
+                            var nextImageName = images[nextIndex];
+                            var nextSrc = basePath + encodeURIComponent(nextImageName);
 
-                        setInterval(() => {
-                            currentIndex = (currentIndex + 1) % images.length;
-                            imageElement.style.opacity = 0;
+                            console.log('Rotating to:', nextSrc);
 
-                            setTimeout(() => {
-                                imageElement.src = basePath + images[currentIndex];
-                                imageElement.onload = () => {
-                                    imageElement.style.opacity = 1;
-                                };
-                            }, 500); // Matches CSS transition time
-                        }, 5000); // Rotate every 5 seconds
+                            // 1. Fade out (Start transition)
+                            imageElement.style.opacity = '0';
+
+                            // 2. Compute next index immediately
+                            currentIndex = nextIndex;
+
+                            // 3. Wait for fade out (1s), then swap source and fade in
+                            setTimeout(function() {
+                                imageElement.src = nextSrc;
+                                
+                                // Once source is set, wait a brief moment then fade in
+                                // We use a slight delay to allow the browser to register the new src
+                                // and not immediately show the old cached one if any
+                                setTimeout(function() {
+                                    imageElement.style.opacity = '1';
+                                }, 100); 
+
+                            }, 1000); // Wait 1s for the opacity to reach 0
+
+                        }, 10000); // 10 seconds
+                    } else {
+                        console.warn('Image rotation not started. Element:', !!imageElement, 'Image Count:', images.length);
                     }
 
                     // Mobile Menu Button Logic
-                    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-                    const sidebar = document.getElementById('gitbook-sidebar');
-                    const overlay = document.createElement('div');
+                    var mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                    var sidebar = document.getElementById('gitbook-sidebar');
+                    var overlay = document.createElement('div');
                     overlay.className = 'sidebar-overlay';
                     document.body.appendChild(overlay);
 
@@ -432,7 +457,7 @@
   <div class="container-narrow">
   <footer> <p>
   
-  &copy; 2025 vipa0z's Blog
+  &copy; 2025 vipa00's Blog
   
 </p>
  </footer>

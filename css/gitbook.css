@@ -1752,7 +1752,7 @@ body.light-theme .sidebar-open-btn:hover {
         overflow-x: hidden;
     }
 
-    /* Ensure content takes full width */
+    /* Ensure content takes full width and resets positioning */
     .gitbook-page .content,
     .gitbook-page>.content,
     .gitbook-main {
@@ -1760,6 +1760,9 @@ body.light-theme .sidebar-open-btn:hover {
         max-width: 100% !important;
         margin: 0 !important;
         padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        position: relative !important;
     }
 
     /* Ensure body doesn't overflow horizontally */
