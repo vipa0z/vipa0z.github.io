@@ -1741,4 +1741,32 @@ body.light-theme .sidebar-open-btn:hover {
         /* Reduced from 100px */
         padding: 12px 16px;
     }
+
+    /* Force reset container width and margins on mobile to fix iPhone XR layout */
+    .gitbook-page .gitbook-container {
+        width: 100% !important;
+        margin-left: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden;
+    }
+
+    /* Ensure content takes full width and resets positioning */
+    .gitbook-page .content,
+    .gitbook-page>.content,
+    .gitbook-main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        position: relative !important;
+    }
+
+    /* Ensure body doesn't overflow horizontally */
+    body, html {
+        overflow-x: hidden;
+    }
 }

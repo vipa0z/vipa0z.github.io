@@ -31,7 +31,7 @@ const GitBook = {
         if (this.elements.contentBody) {
             this.initialContent = this.elements.contentBody.innerHTML;
         }
-        
+
         // Initial responsive state
         if (window.innerWidth <= 768) {
             this.elements.sidebar?.classList.add('collapsed');
@@ -430,7 +430,6 @@ const GitBook = {
           <div class="content-meta">
             <a href="https://github.com/${this.config.owner}/${this.config.repo}/blob/${this.config.branch}/${path}" 
                target="_blank" rel="noopener" class="edit-link">
-              <i class="fa fa-github"></i> View on GitHub
             </a>
           </div>
         </div>
