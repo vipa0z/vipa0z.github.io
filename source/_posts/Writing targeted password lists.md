@@ -47,7 +47,7 @@ We can use a tool called [CeWL](https://github.com/digininja/CeWL) to scan poten
 Writing Custom Wordlists and Rules
 
 ```shell
-$ cewl https://www.inlanefreight.com -d 4 -m 6 --lowercase -w inlane.wordlist
+$ cewl https://www.echoridge.com -d 4 -m 6 --lowercase -w inlane.wordlist
 magdy3660@htb[/htb]$ wc -l inlane.wordlist
 
 326

@@ -9,11 +9,9 @@
                     <div class="sidebar-resizer" id="sidebar-resizer"></div>
                     <div class="sidebar-header">
                         <div class="sidebar-logo">
-                            <a href="/cheatsheets/" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit;">
-                                <img src="/cheatsheets/wizard.png" alt="Wizard Logo"
-                                    style="height: 48px; width: auto; margin-right: 8px; pointer-events: none;">
-                                <span>0zAttacker's Cookbook</span>
-                            </a>
+                            <img src="/cheatsheets/wizard.png" alt="Wizard Logo"
+                                style="height: 48px; width: auto; margin-right: 8px; pointer-events: none;">
+                            <span>0zAttacker's Cookbook</span>
                         </div>
                         <button class="sidebar-toggle" id="sidebar-toggle" aria-label="Toggle sidebar">
                             <i class="fa fa-bars"></i>
@@ -48,6 +46,9 @@
                 <!-- 3. Markdown Body (Middle Column) -->
                 <main class="gitbook-main" id="gitbook-content">
                     <div class="content-header">
+                        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
                         <div class="breadcrumb" id="breadcrumb">
                             <a href="/cheatsheets/">Home</a>
                         </div>
@@ -61,56 +62,28 @@
                     </div>
 
                     <article class="content-body" id="content-body">
-                        <%- page.content %>
+                        <div class="welcome-screen">
+                            <div class="welcome-image-container"
+                                style="position: relative; overflow: hidden; min-height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                <img id="rotating-image" src="/images/cpts+back.png" alt="Rotating Background"
+                                    class="welcome-image"
+                                    style="transition: opacity 0.5s ease-in-out; opacity: 1; max-width: 100%; height: auto; border-radius: 8px;">
+                            </div>
+                            <p class="welcome-description">
+                                My offensive security notes and cheatsheets covering vulnerability discovery in Web Apps, APIs, Internal networks, and Active Directory.
+                                
+                            </p>
 
-                        <% if (page.title === 'Field Notes') { %>
-                        <div class="quick-links">
-                            <h3>Browse by Category</h3>
-                            <div class="quick-links-grid" id="quick-links-grid">
-                                <div class="loading-spinner">
-                                    <i class="fa fa-spinner fa-spin"></i>
+                            <div class="quick-links">
+                                <h3>Browse by Category</h3>
+                                <div class="quick-links-grid" id="quick-links-grid">
+                                    <div class="loading-spinner">
+                                        <i class="fa fa-spinner fa-spin"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <% } %>
                     </article>
-
-                    <%
-                    var sheetImages = [];
-                    if (typeof list_images_in_dir === 'function') {
-                        sheetImages = list_images_in_dir('source/images/#chsheet');
-                    }
-                    %>
-                    <script>
-                        (function() {
-                            var images = <%- JSON.stringify(sheetImages) %>;
-                            if (images.length > 0) {
-                                var imgElement = document.querySelector('.welcome-image');
-                                if (imgElement) {
-                                    var currentIndex = 0;
-                                    var dir = '/images/%23chsheet/';
-                                    
-                                    // Set initial random image
-                                    currentIndex = Math.floor(Math.random() * images.length);
-                                    imgElement.src = dir + images[currentIndex];
-
-                                    setInterval(function() {
-                                        currentIndex = (currentIndex + 1) % images.length;
-                                        imgElement.style.opacity = 0;
-                                        setTimeout(function() {
-                                            imgElement.src = dir + images[currentIndex];
-                                            imgElement.onload = function() {
-                                                imgElement.style.opacity = 1;
-                                            };
-                                        }, 500); // Wait for fade out
-                                    }, 5000); // Rotate every 5 seconds
-
-                                    // Ensure transition
-                                    imgElement.style.transition = 'opacity 0.5s ease-in-out';
-                                }
-                            }
-                        })();
-                    </script>
 
                     <div class="content-footer">
                         <div class="nav-buttons">
@@ -151,6 +124,74 @@
             <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
             <script src="/js/gitbook.js"></script>
+
+            <script>
+                // Rotating Images Logic
+                document.addEventListener('DOMContentLoaded', function () {
+                    const images = [
+                        "109658fbb6d168aacbd2215550b9fd39.jpg",
+                        "18548e92cc8e5599f164b02af10941eb.jpg",
+                        "551453940b33fd92226a09ea89c9b4e0.jpg",
+                        "5ca2e7889681025e8056ea285fa2bbd8.jpg",
+                        "5f5eae0802ebf25ce3e5015539462f3b.jpg",
+                        "7ee8afd6ab0e99146a1b2651886c6cf1.jpg",
+                        "90S Hello GIF by Girly Mags.gif",
+                        "9778562a09d974ac811779dc64055441.jpg",
+                        "Coding The Matrix GIF.gif",
+                        "GIF by Amazon Prime Video UK.gif",
+                        "Hand Palm GIF by PERFECTL00P.gif",
+                        "cat1.jpg",
+                        "clown.jpg",
+                        "smoke1.jpg",
+                        "sr2079a437cd3aws3.png",
+                        "sr2bebeefbccdaws3.png",
+                        "sr2d659b84b47aws3.gif",
+                        "sr5z3791756869aws3.png",
+                        "ww.jpg"
+                    ];
+
+                    const imageElement = document.getElementById('rotating-image');
+                    const basePath = '/images/%23chsheet/';
+                    let currentIndex = 0;
+
+                    if (imageElement && images.length > 0) {
+                        // Set initial random image
+                        currentIndex = Math.floor(Math.random() * images.length);
+                        imageElement.src = basePath + images[currentIndex];
+
+                        setInterval(() => {
+                            currentIndex = (currentIndex + 1) % images.length;
+                            imageElement.style.opacity = 0;
+
+                            setTimeout(() => {
+                                imageElement.src = basePath + images[currentIndex];
+                                imageElement.onload = () => {
+                                    imageElement.style.opacity = 1;
+                                };
+                            }, 500); // Matches CSS transition time
+                        }, 5000); // Rotate every 5 seconds
+                    }
+
+                    // Mobile Menu Button Logic
+                    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                    const sidebar = document.getElementById('gitbook-sidebar');
+                    const overlay = document.createElement('div');
+                    overlay.className = 'sidebar-overlay';
+                    document.body.appendChild(overlay);
+
+                    if (mobileMenuBtn) {
+                        mobileMenuBtn.addEventListener('click', function () {
+                            sidebar.classList.toggle('open');
+                            overlay.classList.toggle('active');
+                        });
+
+                        overlay.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                            overlay.classList.remove('active');
+                        });
+                    }
+                });
+            </script>
 
             <%- partial('_partial/after_footer') %>
     </body>

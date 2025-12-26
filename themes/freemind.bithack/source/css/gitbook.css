@@ -9,108 +9,108 @@
 
 /* Reset global theme constraints for gitbook page */
 .gitbook-page {
-  padding-top: 50px !important;
-  padding-bottom: 0 !important;
-  background: var(--bg-primary, #0d0d0d) !important;
-  /* Purple Accent */
-  --link-color: #d1c4e9;
+    padding-top: 50px !important;
+    padding-bottom: 0 !important;
+    background: var(--bg-primary, #0d0d0d) !important;
+    /* Purple Accent */
+    --link-color: #d1c4e9;
 }
 
 /* Force content div to be full width */
 .gitbook-page .content,
-.gitbook-page > .content {
-  width: 100vw !important;
-  max-width: 100vw !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw !important;
-  margin-right: -50vw !important;
+.gitbook-page>.content {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
 }
 
 /* Fix Bold Text */
 .gitbook-page strong,
 .markdown-body strong {
-  text-transform: none !important;
+    text-transform: none !important;
 }
 
 /* Code Block Wrapper */
 .code-wrapper {
-  position: relative;
-  margin: 24px 0;
-  background: var(--code-bg, #1a1a1a);
-  border: 1px solid var(--border-color, #7c7a7a);
-  border-radius: 8px;
+    position: relative;
+    margin: 24px 0;
+    background: var(--code-bg, #1a1a1a);
+    border: 1px solid var(--border-color, #7c7a7a);
+    border-radius: 8px;
 }
 
 .code-wrapper:hover .copy-btn {
-  opacity: 1;
+    opacity: 1;
 }
 
 /* Override any global container constraints */
 .gitbook-page .gitbook-container {
-  display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  /* Stretch children to full height */
-  width: 90vw !important;
-  /* Full viewport width */
-  max-width: 100vw !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  height: calc(100vh - 50px);
-  /* Full viewport height minus header */
-  overflow: hidden;
-  /* Prevent body scroll */
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw !important;
-  margin-right: -50vw !important;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    /* Stretch children to full height */
+    width: 90vw !important;
+    /* Full viewport width */
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: calc(100vh - 50px);
+    /* Full viewport height minus header */
+    overflow: hidden;
+    /* Prevent body scroll */
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
 }
 
 .gitbook-page .gitbook-content,
 .gitbook-page .content-body,
 .gitbook-page .content-wrapper,
 .gitbook-page .markdown-body {
-  max-width: none !important;
-  width: auto !important;
+    max-width: none !important;
+    width: auto !important;
 }
 
 /* Reset padding on article */
 .gitbook-page article.content-body {
-  padding: 24px 40px 24px 24px !important;
+    padding: 24px 40px 24px 24px !important;
 }
 
 .gitbook-page .navbar {
-  z-index: 1000 !important;
+    z-index: 1000 !important;
 }
 
 /* Theme Toggle in Header */
 .gitbook-page .theme-toggle {
-  background: transparent;
-  border: none;
-  color: #888;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 6px;
-  transition: all 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    background: transparent;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .gitbook-page .theme-toggle:hover {
-  background: rgba(179, 136, 255, 0.1);
-  color: var(--link-color, #b388ff);
+    background: rgba(179, 136, 255, 0.1);
+    color: var(--link-color, #b388ff);
 }
 
 /* Global box-sizing for GitBook layout */
 .gitbook-container,
 .gitbook-container * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* =========================================
@@ -118,26 +118,26 @@
    ========================================= */
 
 .gitbook-sidebar {
-  margin-left: 50px;
-  width: 280px;
-  /* Reduced from 340px */
-  min-width: 250px;
-  max-width: 400px;
-  /* Reduced from 800px */
-  background: #181818;
-  border-right: 1px solid var(--border-color, #7c7a7a);
-  display: flex;
-  flex-direction: column;
-  /* Removed sticky */
-  position: relative;
-  height: 100%;
-  /* Take full container height */
-  overflow-y: auto;
-  /* Independent scrolling */
-  z-index: 100;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  flex-shrink: 0;
-  margin-top: 0;
+    margin-left: 50px;
+    width: 280px;
+    /* Reduced from 340px */
+    min-width: 250px;
+    max-width: 400px;
+    /* Reduced from 800px */
+    background: #181818;
+    border-right: 1px solid var(--border-color, #7c7a7a);
+    display: flex;
+    flex-direction: column;
+    /* Removed sticky */
+    position: relative;
+    height: 100%;
+    /* Take full container height */
+    overflow-y: auto;
+    /* Independent scrolling */
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    margin-top: 0;
 }
 
 /* =========================================
@@ -146,14 +146,14 @@
 
 /* When resizing, disable transition for smooth drag */
 .gitbook-sidebar.resizing {
-  transition: none;
-  user-select: none;
+    transition: none;
+    user-select: none;
 }
 
 .gitbook-sidebar.collapsed {
-  transform: translateX(-100%);
-  display: none;
-  /* Hide sidebar to let content expand */
+    transform: translateX(-100%);
+    display: none;
+    /* Hide sidebar to let content expand */
 }
 
 /* Fix Header Scroll Offset for Anchor Links (TOC/Sidebar) */
@@ -163,69 +163,72 @@
 .gitbook-page h4,
 .gitbook-page h5,
 .gitbook-page h6 {
-  scroll-margin-top: 80px;
-  /* Adjusted offset for top:0 header */
+    scroll-margin-top: 80px;
+    /* Adjusted offset for top:0 header */
 }
 
 /* Sidebar Open Button - Default State (Hidden) */
 /* Sidebar Open Button - Default State (Hidden) */
 .sidebar-open-btn {
-  /* Reserved space in Flex Layout */
-  position: relative;
-  width: 50px;
-  /* Width of the collapsed sidebar strip */
-  height: 100%;
-  z-index: 100;
-  background: #181818;
-  border-right: 1px solid var(--border-color, #7c7a7a);
-  color: #888;
-  cursor: pointer;
-  padding: 20px 0;
-  display: none;
-  /* Hidden by default */
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  transition: background 0.2s;
+    /* Reserved space in Flex Layout */
+    position: relative;
+    width: 50px;
+    /* Width of the collapsed sidebar strip */
+    height: 100%;
+    z-index: 100;
+    background: #181818;
+    border-right: 1px solid var(--border-color, #7c7a7a);
+    color: #888;
+    cursor: pointer;
+    padding: 20px 0;
+    display: none;
+    /* Hidden by default */
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    transition: background 0.2s;
+    margin-top: 50px;
+    /* Fix overlap with navbar */
 }
 
 .sidebar-open-btn span {
-  writing-mode: vertical-rl;
-  /* Vertical text */
-  text-orientation: mixed;
-  transform: rotate(180deg);
-  /* Fix rotation */
-  font-size: 13px;
-  letter-spacing: 1px;
-  font-weight: 500;
+    writing-mode: vertical-rl;
+    /* Vertical text */
+    text-orientation: mixed;
+    transform: rotate(180deg);
+    /* Fix rotation */
+    font-size: 16px;
+    /* Increased from 13px */
+    letter-spacing: 1px;
+    font-weight: 500;
 }
 
 .sidebar-open-btn:hover {
-  background: rgba(179, 136, 255, 0.15);
-  border-color: var(--link-color, #b388ff);
-  color: var(--link-color, #b388ff);
-  transform: translateY(-2px);
+    background: rgba(179, 136, 255, 0.15);
+    border-color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
+    transform: translateY(-2px);
 }
 
 /* Use sibling combinator - Show button when sidebar is collapsed */
-.gitbook-sidebar.collapsed ~ .sidebar-open-btn {
-  display: flex !important;
-  /* Force display */
+.gitbook-sidebar.collapsed~.sidebar-open-btn {
+    display: flex !important;
+    /* Force display */
 }
 
 /* Main Content */
 .gitbook-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
-  background: transparent;
-  padding: 0;
-  transition: padding-left 0.3s;
-  /* Smooth transition */
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    background: transparent;
+    padding: 0;
+    transition: padding-left 0.3s;
+    /* Smooth transition */
 }
 
 /* Force padding on main content when sidebar is collapsed so floating button doesn't overlap text */
@@ -233,321 +236,318 @@
 
 /* Content Body */
 .content-body {
-  flex: 1 1 auto;
-  padding: 20px;
-  margin: 0;
-  min-width: 0;
-  max-width: 100%;
-  box-sizing: border-box;
+    flex: 1 1 auto;
+    padding: 20px;
+    margin: 0;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Right Table of Contents - GitBook Style */
 .content-toc {
-  width: 300px;
-  min-width: 300px;
-  flex-shrink: 0;
-  padding: 20px;
-  position: sticky;
-  /* Changed from fixed to sticky */
-  top: 110px;
-  /* right: 10px; Removed right to align to left of flexbox */
-  align-self: flex-start;
-  /* Ensure it respects flex alignment */
-  max-height: calc(100vh - 140px);
-  overflow-y: auto;
-  display: block;
-  z-index: 10;
-  border-left: 1px solid var(--border-color, #7c7a7a);
-  background: var(--bg-primary, #0d0d0d);
+    width: 300px;
+    min-width: 300px;
+    flex-shrink: 0;
+    padding: 20px;
+    position: sticky;
+    /* Changed from fixed to sticky */
+    top: 110px;
+    /* right: 10px; Removed right to align to left of flexbox */
+    align-self: flex-start;
+    /* Ensure it respects flex alignment */
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    display: block;
+    z-index: 10;
+    border-left: 1px solid var(--border-color, #7c7a7a);
+    background: var(--bg-primary, #0d0d0d);
 }
 
 /* Sidebar Resizer Object */
 .sidebar-resizer {
-  width: 4px;
-  height: 100%;
-  position: absolute;
-  right: 0;
-  top: 0;
-  cursor: col-resize;
-  z-index: 10;
-  transition: background-color 0.2s;
+    width: 4px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: col-resize;
+    z-index: 10;
+    transition: background-color 0.2s;
 }
 
 .sidebar-resizer:hover,
 .gitbook-sidebar.resizing .sidebar-resizer {
-  background-color: var(--link-color, #b388ff);
+    background-color: var(--link-color, #b388ff);
 }
 
 /* Sidebar Header */
 .sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 16px;
-  border-bottom: 1px solid var(--border-color, #7c7a7a);
-  background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--border-color, #7c7a7a);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 1.1em;
-  font-weight: 600;
-  color: var(--text-color, #e2e1d3);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
-  pointer-events: none;
-  /* Disable clicks on the whole logo container */
-  user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--text-color, #e2e1d3);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    pointer-events: none;
+    /* Disable clicks on the whole logo container */
+    user-select: none;
 }
 
 .sidebar-logo i {
-  font-size: 1.3em;
-  color: var(--link-color, #b388ff);
+    font-size: 1.3em;
+    color: var(--link-color, #b388ff);
 }
 
 .sidebar-toggle {
-  background: none;
-  border: none;
-  color: #888;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 6px;
-  transition: all 0.2s;
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 
 .sidebar-toggle:hover {
-  background: rgba(179, 136, 255, 0.1);
-  color: var(--link-color, #b388ff);
+    background: rgba(179, 136, 255, 0.1);
+    color: var(--link-color, #b388ff);
 }
 
 /* Sidebar Search */
 .sidebar-search {
-  padding: 16px;
-  position: relative;
-  border-bottom: 1px solid var(--border-color, #7c7a7a);
+    padding: 16px;
+    position: relative;
+    border-bottom: 1px solid var(--border-color, #7c7a7a);
 }
 
 .sidebar-search input {
-  width: 100%;
-  padding: 10px 40px 10px 14px;
-  background: #1a1a1a;
-  border: 1px solid var(--border-color, #7c7a7a);
-  border-radius: 6px;
-  color: var(--text-color, #e2e1d3);
-  font-size: 14px;
-  transition: all 0.2s;
+    width: 100%;
+    padding: 10px 40px 10px 14px;
+    background: #1a1a1a;
+    border: 1px solid var(--border-color, #7c7a7a);
+    border-radius: 6px;
+    color: var(--text-color, #e2e1d3);
+    font-size: 14px;
+    transition: all 0.2s;
 }
 
 .sidebar-search input:focus {
-  outline: none;
-  border-color: var(--link-color, #b388ff);
-  box-shadow: 0 0 0 3px rgba(179, 136, 255, 0.15);
+    outline: none;
+    border-color: var(--link-color, #b388ff);
+    box-shadow: 0 0 0 3px rgba(179, 136, 255, 0.15);
 }
 
 .sidebar-search input::placeholder {
-  color: #666;
+    color: #666;
 }
 
 .sidebar-search i {
-  position: absolute;
-  right: 28px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: #666;
-  pointer-events: none;
+    position: absolute;
+    right: 28px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
 }
 
 /* Sidebar Navigation */
 .sidebar-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 12px 0;
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 0;
 }
 
 .sidebar-nav::-webkit-scrollbar {
-  width: 6px;
+    width: 6px;
 }
 
 .sidebar-nav::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 .sidebar-nav::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 3px;
+    background: #333;
+    border-radius: 3px;
 }
 
 .sidebar-nav::-webkit-scrollbar-thumb:hover {
-  background: #444;
+    background: #444;
 }
 
 /* Navigation List */
 .nav-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-list.hidden {
-  display: none;
+    display: none;
 }
 
 .nav-item {
-  margin: 0;
+    margin: 0;
 }
 
 /* Folder Style */
 .nav-folder {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  color: var(--text-color, #e2e1d3);
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 15px;
-  /* Increased from 14px */
-  transition: all 0.2s;
-  user-select: none;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    color: var(--text-color, #e2e1d3);
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 15px;
+    /* Increased from 14px */
+    transition: all 0.2s;
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .nav-folder:hover {
-  background: rgba(179, 136, 255, 0.08);
-  color: var(--link-color, #b388ff);
+    background: rgba(179, 136, 255, 0.08);
+    color: var(--link-color, #b388ff);
 }
 
 .nav-folder .folder-arrow {
-  font-size: 10px;
-  transition: transform 0.2s;
-  opacity: 0.5;
+    font-size: 10px;
+    transition: transform 0.2s;
+    opacity: 0.5;
 }
 
 .nav-folder .folder-arrow.open {
-  transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
-.nav-folder > i:not(.folder-arrow) {
-  font-size: 14px;
-  color: #fbbf24;
-  opacity: 0.9;
+.nav-folder>i:not(.folder-arrow) {
+    font-size: 14px;
+    color: #fbbf24;
+    opacity: 0.9;
 }
 
 /* File Link Style */
 .nav-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 16px 8px 40px;
-  color: #999;
-  text-decoration: none;
-  font-size: 15px;
-  /* Increased from 14px */
-  transition: all 0.2s;
-  border-left: 2px solid transparent;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px 8px 40px;
+    color: #999;
+    text-decoration: none;
+    font-size: 15px;
+    /* Increased from 14px */
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .nav-link:hover {
-  background: rgba(179, 136, 255, 0.08);
-  color: var(--text-color, #e2e1d3);
-  border-left-color: rgba(179, 136, 255, 0.5);
+    background: rgba(179, 136, 255, 0.08);
+    color: var(--text-color, #e2e1d3);
+    border-left-color: rgba(179, 136, 255, 0.5);
 }
 
 .nav-link.active {
-  background: rgba(179, 136, 255, 0.15);
-  color: var(--link-color, #b388ff);
-  border-left-color: var(--link-color, #b388ff);
-  font-weight: 500;
+    background: rgba(179, 136, 255, 0.15);
+    color: var(--link-color, #b388ff);
+    border-left-color: var(--link-color, #b388ff);
+    font-weight: 500;
 }
 
 .nav-link i {
-  font-size: 12px;
-  color: #60a5fa;
-  opacity: 0.8;
+    font-size: 12px;
+    color: #60a5fa;
+    opacity: 0.8;
 }
 
 /* Active link icon */
 .nav-link.active i {
-  color: var(--link-color, #b388ff);
-  opacity: 1;
+    color: var(--link-color, #b388ff);
+    opacity: 1;
 }
 
 /* Nested Navigation - Tree Style */
 .nav-children {
-  display: none;
-  padding-left: 16px;
-  margin-left: 24px;
-  position: relative;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
+    display: none;
+    padding-left: 16px;
+    margin-left: 24px;
+    position: relative;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-children.open {
-  display: block;
+    display: block;
 }
 
 /* Tree branch line for each item */
 .nav-children .nav-item {
-  position: relative;
+    position: relative;
 }
 
 .nav-children .nav-item::before {
-  content: "";
-  position: absolute;
-  left: -16px;
-  top: 50%;
-  width: 12px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    width: 12px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.3);
 }
 
 /* Extend vertical line to last item */
 .nav-children .nav-item:last-child::after {
-  content: "";
-  position: absolute;
-  left: -17px;
-  top: 50%;
-  bottom: 0;
-  width: 1px;
-  height: calc(50% + 1px);
-  background: var(--bg-primary, #0d0d0d);
+    content: '';
+    position: absolute;
+    left: -17px;
+    top: 50%;
+    bottom: 0;
+    width: 1px;
+    height: calc(50% + 1px);
+    background: var(--bg-primary, #0d0d0d);
 }
 
 .nav-children .nav-link {
-  padding-left: 8px;
+    padding-left: 8px;
 }
 
 .nav-children .nav-children {
-  margin-left: 16px;
+    margin-left: 16px;
 }
 
 .nav-children .nav-children .nav-link {
-  padding-left: 8px;
+    padding-left: 8px;
 }
 
 /* Sidebar Footer */
 .sidebar-footer {
-  padding: 16px;
-  border-top: 1px solid var(--border-color, #7c7a7a);
-  background: rgba(0, 0, 0, 0.3);
+    padding: 16px;
+    border-top: 1px solid var(--border-color, #7c7a7a);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .sidebar-footer a {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: #888;
-  text-decoration: none;
-  font-size: 13px;
-  transition: color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
 }
 
 .sidebar-footer a:hover {
-  color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
 }
 
 /* =========================================
@@ -557,363 +557,364 @@
 /* Main Content Area */
 /* Main Content Area (Middle Column) */
 .gitbook-main {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  /* Full height */
-  overflow-y: auto;
-  /* Independent scrolling */
-  background: transparent;
-  padding: 0;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    /* Full height */
+    overflow-y: auto;
+    /* Independent scrolling */
+    background: transparent;
+    padding: 0;
 }
 
 .gitbook-main::-webkit-scrollbar {
-  width: 8px;
+    width: 8px;
 }
 
 .gitbook-main::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 .gitbook-main::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 4px;
+    background: #333;
+    border-radius: 4px;
 }
 
 .gitbook-main::-webkit-scrollbar-thumb:hover {
-  background: #444;
+    background: #444;
 }
 
 /* Legacy support - renamed in EJS but keep for safety */
 .gitbook-content {
-  flex: 1;
-  margin-left: 0;
+    flex: 1;
+    margin-left: 0;
 }
 
 /* When sidebar is collapsed, content takes full width */
-.gitbook-sidebar.collapsed ~ .gitbook-content {
-  margin-left: 0;
-  max-width: 100%;
+.gitbook-sidebar.collapsed~.gitbook-content {
+    margin-left: 0;
+    max-width: 100%;
 }
 
 /* Content Header */
 .content-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 12px 32px;
-  margin-top: 100px;
-  border-bottom: 1px solid var(--border-color, #7c7a7a);
-  background: #181818;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 32px;
+    margin-top: 100px;
+    border-bottom: 1px solid var(--border-color, #7c7a7a);
+    background: #181818;
 }
 
 /* Removed hide-on-hover logic */
 
 .mobile-menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: #888;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 6px;
+    display: none;
+    background: none;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
 }
 
 .mobile-menu-btn:hover {
-  background: rgba(179, 136, 255, 0.1);
-  color: var(--link-color, #b388ff);
+    background: rgba(179, 136, 255, 0.1);
+    color: var(--link-color, #b388ff);
 }
 
 .breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  color: #888;
-  flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #888;
+    flex-wrap: wrap;
 }
 
 .breadcrumb a {
-  color: #888;
-  text-decoration: none;
-  transition: color 0.2s;
+    color: #888;
+    text-decoration: none;
+    transition: color 0.2s;
 }
 
 .breadcrumb a:hover {
-  color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
 }
 
 .breadcrumb i {
-  font-size: 10px;
-  opacity: 0.5;
+    font-size: 10px;
+    opacity: 0.5;
 }
 
 /* Content Main Wrapper */
 .content-main-wrapper {
-  display: flex;
-  flex: 1;
-  gap: 30px;
-  /* Added gap for clear separation */
-  min-width: 0;
-  overflow-y: auto;
-  /* Scroll happens here so TOC can be sticky */
-  overflow-x: hidden;
+    display: flex;
+    flex: 1;
+    gap: 30px;
+    /* Added gap for clear separation */
+    min-width: 0;
+    overflow-y: auto;
+    /* Scroll happens here so TOC can be sticky */
+    overflow-x: hidden;
 }
 
 /* Content Body */
 /* Content Body */
 .content-body {
-  flex: 1 1 auto;
-  padding: 20px;
-  margin: 0;
-  min-width: 0;
-  max-width: 100%;
-  box-sizing: border-box;
+    flex: 1 1 auto;
+    padding: 20px;
+    margin: 0;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Right Table of Contents - GitBook Style */
 /* Meta Column (Right Column - TOC) */
-.gitbook-container > .meta {
-  width: 300px;
-  /* Slightly wider */
-  min-width: 250px;
-  flex-shrink: 0;
-  /* Removed sticky */
-  position: relative;
-  height: 100%;
-  /* Full height */
-  overflow-y: auto;
-  /* Independent scrolling */
-  border-left: 1px solid var(--border-color, #7c7a7a);
-  background: var(--bg-primary, #0d0d0d);
-  z-index: 10;
-  padding-top: 20px;
-  /* Fix Navbar underlap */
+.gitbook-container>.meta {
+    width: 300px;
+    /* Slightly wider */
+    min-width: 250px;
+    flex-shrink: 0;
+    /* Removed sticky */
+    position: relative;
+    height: 100%;
+    /* Full height */
+    overflow-y: auto;
+    /* Independent scrolling */
+    border-left: 1px solid var(--border-color, #7c7a7a);
+    background: var(--bg-primary, #0d0d0d);
+    z-index: 10;
+    padding-top: 20px;
+    /* Fix Navbar underlap */
 }
 
-.gitbook-container > .meta::-webkit-scrollbar {
-  width: 6px;
+.gitbook-container>.meta::-webkit-scrollbar {
+    width: 6px;
 }
 
-.gitbook-container > .meta::-webkit-scrollbar-track {
-  background: transparent;
+.gitbook-container>.meta::-webkit-scrollbar-track {
+    background: transparent;
 }
 
-.gitbook-container > .meta::-webkit-scrollbar-thumb {
-  background: #333;
-  border-radius: 3px;
+.gitbook-container>.meta::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
 }
 
-.gitbook-container > .meta::-webkit-scrollbar-thumb:hover {
-  background: #444;
+.gitbook-container>.meta::-webkit-scrollbar-thumb:hover {
+    background: #444;
 }
 
 .content-toc {
-  width: 100%;
-  /* Fit inside meta */
-  min-width: 0;
-  padding: 20px;
-  position: relative;
-  /* Not sticky itself, parent is sticky */
-  top: 0;
-  max-height: none;
-  border-left: none;
-  /* Border moved to .meta */
-  background: transparent;
+    width: 100%;
+    /* Fit inside meta */
+    min-width: 0;
+    padding: 20px;
+    position: relative;
+    /* Not sticky itself, parent is sticky */
+    top: 0;
+    max-height: none;
+    border-left: none;
+    /* Border moved to .meta */
+    background: transparent;
 }
 
 /* Hide TOC when no headers */
 .content-toc:empty,
 .content-toc:not(.has-toc) {
-  display: none;
+    display: none;
 }
 
 /* Scrollbar styling for TOC */
 .content-toc::-webkit-scrollbar {
-  width: 4px;
+    width: 4px;
 }
 
 .content-toc::-webkit-scrollbar-track {
-  background: transparent;
+    background: transparent;
 }
 
 .content-toc::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
 }
 
 /* Hide TOC on smaller screens or high zoom to prevent overlap */
 @media (max-width: 1200px) {
-  .content-toc {
-    display: none !important;
-  }
+    .content-toc {
+        display: none !important;
+    }
 }
 
 /* TOC Header */
 .toc-header {
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #666;
-  margin-bottom: 12px;
-  padding-left: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #666;
+    margin-bottom: 12px;
+    padding-left: 12px;
 }
 
 /* TOC Navigation Container */
 .toc-nav {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding-left: 12px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* TOC Links */
 .toc-link {
-  display: block;
-  padding: 8px 0 8px 12px;
-  margin-left: -12px;
-  font-size: 17px;
-  color: #888;
-  text-decoration: none;
-  border-left: 2px solid transparent;
-  transition: all 0.15s ease;
+    display: block;
+    padding: 8px 0 8px 12px;
+    margin-left: -12px;
+    font-size: 17px;
+    color: #888;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
 }
 
 /* Blog TOC Overrides (Standard Posts) */
 .blog-toc {
-  width: 100%;
-  /* Adapting to sidebar width */
-  /* right: 30px; Removed fixed positioning */
-  /* top: 110px; */
-  position: relative;
-  /* Relative to sidebar */
-  max-height: none;
-  overflow-y: visible;
-  background: transparent;
-  border-left: none;
-  /* Removing border as it's in sidebar */
-  padding: 10px 0;
-  z-index: 1;
+    width: 100%;
+    /* Adapting to sidebar width */
+    /* right: 30px; Removed fixed positioning */
+    /* top: 110px; */
+    position: relative;
+    /* Relative to sidebar */
+    max-height: none;
+    overflow-y: visible;
+    background: transparent;
+    border-left: none;
+    /* Removing border as it's in sidebar */
+    padding: 10px 0;
+    z-index: 1;
 }
 
 .blog-toc .toc-header {
-  font-size: 14px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #888;
-  margin-bottom: 12px;
-  padding-left: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #888;
+    margin-bottom: 12px;
+    padding-left: 12px;
 }
 
 .blog-toc .toc-nav {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding-left: 12px;
-  border-left: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-left: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .blog-toc .toc-link {
-  display: block;
-  padding: 6px 0 6px 12px;
-  margin-left: -12px;
-  font-size: 15px;
-  /* Increased from 14px */
-  color: #888;
-  text-decoration: none;
-  border-left: 2px solid transparent;
-  transition: all 0.15s ease;
+    display: block;
+    padding: 6px 0 6px 12px;
+    margin-left: -12px;
+    font-size: 15px;
+    /* Increased from 14px */
+    color: #888;
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: all 0.15s ease;
 }
 
 .blog-toc .toc-link:hover {
-  color: #fff;
-  border-left-color: rgba(179, 136, 255, 0.5);
+    color: #fff;
+    border-left-color: rgba(179, 136, 255, 0.5);
 }
 
 .blog-toc .toc-link.active {
-  color: var(--link-color, #b388ff);
-  border-left-color: var(--link-color, #b388ff);
-  font-weight: 500;
+    color: var(--link-color, #b388ff);
+    border-left-color: var(--link-color, #b388ff);
+    font-weight: 500;
 }
 
 .blog-toc .toc-link.toc-h3 {
-  padding-left: 24px;
-  font-size: 13px;
-  color: #666;
+    padding-left: 24px;
+    font-size: 13px;
+    color: #666;
 }
 
 .blog-toc .toc-link.toc-h3:hover {
-  color: #aaa;
+    color: #aaa;
 }
 
 .blog-toc .toc-link.toc-h3.active {
-  color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
 }
 
+
+
 .toc-link:hover {
-  color: #fff;
-  border-left-color: rgba(179, 136, 255, 0.5);
+    color: #fff;
+    border-left-color: rgba(179, 136, 255, 0.5);
 }
 
 .toc-link.active {
-  color: var(--link-color, #b388ff);
-  border-left-color: var(--link-color, #b388ff);
-  font-weight: 500;
+    color: var(--link-color, #b388ff);
+    border-left-color: var(--link-color, #b388ff);
+    font-weight: 500;
 }
 
 /* H3 links are indented */
 .toc-link.toc-h3 {
-  padding-left: 24px;
-  color: #666;
+    padding-left: 24px;
+    color: #666;
 }
 
 .toc-link.toc-h3:hover {
-  color: #aaa;
+    color: #aaa;
 }
 
 .toc-link.toc-h3.active {
-  color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
 }
 
 /* Welcome Screen */
 .welcome-screen {
-  text-align: center;
-  padding: 40px 40px;
-  /* Increased padding */
-  max-width: 1200px;
-  /* Increased from 900px */
-  width: 100%;
-  margin: 0 auto;
+    text-align: center;
+    padding: 40px 40px;
+    /* Increased padding */
+    max-width: 1200px;
+    /* Increased from 900px */
+    width: 100%;
+    margin: 0 auto;
 }
 
 /* Fix: Disable clicking on the auto-generated anchor wrapping the image */
-.welcome-screen > a {
-  pointer-events: none !important;
-  cursor: default !important;
+.welcome-screen>a {
+    pointer-events: none !important;
+    cursor: default !important;
 }
 
 .welcome-image {
-  max-width: 100%;
-  /* Limit the width to be "small" as requested, e.g., 600px or adjust as needed */
-  width: 200px;
-  max-height: 200px;
-  height: auto;
-  border-radius: 12px;
-  margin-bottom: 32px;
-  border: none;
-  pointer-events: none !important;
-  user-select: none !important;
-  -webkit-user-drag: none;
+    max-width: 100%;
+    /* Limit the width to be "small" as requested, e.g., 600px or adjust as needed */
+    width: 150px;
+    height: auto;
+    border-radius: 12px;
+    margin-bottom: 32px;
+    border: none;
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-drag: none;
 }
 
 /* Remove Dark overlay */
 .welcome-screen::before {
-  display: none;
+    display: none;
 }
 
 /* Fix Bold Text - Globally Enforce Normal Case */
@@ -921,179 +922,173 @@ strong,
 b,
 .gitbook-page strong,
 .gitbook-page b {
-  text-transform: none !important;
+    text-transform: none !important;
 }
 
 /* Ensure content is above overlay */
-.welcome-screen > * {
-  position: relative;
-  z-index: 2;
+.welcome-screen>* {
+    position: relative;
+    z-index: 2;
 }
 
 .welcome-icon {
-  display: none;
+    display: none;
 }
 
 .welcome-screen h1 {
-  font-size: 2.5em;
-  color: var(--header-color, #fff);
-  margin-bottom: 12px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
-  font-weight: 700;
+    font-size: 2.5em;
+    color: var(--header-color, #fff);
+    margin-bottom: 12px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 700;
 }
 
 .welcome-description {
-  color: #999;
-  max-width: 900px;
-  /* Increased from 600px */
-  margin: 0 auto 36px;
-  line-height: 1.7;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
+    color: #999;
+    max-width: 900px;
+    /* Increased from 600px */
+    margin: 0 auto 36px;
+    line-height: 1.7;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
 .welcome-description strong {
-  color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
 }
 
 /* Quick Links */
 .quick-links {
-  text-align: left;
+    text-align: left;
 }
 
 .quick-links h3 {
-  color: var(--header-color, #fff);
-  margin-bottom: 20px;
-  font-size: 1.25em;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
-  font-weight: 600;
+    color: var(--header-color, #fff);
+    margin-bottom: 20px;
+    font-size: 1.25em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 600;
 }
 
 .quick-links-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .quick-link-card {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: transparent;
-  border: none;
-  border-left: 3px solid var(--link-color, #b388ff);
-  padding: 10px 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: left;
-  border-radius: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    border-left: 3px solid var(--link-color, #b388ff);
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    border-radius: 0;
 }
 
 .quick-link-card:hover {
-  background: rgba(179, 136, 255, 0.1);
-  border-left-color: var(--link-color, #b388ff);
-  transform: translateX(4px);
+    background: rgba(179, 136, 255, 0.1);
+    border-left-color: var(--link-color, #b388ff);
+    transform: translateX(4px);
 }
 
 .quick-link-card i {
-  font-size: 18px;
-  color: var(--link-color, #b388ff);
-  margin-bottom: 0;
+    font-size: 18px;
+    color: var(--link-color, #b388ff);
+    margin-bottom: 0;
 }
 
 .quick-link-card h4 {
-  color: var(--header-color, #fff);
-  margin-bottom: 0;
-  font-size: 15px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
-  font-weight: 500;
+    color: var(--header-color, #fff);
+    margin-bottom: 0;
+    font-size: 15px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 500;
 }
 
 .quick-link-card .item-count {
-  color: #888;
-  font-size: 12px;
+    color: #888;
+    font-size: 12px;
 }
 
 /* Content Wrapper */
 .content-wrapper {
-  animation: fadeIn 0.3s ease;
-  width: 100%;
-  max-width: 100%;
+    animation: fadeIn 0.3s ease;
+    width: 100%;
+    max-width: 100%;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .content-header-info {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-top: 40px;
-  margin-bottom: 28px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color, #7c7a7a);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color, #7c7a7a);
 }
 
 .content-header-info h1 {
-  font-size: 2.2em;
-  color: var(--header-color, #fff);
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
-  font-weight: 700;
+    font-size: 2.2em;
+    color: var(--header-color, #fff);
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-weight: 700;
 }
 
 .edit-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: #888;
-  text-decoration: none;
-  font-size: 13px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #888;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: all 0.2s;
 }
 
 .edit-link:hover {
-  background: rgba(179, 136, 255, 0.1);
-  color: var(--link-color, #b388ff);
+    background: rgba(179, 136, 255, 0.1);
+    color: var(--link-color, #b388ff);
 }
 
 /* Markdown Body */
 .markdown-body {
-  color: var(--text-color, #e2e1d3);
-  line-height: 1.7;
-  font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-  max-width: 100%;
+    color: var(--text-color, #e2e1d3);
+    line-height: 1.7;
+    font-size: 16px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .markdown-body img,
 .markdown-body video {
-  max-width: 100%;
-  height: auto;
+    max-width: 100%;
+    height: auto;
 }
 
 .markdown-body hr {
-  max-width: 100%;
-  box-sizing: border-box;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Heading styles */
@@ -1103,275 +1098,279 @@ b,
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  color: var(--header-color, #fff);
-  margin-top: 32px;
-  margin-bottom: 16px;
-  font-weight: 600;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial,
-    sans-serif;
+    color: var(--header-color, #fff);
+    margin-top: 32px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
+
+
+
+
 .markdown-body h2 {
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-color, #7c7a7a);
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color, #7c7a7a);
 }
 
 .markdown-body a {
-  color: var(--link-color, #65577e);
-  text-decoration: underline;
+    color: var(--link-color, #65577e);
+    text-decoration: underline;
 }
 
+
 .markdown-body a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
 }
 
 .markdown-body blockquote {
-  margin: 24px 0;
-  padding: 16px 20px;
-  background: rgba(179, 136, 255, 0.08);
-  border-left: 4px solid var(--link-color, #b388ff);
-  border-radius: 0 8px 8px 0;
-  color: #bbb;
+    margin: 24px 0;
+    padding: 16px 20px;
+    background: rgba(179, 136, 255, 0.08);
+    border-left: 4px solid var(--link-color, #b388ff);
+    border-radius: 0 8px 8px 0;
+    color: #bbb;
 }
 
 /* Code Blocks */
 /* Code Blocks */
 .markdown-body pre {
-  margin: 0 !important;
-  padding: 16px !important;
-  padding-right: 40px !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  overflow-x: auto;
-  max-width: 100%;
-  min-width: 0;
+    margin: 0 !important;
+    padding: 16px !important;
+    padding-right: 40px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    overflow-x: auto;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .markdown-body pre code {
-  font-family: "Fira Code", "Monaco", "Consolas", monospace !important;
-  font-size: 14px !important;
-  color: var(--code-text-color, #e2e1d3) !important;
-  background: transparent !important;
-  padding: 0 !important;
-  white-space: pre !important;
-  display: block !important;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace !important;
+    font-size: 14px !important;
+    color: var(--code-text-color, #e2e1d3) !important;
+    background: transparent !important;
+    padding: 0 !important;
+    white-space: pre !important;
+    display: block !important;
 }
 
 .markdown-body code {
-  font-family: "Fira Code", "Monaco", "Consolas", monospace;
-  font-size: 0.9em;
-  padding: 3px 8px;
-  background: rgba(179, 136, 255, 0.1);
-  /* Softer purple bg */
-  color: #b388ff;
-  /* Soft Purple */
-  border-radius: 4px;
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.9em;
+    padding: 3px 8px;
+    background: rgba(179, 136, 255, 0.1);
+    /* Softer purple bg */
+    color: #b388ff;
+    /* Soft Purple */
+    border-radius: 4px;
 }
 
 /* Copy Button - Fixed positioning relative to wrapper */
 .copy-btn {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid #444;
-  color: #888;
-  padding: 4px 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  opacity: 0;
-  /* Hidden by default */
-  font-size: 12px;
-  z-index: 5;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #444;
+    color: #888;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+    opacity: 0;
+    /* Hidden by default */
+    font-size: 12px;
+    z-index: 5;
 }
 
 /* Reposition Scroll to Top button for GitBook pages */
 .gitbook-page #gotop {
-  right: 350px !important;
-  /* Move to left of TOC (300px + margin) */
-  bottom: 30px !important;
-  background: rgba(17, 17, 17, 0.8) !important;
-  border: 1px solid var(--border-color, #7c7a7a);
-  border-radius: 6px;
-  backdrop-filter: blur(5px);
+    right: 350px !important;
+    /* Move to left of TOC (300px + margin) */
+    bottom: 30px !important;
+    background: rgba(17, 17, 17, 0.8) !important;
+    border: 1px solid var(--border-color, #7c7a7a);
+    border-radius: 6px;
+    backdrop-filter: blur(5px);
 }
 
 .gitbook-page #gotop:hover {
-  background: rgba(168, 85, 247, 0.15) !important;
-  border-color: var(--link-color, #b388ff);
+    background: rgba(168, 85, 247, 0.15) !important;
+    border-color: var(--link-color, #b388ff);
 }
 
 /* Hover logic handled by .code-wrapper:hover .copy-btn added previously */
 
 .copy-btn:hover {
-  background: rgba(168, 85, 247, 0.2);
-  color: var(--link-color, #b388ff);
+    background: rgba(168, 85, 247, 0.2);
+    color: var(--link-color, #b388ff);
 }
 
 .copy-btn.copied {
-  background: rgba(76, 175, 80, 0.2);
-  color: #4caf50;
+    background: rgba(76, 175, 80, 0.2);
+    color: #4CAF50;
 }
 
 /* Tables */
 .markdown-body table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 24px 0;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
 }
 
 .markdown-body th {
-  background: rgba(179, 136, 255, 0.1);
-  color: var(--header-color, #fff);
-  padding: 14px;
-  text-align: left;
-  border-bottom: 2px solid var(--link-color, #b388ff);
-  font-weight: 600;
+    background: rgba(179, 136, 255, 0.1);
+    color: var(--header-color, #fff);
+    padding: 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--link-color, #b388ff);
+    font-weight: 600;
 }
 
 .markdown-body td {
-  padding: 12px 14px;
-  border-bottom: 1px solid #333;
+    padding: 12px 14px;
+    border-bottom: 1px solid #333;
 }
 
 /* Content Footer */
 .content-footer {
-  padding: 24px 48px;
-  border-top: 1px solid var(--border-color, #7c7a7a);
-  background: rgba(0, 0, 0, 0.5);
+    padding: 24px 48px;
+    border-top: 1px solid var(--border-color, #7c7a7a);
+    background: rgba(0, 0, 0, 0.5);
 }
 
 .nav-buttons {
-  display: flex;
-  justify-content: space-between;
-  max-width: 1400px;
-  /* Matched to content max-width */
-  margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    max-width: 1400px;
+    /* Matched to content max-width */
+    margin: 0 auto;
 }
 
 .nav-btn {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid var(--border-color, #7c7a7a);
-  border-radius: 8px;
-  color: #888;
-  cursor: pointer;
-  transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color, #7c7a7a);
+    border-radius: 8px;
+    color: #888;
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
 .nav-btn:not(:disabled):hover {
-  background: rgba(179, 136, 255, 0.1);
-  border-color: var(--link-color, #b388ff);
-  color: var(--link-color, #b388ff);
+    background: rgba(179, 136, 255, 0.1);
+    border-color: var(--link-color, #b388ff);
+    color: var(--link-color, #b388ff);
 }
 
 .nav-btn:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
+    opacity: 0.35;
+    cursor: not-allowed;
 }
 
 .nav-btn.next {
-  margin-left: auto;
+    margin-left: auto;
 }
 
 /* Loading & Error States */
 .loading-spinner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  padding: 50px;
-  color: #888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding: 50px;
+    color: #888;
 }
 
 .loading-spinner i {
-  font-size: 28px;
-  color: var(--link-color, #b388ff);
+    font-size: 28px;
+    color: var(--link-color, #b388ff);
 }
 
 .error-message {
-  text-align: center;
-  padding: 50px;
-  color: #888;
+    text-align: center;
+    padding: 50px;
+    color: #888;
 }
 
 .error-message i {
-  font-size: 44px;
-  color: var(--link-color, #b388ff);
-  margin-bottom: 20px;
+    font-size: 44px;
+    color: var(--link-color, #b388ff);
+    margin-bottom: 20px;
 }
 
 .error-message h2 {
-  color: var(--header-color, #fff);
+    color: var(--header-color, #fff);
 }
 
 .error-message button {
-  margin-top: 20px;
-  padding: 10px 22px;
-  background: var(--link-color, #b388ff);
-  border: none;
-  border-radius: 6px;
-  color: #fff;
-  cursor: pointer;
+    margin-top: 20px;
+    padding: 10px 22px;
+    background: var(--link-color, #b388ff);
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
 }
 
 /* Responsive */
 /* Responsive */
 @media (max-width: 1200px) {
-  .content-toc {
-    display: none;
-  }
+    .content-toc {
+        display: none;
+    }
 
-  /* Let content expand */
-  .content-body {
-    padding: 20px 0 20px 20px;
-    /* Keep reduced padding */
-  }
+    /* Let content expand */
+    .content-body {
+        padding: 20px 0 20px 20px;
+        /* Keep reduced padding */
+    }
 }
 
 @media (max-width: 768px) {
-  .gitbook-sidebar {
-    transform: translateX(-100%);
-    width: 80vw;
-    max-width: 300px;
-    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
-  }
+    .gitbook-sidebar {
+        transform: translateX(-100%);
+        width: 80vw;
+        max-width: 300px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    }
 
-  .gitbook-sidebar.open {
-    transform: translateX(0);
-  }
+    .gitbook-sidebar.open {
+        transform: translateX(0);
+    }
 
-  .gitbook-content {
-    margin-left: 0;
-    width: 100%;
-  }
+    .gitbook-content {
+        margin-left: 0;
+        width: 100%;
+    }
 
-  .mobile-menu-btn {
-    display: block;
-  }
+    .mobile-menu-btn {
+        display: block;
+    }
 
-  .content-body {
-    padding: 20px 16px;
-  }
+    .content-body {
+        padding: 20px 16px;
+    }
 
-  .content-footer {
-    padding: 20px 16px;
-  }
+    .content-footer {
+        padding: 20px 16px;
+    }
 
-  .nav-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
+    .nav-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
 
-  .nav-btn {
-    max-width: 100%;
-  }
+    .nav-btn {
+        max-width: 100%;
+    }
 }
 
 /* =========================================
@@ -1379,79 +1378,79 @@ b,
    ========================================= */
 
 body.light-theme .gitbook-page {
-  background: var(--bg-primary, #f0ede8) !important;
-  --link-color: #73648d;
-  /* Relaxed Purple for Light Mode */
+    background: var(--bg-primary, #f0ede8) !important;
+    --link-color: #73648d;
+    /* Relaxed Purple for Light Mode */
 }
 
 body.light-theme .gitbook-sidebar {
-  background: #e8e4de;
-  border-right-color: #ddd;
+    background: #e8e4de;
+    border-right-color: #ddd;
 }
 
 body.light-theme .sidebar-header {
-  background: rgba(0, 0, 0, 0.03);
-  border-bottom-color: #ddd;
+    background: rgba(0, 0, 0, 0.03);
+    border-bottom-color: #ddd;
 }
 
 body.light-theme .sidebar-logo {
-  color: #333;
+    color: #333;
 }
 
 body.light-theme .sidebar-search input {
-  background: #fff;
-  border-color: #ddd;
-  color: #333;
+    background: #fff;
+    border-color: #ddd;
+    color: #333;
 }
 
 body.light-theme .sidebar-search input::placeholder {
-  color: #999;
+    color: #999;
 }
 
 body.light-theme .nav-folder {
-  color: #333;
+    color: #333;
 }
 
 body.light-theme .nav-folder:hover {
-  background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.05);
 }
 
 body.light-theme .nav-link {
-  color: #666;
+    color: #666;
 }
 
 body.light-theme .nav-link:hover {
-  background: rgba(126, 87, 194, 0.1);
-  color: var(--link-color);
+    background: rgba(126, 87, 194, 0.1);
+    color: var(--link-color);
 }
 
 body.light-theme .nav-link.active {
-  background: rgba(126, 87, 194, 0.15);
-  /* Purple tint */
-  color: var(--link-color);
+    background: rgba(126, 87, 194, 0.15);
+    /* Purple tint */
+    color: var(--link-color);
 }
 
 body.light-theme .sidebar-footer {
-  background: rgba(0, 0, 0, 0.03);
-  border-top-color: #ddd;
+    background: rgba(0, 0, 0, 0.03);
+    border-top-color: #ddd;
 }
 
 body.light-theme .sidebar-footer a {
-  color: #666;
+    color: #666;
 }
 
 body.light-theme .content-header {
-  background: #e8e4de;
-  border-bottom-color: #ddd;
+    background: #e8e4de;
+    border-bottom-color: #ddd;
 }
 
 body.light-theme .breadcrumb,
 body.light-theme .breadcrumb a {
-  color: #666;
+    color: #666;
 }
 
 body.light-theme .markdown-body {
-  color: var(--text-color);
+    color: var(--text-color);
 }
 
 body.light-theme .markdown-body h1,
@@ -1460,357 +1459,286 @@ body.light-theme .markdown-body h3,
 body.light-theme .markdown-body h4,
 body.light-theme .markdown-body h5,
 body.light-theme .markdown-body h6 {
-  color: var(--header-color);
+    color: var(--header-color);
 }
 
 body.light-theme .markdown-body h2 {
-  border-bottom-color: #ddd;
+    border-bottom-color: #ddd;
 }
 
 body.light-theme .markdown-body blockquote {
-  background: rgba(126, 87, 194, 0.05);
-  color: #555;
+    background: rgba(126, 87, 194, 0.05);
+    color: #555;
 }
 
 body.light-theme .markdown-body pre {
-  background: #1e1e1e !important;
+    background: #1e1e1e !important;
 }
 
 body.light-theme .content-toc {
-  background: transparent;
+    background: transparent;
 }
 
 body.light-theme .toc-nav {
-  border-left-color: rgba(0, 0, 0, 0.1);
+    border-left-color: rgba(0, 0, 0, 0.1);
 }
 
 /* Light Theme Tree Lines */
 body.light-theme .nav-children {
-  border-left-color: rgba(0, 0, 0, 0.2);
+    border-left-color: rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .nav-children .nav-item::before {
-  background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .toc-link {
-  color: #666;
+    color: #666;
 }
 
 body.light-theme .toc-link:hover {
-  color: #333;
+    color: #333;
 }
 
 body.light-theme .content-footer {
-  border-top-color: #ddd;
+    border-top-color: #ddd;
 }
 
 body.light-theme .nav-btn {
-  background: #fff;
-  border-color: #ddd;
-  color: #333;
+    background: #fff;
+    border-color: #ddd;
+    color: #333;
 }
 
 body.light-theme .nav-btn:hover {
-  background: rgba(126, 87, 194, 0.1);
-  border-color: var(--link-color);
+    background: rgba(126, 87, 194, 0.1);
+    border-color: var(--link-color);
 }
 
 body.light-theme .welcome-screen h1 {
-  color: var(--header-color);
+    color: var(--header-color);
 }
 
 body.light-theme .welcome-description {
-  color: #555;
+    color: #555;
 }
 
 body.light-theme .quick-link-card {
-  background: transparent;
-  border-left-color: var(--link-color);
+    background: transparent;
+    border-left-color: var(--link-color);
 }
 
 body.light-theme .quick-link-card:hover {
-  background: rgba(126, 87, 194, 0.08);
+    background: rgba(126, 87, 194, 0.08);
 }
 
 /* Light Theme Sidebar Open Button */
 body.light-theme .sidebar-open-btn {
-  background: #e8e4de;
-  border-right-color: #ddd;
-  color: #666;
+    background: #e8e4de;
+    border-right-color: #ddd;
+    color: #666;
 }
 
 body.light-theme .sidebar-open-btn:hover {
-  background: rgba(126, 87, 194, 0.15);
-  color: var(--link-color);
+    background: rgba(126, 87, 194, 0.15);
+    color: var(--link-color);
 }
 
 /* Force responsive fixes for mobile */
 @media screen and (max-width: 768px) {
-  /* Hide TOC on mobile completely */
-  .content-toc,
-  #content-toc {
-    display: none !important;
-    visibility: hidden !important;
-    width: 0 !important;
-    height: 0 !important;
-    position: static !important;
-  }
 
-  /* Reduce header font sizes */
-  .markdown-body h1 {
-    font-size: 1.8em !important;
-    word-break: break-word;
-  }
+    /* Hide TOC on mobile completely */
+    .content-toc,
+    #content-toc {
+        display: none !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        height: 0 !important;
+        position: static !important;
+    }
 
-  .markdown-body h2 {
-    font-size: 1.5em !important;
-  }
+    /* Reduce header font sizes */
+    .markdown-body h1 {
+        font-size: 1.8em !important;
+        word-break: break-word;
+    }
 
-  /* Reset content widths and margins */
-  .gitbook-content {
-    margin-left: 0 !important;
-    width: 100% !important;
-    max-width: 100vw !important;
-    padding: 0 !important;
-    overflow-x: hidden !important;
-  }
+    .markdown-body h2 {
+        font-size: 1.5em !important;
+    }
 
-  .content-body {
-    padding: 20px 16px !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
+    /* Reset content widths and margins */
+    .gitbook-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
 
-  /* Sidebar Logic for Mobile */
-  /* By default on mobile, sidebar is hidden. We must ensure the toggle button is VISIBLE. */
-  .gitbook-sidebar {
-    transform: translateX(-100%);
-    display: none;
-    /* Hide from flow to prevent width issues */
-    position: fixed;
-    /* Fixed on mobile to overlap content */
-    top: 0;
-    left: 0;
-    height: 100vh;
-    z-index: 2000;
-    width: 85vw;
-    max-width: 320px;
-    transition: transform 0.3s ease;
-    box-shadow: none;
-  }
+    .content-body {
+        padding: 20px 16px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 
-  .gitbook-sidebar.open {
-    transform: translateX(0) !important;
-    display: flex !important;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) !important;
-  }
+    /* Sidebar Logic for Mobile */
+    /* By default on mobile, sidebar is hidden. We must ensure the toggle button is VISIBLE. */
+    .gitbook-sidebar {
+        transform: translateX(-100%);
+        display: none;
+        /* Hide from flow to prevent width issues */
+        position: fixed;
+        /* Fixed on mobile to overlap content */
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 2000;
+        width: 85vw;
+        max-width: 320px;
+        transition: transform 0.3s ease;
+        box-shadow: none;
+    }
 
-  /* Ensure the open button is visible when sidebar is NOT open (pseudo-logic via CSS) */
-  /* We simply force it to be visible on mobile, unless we can detect sidebar is open via sibling... */
-  /* Actually, relying on .collapsed class is better if JS handles it. But as a fallback: */
-  .sidebar-open-btn {
-    display: flex !important;
-    position: fixed;
-    /* Float it */
-    left: 10px;
-    bottom: 20px;
-    /* moved to bottom or keep at top? Original design seems to be a strip. */
-    /* Let's keep it consistent with desktop but ensure it's visible. */
-    /* If the design is a vertical strip on the left, let's stick to that. */
-    z-index: 1500;
-    background: #181818;
-    border: 1px solid var(--border-color, #555);
-    border-radius: 4px;
-    height: 40px;
-    width: 40px;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-  }
+    .gitbook-sidebar.open {
+        transform: translateX(0) !important;
+        display: flex !important;
+        box-shadow: 0 0 100px rgba(0, 0, 0, 0.5) !important;
+    }
 
-  .sidebar-open-btn span {
-    display: none;
-    /* Hide text on mobile */
-  }
+    /* Ensure the open button is visible when sidebar is NOT open (pseudo-logic via CSS) */
+    /* We simply force it to be visible on mobile, unless we can detect sidebar is open via sibling... */
+    /* Actually, relying on .collapsed class is better if JS handles it. But as a fallback: */
+    .sidebar-open-btn {
+        display: flex !important;
+        position: fixed;
+        /* Float it */
+        left: 10px;
+        bottom: 20px;
+        /* moved to bottom or keep at top? Original design seems to be a strip. */
+        /* Let's keep it consistent with desktop but ensure it's visible. */
+        /* If the design is a vertical strip on the left, let's stick to that. */
+        z-index: 1500;
+        background: #181818;
+        border: 1px solid var(--border-color, #555);
+        border-radius: 4px;
+        height: 40px;
+        width: 40px;
+        padding: 0;
+        align-items: center;
+        justify-content: center;
+    }
 
-  .sidebar-open-btn i {
-    font-size: 18px;
-  }
+    .sidebar-open-btn span {
+        display: none;
+        /* Hide text on mobile */
+    }
 
-  /* If sidebar is open, we can try to hide the button if it overlaps, but z-index handles it (sidebar > button) */
+    .sidebar-open-btn i {
+        font-size: 18px;
+    }
 
-  /* Improve header layout */
-  .content-header {
-    padding: 10px 15px !important;
-    margin-top: 50px !important;
-    /* Space for navbar/header */
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-  }
+    /* If sidebar is open, we can try to hide the button if it overlaps, but z-index handles it (sidebar > button) */
 
-  .breadcrumb {
-    font-size: 12px !important;
-    overflow-x: auto;
-    white-space: nowrap;
-    max-width: 100%;
-    padding-bottom: 5px;
-    /* Scrollbar space */
-  }
+    /* Improve header layout */
+    .content-header {
+        padding: 10px 15px !important;
+        margin-top: 50px !important;
+        /* Space for navbar/header */
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
 
-  .content-header-info {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 10px !important;
-  }
+    .breadcrumb {
+        font-size: 12px !important;
+        overflow-x: auto;
+        white-space: nowrap;
+        max-width: 100%;
+        padding-bottom: 5px;
+        /* Scrollbar space */
+    }
 
-  /* Table Wrapper for horizontal scroll */
-  .table-wrapper {
-    display: block;
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: 1em;
-  }
+    .content-header-info {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 10px !important;
+    }
 
-  table {
-    min-width: 500px;
-    /* Force scroll */
-  }
+    /* Table Wrapper for horizontal scroll */
+    .table-wrapper {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 1em;
+    }
 
-  /* Responsive Images */
-  .markdown-body img {
-    max-width: 100%;
-    height: auto;
-  }
+    table {
+        min-width: 500px;
+        /* Force scroll */
+    }
+
+    /* Responsive Images */
+    .markdown-body img {
+        max-width: 100%;
+        height: auto;
+    }
 }
 
 /* General Tablet/Desktop responsive adjustments */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
-  .gitbook-sidebar {
-    width: 240px;
-    min-width: 240px;
-  }
+    .gitbook-sidebar {
+        width: 240px;
+        min-width: 240px;
+    }
 
-  .content-toc {
+    .content-toc {
+        display: none;
+        /* Hide TOC on tablet as well to save space */
+    }
+}
+/* Mobile Menu Overlay */
+.sidebar-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0;
+    z-index: 99;
     display: none;
-    /* Hide TOC on tablet as well to save space */
-  }
+    backdrop-filter: blur(2px);
+    transition: opacity 0.3s;
+    opacity: 0;
 }
 
-/* =========================================
-   Mobile Responsiveness
-   ========================================= */
-
-@media (max-width: 768px) {
-  /* Layout Reset */
-  .gitbook-page .gitbook-container {
-    flex-direction: column;
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    height: auto !important;
-    overflow: visible;
-    /* Allow body scroll on mobile */
-  }
-
-  /* Sidebar - Slide-in Menu */
-  .gitbook-sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: 280px;
-    height: 100vh;
-    z-index: 2000;
-    /* High z-index */
-    transform: translateX(-100%);
-    /* Hidden by default */
-    transition: transform 0.3s ease;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-  }
-
-  .gitbook-sidebar.mobile-open {
-    transform: translateX(0);
-    display: flex;
-  }
-
-  /* Overlay when sidebar is open */
-  .mobile-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 1999;
-    display: none;
-  }
-
-  .mobile-overlay.active {
+.sidebar-overlay.active {
     display: block;
-  }
+    opacity: 1;
+}
 
-  /* Sidebar Content adjustments */
-  .sidebar-resizer {
-    display: none;
-    /* No resizing on mobile */
-  }
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .gitbook-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        z-index: 1000;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    }
 
-  /* Main Content */
-  .gitbook-main {
-    width: 100%;
-    margin-left: 0 !important;
-    padding-bottom: 60px;
-  }
+    .gitbook-sidebar.open {
+        transform: translateX(0);
+    }
 
-  .content-body {
-    padding: 20px 16px !important;
-  }
+    .mobile-menu-btn {
+        display: block;
+        /* Show menu button on mobile */
+    }
 
-  /* Mobile Header Controls */
-  .sidebar-open-btn {
-    display: flex !important;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    top: auto;
-    left: auto;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: none;
-    background: var(--link-color, #b388ff);
-    color: #000;
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    writing-mode: horizontal-tb;
-  }
-
-  .sidebar-open-btn span {
-    display: none;
-  }
-
-  .sidebar-open-btn i {
-    font-size: 20px;
-  }
-
-  /* Hide Meta/TOC on Mobile */
-  .gitbook-container > .meta {
-    display: none;
-  }
-
-  .gitbook-page .content-header {
-    margin-top: 60px;
-    /* Adjust for global navbar */
-    padding: 10px 16px;
-  }
+    .content-header {
+        margin-top: 60px;
+        /* Reduced from 100px */
+        padding: 12px 16px;
+    }
 }

