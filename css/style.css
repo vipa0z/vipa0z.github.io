@@ -209,14 +209,14 @@ li i {
 }
 
 .tag_box a {
-    padding: 2px 6px;
-    margin: 2px;
-    background: #e5e5e5;
-    color: var(--tag-color, #555);
-    border-radius: 3px;
-    text-decoration: none;
-    border: 1px dashed #bbb;
-    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
+    padding: 2px 6px !important;
+    margin: 2px !important;
+    background: #e5e5e5 !important;
+    color: #313131 !important;
+    border-radius: 3px !important;
+    text-decoration: none !important;
+    border: 1px dashed #bbb !important;
+    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace !important;
 }
 
 .tag_box a span {
@@ -225,14 +225,14 @@ li i {
 }
 
 .tag_box a:hover {
-    background-color: #555555;
-    color: #FFF
+    background-color: #252525 !important;
+    color: #FFF !important;
 }
 
 .tag_box a.active {
-    background: #57a957;
-    border: 1px solid #4c964d;
-    color: #FFF
+    background: #a1a6a1 !important;
+    border: 1px solid #4c964d !important;
+    color: #FFF !important;
 }
 
 .widget {
@@ -515,7 +515,11 @@ h6 {
 .post h4,
 .post h5,
 .post h6 {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Garamond', 'Georgia', serif;
+}
+
+.post h4 {
+    margin-top: 1.5em;
 }
 
 .page-header h1,
@@ -627,6 +631,12 @@ em {
     background: #000
 }
 
+/* First item in the JS-generated TOC gets DOS font */
+#toc-nav a:first-child {
+    font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
+}
+
+
 .toc .toc-title {
     font-size: 125%
 }
@@ -690,7 +700,7 @@ td {
 }
 
 hr {
-    border-top: 2px solid #fff
+    border-top: 0.1px solid #8e8c8c
 }
 
 .btn {
@@ -1405,10 +1415,7 @@ body.light-theme .page p a {
     /* Darker Blue for Contrast */
 }
 
-.tag_box a {
-    color: #000000;
-    /* Darker Blue for Contrast */
-}
+
 
 body.light-theme .post a:hover,
 body.light-theme .page a:hover {
