@@ -188,6 +188,8 @@
     gap: 12px;
     font-size: 14px;
     transition: background 0.2s;
+    margin-top: 50px;
+    /* Fix overlap with navbar */
 }
 
 .sidebar-open-btn span {
@@ -196,7 +198,8 @@
     text-orientation: mixed;
     transform: rotate(180deg);
     /* Fix rotation */
-    font-size: 13px;
+    font-size: 16px;
+    /* Increased from 13px */
     letter-spacing: 1px;
     font-weight: 500;
 }
@@ -1693,5 +1696,74 @@ body.light-theme .sidebar-open-btn:hover {
     .content-toc {
         display: none;
         /* Hide TOC on tablet as well to save space */
+    }
+}
+/* Mobile Menu Overlay */
+.sidebar-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    display: none;
+    backdrop-filter: blur(2px);
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .gitbook-sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        transform: translateX(-100%);
+        z-index: 1000;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .gitbook-sidebar.open {
+        transform: translateX(0);
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        /* Show menu button on mobile */
+    }
+
+    .content-header {
+        margin-top: 60px;
+        /* Reduced from 100px */
+        padding: 12px 16px;
+    }
+
+    /* Force reset container width and margins on mobile to fix iPhone XR layout */
+    .gitbook-page .gitbook-container {
+        width: 100% !important;
+        margin-left: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin: 0 !important;
+        overflow-x: hidden;
+    }
+
+    /* Ensure content takes full width */
+    .gitbook-page .content,
+    .gitbook-page>.content,
+    .gitbook-main {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    /* Ensure body doesn't overflow horizontally */
+    body, html {
+        overflow-x: hidden;
     }
 }

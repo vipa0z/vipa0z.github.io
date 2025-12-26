@@ -1,25 +1,31 @@
-
 ### Why Passive Recon
-**Passive API Reconnaissance** is the act of obtaining information about a target without directly interacting with the target’s systems. When you take this approach, your goal is to find and document public information about your target’s attack surface. 
- 
- Exposed Credentials:
+
+**Passive API Reconnaissance** is the act of obtaining information about a target without directly interacting with the target’s systems. When you take this approach, your goal is to find and document public information about your target’s attack surface.
+
+Exposed Credentials:
+
 1. through OSINT
-2. API keys,  Creds, Jwts,  
+2. API keys, Creds, Jwts,
 
- API Documentation:
- - ow to test the target API
- - business insight and logic flaws
+API Documentation: Helps you understand the target API.
 
- Improper asset management:
+- business insight and logic flaws
+
+Improper asset management:
+
 - eg: an endpoint being listed as deprecated/removed but still usable (aids in improper asset management finding)
 - version information: clues on deprecated API endpoints
+
 ---
+
 ### google search + dorks
 
 simply searching:
+
 - start with simple google search about the API
 
- dorks: docs,developers,dev, graphql:
+dorks: docs,developers,dev, graphql:
+
 ```
 intitle:"api" site:fb.com
 inurl:"/api/v1" site:x
@@ -39,36 +45,45 @@ intitle:json site:'ebay.com'
 | intitle:"index of" api_key OR "api key" OR apiKey -pool | This is one of my favorite queries. It lists potentially exposed API keys.                                                                         |
 
 ---
+
 ### github search + dorks
 
 - try automated git scanning tools that search for known API key names like from vendors such as google, AWS,..etc
-- search in issues tab for exposed credentials 
+- search in issues tab for exposed credentials
 - extensions:
+
 ```
 extension:json nasa
 ```
+
 - web headers:
+
 ```
 "authorization: Bearer"
 ```
+
 swagger files: (can be imported into postman)
+
 ```
 "filename:swagger.json"
 ```
 
 ---
+
 ## TruffleHog 
 
 TruffleHog is a great tool for automatically discovering exposed secrets. You can simply use the following Docker run to initiate a TruffleHog scan of your target's Github.
+
 ```
  $ sudo docker run -it -v "$PWD:/pwd" trufflesecurity/trufflehog:latest github --org=target-name
 ```
 
 ![](https://kajabi-storefronts-production.kajabi-cdn.com/kajabi-storefronts-production/site/2147573912/products/01s4gYuoQmq9GgdZg4oG_TruffleHogv3.png)
 
-In the above example, you can see that the org that was targeted was Venmo and the results of the scan indicate URLs that should be investigated for potentially leaked secrets. In addition to searching Github, TruffleHog can also be used to search for secrets in other sources like Git, Gitlab, Amazon S3, filesystem, and Syslog. To explore these other options use the "-h" flag. For additional information check out [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog). 
+In the above example, you can see that the org that was targeted was Venmo and the results of the scan indicate URLs that should be investigated for potentially leaked secrets. In addition to searching Github, TruffleHog can also be used to search for secrets in other sources like Git, Gitlab, Amazon S3, filesystem, and Syslog. To explore these other options use the "-h" flag. For additional information check out [https://github.com/trufflesecurity/trufflehog](https://github.com/trufflesecurity/trufflehog).
 
 ## **Shodan**
+
 You can use Shodan to discover external-facing APIs and get information about your target’s open ports, making it useful if you have only an IP address or organization’s name to work from. Like with Google dorks, you can search Shodan casually by entering your target’s domain name or IP addresses; alternatively, you can use search parameters like you would when writing Google queries. The following table shows some useful Shodan queries.
 
 |                                  |                                                                                                                                                                                                              |
@@ -83,20 +98,25 @@ You can use Shodan to discover external-facing APIs and get information about yo
 ### Shodan searches
 
 just searching:
+
 ```
 targetname
 ```
+
 search for specific ports:
+
 ```
 targetname  port:443
 ```
 
 content-type application/json (often used with APIs):
+
 ```
 "content-type: application/json"
 ```
 
 if the target has word press in use:
+
 ```
 "wp-json"
 ```

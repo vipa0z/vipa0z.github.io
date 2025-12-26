@@ -46,11 +46,10 @@
   
 
         <!--  favicon/indexing -->
-        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
-        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
 
 <meta name="generator" content="Hexo 7.3.0"></head>
  <body>  
@@ -159,11 +158,10 @@
   
 
         <!--  favicon/indexing -->
-        <link rel="icon" type="image/png" href="/favicon.ico/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.ico/favicon.svg" />
-        <link rel="shortcut icon" href="/favicon.ico/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico/apple-touch-icon.png" />
-        <link rel="manifest" href="/favicon.ico/site.webmanifest" />
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
 
 </head>
 
@@ -225,6 +223,7 @@
 <div class="clearfix"></div>
 
             <div class="gitbook-container">
+                
                 <!-- 1. Sidebar -->
                 <aside class="gitbook-sidebar" id="gitbook-sidebar">
                     <div class="sidebar-resizer" id="sidebar-resizer"></div>
@@ -267,6 +266,9 @@
                 <!-- 3. Markdown Body (Middle Column) -->
                 <main class="gitbook-main" id="gitbook-content">
                     <div class="content-header">
+                        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open Menu">
+                            <i class="fa fa-bars"></i>
+                        </button>
                         <div class="breadcrumb" id="breadcrumb">
                             <a href="/cheatsheets/">Home</a>
                         </div>
@@ -281,18 +283,15 @@
 
                     <article class="content-body" id="content-body">
                         <div class="welcome-screen">
-                            <img src="/images/cpts+back.png" alt="CPTS Background" class="welcome-image">
+                            <div class="welcome-image-container"
+                                style="position: relative; overflow: hidden; min-height: 200px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                                <img id="rotating-image" src="/images/wizard.png" alt="Rotating Background"
+                                    class="welcome-image"
+                                    style="transition: opacity 0.5s ease-in-out; opacity: 1; max-width: 100%; height: auto; border-radius: 8px;">
+                            </div>
                             <p class="welcome-description">
-                                A collection of my penetration testing notes and cheatsheets covering a wide range
-                                of topics (mainly vulnerability discovery in AD & Internal networks, Blackbox Web
-                                App Security testing, API Security testing and the OWASP TOP 10)
-                                compiled from
-                                Complete CPTS, CWES (minus web fuzzing/broken auth),
-                                PortSwigger Academy, API University,
-                                personal research, and various sources such as Ippsec, Hacktricks, Payloads All The
-                                Things,
-                                and
-                                various labs. Use the sidebar to navigate.
+                                My offensive security notes and cheatsheets covering vulnerability discovery in Web Apps, APIs, Internal networks, and Active Directory.
+                                
                             </p>
 
                             <div class="quick-links">
@@ -345,6 +344,54 @@
             <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-markup.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-css.min.js"></script>
             <script src="/js/gitbook.js"></script>
+
+            <script>
+                // Rotating Images Logic
+                document.addEventListener('DOMContentLoaded', function () {
+                    const images = ["109658fbb6d168aacbd2215550b9fd39.jpg","18548e92cc8e5599f164b02af10941eb.jpg","551453940b33fd92226a09ea89c9b4e0.jpg","5ca2e7889681025e8056ea285fa2bbd8.jpg","5f5eae0802ebf25ce3e5015539462f3b.jpg","7ee8afd6ab0e99146a1b2651886c6cf1.jpg","90S Hello GIF by Girly Mags.gif","9778562a09d974ac811779dc64055441.jpg","cat1.jpg","clown.jpg","Coding The Matrix GIF.gif","favicon (2).png","GIF by Amazon Prime Video UK.gif","Hand Palm GIF by PERFECTL00P.gif","smoke1.jpg","sr2079a437cd3aws3.png","sr2bebeefbccdaws3.png","sr2d659b84b47aws3.gif","sr5z3791756869aws3.png","ww.jpg"];
+
+                    const imageElement = document.getElementById('rotating-image');
+                    const basePath = '/images/chsheet/';
+                    let currentIndex = 0;
+
+                    if (imageElement && images.length > 0) {
+                        // Set initial random image
+                        currentIndex = Math.floor(Math.random() * images.length);
+                        imageElement.src = basePath + images[currentIndex];
+
+                        setInterval(() => {
+                            currentIndex = (currentIndex + 1) % images.length;
+                            imageElement.style.opacity = 0;
+
+                            setTimeout(() => {
+                                imageElement.src = basePath + images[currentIndex];
+                                imageElement.onload = () => {
+                                    imageElement.style.opacity = 1;
+                                };
+                            }, 500); // Matches CSS transition time
+                        }, 5000); // Rotate every 5 seconds
+                    }
+
+                    // Mobile Menu Button Logic
+                    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+                    const sidebar = document.getElementById('gitbook-sidebar');
+                    const overlay = document.createElement('div');
+                    overlay.className = 'sidebar-overlay';
+                    document.body.appendChild(overlay);
+
+                    if (mobileMenuBtn) {
+                        mobileMenuBtn.addEventListener('click', function () {
+                            sidebar.classList.toggle('open');
+                            overlay.classList.toggle('active');
+                        });
+
+                        overlay.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                            overlay.classList.remove('active');
+                        });
+                    }
+                });
+            </script>
 
             <a id="gotop" href="#">
   <span>⬆︎TOP</span>
