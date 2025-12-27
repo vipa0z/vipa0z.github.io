@@ -1,0 +1,249 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+    <title>
+      vipa00</title>
+  <meta name="author" content="vipa00">
+  
+  <meta name="description" content="Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="vipa00"/>
+
+  
+    <meta property="og:image" content="favicon.png"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="vipa00" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/prism.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/gitbook.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+  <meta name="title" content="vipa0z">
+  <!-- analytics -->
+  
+
+        <!--  favicon/indexing -->
+        <!--  favicon/indexing -->
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="container">
+		<button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">
+			vipa00
+		</a>
+		<div class="collapse navbar-collapse nav-menu">
+			<ul class="nav navbar-nav">
+				
+					<li>
+						<a href="/index" title="Home">
+							<i class="fa fa-home"></i>Home
+						</a>
+					</li>
+					
+					<li>
+						<a href="/cheatsheets/" title="Cheatsheets_and_Notes">
+							<i class="fa fa-book"></i>Cheatsheets & Notes
+						</a>
+					</li>
+					
+					<li>
+						<a href="/about" title="About me.">
+							<i class="fa fa-user"></i>About Me
+						</a>
+					</li>
+					
+					<li>
+						<a href="/archives" title="All the articles.">
+							<i class="fa fa-archive"></i>Archives
+						</a>
+					</li>
+					
+					<li>
+						<a href="/tags" title="All the tags.">
+							<i class="fa fa-tags"></i>Tags
+						</a>
+					</li>
+					
+						<!-- Theme Toggle -->
+						<li>
+							<a href="#" class="theme-toggle-btn" aria-label="Toggle theme">
+								<i class="fa fa-moon-o"></i> Theme
+							</a>
+						</li>
+			</ul>
+		</div>
+	</div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+  <div class="container">
+  	<div class="content">
+    	 
+	
+		<div class="page-header">
+			<h1> </h1>
+		</div>
+	
+
+
+
+	<div class="row page">
+		<!-- cols -->
+		
+					<div class="col-md-12">
+						
+
+							<!-- content -->
+							<div class="mypage">
+								
+
+										<p>[-] Kernel information (continued):<br>Linux version 5.4.0-45-generic (buildd@lgw01-amd64-033) (gcc version 9.3.0 (Ubuntu 9.3.0-10ubuntu2)) #49-Ubuntu SMP Wed Aug 26 13:38:52 UTC 2020<br><code>vulnerable</code></p>
+<h2 id="distrubtion"><a href="#distrubtion" class="headerlink" title="distrubtion"></a>distrubtion</h2><p>DISTRIB_ID&#x3D;Ubuntu<br>DISTRIB_RELEASE&#x3D;20.04<br>DISTRIB_CODENAME&#x3D;focal</p>
+<p>Ubuntu 20.04.1 LTS”</p>
+<h2 id="users"><a href="#users" class="headerlink" title="users"></a>users</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-] Users that have previously logged onto the system:</span><br><span class="line">Username         Port     From             Latest</span><br><span class="line">root             tty1                      Wed Jun 11 11:15:54 +0000 2025</span><br><span class="line">mrb3n            tty1                      Tue Sep  8 16:39:37 +0000 2020</span><br><span class="line">tomcat           pts/0    10.10.14.4       Mon Sep  7 18:06:06 +0000 2020</span><br><span class="line">barry            pts/0    10.10.14.3       Sun Sep  6 16:21:41 +0000 2020</span><br><span class="line">vipa0z      pts/0    10.10.14.60      Mon Jul 14 19:32:11 +0000 2025</span><br><span class="line">root             tty1                      Wed Jun 11 11:15:54 +0000 2025</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="GROUPS-AND-USERS"><a href="#GROUPS-AND-USERS" class="headerlink" title="GROUPS AND USERS"></a>GROUPS AND USERS</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">[-] Group memberships:</span><br><span class="line">uid=0(root) gid=0(root) groups=0(root)</span><br><span class="line">uid=1(daemon) gid=1(daemon) groups=1(daemon)</span><br><span class="line">uid=2(bin) gid=2(bin) groups=2(bin)</span><br><span class="line">uid=3(sys) gid=3(sys) groups=3(sys)</span><br><span class="line">uid=4(sync) gid=65534(nogroup) groups=65534(nogroup)</span><br><span class="line">uid=5(games) gid=60(games) groups=60(games)</span><br><span class="line">uid=6(man) gid=12(man) groups=12(man)</span><br><span class="line">uid=7(lp) gid=7(lp) groups=7(lp)</span><br><span class="line">uid=8(mail) gid=8(mail) groups=8(mail)</span><br><span class="line">uid=9(news) gid=9(news) groups=9(news)</span><br><span class="line">uid=10(uucp) gid=10(uucp) groups=10(uucp)</span><br><span class="line">uid=13(proxy) gid=13(proxy) groups=13(proxy)</span><br><span class="line">uid=33(www-data) gid=33(www-data) groups=33(www-data)</span><br><span class="line">uid=34(backup) gid=34(backup) groups=34(backup)</span><br><span class="line">uid=38(list) gid=38(list) groups=38(list)</span><br><span class="line">uid=39(irc) gid=39(irc) groups=39(irc)</span><br><span class="line">uid=41(gnats) gid=41(gnats) groups=41(gnats)</span><br><span class="line">uid=65534(nobody) gid=65534(nogroup) groups=65534(nogroup)</span><br><span class="line">uid=100(systemd-network) gid=102(systemd-network) groups=102(systemd-network)</span><br><span class="line">uid=101(systemd-resolve) gid=103(systemd-resolve) groups=103(systemd-resolve)</span><br><span class="line">uid=102(systemd-timesync) gid=104(systemd-timesync) groups=104(systemd-timesync)</span><br><span class="line">uid=103(messagebus) gid=106(messagebus) groups=106(messagebus)</span><br><span class="line">uid=104(syslog) gid=110(syslog) groups=110(syslog),4(adm),5(tty)</span><br><span class="line">uid=105(_apt) gid=65534(nogroup) groups=65534(nogroup)</span><br><span class="line">uid=106(tss) gid=111(tss) groups=111(tss)</span><br><span class="line">uid=107(uuidd) gid=112(uuidd) groups=112(uuidd)</span><br><span class="line">uid=108(tcpdump) gid=113(tcpdump) groups=113(tcpdump)</span><br><span class="line">uid=109(landscape) gid=115(landscape) groups=115(landscape)</span><br><span class="line">uid=110(pollinate) gid=1(daemon) groups=1(daemon)</span><br><span class="line">uid=111(sshd) gid=65534(nogroup) groups=65534(nogroup)</span><br><span class="line">uid=999(systemd-coredump) gid=999(systemd-coredump) groups=999(systemd-coredump)</span><br><span class="line">uid=1000(mrb3n) gid=1000(mrb3n) groups=1000(mrb3n),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),116(lxd)</span><br><span class="line">uid=998(lxd) gid=100(users) groups=100(users)</span><br><span class="line">uid=112(mysql) gid=118(mysql) groups=118(mysql)</span><br><span class="line">uid=997(tomcat) gid=997(tomcat) groups=997(tomcat)</span><br><span class="line">uid=1001(barry) gid=1001(barry) groups=1001(barry),4(adm)</span><br><span class="line">uid=1002(vipa0z) gid=1002(vipa0z) groups=1002(vipa0z)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="admins"><a href="#admins" class="headerlink" title="admins"></a>admins</h2><p>[-] It looks like we have some admin users:<br>uid&#x3D;104(syslog) gid&#x3D;110(syslog) groups&#x3D;110(syslog),4(adm),5(tty)<br>uid&#x3D;1000(mrb3n) gid&#x3D;1000(mrb3n) groups&#x3D;1000(mrb3n),4(adm),24(cdrom),27<br>uid&#x3D;1001(barry) gid&#x3D;1001(barry)  groups&#x3D;1001(barry),4(adm)</p>
+<h2 id="cronjobs"><a href="#cronjobs" class="headerlink" title="&#96;&#96;cronjobs"></a>&#96;&#96;cronjobs</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">### JOBS/TASKS ##########################################</span><br><span class="line">[-] Cron jobs:</span><br><span class="line">-rw-r--r-- 1 root root 1042 Feb 13  2020 /etc/crontab</span><br><span class="line"></span><br><span class="line">/etc/cron.d:</span><br><span class="line">total 24</span><br><span class="line">drwxr-xr-x  2 root root 4096 Sep  2  2020 .</span><br><span class="line">drwxr-xr-x 97 root root 4096 Jun 11 11:15 ..</span><br><span class="line">-rw-r--r--  1 root root  201 Feb 14  2020 e2scrub_all</span><br><span class="line">-rw-r--r--  1 root root  712 Mar 27  2020 php</span><br><span class="line">-rw-r--r--  1 root root  102 Feb 13  2020 .placeholder</span><br><span class="line">-rw-r--r--  1 root root  191 Apr 23  2020 popularity-contest</span><br><span class="line"></span><br><span class="line">/etc/cron.daily:</span><br><span class="line">total 56</span><br><span class="line">drwxr-xr-x  2 root root 4096 Sep  3  2020 .</span><br><span class="line">drwxr-xr-x 97 root root 4096 Jun 11 11:15 ..</span><br><span class="line">-rwxr-xr-x  1 root root  539 Apr 13  2020 apache2</span><br><span class="line">-rwxr-xr-x  1 root root  376 Dec  4  2019 apport</span><br><span class="line">-rwxr-xr-x  1 root root 1478 Apr  9  2020 apt-compat</span><br><span class="line">-rwxr-xr-x  1 root root  355 Dec 29  2017 bsdmainutils</span><br><span class="line">-rwxr-xr-x  1 root root 1187 Sep  5  2019 dpkg</span><br><span class="line">-rwxr-xr-x  1 root root  377 Jan 21  2019 logrotate</span><br><span class="line">-rwxr-xr-x  1 root root 1123 Feb 25  2020 man-db</span><br><span class="line">-rw-r--r--  1 root root  102 Feb 13  2020 .placeholder</span><br><span class="line">-rwxr-xr-x  1 root root 4574 Jul 18  2019 popularity-contest</span><br><span class="line">-rwxr-xr-x  1 root root  538 Feb 24  2020 tomcat9</span><br><span class="line">-rwxr-xr-x  1 root root  214 Apr  2  2020 update-notifier-common</span><br></pre></td></tr></table></figure>
+
+<h1 id="to-try"><a href="#to-try" class="headerlink" title="to try"></a>to try</h1><ul>
+<li>kernel exploit</li>
+<li>python exploit</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">   0 lrwxrwxrwx 1 root root    9 Mar 13  2020 /usr/bin/python3 -&gt; python3.8</span><br><span class="line">mysql </span><br><span class="line">check local web servers</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># SOFTWARE #############################################</span><br><span class="line">[-] Sudo version:</span><br><span class="line">Sudo version 1.8.31</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[-] MYSQL version:</span><br><span class="line">mysql  Ver 8.0.21-0ubuntu0.20.04.4 for Linux on x86_64 ((Ubuntu))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[-] Apache version:</span><br><span class="line">Server version: Apache/2.4.41 (Ubuntu)</span><br><span class="line">Server built:   2020-08-12T19:46:17</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[-] Apache user configuration:</span><br><span class="line">APACHE_RUN_USER=www-data</span><br><span class="line">APACHE_RUN_GROUP=www-data</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[-] Installed Apache modules:</span><br><span class="line">Loaded Modules:</span><br><span class="line"> core_module (static)</span><br><span class="line"> so_module (static)</span><br><span class="line"> watchdog_module (static)</span><br><span class="line"> http_module (static)</span><br><span class="line"> log_config_module (static)</span><br><span class="line"> logio_module (static)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">+] Possibly interesting SGID files:</span><br><span class="line">-rwxr-sr-x 1 root mysql 309688 Apr 22 11:51 /snap/core24/988/usr/bin/ssh-agent</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">-] Location and contents (if accessible) of .bash_history file(s):</span><br><span class="line">/home/mrb3n/.bash_history</span><br><span class="line">/home/vipa0z/.bash_history</span><br><span class="line">id</span><br><span class="line">ls</span><br><span class="line">ls /var/www/html</span><br><span class="line">cat /var/www/html/flag1.txt </span><br><span class="line">exit</span><br><span class="line">/home/barry/.bash_history</span><br><span class="line">cd /home/barry</span><br><span class="line">ls</span><br><span class="line">id</span><br><span class="line">ssh-keygen</span><br><span class="line">mysql -u root -p</span><br><span class="line">tmux new -s barry</span><br><span class="line">cd ~</span><br><span class="line">sshpass -p &#x27;i_l0ve_s3cur1ty!&#x27; ssh barry_adm@dmz1.blackwood.local</span><br><span class="line">history -d 6</span><br><span class="line">history</span><br><span class="line">history -d 12</span><br><span class="line">history</span><br><span class="line">cd /home/bash</span><br><span class="line">cd /home/barry/</span><br><span class="line">nano .bash_history </span><br><span class="line">history</span><br><span class="line">exit</span><br><span class="line">history</span><br><span class="line">exit</span><br><span class="line">ls -la</span><br><span class="line">ls -l</span><br><span class="line">history </span><br><span class="line">history -d 21</span><br><span class="line">history </span><br><span class="line">exit</span><br><span class="line">id</span><br><span class="line">ls /var/log</span><br><span class="line">history</span><br><span class="line">history -d 28</span><br><span class="line">history</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[-] Location and Permissions (if accessible) of .bak file(s):</span><br><span class="line">-rw-r--r-- 1 root root 862 May  4 16:31 /snap/core24/988/etc/.resolv.conf.systemd-resolved.bak</span><br><span class="line">-rwxr-xr-x 1 root barry 2232 Sep  5  2020 /etc/tomcat9/tomcat-users.xml.bak</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="barry"><a href="#barry" class="headerlink" title="barry"></a>barry</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sshpass -p &#x27;i_l0ve_s3cur1ty!&#x27; ssh barry_adm@dmz1.blackwood.local</span><br></pre></td></tr></table></figure>
+
+<h2 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">&quot;tomcatadm&quot; password=&quot;T0mc@t_s3cret_p@ss!&quot; </span><br></pre></td></tr></table></figure>
+
+<h1 id="mysql-wordpress-creds"><a href="#mysql-wordpress-creds" class="headerlink" title="mysql wordpress creds"></a>mysql wordpress creds</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">| ID | user_login | user_pass                          | user_nicename | user_email                | user_url                | user_registered     | user_activation_key | user_status | display_name |</span><br><span class="line"></span><br><span class="line">|  1 | admin      | $P$B69Cem80AlqDfOkt6tesbMo4sfW3ZR1 | admin         | admin@blackwood.local | http://10.129.2.24/blog | 2020-09-02 05:24:52 |                     |           0 | admin        |</span><br><span class="line">+----+------------+------------------------------------+---------------+---------------------------+-------------------------+---------------------+---------------------+-</span><br></pre></td></tr></table></figure>
+
+<h3 id="sessopn-token"><a href="#sessopn-token" class="headerlink" title="sessopn token"></a>sessopn token</h3><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">|       19 |       1 | session_tokens                        | a:1:&#123;s:64:&quot;61f33e4e1eb7413d457ec46199a890ed517c340b6baa28749aa8c0207b317826&quot;;a:4:&#123;s:10:&quot;expiration&quot;;i:1599581706;s:2:&quot;ip&quot;;s:10:&quot;10.10.14.3&quot;;s:2:&quot;ua&quot;;s:66:&quot;Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0&quot;;s:5:&quot;login&quot;;i:1599408906;&#125;&#125; |</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+											<div class="article-footer-copyright">
+
+</div>
+
+							</div>
+
+							
+									
+											<div>
+												<center>
+
+													<div class="pagination">
+
+    
+</div>
+
+
+												</center>
+											</div>
+
+											<!-- comment -->
+											<!--
+-->
+											
+													
+															
+					</div> <!-- col-md-9/col-md-12 -->
+
+
+
+					
+
+
+			</div><!-- row -->
+
+			<!--
+ -->
+
+
+			<!-- Fixed TOC Container for hexo-toc.js -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  
+  &copy; 2025 vipa00's Blog
+  
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  <a id="gotop" href="#">
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+<script src="/js/hexo-toc.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    (function ($) {
+      $('.fancybox').fancybox();
+    })(jQuery);
+  </script>
+  
+
+    
+      <script type="text/javascript">
+        var search_path = "search.xml";
+        if (search_path.length == 0) {
+          search_path = "search.xml";
+        }
+        var path = "/" + search_path;
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      </script>
+      
+  <script src="/js/theme-toggle.js"></script>
+</body>
+   </html>

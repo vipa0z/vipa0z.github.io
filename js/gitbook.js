@@ -178,6 +178,18 @@ const GitBook = {
      */
     getIcon(name, type) {
         if (type === 'dir') {
+            const lowerName = name.toLowerCase();
+            // Custom mappings based on folder name
+            if (lowerName.includes('ad enumeration') || lowerName.includes('enumerating ad') || (lowerName.includes('active directory') && lowerName.includes('enumeration'))) {
+                return 'fa-windows icon-windows-blue';
+            }
+            if (lowerName.includes('attacks') || lowerName.includes('ad attacks')) {
+                return 'fa-windows icon-windows-red';
+            }
+            if (lowerName.includes('web')) {
+                // Using fa-bug as spider/web proxy
+                return 'fa-bug';
+            }
             return 'fa-folder';
         }
         return 'fa-file-text-o';
@@ -200,7 +212,8 @@ const GitBook = {
             li.className = `nav-item ${item.type}`;
 
             if (item.type === 'dir') {
-                const iconHtml = item.icon ? `<i class="fa ${item.icon}"></i>` : '';
+                const iconClass = item.icon || this.getIcon(item.name, item.type);
+                const iconHtml = iconClass ? `<i class="fa ${iconClass}"></i>` : '';
                 li.innerHTML = `
           <div class="nav-folder" data-path="${item.path}">
             <i class="fa fa-chevron-right folder-arrow ${item.isOpen ? 'open' : ''}"></i>

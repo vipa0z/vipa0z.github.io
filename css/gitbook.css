@@ -1981,3 +1981,9 @@ body.light-theme .sidebar-open-btn:hover {
         background: rgba(255, 255, 255, 0.3);
     }
 }
+/* Custom Icons for Sidebar */
+.icon-windows-blue { color: #0078D7 !important; }
+.icon-windows-red { color: #E81123 !important; }
+
+/* Spider/Web icon styling */
+.fa-bug { color: #e67e22; } /* Orange-ish for bug/spider context */

@@ -10,11 +10,11 @@ sudo nmap --open -sV 10.129.201.50
 Hosts with `dev` as part of the FQDN are worth noting down as they may be running untested features or have things like debug mode enabled
 
  - note: Interesting hosts:
- - `gitlab-dev.ad.someorg.local`, dev 
+ - `gitlab.northly.local`, dev 
  - Screenshotting
 `eyewit`
  ```shell-session
-eyewitness --web -x web_discovery.xml -d inlanesomeorg.local_eyewitness
+eyewitness --web -x web_discovery.xml -d northly.local_eyewitness
 ```
 
 `aq`
@@ -121,7 +121,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 `eyewitness`
 ```
-eyewitness --web -x web_discovery.xml -d inlanesomeorg.local_eyewitness
+eyewitness --web -x web_discovery.xml -d northly.local_eyewitness
 ```
 
 ![](Pasted%20image%2020250211024431.png)

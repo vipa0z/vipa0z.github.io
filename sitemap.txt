@@ -1,3 +1,4 @@
+https://vipa0z.github.io/2025/06/20/Writing%20targeted%20password%20lists/
 https://vipa0z.github.io/2025/11/20/SSRF-exploitation-cheathseet/
 https://vipa0z.github.io/cheatsheets/index.html
 https://vipa0z.github.io/2025/01/22/HTB-Cicada/
@@ -5,7 +6,6 @@ https://vipa0z.github.io/2024/05/13/wazuh_lab/
 https://vipa0z.github.io/2024/05/13/network%20intrusion%20detection/
 https://vipa0z.github.io/2025/07/08/No-pac/
 https://vipa0z.github.io/2025/03/26/dcsync/
-https://vipa0z.github.io/2025/06/20/Writing%20targeted%20password%20lists/
 https://vipa0z.github.io/about/index.html
 https://vipa0z.github.io/2025/07/12/abusing-python-for-privesc/
 https://vipa0z.github.io/2025/05/22/Attacking%20lsass/
@@ -13,7 +13,13 @@ https://vipa0z.github.io/2025/07/13/chwoot/
 https://vipa0z.github.io/2024/09/22/HTB-SolarLab/
 https://vipa0z.github.io/2025/10/22/Remote%20Code%20Execution%20in%20liferay-jenkins/
 https://vipa0z.github.io/google2efef580c8a7f67b.html
+https://vipa0z.github.io/images/skill%20assesment.html
+https://vipa0z.github.io/images/nfs%20abuse.html
 https://vipa0z.github.io/tags/index.html
+https://vipa0z.github.io/images/IIS%20TILDE.html
+https://vipa0z.github.io/images/Troubleshooting%20tools,%20processs.html
+https://vipa0z.github.io/images/Pasted%20image%2020250110142632.png.html
+https://vipa0z.github.io/images/Pasted%20image%2020250206063801.png.html
 https://vipa0z.github.io/categories/index.html
 https://vipa0z.github.io/
 https://vipa0z.github.io/tags/lsass/
