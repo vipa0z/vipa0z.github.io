@@ -17,8 +17,8 @@
 }
 
 :root {
-    --text-color: #e2e1d3;
-    --code-text-color: #e2e1d3;
+    --text-color: #f0efeb;
+    --code-text-color: #f0efe7;
     --link-color: #b388ff;
     /* Soft Purple */
     --link-hover: #d1c4e9;
@@ -68,7 +68,7 @@ body {
     padding-bottom: 70px;
     transition: background-color 0.3s, color 0.3s;
     background-color: #0d0d0d;
-    color: #e2e1d3;
+    color: #fdfdfd;
 }
 
 body.light-theme {
@@ -539,11 +539,7 @@ h1#OVERVIEW,
     font-family: DOS, SimHei, Monaco, Menlo, Consolas, 'Courier New', monospace;
 }
 
-h2 {
-    color: #fff;
-    padding-top: 40px;
-    margin: -25px 0 .83em
-}
+
 
 .page-header {
     -webkit-background-clip: border-box;
