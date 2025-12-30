@@ -14,7 +14,7 @@ Hosts with `dev` as part of the FQDN are worth noting down as they may be runnin
  - Screenshotting
 `eyewit`
  ```shell-session
-eyewitness --web -x web_discovery.xml -d inlanesomeorg.local_eyewitness
+eyewitness --web -x web_discovery.xml -d northly.local_eyewitness
 ```
 
 `aq`
@@ -121,7 +121,7 @@ Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
 
 `eyewitness`
 ```
-eyewitness --web -x web_discovery.xml -d inlanesomeorg.local_eyewitness
+eyewitness --web -x web_discovery.xml -d northly.local_eyewitness
 ```
 
 ![](Pasted%20image%2020250211024431.png)

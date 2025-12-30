@@ -122,7 +122,7 @@ def virtual_memory():
 now when we run the script with sudo, it will execute the reverse shell code and a shell will be opened as root:
 
 ```shell
-sudo -u root /usr/bin/python3 /home/htb-student/mem_status.py
+sudo -u root /usr/bin/python3 /home/vipa0z/mem_status.py
 ```
 
 ---
@@ -215,7 +215,7 @@ test
 
 ```shell-session
 $ sudo /usr/bin/python3 mem_status.py
-or $ sudo -u root /usr/bin/python3 /home/htb-student/mem_status.py
+or $ sudo -u root /usr/bin/python3 /home/vipa0z/mem_status.py
 
 uid=0(root) gid=0(root) groups=0(root)
 ```
@@ -231,7 +231,7 @@ As we can see from the output, we have successfully gained execution as `root` t
 ```
 $ sudo -l
 
-Matching Defaults entries for htb-student on ACADEMY-LPENIX:
+Matching Defaults entries for vipa0z on ACADEMY-LPENIX:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
 User crytix may run the following commands on LPENIX:

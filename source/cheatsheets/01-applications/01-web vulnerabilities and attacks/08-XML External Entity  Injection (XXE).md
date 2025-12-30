@@ -26,7 +26,7 @@ Inject a basic entity definition to see if it gets interpreted.
 ```xml
 <!-- Define a new entity 'company' -->
 <!DOCTYPE email [
-  <!ENTITY company "Inlane someorg.local">
+  <!ENTITY company "Blackwood.com">
 ]>
 <root>
   <email>&company;</email>
@@ -34,7 +34,7 @@ Inject a basic entity definition to see if it gets interpreted.
 ```
 
 **Analysis:**
--   **Vulnerable**: The response displays "Inlane someorg.local".
+-   **Vulnerable**: The response displays "Blackwood.com".
 -   **Not Vulnerable**: The response displays `&company;` or nothing.
 
 ---
