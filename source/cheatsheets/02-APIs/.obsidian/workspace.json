@@ -1,0 +1,192 @@
+{
+  "main": {
+    "id": "afba1ad7f319e4e8",
+    "type": "split",
+    "children": [
+      {
+        "id": "347a897d9f765f1a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d51e2b59a8a70e6a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05-GraphQL.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "05-GraphQL"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ecb1c0c3ed00e743",
+    "type": "split",
+    "children": [
+      {
+        "id": "60fe13119e4ca110",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "376388e0d948d13d",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "31a951b7fd2057df",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "0fb51a392f39787e",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "73c70c4ecf7c65a6",
+    "type": "split",
+    "children": [
+      {
+        "id": "086e410c7b28292b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "74392527da8574a4",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "05-GraphQL.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 05-GraphQL"
+            }
+          },
+          {
+            "id": "83182b33435a17c5",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "05-GraphQL.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 05-GraphQL"
+            }
+          },
+          {
+            "id": "460393309971940e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "386105d749688c68",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "d985fd3b64117d8b",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "05-GraphQL.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 05-GraphQL"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "d51e2b59a8a70e6a",
+  "lastOpenFiles": [
+    "ss/Pasted image 20251130150108.png.md",
+    "ss",
+    "05-GraphQL.md"
+  ]
+}

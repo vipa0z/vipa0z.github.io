@@ -1,0 +1,219 @@
+{
+  "main": {
+    "id": "0e16caf7c49ec02a",
+    "type": "split",
+    "children": [
+      {
+        "id": "81333a853b221c1c",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ecb335af4dcb58b",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "7d998ecf1eb54c50",
+    "type": "split",
+    "children": [
+      {
+        "id": "238caf7e58d7df52",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "d7cb7845d0b919c5",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "f534d776dbb83946",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "1258127cd2e6226a",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 491.5
+  },
+  "right": {
+    "id": "4b35760afdb841ef",
+    "type": "split",
+    "children": [
+      {
+        "id": "44dca7613c5d0c67",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e5b4b63ec50fb50a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks"
+            }
+          },
+          {
+            "id": "b213d694c7790b7f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links"
+            }
+          },
+          {
+            "id": "f9ec42ba9db58aa7",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "8ea59d0d548aa41e",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "All properties"
+            }
+          },
+          {
+            "id": "cd1fda2a2ef47b12",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false
+    }
+  },
+  "active": "d7cb7845d0b919c5",
+  "lastOpenFiles": [
+    "03-internal-networks/02-notes/06-file-transfers/av-bypasses.md",
+    "03-internal-networks/02-notes/06-file-transfers/04-file-transfers-with-lolbas-gtfobins.md",
+    "03-internal-networks/02-notes/06-file-transfers/03-1-file-transfers-with-netcat,-remoting,-rdp.md",
+    "03-internal-networks/02-notes/06-file-transfers/02-file-uploads.md",
+    "03-internal-networks/02-notes/06-file-transfers/01-file-downloads-linux.md",
+    "03-internal-networks/02-notes/06-file-transfers/01-file-download-windows.md",
+    "03-internal-networks/02-notes/06-file-transfers",
+    "03-internal-networks/02-notes/08-pivoting/with-metasploit.md",
+    "03-internal-networks/02-notes/08-pivoting/icmp-tunneling.md",
+    "03-internal-networks/02-notes/08-pivoting/tunneling-with-rpivot-reverse-socks.md",
+    "03-internal-networks/02-notes/08-pivoting/tunneling,-pivoting-and-port-forwarding-with-metasploit.md",
+    "03-internal-networks/02-notes/08-pivoting/skill-assesment.md",
+    "03-internal-networks/02-notes/07-ad-attacks/06-Lateral Movement/01-passing-hashes, tickets, certs/06-PASS-THE-CERT (WIP).md",
+    "03-internal-networks/02-notes/07-ad-attacks/06-Lateral Movement/01-passing-hashes, tickets, certs/05-ad-joined-linux-ticket-extraction.md",
+    "03-internal-networks/02-notes/07-ad-attacks/06-Lateral Movement/01-passing-hashes, tickets, certs/04-using kerberos protocol on linux.md",
+    "03-internal-networks/02-notes/07-ad-attacks/06-Lateral Movement/01-passing-hashes, tickets, certs/01-pass the ticket (PTT).md",
+    "03-internal-networks/02-notes/07-ad-attacks/06-Lateral Movement/01-passing-hashes, tickets, certs/00-pass the hash attacks.md",
+    "03-internal-networks/02-notes/09-post-exploitation/00-cred-hunting-in-windows/windows registry/NTDS.dit dump.md",
+    "03-internal-networks/02-notes/09-post-exploitation/00-cred-hunting-in-windows/windows registry/extracting hashes from the registry.md",
+    "03-internal-networks/02-notes/09-post-exploitation/00-cred-hunting-in-windows/windows registry/extracting-creds-from-lsass-process-memory.md",
+    "03-internal-networks/02-notes/07-ad-attacks/04-AD CS Attacks (WIP)/AD CS Tools/rubeas.md",
+    "03-internal-networks/02-notes/07-ad-attacks/04-AD CS Attacks (WIP)/AD CS Tools/RELAY AD CS with ntlmrelayx.md",
+    "03-internal-networks/02-notes/07-ad-attacks/04-AD CS Attacks (WIP)/AD CS Tools/getgtkinit.py.md",
+    "03-internal-networks/02-notes/07-ad-attacks/04-AD CS Attacks (WIP)/AD CS Tools/certipy.md",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/user access control (UAC)/UAC registry values & registry Paths.md",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/user access control (UAC)/UAC Notes.md",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/services/Weak Service Permissions.md",
+    "03-internal-networks/02-notes/07-ad-attacks/06-Lateral Movement/01-passing-hashes, tickets, certs",
+    "03-internal-networks/02-notes/09-post-exploitation/00-cred-hunting-in-windows/windows registry",
+    "03-internal-networks/02-notes/07-ad-attacks/04-AD CS Attacks (WIP)/AD CS Tools",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/user access control (UAC)",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/services",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/Registry exploits",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/potato exploits",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/3. kernel exploits and windows CVEs",
+    "03-internal-networks/02-notes/05-local-privilege-escalation/Windows Privilege Escalation/2. group membership (Privileged Groups)",
+    "03-internal-networks/01-cheatsheets/06-ad-enumeration/00-AD-ATTACKMAP-OCD.svg"
+  ]
+}

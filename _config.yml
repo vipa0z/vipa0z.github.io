@@ -1,0 +1,195 @@
+# Hexo Configuration
+## Docs: https://hexo.io/docs/configuration.html
+## Source: https://github.com/hexojs/hexo/
+
+# Site
+title: vipa0z 
+description: Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
+author: vipa0z
+language: en
+timezone: ''
+favicon: favicon.png
+logo: favicon.png
+cover: favicon.png
+# URL
+## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
+url: https://vipa0z.github.io/
+root: /
+permalink: :year/:month/:day/:title/
+permalink_defaults:
+pretty_urls:
+  trailing_index: true # Set to false to remove trailing 'index.html' from permalinks
+  trailing_html: true # Set to false to remove trailing '.html' from permalinks
+
+# Directory
+source_dir: source
+public_dir: public
+tag_dir: tags
+archive_dir: archives
+category_dir: categories
+code_dir: downloads/code
+i18n_dir: :lang
+skip_render:
+  - cheatsheets/cheatsheets-notes/**/*
+  - cheatsheets/cheatsheets-notes/*
+  - 03-internal-networks/**/*
+  - ss/**/*
+
+# Writing
+new_post_name: :title.md # File name of new posts
+default_layout: post
+titlecase: false # Transform title into titlecase
+external_link:
+  enable: true # Open external links in new tab
+  field: site # Apply to the whole site
+  exclude: ''
+filename_case: 0
+render_drafts: false
+post_asset_folder: false
+relative_link: false
+future: true
+highlight:
+  enable: false
+  line_number: false
+  auto_detect: false
+  tab_replace: ''
+  wrap: true
+  hljs: false
+prismjs:
+  enable: true
+  preprocess: true
+  line_number: false
+  tab_replace: ''
+
+# Home page setting
+# path: Root path for your blogs index page. (default = '')
+# per_page: Posts displayed per page. (0 = disable pagination)
+# order_by: Posts order. (Order by date descending by default)
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+
+  # index and home
+  # Excerpt length (in words)
+excerpt:
+  depth: 7
+  excerpt_excludes: []
+  more_excludes: []
+  hideWholePostExcerpts: true
+
+
+# Category & Tag
+default_category: Offensive security
+category_map:
+tag_map:
+
+# Metadata elements
+## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
+meta_generator: true
+
+# Date / Time format
+## Hexo uses Moment.js to parse and display date
+## You can customize the date format as defined in
+## http://momentjs.com/docs/#/displaying/format/
+date_format: YYYY-MM-DD
+time_format: HH:mm:ss
+## updated_option supports 'mtime', 'date', 'empty'
+updated_option: 'mtime'
+
+# Pagination
+## Set per_page to 0 to disable pagination
+per_page: 10
+pagination_dir: page
+
+# Include / Exclude file(s)
+## include:/exclude: options only apply to the 'source/' folder
+include:
+exclude:
+ignore:
+
+# SEO Configuration
+seo:
+  site_title: vipa0z
+  site_description: Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
+  site_keywords: security, red team, CTF, malware analysis, hacking
+  site_verification: {}
+  add_url_slash: false
+
+# Extensions
+## Plugins: https://hexo.io/plugins/
+## Themes: https://hexo.io/themes/
+theme: freemind.bithack
+url_submission:
+   enable: true
+   type: 'latest' # latest or all( latest: modified pages; all: posts & pages)
+   channels: # included channels are `baidu`, `google`, `bing`, `shenma`
+     bing:
+       token: "61dddf7dfc46440ba3f5d4db5ab7c745" # Bing Access Token
+       count: 10 # Optional
+     google:
+       key: "google.json" # Google key path (e.g. `google_key.json` or `data/google_key.json`)
+       count: 10 # Optional
+     
+   prefix: ['/'] # URL prefix
+   ignore: ["/post/a*", "/post/a?c"] # URL addresses that do not need to be submitted (wildcards are supported)
+   count: 10 # Submit limit
+   # urls_path: '' # URL list file path (optional). Leave commented to use sitemap extraction.
+   sitemap:
+    path: 
+      - sitemap.xml
+      - sitemap.txt
+    # template: ./sitemap_template.xml
+    # template_txt: ./sitemap_template.txt
+    rel: false
+    tags: true
+    categories: true
+
+#uncss
+# uncss:
+#   enable: true
+#   ignore: "#added_at_runtime"
+#   media: "(min-width: 700px) handheld and (orientation: landscape)"
+#   priority: 10
+#   timeout: 1000
+#   uncssrc: .uncssrc
+
+photozoom:
+    enable: true
+    # Lower priority means that it will be executed first.
+    priority: 10
+    # Show caption at the bottom of photo, default is "true"
+    caption: true
+    # Class name of caption, default is "zoom-initial-caption"
+    caption_class: 'my-caption' 
+# twitterAutoPublish:
+#   consumerKey: Xegp8XDTMqVxcI2tId1juT70X
+#   consumerSecret: fq4eY5NmK2X9ZxSDSUaFqMBPWWMUCCYu35PMvzoqB0YzqLOTEs
+#   accessTokenKey: 929842798974656517-VuQxIuoLhtoeqW71LofX6M5fIw8Pf3c
+#   accessTokenSecret: R5RZtQj5tLWbSgFx39lq6cd2AcIQRjQk5kbepOobxCplA
+
+# You don't have to configure them.
+widget_tree:
+  cdn: false
+  hide: false
+  layout:
+     - home
+     - page
+  showCount: true
+  toc:
+    enable: false
+    # max_depth:
+    # min_depth:
+    # list_number:
+
+# Deployment
+## Docs: https://hexo.io/docs/one-command-deployment
+
+
+
+deploy:
+  - type: git
+    repo: https://github.com/vipa0z/vipa0z.github.io
+    branch: main
+  - type: url_submission

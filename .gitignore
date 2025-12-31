@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/
+_multiconfig.yml
+submit_url.txt
+google.json
+_config.yaml
+.vscode
+.deploy_git
+gen-lang-client-0729249488-d5cbd6d2f5fb.json

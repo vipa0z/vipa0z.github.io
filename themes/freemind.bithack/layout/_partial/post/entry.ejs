@@ -1,0 +1,61 @@
+<div class="entry">
+	<div class="row">
+		<% if (item.feature ) { %>
+			<% if (config.post_asset_folder){ %>
+				<div class="thumbnail"><a href="<%- config.root %><%- item.path %>"><img
+							src="<%= item.path %><%= item.feature %>" alt="<%= item.title %>" class="nofancybox"></a>
+					<% } else { %>
+						<div class="thumbnail"><a href="<%- config.root %><%- item.path %>"><img
+									src="<%= item.feature %>" alt="<%= item.title %>" class="nofancybox"></a>
+							<% } %>
+						</div>
+						<% } %>
+							<% if (item.excerpt && index) { %>
+								<%- item.excerpt %>
+									<% } else { %>
+										<%- item.content %>
+											<% } %>
+				</div>
+				<a type="button" href="<%- config.root %><%- item.path %>#more" class="btn btn-default more">
+					<%= __('read_more') %>
+				</a>
+				<% if (index) { %>
+					<script>
+						// Make all images in entry clickable to redirect to post (only on index pages)
+						(function () {
+							const entryDiv = document.currentScript.closest('.entry');
+							const postUrl = '<%- url_for(item.path) %>';
+
+							window.addEventListener('load', function () {
+								// Only target images inside the .row div, not the button
+								const rowDiv = entryDiv.querySelector('.row');
+								if (!rowDiv) return;
+
+								const images = rowDiv.querySelectorAll('img:not(.nofancybox)');
+								images.forEach(img => {
+									// Add nofancybox class to prevent gallery.js from wrapping
+									img.classList.add('nofancybox');
+
+									img.style.cursor = 'pointer';
+									img.addEventListener('click', function (e) {
+										e.preventDefault();
+										e.stopPropagation();
+										window.location.href = postUrl;
+									});
+
+									// Remove pointer events from parent links within row only
+									let parent = img.parentElement;
+									while (parent && parent !== rowDiv) {
+										if (parent.tagName === 'A') {
+											parent.style.pointerEvents = 'none';
+										}
+										parent = parent.parentElement;
+									}
+									// Re-enable pointer events for the image itself
+									img.style.pointerEvents = 'auto';
+								});
+							});
+						})();
+					</script>
+					<% } %>
+	</div>
