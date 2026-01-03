@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: vipa0z 
+title: Str4ngeM3ze
 description: Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
-author: vipa0z
+author: Str4ngeM3ze
 language: en
-timezone: ''
+timezone: ""
 favicon: favicon.png
 logo: favicon.png
 cover: favicon.png
@@ -33,6 +33,7 @@ skip_render:
   - cheatsheets/cheatsheets-notes/**/*
   - cheatsheets/cheatsheets-notes/*
   - 03-internal-networks/**/*
+  - cheatsheets/**/*
   - ss/**/*
 
 # Writing
@@ -42,7 +43,7 @@ titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
   field: site # Apply to the whole site
-  exclude: ''
+  exclude: ""
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
@@ -52,24 +53,23 @@ highlight:
   enable: false
   line_number: false
   auto_detect: false
-  tab_replace: ''
+  tab_replace: ""
   wrap: true
   hljs: false
 prismjs:
   enable: true
   preprocess: true
   line_number: false
-  tab_replace: ''
+  tab_replace: ""
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: ""
   per_page: 10
   order_by: -date
-
 
   # index and home
   # Excerpt length (in words)
@@ -78,7 +78,6 @@ excerpt:
   excerpt_excludes: []
   more_excludes: []
   hideWholePostExcerpts: true
-
 
 # Category & Tag
 default_category: Offensive security
@@ -96,7 +95,7 @@ meta_generator: true
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
-updated_option: 'mtime'
+updated_option: "mtime"
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -122,22 +121,22 @@ seo:
 ## Themes: https://hexo.io/themes/
 theme: freemind.bithack
 url_submission:
-   enable: true
-   type: 'latest' # latest or all( latest: modified pages; all: posts & pages)
-   channels: # included channels are `baidu`, `google`, `bing`, `shenma`
-     bing:
-       token: "61dddf7dfc46440ba3f5d4db5ab7c745" # Bing Access Token
-       count: 10 # Optional
-     google:
-       key: "google.json" # Google key path (e.g. `google_key.json` or `data/google_key.json`)
-       count: 10 # Optional
-     
-   prefix: ['/'] # URL prefix
-   ignore: ["/post/a*", "/post/a?c"] # URL addresses that do not need to be submitted (wildcards are supported)
-   count: 10 # Submit limit
-   # urls_path: '' # URL list file path (optional). Leave commented to use sitemap extraction.
-   sitemap:
-    path: 
+  enable: true
+  type: "latest" # latest or all( latest: modified pages; all: posts & pages)
+  channels: # included channels are `baidu`, `google`, `bing`, `shenma`
+    bing:
+      token: "61dddf7dfc46440ba3f5d4db5ab7c745" # Bing Access Token
+      count: 10 # Optional
+    google:
+      key: "google.json" # Google key path (e.g. `google_key.json` or `data/google_key.json`)
+      count: 10 # Optional
+
+  prefix: ["/"] # URL prefix
+  ignore: ["/post/a*", "/post/a?c"] # URL addresses that do not need to be submitted (wildcards are supported)
+  count: 10 # Submit limit
+  # urls_path: '' # URL list file path (optional). Leave commented to use sitemap extraction.
+  sitemap:
+    path:
       - sitemap.xml
       - sitemap.txt
     # template: ./sitemap_template.xml
@@ -156,13 +155,13 @@ url_submission:
 #   uncssrc: .uncssrc
 
 photozoom:
-    enable: true
-    # Lower priority means that it will be executed first.
-    priority: 10
-    # Show caption at the bottom of photo, default is "true"
-    caption: true
-    # Class name of caption, default is "zoom-initial-caption"
-    caption_class: 'my-caption' 
+  enable: true
+  # Lower priority means that it will be executed first.
+  priority: 10
+  # Show caption at the bottom of photo, default is "true"
+  caption: true
+  # Class name of caption, default is "zoom-initial-caption"
+  caption_class: "my-caption"
 # twitterAutoPublish:
 #   consumerKey: Xegp8XDTMqVxcI2tId1juT70X
 #   consumerSecret: fq4eY5NmK2X9ZxSDSUaFqMBPWWMUCCYu35PMvzoqB0YzqLOTEs
@@ -174,8 +173,8 @@ widget_tree:
   cdn: false
   hide: false
   layout:
-     - home
-     - page
+    - home
+    - page
   showCount: true
   toc:
     enable: false
@@ -185,8 +184,6 @@ widget_tree:
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
-
-
 
 deploy:
   - type: git
