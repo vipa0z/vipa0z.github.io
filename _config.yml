@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Str4ngeM3ze
+title: VIPA00_MAze
 description: Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
-author: Str4ngeM3ze
+author: VIPA00M3ze
 language: en
 timezone: ""
 favicon: favicon.png
@@ -30,11 +30,6 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
-  - cheatsheets/cheatsheets-notes/**/*
-  - cheatsheets/cheatsheets-notes/*
-  - 03-internal-networks/**/*
-  - cheatsheets/**/*
-  - ss/**/*
 
 # Writing
 new_post_name: :title.md # File name of new posts
