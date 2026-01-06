@@ -893,7 +893,15 @@
     margin: 0 auto;
 }
 
-/* Fix: Disable clicking on the auto-generated anchor wrapping the image */
+/* Fix: Disable clicking on rotating images and container */
+.welcome-image-container,
+.welcome-image-container * {
+    pointer-events: none !important;
+    cursor: default !important;
+    user-select: none !important;
+    -webkit-user-drag: none !important;
+}
+
 .welcome-screen>a {
     pointer-events: none !important;
     cursor: default !important;
@@ -1698,6 +1706,7 @@ body.light-theme .sidebar-open-btn:hover {
         /* Hide TOC on tablet as well to save space */
     }
 }
+
 /* Mobile Menu Overlay */
 .sidebar-overlay {
     background: rgba(0, 0, 0, 0.5);
@@ -1766,7 +1775,8 @@ body.light-theme .sidebar-open-btn:hover {
     }
 
     /* Ensure body doesn't overflow horizontally */
-    body, html {
+    body,
+    html {
         overflow-x: hidden;
     }
 }

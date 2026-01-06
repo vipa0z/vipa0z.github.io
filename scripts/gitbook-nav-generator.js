@@ -53,7 +53,13 @@ hexo.extend.generator.register('gitbook-nav', function (locals) {
             const bPath = path.join(dirPath, b);
             const aIsDir = fs.statSync(aPath).isDirectory();
             const bIsDir = fs.statSync(bPath).isDirectory();
-            if (aIsDir === bIsDir) return a.localeCompare(b);
+
+            if (aIsDir === bIsDir) {
+                // Prioritize "internal networks" (or similar) folders
+                // Removed custom priority that was breaking numbered ordering
+
+                return a.localeCompare(b);
+            }
             return aIsDir ? -1 : 1;
         });
 
@@ -73,7 +79,7 @@ hexo.extend.generator.register('gitbook-nav', function (locals) {
                         path: relativePath,
                         type: 'dir',
                         icon: getIcon(item, true, depth),
-                        isOpen: depth === 0,
+                        isOpen: formatName(item, depth).toLowerCase().includes('internal'),
                         children: children
                     });
                 }
