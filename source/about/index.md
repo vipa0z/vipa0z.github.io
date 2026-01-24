@@ -59,16 +59,17 @@ Hack The Box Certified Penetration Testing Specialist (HTB CPTS)
 
 ### CTF Accounts!
 
-<div class="profile-badges">
-    <a href="https://app.hackthebox.com/public/users/2024750" target="_blank">
+
+  <a href="https://app.hackthebox.com/public/users/2024750" target="_blank">
         <img src="https://www.hackthebox.com/badge/image/2024750" alt="HackTheBox Profile" class="htb-badge">
     </a>
 
-
-
-</div> 
-
-
   <iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=2114216" style="border:none; width: 400px; height: 100px;"></iframe>
+
+
+
+
+
+
 
 
