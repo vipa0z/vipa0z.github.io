@@ -19,7 +19,7 @@
 :root {
   --text-color: #dbdbdb;
   --code-text-color: #e2e1d3;
-  --link-color: #b388ff;
+  --link-color: #7f6e9c;
   /* Soft Purple */
   --link-hover: #d1c4e9;
   /* Lighter Purple */
@@ -221,17 +221,38 @@ li i {
 .tag_box.inline li {
   float: left;
 }
-
-.tag_box a {
+body.light-theme .tag_box a {
   padding: 2px 6px;
   margin: 2px;
-  background: #e5e5e5;
-  color: var(--tag-color, #555);
+  background: #5f5e5e;
+  color: var(--tag-color, #c5bebe);
   border-radius: 3px;
   text-decoration: none;
   border: 1px dashed #bbb;
   font-family: DOS, SimHei, Monaco, Menlo, Consolas, "Courier New", monospace;
 }
+body.light-theme .tag_box a:hover {
+  padding: 2px 6px;
+  margin: 2px;
+  background: #d2d0d0;
+  color: var(--tag-color, #ffffff);
+  border-radius: 3px;
+  text-decoration: none;
+  border: 1px dashed #bbb;
+  font-family: DOS, SimHei, Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+
+.tag_box a {
+  padding: 2px 6px;
+  margin: 2px;
+  background: #1e1e1e;
+  color: var(--tag-color, #343434);
+  border-radius: 3px;
+  text-decoration: none;
+  border: 1px dashed #bbb;
+  font-family: DOS, SimHei, Monaco, Menlo, Consolas, "Courier New", monospace;
+}
+
 
 .tag_box a span {
   vertical-align: super;

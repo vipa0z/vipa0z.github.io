@@ -21,10 +21,10 @@ menu:
     url: archives
     intro: "All the articles."
     icon: "fa fa-archive"
-  # - title: Categories
-  #   url: categories
-  #   intro: "All the categories."
-  #   icon: "fa fa-folder"
+  - title: Categories
+    url: categories
+    intro: "All the categories."
+    icon: "fa fa-folder"
   - title: Tags
     url: tags
     intro: "All the tags."
@@ -41,24 +41,25 @@ menu:
   #icon: "fa fa-user"
 
 links:
-  - title: X
-    url: https://x.com/vipa0z
-    intro: ""
-    icon: "fa fa-twitter"
-
-  - title: github
+  - title: Github
     url: https://github.com/vipa0z
+    intro: "My Github account."
     icon: "fa fa-github"
 
-  # - title: "My LinkedIn"
-  #   url: http://www.linkedin.com/in/abdomagdy00
-  #   intro: "My Linkin account."
-  #   icon: "fa fa-linkedin"
+  - title: "Linkedin"
+    url: http://www.linkedin.com/in/abdomagdy00
+    intro: "My LinkedIn account."
+    icon: "fa fa-linkedin"
+  - title: X
 
-  # - title: Email me
-  # url: mailto:Abdelmagdy.contact@proton.me
-  # icon: "fa fa-envelope"
-
+  - title: Email
+    url: mailto:AbdelrahmanMagdy.contact@gmail.com
+    intro: "My Email address."
+    icon: "fa fa-envelope"
+  - title: X
+    url: https://x.com/vipa0z
+    intro: "My X account."
+    icon: "fa fa-twitter"
 widgets:
   - search
   - category

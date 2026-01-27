@@ -1,6 +1,6 @@
 /**
  * GitBook-style documentation viewer
- * Fetches content dynamically from GitHub repository
+ * Fetches content dynamically from local 
  */
 
 const GitBook = {
@@ -378,7 +378,8 @@ const GitBook = {
 
     try {
       // Convert path to URL - the markdown files are in source folder
-      const url = `/${path}`;
+      const encodedPath = path.split('/').map(segment => encodeURIComponent(segment)).join('/');
+      const url = `/${encodedPath}`;
       const response = await fetch(url);
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -419,7 +420,7 @@ const GitBook = {
 
     // Pre-process content to handle Obsidian-style images
     // ![[image.png]] -> ![image.png](/ss/image.png)
-    const processedContent = content.replace(
+    let processedContent = content.replace(
       /!\[\[(.*?)\]\]/g,
       (match, filename) => {
         const cleanFilename = filename.trim();
@@ -429,8 +430,33 @@ const GitBook = {
       },
     );
 
-    // Parse markdown
-    const html = marked.parse(processedContent);
+    // Pre-process Hexo alert tags to HTML
+    // {% alert info %}...{% endalert %} -> HTML alert divs
+    // Extract alert blocks, process markdown inside, then replace
+    const alertBlocks = [];
+    processedContent = processedContent.replace(
+      /{%\s*alert\s+(\w+)\s*%}([\s\S]*?){%\s*endalert\s*%}/g,
+      (match, alertType, alertContent) => {
+        // Process markdown inside alert content
+        const processedAlertContent = marked.parse(alertContent.trim());
+        // Map alert types to Bootstrap classes
+        const alertClass = `alert-${alertType}`;
+        const placeholder = `\x00ALERT_BLOCK_${alertBlocks.length}\x00`;
+        alertBlocks.push(`<div class="alert ${alertClass}">${processedAlertContent}</div>`);
+        return placeholder;
+      },
+    );
+
+    // Parse markdown (placeholders will be preserved as-is)
+    let html = marked.parse(processedContent);
+    
+    // Replace alert placeholders with actual HTML
+    alertBlocks.forEach((alertHtml, index) => {
+      const placeholder = `\x00ALERT_BLOCK_${index}\x00`;
+      // Use a more reliable replacement method
+      const regex = new RegExp(placeholder.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      html = html.replace(regex, alertHtml);
+    });
 
     // Get file name for title
     const fileName = path
