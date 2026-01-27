@@ -30,7 +30,7 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
-  - "cheatsheets/*.md"
+  - "cheatsheets/!(index).md"
   - "cheatsheets/*.txt"
   - "cheatsheets/01-applications/**/*"
   - "cheatsheets/02-APIs/**/*"
