@@ -39,7 +39,7 @@ hexo.extend.helper.register('get_all_images', function (subdir) {
                 if (file.startsWith('.')) return false;
                 var ext = path.extname(file).toLowerCase();
                 var validExts = ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'];
-                return validExts.indexOf(ext) !== -1; // Removed cpts+back.png check as we might want it in general or filter it later if needed, but for now I'll stick to logic close to random if desired, but user didn't specify excluding it here. Actually, to be safe and consistent with previous behavior, let's exclude it if it was excluded before.
+                return validExts.indexOf(ext) !== -1; 
             }).filter(function (file) {
                 return file !== 'cpts+back.png';
             });

@@ -3,7 +3,7 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: M3zeZer0's Wired
+title: MazeZero
 description: M3zeZer0 blog - Documenting the mechanics of system failure through red team tactics, CTF writeups, malware analysis, and the path into deeper systems hacking.
 author: M3zeZer0
 language: en
@@ -30,6 +30,8 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+  - "cheatsheets/*.md"
+  - "cheatsheets/*.txt"
   - "cheatsheets/01-applications/**/*"
   - "cheatsheets/02-APIs/**/*"
   - "cheatsheets/03-internal-networks/**/*"
