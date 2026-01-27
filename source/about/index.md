@@ -2,6 +2,7 @@
 title: About Me
 layout: page
 ---
+
 <!-- Floating TOC for recruiters -->
 
 <!-- <nav class="about-toc">
@@ -25,20 +26,24 @@ I'm always open to discussing security, collaboration, or new challenges. If you
 
 ---
 
+### Certifications
+
+Hack The Box Certified Penetration Testing Specialist (HTB CPTS)
+
 `<a id="open-source"></a>`
 
 ### Open Source Contributions
 
-| Project                                                               | Description                                                                                                                                                                                                                                                                                                                                                |
-| --------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Project                                                            | Description                                                                                                                                                                                                                                                                                                                                              |
+| ------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **[Ligolo-NG](https://github.com/nicocha30/ligolo-ng)** (4.1k+ ⭐) | I contributed a usability improvement to ligolo-ng’s autoroute feature. The tool previously didn’t reflect the last-selected interface when rebinding pivot routes, which caused friction during multi-interface pivots. I added state persistence so operators can clearly see which interface was previously selected before binding tunnel addresses. |
 
 `<a id="projects"></a>`
 
 ### Projects & Custom Tools
 
-| Project                                                                                   | Description                                                                                     |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Project                                                                                      | Description                                                                                     |
+| -------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | [Jenkins/Liferay Bind Shell](https://github.com/vipa0z/jenkins-liferay--stable-bind-shell)   | Multi-threaded Groovy bindshell for bypassing restrictive firewall rules                        |
 | [Secure Network Infrastructure](https://github.com/vipa0z/DEPI-Project-small-secure-network) | Enterprise network with VLAN segmentation, dual firewalls, router-on-a-stick                    |
 | [Vulnserver Exploit](https://github.com/vipa0z/vulnserver-Reverse-shell)                     | A custom Buffer Overflow exploit for a vulnerable server application                            |
@@ -46,11 +51,7 @@ I'm always open to discussing security, collaboration, or new challenges. If you
 
 `<a id="certifications"></a>`
 
-### Certifications
-
-Hack The Box Certified Penetration Testing Specialist (HTB CPTS)
-
-<br>
+`<br>`
 
 ### CTF Accounts
 
