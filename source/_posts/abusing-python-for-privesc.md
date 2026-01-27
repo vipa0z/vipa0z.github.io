@@ -1,5 +1,5 @@
 ---
-title: "Targeting python for Local Privilege Escalation"
+title: "Targeting python Libraries for Local Privilege Escalation"
 date: 2025-07-12
 thumbnail: /images/python3122.png
 tags:

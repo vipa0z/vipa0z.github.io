@@ -1,5 +1,5 @@
 ---
-title: The NoPAC Vulnerability
+title: Exploring The NOPAC Vulnerability in AD:from any user to Domain Admin 
 date: 2025-07-08 19:27:02
 tags:
 - nopac
