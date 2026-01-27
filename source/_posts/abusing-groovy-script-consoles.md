@@ -1,5 +1,5 @@
 ---
-title: "Weaponizing Script Consoles In DevOps Environments: Egress Filtering Bypass with Bind Shell and Tool Transfers"
+title: "Weaponizing Script Consoles In DevOps Environments: Egress Filtering Bypass with Bind Shell & Transfering Tools"
 date: 2025-10-22
 slug: liferay-jenkins-rce
 tags:
