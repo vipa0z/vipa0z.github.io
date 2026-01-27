@@ -48,12 +48,3 @@ Hack The Box Certified Penetration Testing Specialist (HTB CPTS)
 | [Secure Network Infrastructure](https://github.com/vipa0z/DEPI-Project-small-secure-network) | Enterprise network with VLAN segmentation, dual firewalls, router-on-a-stick                    |
 | [Vulnserver Exploit](https://github.com/vipa0z/vulnserver-Reverse-shell)                     | A custom Buffer Overflow exploit for a vulnerable server application                            |
 | [Cheatsheet &amp; Cookbook](https://vipa0z.github.io/cheatsheets)                            | Active Directory, Web, API, Internal Network exploitation cheatsheets, notes, and methodologies |
-
-`<a id="certifications"></a>`
-
-`<br>`
-
-### CTF Accounts
-
-<iframe src="https://tryhackme.com/api/v2/badges/public-profile?userPublicId=2114216" class="tryhackme-badge"></iframe>
-</div>
