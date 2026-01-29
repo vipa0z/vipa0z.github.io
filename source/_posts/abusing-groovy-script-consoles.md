@@ -20,7 +20,7 @@ Have you ever been in an engagement or CTF where you finally find a Groovy scrip
 
 Over the next few minutes I'll show a practical, repeatable approach for turning a Groovy console into a persistent, multithreaded java bind shell that lives in the webroot and how to transfer binary tools via base64 encoding (small and large size). This guide serves as a proof of concept; the shell in here is not secure enough for opsec, but it's a starting point for you to build upon.
 
-## `<!-- more -->`
+<!-- more -->
 
 ### Quick Refresher on Bind Shells:
 
